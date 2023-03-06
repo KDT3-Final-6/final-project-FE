@@ -2,7 +2,7 @@
 name: issue template
 about: 이슈를 작성해 주세요.
 title: ''
-labels: 'Priority: Critical, Type: Feature/Document'
+labels: 'Priority:  High, Status: Available, Status: Review Needed'
 assignees: quokka-eating-carrots
 
 ---
