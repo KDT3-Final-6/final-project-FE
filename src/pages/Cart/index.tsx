@@ -1,6 +1,6 @@
 import React from 'react'
 
-type Props = {}
+interface Props {}
 
 const Cart = (props: Props) => {
   return <div>Cart</div>

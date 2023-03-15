@@ -1,6 +1,6 @@
 import React from 'react'
 
-type Props = {}
+interface Props {}
 
 const Header = (props: Props) => {
   return <div>Header</div>

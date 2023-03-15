@@ -1,6 +1,6 @@
 import React from 'react'
 
-type Props = {}
+interface Props {}
 
 const NotFound = (props: Props) => {
   return <div>므ㅏ?</div>

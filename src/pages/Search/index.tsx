@@ -1,6 +1,6 @@
 import React from 'react'
 
-type Props = {}
+interface Props {}
 
 const Search = (props: Props) => {
   return <div>Search</div>
