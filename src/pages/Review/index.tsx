@@ -1,6 +1,6 @@
 import React from 'react'
 
-type Props = {}
+interface Props {}
 
 const Review = (props: Props) => {
   return <div>Review</div>
