@@ -1,6 +1,6 @@
 import React from 'react'
 
-type Props = {}
+interface Props {}
 
 const SignUp = (props: Props) => {
   return <div>SignUp</div>
