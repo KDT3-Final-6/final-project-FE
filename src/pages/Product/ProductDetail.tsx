@@ -1,3 +1,4 @@
+import Detail from '@src/components/ProductDetail/Detail'
 import MoveTab from '@src/components/ProductDetail/MoveTab'
 import ProductInfo from '@src/components/ProductDetail/ProductInfo'
 import RelatedProduct from '@src/components/ProductDetail/RelatedProduct'
@@ -14,6 +15,8 @@ const ProductDetail = (props: Props) => {
       </span>
       <ProductInfo />
       <MoveTab />
+      <hr />
+      <Detail />
       <Review />
       <RelatedProduct />
     </div>
