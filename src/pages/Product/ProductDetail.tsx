@@ -1,8 +1,8 @@
 import Detail from '@src/components/ProductDetail/Detail'
 import MoveTab from '@src/components/ProductDetail/MoveTab'
 import ProductInfo from '@src/components/ProductDetail/ProductInfo'
-import RelatedProduct from '@src/components/ProductDetail/RelatedProduct'
-import Review from '@src/components/ProductDetail/Review'
+import ProductCards from '@src/components/ProductDetail/ProductCards'
+import Reviews from '@src/components/ProductDetail/Reviews'
 import React from 'react'
 
 type Props = {}
@@ -17,8 +17,10 @@ const ProductDetail = (props: Props) => {
       <MoveTab />
       <hr />
       <Detail />
-      <Review />
-      <RelatedProduct />
+      <span id="review"></span>
+      <Reviews />
+      <ProductCards title="연관 상품" />
+      <ProductCards title="내가 봤던 상품" />
     </div>
   )
 }

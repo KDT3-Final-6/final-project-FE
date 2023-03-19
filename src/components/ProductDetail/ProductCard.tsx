@@ -1,9 +1,15 @@
 import React from 'react'
+import styled from 'styled-components'
 
 type Props = {}
 
 const ProductCard = (props: Props) => {
-  return <div>ProductCard</div>
+  return <CardBox>ProductCard</CardBox>
 }
 
+const CardBox = styled.div`
+  width: 305px;
+  height: 430px;
+  background-color: gray;
+`
 export default ProductCard

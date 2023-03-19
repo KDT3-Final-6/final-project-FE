@@ -10,7 +10,7 @@ const MoveTab = (props: Props) => {
     <MoveTabBox>
       <Tab onClick={() => navigate('#detail')}>상품 상세</Tab>
       <Tab onClick={() => navigate('#review')}>상품 후기 (1)</Tab>
-      <Tab onClick={() => navigate('#relate')}>비슷한 상품</Tab>
+      <Tab onClick={() => navigate('#related')}>연관 상품</Tab>
     </MoveTabBox>
   )
 }
