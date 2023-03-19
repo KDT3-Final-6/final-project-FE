@@ -13,7 +13,7 @@ import SignUp from './pages/SignUp'
 import Survey from './pages/Survey'
 import User from './pages/User'
 import PATH from './constants/pathConst'
-import ProductDetail from './pages/ProductDetail'
+import ProductDetail from './pages/Product/ProductDetail'
 
 const router = createBrowserRouter([
   {
