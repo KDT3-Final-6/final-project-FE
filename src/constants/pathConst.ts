@@ -9,6 +9,7 @@ const PATH = {
   SIGNUP: '/signup',
   SURVEY: '/survey',
   USER: '/user',
+  PRODUCT_DETAIL: '/product/:productId',
 }
 
 export default PATH

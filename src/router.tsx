@@ -13,6 +13,7 @@ import SignUp from './pages/SignUp'
 import Survey from './pages/Survey'
 import User from './pages/User'
 import PATH from './constants/pathConst'
+import ProductDetail from './pages/Product/ProductDetail'
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,7 @@ const router = createBrowserRouter([
       { path: PATH.SIGNUP, element: <SignUp /> },
       { path: PATH.SURVEY, element: <Survey /> },
       { path: PATH.USER, element: <User /> },
+      { path: PATH.PRODUCT_DETAIL, element: <ProductDetail /> },
     ],
   },
 ])
