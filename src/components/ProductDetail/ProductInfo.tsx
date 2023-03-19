@@ -2,6 +2,7 @@ import React from 'react'
 import { SlArrowRight } from 'react-icons/sl'
 import styled from 'styled-components'
 import Option from './Option'
+import { AiOutlineShareAlt, AiOutlineShoppingCart } from 'react-icons/ai'
 
 type Props = {}
 
@@ -33,10 +34,16 @@ const ProductInfo = (props: Props) => {
           <Option />
           <Option />
         </div>
-        <div>
-          <button>공유하기</button>
-          <button>장바구니</button>
-          <button>구매하기</button>
+        <div style={{ display: 'flex', gap: '5px', justifyContent: 'center' }}>
+          <ButtonBox>
+            <AiOutlineShareAlt />
+            공유하기
+          </ButtonBox>
+          <ButtonBox>
+            <AiOutlineShoppingCart />
+            장바구니
+          </ButtonBox>
+          <ButtonBox>구매하기</ButtonBox>
         </div>
       </DescBox>
     </InfoBox>
@@ -47,13 +54,31 @@ const InfoBox = styled.div`
   display: flex;
   gap: 10px;
   justify-content: center;
+  height: 450px;
 `
 
 const DescBox = styled.div`
+  margin-left: 10px;
   width: 50%;
+  height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 15px;
+`
+
+const ButtonBox = styled.button`
+  width: 180px;
+  height: 50px;
+  border: 1px solid #0088d2;
+  color: #0088d2;
+  background-color: transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: #0088d2;
+    color: #fff;
+  }
 `
 
 export default ProductInfo
