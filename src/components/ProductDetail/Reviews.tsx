@@ -11,13 +11,13 @@ const Reviews = (props: Props) => {
         <button>상품 리뷰 쓰기</button>
         <button>상품 문의</button>
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+      <ul style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
         <Review />
         <Review />
         <Review />
         <Review />
         <Review />
-      </div>
+      </ul>
     </div>
   )
 }

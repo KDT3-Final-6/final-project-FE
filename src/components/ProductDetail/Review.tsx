@@ -30,7 +30,7 @@ const Review = (props: Props) => {
   )
 }
 
-const ReviewBox = styled.div`
+const ReviewBox = styled.li`
   display: flex;
   align-items: center;
 `

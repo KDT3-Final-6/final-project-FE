@@ -7,7 +7,7 @@ const ProductCard = (props: Props) => {
   return <CardBox>ProductCard</CardBox>
 }
 
-const CardBox = styled.div`
+const CardBox = styled.li`
   width: 305px;
   height: 430px;
   background-color: gray;
