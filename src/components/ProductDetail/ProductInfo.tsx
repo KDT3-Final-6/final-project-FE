@@ -36,15 +36,17 @@ const ProductInfo = (props: Props) => {
           <Option />
         </div>
         <div style={{ display: 'flex', gap: '5px', justifyContent: 'center' }}>
-          <Button buttonType="skyBlue">
+          <Button buttonType="skyBlue" width="180px" height="50px">
             <AiOutlineShareAlt />
             공유하기
           </Button>
-          <Button buttonType="skyBlue">
+          <Button buttonType="skyBlue" width="180px" height="50px">
             <AiOutlineShoppingCart />
             장바구니
           </Button>
-          <Button buttonType="skyBlue">구매하기</Button>
+          <Button buttonType="skyBlue" width="180px" height="50px">
+            구매하기
+          </Button>
         </div>
       </DescBox>
     </InfoBox>
@@ -67,19 +69,5 @@ const DescBox = styled.div`
   justify-content: center;
   gap: 15px;
 `
-
-// const ButtonBox = styled.button`
-//   width: 180px;
-//   height: 50px;
-//   border: 1px solid #0088d2;
-//   color: #0088d2;
-//   background-color: transparent;
-//   border-radius: 5px;
-//   cursor: pointer;
-//   &:hover {
-//     background-color: #0088d2;
-//     color: #fff;
-//   }
-// `
 
 export default ProductInfo
