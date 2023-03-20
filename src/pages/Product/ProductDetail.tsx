@@ -4,12 +4,13 @@ import ProductInfo from '@src/components/ProductDetail/ProductInfo'
 import ProductCards from '@src/components/ProductDetail/ProductCards'
 import Reviews from '@src/components/ProductDetail/Reviews'
 import React from 'react'
+import Inner from '@src/layout/Inner'
 
 type Props = {}
 
 const ProductDetail = (props: Props) => {
   return (
-    <div>
+    <Inner>
       <span>
         {/* 추후에 카테고리 불러오면 수정 예정 */}홈 {'>'} 테마별 여행 {'>'} 골프
       </span>
@@ -21,7 +22,7 @@ const ProductDetail = (props: Props) => {
       <Reviews />
       <ProductCards title="연관 상품" />
       <ProductCards title="내가 봤던 상품" />
-    </div>
+    </Inner>
   )
 }
 

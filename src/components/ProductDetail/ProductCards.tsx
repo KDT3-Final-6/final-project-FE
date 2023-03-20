@@ -12,12 +12,12 @@ const ProductCards = ({ title }: Props) => {
         <span style={{ fontWeight: 700, fontSize: '25px' }}>{title}</span>
         <span style={{ marginLeft: 'auto' }}>더 보기</span>
       </div>
-      <div style={{ display: 'flex', gap: '10px' }}>
+      <ul style={{ display: 'flex', gap: '10px' }}>
         <ProductCard />
         <ProductCard />
         <ProductCard />
         <ProductCard />
-      </div>
+      </ul>
     </div>
   )
 }
