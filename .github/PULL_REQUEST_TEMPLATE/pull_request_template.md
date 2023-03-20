@@ -1,6 +1,6 @@
 ## ✔️ 체크사항
 
-- [ ] 가장 최근 merge를 pull 받고 진행하는 것이 맞나요? 👉[최근 pr 확인 링크](링크 추가)👈
+- [ ] 가장 최근 merge를 pull 받고 진행하는 것이 맞나요? 👉[최근 pr 확인 링크](https://github.com/KDT3-Final-6/final-project-FE/pulls)👈
 - [ ] merge 하는 곳이 develop 브랜치가 맞나요?
 - [ ] WBS 진행상황 및 라이브러리 업데이트를 진행했나요? 👉[FE WBS](https://docs.google.com/spreadsheets/d/1AQzrYa1IMbL9mLtnan5W2zdAc6FLdRXUBUAwxUElsLE/edit#gid=445575378)👈
 
