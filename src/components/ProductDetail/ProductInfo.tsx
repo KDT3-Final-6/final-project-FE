@@ -70,18 +70,4 @@ const DescBox = styled.div`
   gap: 15px;
 `
 
-// const ButtonBox = styled.button`
-//   width: 180px;
-//   height: 50px;
-//   border: 1px solid #0088d2;
-//   color: #0088d2;
-//   background-color: transparent;
-//   border-radius: 5px;
-//   cursor: pointer;
-//   &:hover {
-//     background-color: #0088d2;
-//     color: #fff;
-//   }
-// `
-
 export default ProductInfo
