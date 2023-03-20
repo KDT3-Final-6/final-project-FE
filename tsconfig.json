@@ -18,8 +18,12 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@src/*": ["src/*"],
-      "@components/*": ["src/components/*"]
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@pages/*": ["src/pages/*"],
+      "@layout/*": ["src/layout/*"],
+      "@constants/*": ["src/constants/*"],
+      "@interfaces/*": ["src/interfaces/*"]
     }
   },
   "include": ["src"],
