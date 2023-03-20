@@ -1,9 +1,13 @@
 import React from 'react'
+import { useForm } from 'react-hook-form'
 
-interface Props {}
+interface Props {
+  inputType: string
+  placeholder?: string
+}
 
-const Input = (props: Props) => {
-  return <div>Input</div>
+const Input = ({ inputType, placeholder }: Props) => {
+  return <input type={inputType} placeholder={placeholder} />
 }
 
 export default Input
