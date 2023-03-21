@@ -5,25 +5,25 @@ type Props = {}
 
 const Option = (props: Props) => {
   return (
-    <OptionBox>
+    <OptionStyle>
       <span>성인</span>
       <span>350,000원</span>
       <div style={{ display: 'flex', marginLeft: 'auto' }}>
-        <ButtonBox>-</ButtonBox>
-        <ButtonBox>1</ButtonBox>
-        <ButtonBox>+</ButtonBox>
+        <ButtonStyle>-</ButtonStyle>
+        <ButtonStyle>1</ButtonStyle>
+        <ButtonStyle>+</ButtonStyle>
       </div>
-    </OptionBox>
+    </OptionStyle>
   )
 }
 
-const OptionBox = styled.div`
+const OptionStyle = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
 `
 
-const ButtonBox = styled.div`
+const ButtonStyle = styled.div`
   width: 50px;
   height: 50px;
   border: 1px solid black;

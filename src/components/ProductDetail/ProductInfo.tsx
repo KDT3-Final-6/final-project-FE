@@ -9,11 +9,11 @@ type Props = {}
 
 const ProductInfo = (props: Props) => {
   return (
-    <InfoBox>
+    <InfoStyle>
       <div style={{ width: '50%', height: '450px', backgroundColor: 'tomato' }}>
         이미지 슬라이드
       </div>
-      <DescBox>
+      <DescStyle>
         <span style={{ fontSize: '26px', fontWeight: '700' }}>
           [실속 골프 패키지] 사이판 3박 4일 골프 여행
         </span>
@@ -46,19 +46,19 @@ const ProductInfo = (props: Props) => {
           </Button>
           <Button buttonType="skyBlue">구매하기</Button>
         </div>
-      </DescBox>
-    </InfoBox>
+      </DescStyle>
+    </InfoStyle>
   )
 }
 
-const InfoBox = styled.div`
+const InfoStyle = styled.div`
   display: flex;
   gap: 10px;
   justify-content: center;
   height: 450px;
 `
 
-const DescBox = styled.div`
+const DescStyle = styled.div`
   margin-left: 10px;
   width: 50%;
   height: 100%;
@@ -67,19 +67,5 @@ const DescBox = styled.div`
   justify-content: center;
   gap: 15px;
 `
-
-// const ButtonBox = styled.button`
-//   width: 180px;
-//   height: 50px;
-//   border: 1px solid #0088d2;
-//   color: #0088d2;
-//   background-color: transparent;
-//   border-radius: 5px;
-//   cursor: pointer;
-//   &:hover {
-//     background-color: #0088d2;
-//     color: #fff;
-//   }
-// `
 
 export default ProductInfo

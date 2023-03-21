@@ -4,10 +4,10 @@ import styled from 'styled-components'
 type Props = {}
 
 const ProductCard = (props: Props) => {
-  return <CardBox>ProductCard</CardBox>
+  return <CardStyle>ProductCard</CardStyle>
 }
 
-const CardBox = styled.li`
+const CardStyle = styled.li`
   width: 305px;
   height: 430px;
   background-color: gray;
