@@ -27,7 +27,7 @@ const Input = ({ inputType = '', type = 'text', placeholder, width = '', height 
 
 export default Input
 
-export const InputStyle = styled.div<{
+const InputStyle = styled.div<{
   inputType: string
   width: string
   height: string
