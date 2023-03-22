@@ -1,5 +1,5 @@
 import COLORS from '@src/styles/root'
-import React, { Children } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 
 interface Props {
@@ -33,8 +33,6 @@ const handleButtonType = (buttonType: string) => {
   switch (buttonType) {
     case 'skyBlue':
       return `
-        width: 180px;
-        height: 50px;
         border: 1px solid ${COLORS.primary};
         color:${COLORS.primary};
         background-color: transparent;
@@ -50,6 +48,7 @@ const handleButtonType = (buttonType: string) => {
         width:auto;
         height:auto;
         background:transparent;
+        border:none;
       `
     default:
       return `

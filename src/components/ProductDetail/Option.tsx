@@ -1,9 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-type Props = {}
-
-const Option = (props: Props) => {
+const Option = () => {
   return (
     <OptionStyle>
       <span>성인</span>

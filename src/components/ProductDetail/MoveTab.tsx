@@ -2,10 +2,7 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
-type Props = {}
-
-const MoveTab = (props: Props) => {
-  const navigate = useNavigate()
+const MoveTab = () => {
   return (
     <MoveTabStyle>
       <Link to="#detail">
