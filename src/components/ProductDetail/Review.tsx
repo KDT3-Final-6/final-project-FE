@@ -5,7 +5,7 @@ type Props = {}
 
 const Review = (props: Props) => {
   return (
-    <ReviewBox>
+    <ReviewStyle>
       <span>171</span>
       <div style={{ width: '243px', height: '116px', backgroundColor: 'grey', margin: '0 10px' }}>
         썸네일 구역
@@ -26,11 +26,11 @@ const Review = (props: Props) => {
         <span>2023.03.19</span>
         <span>짱발자</span>
       </div>
-    </ReviewBox>
+    </ReviewStyle>
   )
 }
 
-const ReviewBox = styled.li`
+const ReviewStyle = styled.li`
   display: flex;
   align-items: center;
 `
