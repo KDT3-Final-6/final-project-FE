@@ -16,4 +16,9 @@ const SectionStyle = styled.section<{
   backgroundColor?: string
 }>`
   background-color: ${(props) => props.backgroundColor};
+  margin-bottom: 66px;
+
+  &:first-of-type {
+    margin-top: 76px;
+  }
 `
