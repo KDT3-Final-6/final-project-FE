@@ -12,7 +12,7 @@ const Footer = (props: Props) => {
     <FooterStyle>
       <Inner>
         <FooterTopStyle>
-          <img src="/public/images/Logo_footer.png" alt="" />
+          <img src="/public/images/Logo_footer.png" alt="더샤이니 로고" />
           <SNSsAreaStyle>
             <SNSStyle iconBgColor={COLORS.youTube}>
               <Link to="https://youtu.be/Jm3TiJ5lFKQ" target="_blank">
