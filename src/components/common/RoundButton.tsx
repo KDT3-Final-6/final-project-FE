@@ -33,14 +33,15 @@ const handleButtonType = (buttonType: string) => {
   switch (buttonType) {
     case 'skyBlue':
       return `
-        border: 1px solid ${COLORS.primary};
-        color:${COLORS.primary};
-        background-color: transparent;
+        background-color: ${COLORS.primary};
+        color: ${COLORS.white};
         border-radius: 300px;
         cursor: pointer;
+        border: none;
         &:hover {
-          background-color: ${COLORS.primary};
-          color: ${COLORS.white};
+          border: 1px solid ${COLORS.primary};
+          color:${COLORS.primary};
+          background-color: transparent;
         }
       `
     case 'transparent':
