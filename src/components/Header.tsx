@@ -74,7 +74,7 @@ const LnbListStyle = styled.ul`
   display: flex;
   font-size: 20px;
   gap: 30px;
-  color: ${COLORS.LnbTextColor};
+  color: ${COLORS.LnbText};
   font-weight: 600;
 `
 
