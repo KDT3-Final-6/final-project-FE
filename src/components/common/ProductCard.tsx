@@ -3,10 +3,9 @@ import COLORS from '@src/styles/root'
 import React, { Children } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import Title from '@src/components/common/Title'
 
 type IProduct = {
-  cardType?: string
+  cardType: string
   width?: string
   height?: string
   maxHeight?: string
@@ -30,13 +29,7 @@ const ProductCard = ({
       maxHeight={maxHeight}
       minHeight={minHeight}
     >
-      {cardType === 'productCard' && (
-        <>
-          <Link to={PATH.PRODUCT_DETAIL} target="_blank">
-            {children}
-          </Link>
-        </>
-      )}
+      {children}
     </CardStyle>
   )
 }
@@ -55,21 +48,42 @@ const CardStyle = styled.li<{
   height: ${({ height }) => height};
   max-height: ${({ maxHeight }) => maxHeight};
   min-height: ${({ minHeight }) => minHeight};
+
+  img {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 `
 
 const handleCardType = (cardType: string) => {
   switch (cardType) {
-    case 'productCard':
+    case 'cardType':
       return `
         border-radius:12px;
         overflow:hidden;
 
-        img {
-          width:100%;
-          position:absolute;
-          top:50%;
-          left:50%;
-          transform: translate(-50%,-50%);
+        ${ImgAreaStyle} {
+          height:50%;
+        }
+
+
+      `
+    case 'barType':
+      return `
+        width:100%;
+        padding:10px;
+        border-radius:12px;
+        box-shadow:0px 0px 5px rgba(0,0,0,0.2);
+        overflow:hidden;
+        display:flex;
+        gap:15px;
+
+        ${ImgAreaStyle} {
+          width:300px;
+          border-radius:5px;
         }
       `
     default:
@@ -83,14 +97,18 @@ const handleCardType = (cardType: string) => {
 
 const ImgAreaStyle = styled.div`
   position: relative;
-  height: 50%;
   overflow: hidden;
 `
 
-const TxtAreaStyle = styled.div`
-  padding: 20px;
-  border: 1px solid ${COLORS.lightGrey};
+const TxtAreaStyle = styled.div<{
+  isCardType?: boolean
+  isBarType?: boolean
+}>`
+  width: ${(props) => props.isBarType && 'calc(100% - 300px)'};
+  padding: ${(props) => props.isCardType && '20px'};
+  border: ${(props) => props.isCardType && `1px solid ${COLORS.lightGrey}`};
   border-radius: 0 0 12px 12px;
+  justify-content: ${(props) => props.isBarType && 'space-between'};
 `
 
 const CategoryStyle = styled.span`
@@ -105,9 +123,10 @@ const CategoryStyle = styled.span`
 
 const HashStyle = styled.div<{
   fontSize: string
+  color: string
 }>`
   font-size: ${({ fontSize }) => fontSize};
-  color: ${COLORS.hashGrey};
+  color: ${(props) => props.color};
   text-overflow: ellipsis;
   overflow: hidden;
   word-break: break-word;
