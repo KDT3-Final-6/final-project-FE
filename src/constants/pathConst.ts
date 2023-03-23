@@ -10,6 +10,7 @@ const PATH = {
   SURVEY: '/survey',
   USER: '/user',
   PRODUCT_DETAIL: '/product/:productId',
+  MYPAGE: '/mypage',
 }
 
 export default PATH
