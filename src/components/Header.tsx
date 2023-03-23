@@ -2,7 +2,7 @@ import React from 'react'
 import PATH from '@src/constants/pathConst'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { AiOutlineHeart, AiOutlineUser } from 'react-icons/ai'
+import { AiOutlineHeart, AiOutlineUser, AiOutlineShoppingCart } from 'react-icons/ai'
 import { FiLogIn } from 'react-icons/fi'
 import COLORS from '@src/styles/root'
 import Input from './common/Input'
@@ -22,6 +22,10 @@ const Header = (props: Props) => {
             <Link to={PATH.HOME}>
               <AiOutlineHeart />
               <span>찜상품</span>
+            </Link>
+            <Link to={PATH.CART}>
+              <AiOutlineShoppingCart />
+              <span>장바구니</span>
             </Link>
             <Link to={PATH.LOGIN}>
               <FiLogIn />
@@ -70,7 +74,7 @@ const LnbListStyle = styled.ul`
   display: flex;
   font-size: 20px;
   gap: 30px;
-  color: ${COLORS.LnbTextColor};
+  color: ${COLORS.LnbText};
   font-weight: 600;
 `
 
@@ -98,7 +102,7 @@ const ButtonsStyle = styled.div`
       width: 100%;
       display: block;
       font-size: 14px;
-      margin-top: 3px;
+      margin-top: 6px;
     }
   }
 `
