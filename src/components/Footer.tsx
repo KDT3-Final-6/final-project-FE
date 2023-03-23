@@ -14,22 +14,22 @@ const Footer = (props: Props) => {
         <FooterTopStyle>
           <img src="/public/images/Logo_footer.png" alt="더샤이니 로고" />
           <SNSsAreaStyle>
-            <SNSStyle iconBgColor={COLORS.youTube}>
+            <SNSStyle iconBgColor={COLORS.youTube} title="유튜브 보러가기">
               <Link to="https://youtu.be/Jm3TiJ5lFKQ" target="_blank">
                 <AiFillYoutube />
               </Link>
             </SNSStyle>
-            <SNSStyle iconBgColor={COLORS.facebook}>
+            <SNSStyle iconBgColor={COLORS.facebook} title="페이스북">
               <Link to="" target="_blank">
                 <AiFillFacebook />
               </Link>
             </SNSStyle>
-            <SNSStyle iconBgColor={COLORS.instagram}>
+            <SNSStyle iconBgColor={COLORS.instagram} title="인스타그램">
               <Link to="" target="_blank">
                 <AiOutlineInstagram />
               </Link>
             </SNSStyle>
-            <SNSStyle iconBgColor={COLORS.twitter}>
+            <SNSStyle iconBgColor={COLORS.twitter} title="트위터">
               <Link to="" target="_blank">
                 <AiOutlineTwitter />
               </Link>
