@@ -10,11 +10,11 @@ type Props = {}
 
 const ProductInfo = (props: Props) => {
   return (
-    <InfoBox>
+    <InfoStyle>
       <div style={{ width: '50%', height: '450px', backgroundColor: 'tomato' }}>
         이미지 슬라이드
       </div>
-      <DescBox>
+      <DescStyle>
         <Title titleType="h3" title="[실속 골프 패키지] 사이판 3박 4일 골프 여행" fontSize="24px" />
         <span style={{ fontSize: '18px' }}>여행 간단 설명</span>
         <div style={{ display: 'flex' }}>
@@ -47,19 +47,19 @@ const ProductInfo = (props: Props) => {
             구매하기
           </Button>
         </div>
-      </DescBox>
-    </InfoBox>
+      </DescStyle>
+    </InfoStyle>
   )
 }
 
-const InfoBox = styled.div`
+const InfoStyle = styled.div`
   display: flex;
   gap: 10px;
   justify-content: center;
   height: 450px;
 `
 
-const DescBox = styled.div`
+const DescStyle = styled.div`
   margin-left: 10px;
   width: 50%;
   height: 100%;

@@ -72,7 +72,7 @@ const Footer = () => {
 
 export default Footer
 
-const FooterStyle = styled.div`
+const FooterStyle = styled.footer`
   width: 100%;
   border-top: 1px solid ${COLORS.mediumGrey};
   padding: 25px 0 42px;
