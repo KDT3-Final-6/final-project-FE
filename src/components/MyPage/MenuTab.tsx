@@ -35,7 +35,6 @@ const MenuTabStyle = styled.ul`
   align-items: center;
   justify-content: center;
   gap: 45px;
-  border-top: 1px solid #e0e0e0;
 `
 const ActiveTabStyle = styled.li`
   background-color: #404040;
