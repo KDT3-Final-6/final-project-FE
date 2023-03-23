@@ -10,7 +10,7 @@ const Footer = () => {
     <FooterStyle>
       <Inner>
         <FooterTopStyle>
-          <img src="/public/images/Logo_footer.png" alt="더샤이니 로고" />
+          <img src="/images/Logo_footer.png" alt="더샤이니 로고" />
           <SNSsAreaStyle>
             <SNSStyle iconBgColor={COLORS.youTube} title="유튜브 보러가기">
               <Link to="https://youtu.be/Jm3TiJ5lFKQ" target="_blank">
