@@ -8,9 +8,7 @@ import COLORS from '@src/styles/root'
 import Input from './common/Input'
 import Inner from '@src/layout/Inner'
 
-interface Props {}
-
-const Header = (props: Props) => {
+const Header = () => {
   return (
     <header>
       <GnbStyle>
