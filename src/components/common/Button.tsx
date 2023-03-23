@@ -7,11 +7,12 @@ interface IButton {
   width?: string
   height?: string
   children?: React.ReactNode
+  onClick?: () => void
 }
 
-const Button = ({ buttonType = '', width = '', height = '', children }: IButton) => {
+const Button = ({ buttonType = '', width = '', height = '', children, onClick }: IButton) => {
   return (
-    <ButtonStyle buttonType={buttonType} width={width} height={height}>
+    <ButtonStyle buttonType={buttonType} width={width} height={height} onClick={onClick}>
       {children}
     </ButtonStyle>
   )
@@ -45,10 +46,27 @@ const handleButtonType = (buttonType: string) => {
       `
     case 'transparent':
       return `
-        width:auto;
-        height:auto;
-        background:transparent;
         border:none;
+        background-color: transparent;
+      `
+    case 'borderGray':
+      return `
+        border:1px solid ${COLORS.disableBgGrey};
+        background-color:transparent;
+        color:${COLORS.disableTxtGrey};
+        padding:11.5px 58px;
+        font-size:16px;
+        font-weight:bold;
+      `
+    case 'disable':
+      return `
+        border:none;
+        background-color:${COLORS.disableBgGrey};
+        color:${COLORS.disableTxtGrey};
+        padding:11.5px 58px;
+        font-size:16px;
+        font-weight:bold;
+        cursor:default;
       `
     default:
       return `
