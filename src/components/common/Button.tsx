@@ -2,14 +2,14 @@ import COLORS from '@src/styles/root'
 import React from 'react'
 import styled from 'styled-components'
 
-interface Props {
+interface IButton {
   buttonType: string
   width?: string
   height?: string
   children?: React.ReactNode
 }
 
-const Button = ({ buttonType = '', width = '', height = '', children }: Props) => {
+const Button = ({ buttonType = '', width = '', height = '', children }: IButton) => {
   return (
     <ButtonStyle buttonType={buttonType} width={width} height={height}>
       {children}
