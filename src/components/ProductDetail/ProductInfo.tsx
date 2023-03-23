@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Option from './Option'
 import { AiOutlineShareAlt, AiOutlineShoppingCart } from 'react-icons/ai'
 import Button from '../common/Button'
+import Title from '../common/Title'
 
 type Props = {}
 
@@ -14,9 +15,7 @@ const ProductInfo = (props: Props) => {
         이미지 슬라이드
       </div>
       <DescStyle>
-        <span style={{ fontSize: '26px', fontWeight: '700' }}>
-          [실속 골프 패키지] 사이판 3박 4일 골프 여행
-        </span>
+        <Title titleType="h3" title="[실속 골프 패키지] 사이판 3박 4일 골프 여행" fontSize="24px" />
         <span style={{ fontSize: '18px' }}>여행 간단 설명</span>
         <div style={{ display: 'flex' }}>
           <div>★★★★☆</div>

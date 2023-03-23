@@ -1,5 +1,5 @@
 import React from 'react'
-import SecondaryTitle from '../common/SecondaryTitle'
+import Title from '../common/Title'
 import ProductCard from './ProductCard'
 
 interface Props {
@@ -10,7 +10,7 @@ const ProductCards = ({ title }: Props) => {
   return (
     <div style={{ margin: '20px 0' }}>
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-        <SecondaryTitle title={title} />
+        <Title titleType="h2" title={title} />
         <span style={{ marginLeft: 'auto' }}>더 보기</span>
       </div>
       <ul style={{ display: 'flex', gap: '10px' }}>
