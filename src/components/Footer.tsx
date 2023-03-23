@@ -41,8 +41,8 @@ const Footer = (props: Props) => {
             상호명 : (주)더샤이니ㅣ대표: 김소영ㅣ개인정보보호책임자: 김승덕ㅣ주소: 서울특별시 중구
             청계천로40, 한국관광공사 서울센터 818호
             <br />
-            사업자등록번호 : 495-87-02492ㅣ통신판매업신고번호: 2021-서울중구-2450ㅣ이메일:
-            gotogether@shinytravels.com
+            사업자등록번호 : 495-87-02492ㅣ통신판매업신고번호: 2021-서울중구-2450ㅣ이메일:{' '}
+            <Link to="mailto:gotogether@shinytravels.com">gotogether@shinytravels.com</Link>
             <br />
             <br />
             고투게더 서비스 내 결제 발생 시 고객상담, 취소, 환불 등의 거래에 대하여 책임을 집니다.
