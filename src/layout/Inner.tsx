@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-interface Prop {
+interface IInner {
   height?: string
   display?: string
   justifyContent?: string
@@ -14,7 +14,7 @@ const Inner = ({
   justifyContent = '',
   alignItems = 'center',
   children,
-}: Prop) => {
+}: IInner) => {
   return (
     <InnerStyle
       height={height}

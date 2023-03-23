@@ -5,9 +5,7 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { AiFillYoutube, AiFillFacebook, AiOutlineInstagram, AiOutlineTwitter } from 'react-icons/ai'
 
-interface Props {}
-
-const Footer = (props: Props) => {
+const Footer = () => {
   return (
     <FooterStyle>
       <Inner>
