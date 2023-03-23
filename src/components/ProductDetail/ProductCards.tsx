@@ -1,6 +1,6 @@
 import React from 'react'
 import Title from '../common/Title'
-import ProductCard from './ProductCard'
+import ProductCard from '../common/ProductCard'
 
 interface Props {
   title: string
