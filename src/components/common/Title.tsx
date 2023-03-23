@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-interface Prop {
+interface ITitle {
   titleType: string
   title: string
   fontSize?: string
@@ -15,7 +15,7 @@ const Title = ({
   fontSize = '25px',
   fontWeight = '700',
   marginBotton = '',
-}: Prop) => {
+}: ITitle) => {
   return (
     <TitleStyle
       titleType={titleType}
