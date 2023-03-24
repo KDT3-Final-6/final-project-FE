@@ -69,6 +69,7 @@ const handleCardType = (cardType: string, bgImage: string) => {
       return `
         border-radius:12px;
         overflow:hidden;
+        position:relative;
 
         a {
           height:100%;
