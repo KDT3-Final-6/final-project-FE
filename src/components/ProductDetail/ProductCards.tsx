@@ -14,10 +14,10 @@ const ProductCards = ({ title }: Props) => {
         <span style={{ marginLeft: 'auto' }}>더 보기</span>
       </div>
       <ul style={{ display: 'flex', gap: '10px' }}>
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
+        <ProductCard cardType="default" />
+        <ProductCard cardType="default" />
+        <ProductCard cardType="default" />
+        <ProductCard cardType="default" />
       </ul>
     </div>
   )
