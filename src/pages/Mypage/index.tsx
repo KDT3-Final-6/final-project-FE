@@ -29,7 +29,11 @@ const MyPage = (props: Props) => {
         </ImageStyle>
         <span style={{ fontSize: '24px', fontWeight: 700 }}>김고투</span>
         <RoundButton buttonType="skyBlue" width="140px" height="42px">
-          프로필 편집 <RiPencilLine />
+          <div
+            style={{ display: 'flex', gap: '5px', alignItems: 'center', justifyContent: 'center' }}
+          >
+            <span>프로필 편집</span> <RiPencilLine style={{ margin: 0 }} />
+          </div>
         </RoundButton>
       </ProfileStyle>
       <InnerWrap>
