@@ -19,7 +19,7 @@ const GroupTravel = () => {
       <Inner>
         <Title titleType="h2" fontSize="32px" title="내 취향대로 여행" marginBotton="66px" />
         <ProductListStyle>
-          <ProductCard cardType="cardType" width="25%" minHeight="500px">
+          <ProductCard cardType="cardType" imgHeight="100%" minHeight="500px">
             <Link to={PATH.PRODUCT_DETAIL}>
               <ImgAreaStyle>
                 <img src="https://cdn.imweb.me/thumbnail/20220419/31ca7e26eb12a.png" alt="" />
@@ -39,7 +39,7 @@ const GroupTravel = () => {
               </TxtAreaStyle>
             </Link>
           </ProductCard>
-          <ProductCard cardType="cardType" width="25%" minHeight="500px">
+          <ProductCard cardType="cardType" imgHeight="100%" minHeight="500px">
             <Link to={PATH.PRODUCT_DETAIL}>
               <ImgAreaStyle>
                 <img src="https://cdn.imweb.me/thumbnail/20220419/31ca7e26eb12a.png" alt="" />
@@ -59,7 +59,7 @@ const GroupTravel = () => {
               </TxtAreaStyle>
             </Link>
           </ProductCard>
-          <ProductCard cardType="cardType" width="25%" minHeight="500px">
+          <ProductCard cardType="cardType" imgHeight="100%" minHeight="500px">
             <Link to={PATH.PRODUCT_DETAIL}>
               <ImgAreaStyle>
                 <img src="https://cdn.imweb.me/thumbnail/20220419/31ca7e26eb12a.png" alt="" />
@@ -79,7 +79,7 @@ const GroupTravel = () => {
               </TxtAreaStyle>
             </Link>
           </ProductCard>
-          <ProductCard cardType="cardType" width="25%" minHeight="500px">
+          <ProductCard cardType="cardType" imgHeight="100%" minHeight="500px">
             <Link to={PATH.PRODUCT_DETAIL}>
               <ImgAreaStyle>
                 <img src="https://cdn.imweb.me/thumbnail/20220419/31ca7e26eb12a.png" alt="" />
@@ -108,6 +108,7 @@ const GroupTravel = () => {
 export default GroupTravel
 
 const ProductListStyle = styled.ul`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 13px;
 `
