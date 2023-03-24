@@ -18,7 +18,7 @@ const OrderList = () => {
       price: 350000,
     },
     {
-      id: '1',
+      id: '2',
       title: '[실속 골프패키지] 사이판 3박4일 골프 여행',
       image: 'https://cdn.imweb.me/thumbnail/20221129/eabe0173c1ff0.png',
       payment: false,
@@ -28,7 +28,7 @@ const OrderList = () => {
       price: 350000,
     },
     {
-      id: '1',
+      id: '3',
       title: '[실속 골프패키지] 사이판 3박4일 골프 여행',
       image: 'https://cdn.imweb.me/thumbnail/20221129/eabe0173c1ff0.png',
       payment: false,
@@ -38,7 +38,7 @@ const OrderList = () => {
       price: 350000,
     },
     {
-      id: '1',
+      id: '4',
       title: '[실속 골프패키지] 사이판 3박4일 골프 여행',
       image: 'https://cdn.imweb.me/thumbnail/20221129/eabe0173c1ff0.png',
       payment: false,
