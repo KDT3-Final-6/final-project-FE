@@ -10,6 +10,8 @@ type IProduct = {
   minHeight?: string
   children?: React.ReactNode
   bgImage?: string
+  imgWidth?: string
+  imgHeight?: string
 }
 
 const ProductCard = ({
@@ -20,6 +22,8 @@ const ProductCard = ({
   minHeight = '',
   children,
   bgImage = '',
+  imgWidth = '',
+  imgHeight = '',
 }: IProduct) => {
   return (
     <CardStyle
@@ -29,6 +33,8 @@ const ProductCard = ({
       maxHeight={maxHeight}
       minHeight={minHeight}
       bgImage={bgImage}
+      imgWidth={imgWidth}
+      imgHeight={imgHeight}
     >
       {children}
     </CardStyle>
@@ -44,20 +50,23 @@ const CardStyle = styled.li<{
   maxHeight: string
   minHeight: string
   bgImage: string
+  imgWidth: string
+  imgHeight: string
 }>`
-  ${({ cardType, bgImage }) => handleCardType(cardType, bgImage)}
   width: ${({ width }) => width};
   height: ${({ height }) => height};
   max-height: ${({ maxHeight }) => maxHeight};
   min-height: ${({ minHeight }) => minHeight};
 
   img {
-    width: 100%;
+    width: ${(props) => props.imgWidth};
+    height: ${(props) => props.imgHeight};
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
+  ${({ cardType, bgImage }) => handleCardType(cardType, bgImage)}
 `
 
 const handleCardType = (cardType: string, bgImage: string) => {
@@ -68,7 +77,7 @@ const handleCardType = (cardType: string, bgImage: string) => {
         overflow:hidden;
 
         ${ImgAreaStyle} {
-          height:50%;
+          min-height:300px;
         }
       `
     case 'ImageCardType':
@@ -116,6 +125,10 @@ const handleCardType = (cardType: string, bgImage: string) => {
         ${ImgAreaStyle} {
           width:300px;
           border-radius:5px;
+
+          img {
+            width:100%;
+          }
         }
       `
     default:
