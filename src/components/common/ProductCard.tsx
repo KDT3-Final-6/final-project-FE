@@ -183,18 +183,12 @@ const CategoryStyle = styled.span<{
 
 const HashsStyle = styled.div<{
   marginBottom?: string
+  color?: string
 }>`
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
   margin-bottom: ${({ marginBottom }) => marginBottom};
-`
-
-const HashStyle = styled.span<{
-  fontSize?: string
-  color?: string
-}>`
-  font-size: ${({ fontSize }) => fontSize};
   color: ${(props) => props.color};
   text-overflow: ellipsis;
   overflow: hidden;
@@ -202,6 +196,12 @@ const HashStyle = styled.span<{
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+`
+
+const HashStyle = styled.span<{
+  fontSize?: string
+}>`
+  font-size: ${({ fontSize }) => fontSize};
 `
 
 const PriceStyle = styled.p<{

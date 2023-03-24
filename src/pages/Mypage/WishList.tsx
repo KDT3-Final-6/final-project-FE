@@ -84,7 +84,12 @@ const WishList = () => {
     <>
       <ProductListStyle>
         {products.map((product) => (
-          <CardTypeItem key={product.id} item={product} />
+          <CardTypeItem
+            key={product.id}
+            item={product}
+            cardType="ImageCardType"
+            bgImage={product.image}
+          />
         ))}
       </ProductListStyle>
       <Pagination />

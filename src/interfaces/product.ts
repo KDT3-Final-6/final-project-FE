@@ -5,5 +5,5 @@ export interface IProduct {
   hashs: string[]
   price: number
   heart: boolean
-  categoryNames: string[]
+  categoryNames?: string[]
 }
