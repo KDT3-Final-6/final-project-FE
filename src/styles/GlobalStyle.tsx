@@ -13,6 +13,7 @@ export const GlobalStyle = createGlobalStyle`
   a {
     color:inherit;
     text-decoration: none;
+    display: block;
   }
 
   svg {
@@ -29,5 +30,7 @@ export const GlobalStyle = createGlobalStyle`
 
   button {
     cursor:pointer;
+    border:none;
+    background-color: transparent;
   }
 `
