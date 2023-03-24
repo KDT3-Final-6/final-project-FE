@@ -84,6 +84,8 @@ const handleCardType = (cardType: string, bgImage: string) => {
 
         a {
           padding:14px 18px 20px;
+          width:100%;
+          height:100%;
         }
 
         ${ImgAreaStyle} {
