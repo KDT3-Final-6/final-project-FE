@@ -13,6 +13,7 @@ import { Helmet } from 'react-helmet'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { FiShare2 } from 'react-icons/fi'
+import Pagination from '@src/components/common/pagination'
 
 type Props = {}
 
@@ -165,7 +166,7 @@ const OrderList = (props: Props) => {
           </TxtAreaStyle>
         </ProductCard>
       </OrderListStyle>
-      <PaginationStyle>Pagination</PaginationStyle>
+      <Pagination />
     </>
   )
 }
@@ -221,10 +222,4 @@ const Buttons = styled.div`
       margin-right: 10px;
     }
   }
-`
-
-const PaginationStyle = styled.div`
-  margin-bottom: 100px;
-  display: flex;
-  justify-content: center;
 `
