@@ -1,6 +1,5 @@
 const PATH = {
   HOME: '/',
-  CART: '/cart',
   CONTACT: '/contact',
   PRODUCT: '/product',
   REVIEW: '/review',
@@ -11,6 +10,12 @@ const PATH = {
   USER: '/user',
   PRODUCT_DETAIL: '/product/:productId',
   MYPAGE: '/mypage',
+  CART: 'cart',
+  ORDER_LIST: 'orderlist',
+  WISHLIST: 'wishlist',
+  MY_REVIEW: 'myreview',
+  ONE_ON_ONE: 'oneonone',
+  INFO_EDIT: 'infoedit',
 }
 
 export default PATH

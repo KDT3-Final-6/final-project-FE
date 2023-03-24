@@ -4,17 +4,10 @@ import { RiPencilLine } from 'react-icons/ri'
 import styled from 'styled-components'
 import RoundButton from '@src/components/common/RoundButton'
 import MenuTab from '@src/components/MyPage/MenuTab'
-import OrderList from './OrderList'
-import Cart from './Cart'
-import WishList from './WishList'
-import MyReview from './MyReview'
-import OneOnOne from './OneOnOne'
-import InfoEdit from './InfoEdit'
 import COLORS from '@src/styles/root'
+import { Outlet } from 'react-router-dom'
 
-type Props = {}
-
-const MyPage = (props: Props) => {
+const MyPage = () => {
   const [activeMenu, setActiveMenu] = useState(0)
   return (
     <>
@@ -39,13 +32,7 @@ const MyPage = (props: Props) => {
       <InnerWrap>
         <Inner>
           <MenuTab setActiveMenu={setActiveMenu} activeMenu={activeMenu} />
-          <div>
-            {
-              [<OrderList />, <Cart />, <WishList />, <MyReview />, <OneOnOne />, <InfoEdit />][
-                activeMenu
-              ]
-            }
-          </div>
+          <Outlet />
         </Inner>
       </InnerWrap>
     </>

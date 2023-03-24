@@ -3,7 +3,6 @@ import { createBrowserRouter } from 'react-router-dom'
 import App from './App'
 import NotFound from './pages/NotFound'
 import Home from './pages/Home'
-import Cart from './pages/Cart'
 import Contact from './pages/Contact'
 import Product from './pages/Product'
 import Review from './pages/Review'
@@ -15,6 +14,12 @@ import User from './pages/User'
 import PATH from './constants/pathConst'
 import ProductDetail from './pages/Product/ProductDetail'
 import MyPage from './pages/Mypage'
+import OrderList from './pages/Mypage/OrderList'
+import Cart from '@pages/Mypage/Cart'
+import WishList from './pages/Mypage/WishList'
+import OneOnOne from './pages/Mypage/OneOnOne'
+import InfoEdit from './pages/Mypage/InfoEdit'
+import MyReview from './pages/Mypage/MyReview'
 
 const router = createBrowserRouter([
   {
@@ -33,7 +38,18 @@ const router = createBrowserRouter([
       { path: PATH.SURVEY, element: <Survey /> },
       { path: PATH.USER, element: <User /> },
       { path: PATH.PRODUCT_DETAIL, element: <ProductDetail /> },
-      { path: PATH.MYPAGE, element: <MyPage /> },
+      {
+        path: PATH.MYPAGE,
+        element: <MyPage />,
+        children: [
+          { path: PATH.ORDER_LIST, element: <OrderList /> },
+          { path: PATH.CART, element: <Cart /> },
+          { path: PATH.WISHLIST, element: <WishList /> },
+          { path: PATH.ONE_ON_ONE, element: <OneOnOne /> },
+          { path: PATH.INFO_EDIT, element: <InfoEdit /> },
+          { path: PATH.MY_REVIEW, element: <MyReview /> },
+        ],
+      },
     ],
   },
 ])

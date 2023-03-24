@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 interface Props {
   setActiveMenu: React.Dispatch<React.SetStateAction<number>>
@@ -6,6 +7,7 @@ interface Props {
 }
 
 const MenuTab = ({ setActiveMenu, activeMenu }: Props) => {
+  const navigate = useNavigate()
   const menuList = [
     '구매 내역',
     '장바구니',
@@ -14,13 +16,35 @@ const MenuTab = ({ setActiveMenu, activeMenu }: Props) => {
     '1 : 1 문의 내용',
     '회원 정보 수정',
   ]
+  const navigateHandler = (index: number) => {
+    if (index === 0) {
+      return navigate('/mypage/orderlist')
+    } else if (index === 1) {
+      return navigate('/mypage/cart')
+    } else if (index === 2) {
+      return navigate('/mypage/wishlist')
+    } else if (index === 3) {
+      return navigate('/mypage/myreview')
+    } else if (index === 4) {
+      return navigate('/mypage/oneonone')
+    } else if (index === 5) {
+      return navigate('/mypage/infoedit')
+    }
+  }
   return (
     <MenuTabStyle>
       {menuList.map((menu, index) =>
         index === activeMenu ? (
-          <ActiveTabStyle key={index}>{menu}</ActiveTabStyle>
+          <ActiveTabStyle key={index} onClick={() => navigateHandler(index)}>
+            {menu}
+          </ActiveTabStyle>
         ) : (
-          <DefaultTabStyle key={index} onClick={() => setActiveMenu(index)}>
+          <DefaultTabStyle
+            key={index}
+            onClick={() => {
+              setActiveMenu(index), navigateHandler(index)
+            }}
+          >
             {menu}
           </DefaultTabStyle>
         )

@@ -68,6 +68,14 @@ const handleButtonType = (buttonType: string) => {
         font-weight:bold;
         cursor:default;
       `
+    case 'cartGray':
+      return `
+        border: 1px solid ${COLORS.disableBgGrey};
+        background-color: transparent;
+        color: #404040;
+        width: 140px;
+        height: 42px;
+      `
     default:
       return `
         width: 180px;
