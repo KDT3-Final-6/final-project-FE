@@ -3,7 +3,7 @@ import { IProduct } from '@src/interfaces/product'
 import COLORS from '@src/styles/root'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import HeartButton from '../common/HeartButton'
+import HeartButton from './HeartButton'
 import ProductCard, {
   CardHeadArea,
   CategoryStyle,
@@ -11,25 +11,20 @@ import ProductCard, {
   HashStyle,
   PriceStyle,
   TxtAreaStyle,
-} from '../common/ProductCard'
-import Title from '../common/Title'
+} from './ProductCard'
+import Title from './Title'
 
-interface IWishItem {
-  product: IProduct
+interface ICardTypeItem {
+  item: IProduct
 }
 
-const WishListItem = ({ product }: IWishItem) => {
-  const [heart, setHeart] = useState(product.heart)
+const CardTypeItem = ({ item }: ICardTypeItem) => {
+  const [heart, setHeart] = useState(item.heart)
 
   return (
-    <ProductCard
-      key={product.id}
-      cardType="ImageCardType"
-      minHeight="500px"
-      bgImage={product.image}
-    >
+    <ProductCard key={item.id} cardType="ImageCardType" minHeight="500px" bgImage={item.image}>
       <HeartButton
-        productId={product.id}
+        productId={item.id}
         top="14px"
         right="18px"
         isHeart={heart}
@@ -37,7 +32,7 @@ const WishListItem = ({ product }: IWishItem) => {
       />
       <Link to={PATH.PRODUCT_DETAIL} target="_blank">
         <CardHeadArea>
-          {product.categoryNames.map((categoryName) => (
+          {item.categoryNames.map((categoryName) => (
             <CategoryStyle key={categoryName} categoryName={categoryName}>
               {categoryName}
             </CategoryStyle>
@@ -46,13 +41,13 @@ const WishListItem = ({ product }: IWishItem) => {
         <TxtAreaStyle isCardType={true}>
           <Title
             titleType="h3"
-            title={product.title}
+            title={item.title}
             fontWeight="normal"
             fontSize="22px"
             marginBotton="5px"
           />
           <HashsStyle marginBottom="26px">
-            {product.hashs.map((hash) => (
+            {item.hashs.map((hash) => (
               <HashStyle key={hash} fontSize="19px" color={COLORS.lightGrey}>
                 {`#${hash}`}
               </HashStyle>
@@ -61,11 +56,11 @@ const WishListItem = ({ product }: IWishItem) => {
           <PriceStyle
             fontSize="30px"
             textAlign="right"
-          >{`${product.price.toLocaleString()}원`}</PriceStyle>
+          >{`${item.price.toLocaleString()}원`}</PriceStyle>
         </TxtAreaStyle>
       </Link>
     </ProductCard>
   )
 }
 
-export default WishListItem
+export default CardTypeItem
