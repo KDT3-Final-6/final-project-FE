@@ -21,7 +21,11 @@ interface ICardTypeItem {
   bgImage?: string
   imgWidth?: string
   imgHeight?: string
-  minHeight?: string
+  height?: string
+  priceTop?: string
+  priceLeft?: string
+  priceRight?: string
+  priceBottom?: string
 }
 
 const CardTypeItem = ({
@@ -30,7 +34,11 @@ const CardTypeItem = ({
   bgImage,
   imgWidth,
   imgHeight,
-  minHeight = '500px',
+  height = '500px',
+  priceTop,
+  priceLeft,
+  priceRight,
+  priceBottom,
 }: ICardTypeItem) => {
   const [heart, setHeart] = useState(item.heart)
 
@@ -41,7 +49,7 @@ const CardTypeItem = ({
       bgImage={bgImage}
       imgWidth={imgWidth}
       imgHeight={imgHeight}
-      minHeight={minHeight}
+      height={height}
     >
       <HeartButton
         productId={item.id}
@@ -71,10 +79,7 @@ const CardTypeItem = ({
             fontSize="22px"
             marginBotton="5px"
           />
-          <HashsStyle
-            marginBottom="26px"
-            color={cardType === 'ImageCardType' ? COLORS.lightGrey : COLORS.hashGrey}
-          >
+          <HashsStyle color={cardType === 'ImageCardType' ? COLORS.lightGrey : COLORS.hashGrey}>
             {item.hashs.map((hash) => (
               <HashStyle key={hash} fontSize="19px">
                 {`#${hash}`}
@@ -83,7 +88,10 @@ const CardTypeItem = ({
           </HashsStyle>
           <PriceStyle
             fontSize="30px"
-            textAlign="right"
+            priceTop={priceTop}
+            priceLeft={priceLeft}
+            priceRight={priceRight}
+            priceBottom={priceBottom}
           >{`${item.price.toLocaleString()}원`}</PriceStyle>
         </TxtAreaStyle>
       </Link>

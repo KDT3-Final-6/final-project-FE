@@ -11,13 +11,15 @@ import { IOrder } from '@src/interfaces/order'
 
 interface IBarTypeItem {
   item: IOrder
+  cardType: string
+  height?: string
 }
 
-function BarTypeItem({ item }: IBarTypeItem) {
+function BarTypeItem({ item, cardType, height = '220px' }: IBarTypeItem) {
   const navigate = useNavigate()
 
   return (
-    <ProductCard key={item.id} cardType="barType" maxHeight="300px">
+    <ProductCard key={item.id} cardType={cardType} height={height}>
       <ImgAreaStyle>
         <img src={item.image} alt={item.title} />
       </ImgAreaStyle>
@@ -34,7 +36,7 @@ function BarTypeItem({ item }: IBarTypeItem) {
             {`${item.price.toLocaleString()}원`}
           </PriceStyle>
         </DatePriceStyle>
-        <Buttons>
+        <Buttons bottom="0" right="0">
           <Button buttonType="borderGray">
             <FiShare2 />
             공유하기
@@ -75,6 +77,7 @@ const DatePriceStyle = styled.div`
   align-items: center;
   justify-content: space-between;
   color: ${COLORS.primary};
+  margin-top: 10px;
 
   ${PriceStyle} {
     color: ${COLORS.darkGrey};
@@ -89,12 +92,17 @@ const DatePriceStyle = styled.div`
   }
 `
 
-const Buttons = styled.div`
+const Buttons = styled.div<{
+  bottom?: string
+  right?: string
+}>`
   display: flex;
   gap: 8px;
   justify-content: end;
   margin-top: 10px;
-
+  position: absolute;
+  bottom: ${({ bottom }) => bottom};
+  right: ${({ right }) => right};
   button {
     display: flex;
     align-items: center;

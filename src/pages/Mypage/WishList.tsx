@@ -89,6 +89,9 @@ const WishList = () => {
             item={product}
             cardType="ImageCardType"
             bgImage={product.image}
+            priceRight="18px"
+            priceBottom="20px"
+            height="430px"
           />
         ))}
       </ProductListStyle>

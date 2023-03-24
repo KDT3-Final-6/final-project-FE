@@ -56,7 +56,7 @@ const OrderList = () => {
       </Helmet>
       <OrderListStyle>
         {orders.map((order) => (
-          <BarTypeItem key={order.id} item={order}></BarTypeItem>
+          <BarTypeItem key={order.id} cardType="barType" item={order}></BarTypeItem>
         ))}
       </OrderListStyle>
       <Pagination />

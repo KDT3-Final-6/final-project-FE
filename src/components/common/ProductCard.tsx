@@ -7,7 +7,6 @@ type IProduct = {
   width?: string
   height?: string
   maxHeight?: string
-  minHeight?: string
   children?: React.ReactNode
   bgImage?: string
   imgWidth?: string
@@ -19,7 +18,6 @@ const ProductCard = ({
   width = '',
   height = '',
   maxHeight = '',
-  minHeight = '',
   children,
   bgImage = '',
   imgWidth = '',
@@ -31,7 +29,6 @@ const ProductCard = ({
       width={width}
       height={height}
       maxHeight={maxHeight}
-      minHeight={minHeight}
       bgImage={bgImage}
       imgWidth={imgWidth}
       imgHeight={imgHeight}
@@ -48,15 +45,12 @@ const CardStyle = styled.li<{
   width: string
   height: string
   maxHeight: string
-  minHeight: string
   bgImage: string
   imgWidth: string
   imgHeight: string
 }>`
   width: ${({ width }) => width};
   height: ${({ height }) => height};
-  max-height: ${({ maxHeight }) => maxHeight};
-  min-height: ${({ minHeight }) => minHeight};
 
   img {
     width: ${(props) => props.imgWidth};
@@ -76,6 +70,10 @@ const handleCardType = (cardType: string, bgImage: string) => {
         border-radius:12px;
         overflow:hidden;
 
+        a {
+          height:100%;
+        }
+
         ${ImgAreaStyle} {
           min-height:300px;
         }
@@ -92,7 +90,7 @@ const handleCardType = (cardType: string, bgImage: string) => {
         color:${COLORS.white};
 
         a {
-          padding:14px 18px 20px;
+          padding:14px 18px 80px;
           width:100%;
           height:100%;
         }
@@ -107,7 +105,7 @@ const handleCardType = (cardType: string, bgImage: string) => {
           bottom:0;
           left:0;
           width:100%;
-          padding: 0 18px 20px;
+          padding: 0 18px 80px;
         }
         ${CategoryStyle} {
           padding:4px 9px;
@@ -132,6 +130,10 @@ const handleCardType = (cardType: string, bgImage: string) => {
           img {
             width:100%;
           }
+        }
+
+        ${PriceStyle} {
+          position:inherit;
         }
       `
     default:
@@ -159,10 +161,12 @@ const TxtAreaStyle = styled.div<{
   isBarType?: boolean
 }>`
   width: ${(props) => props.isBarType && 'calc(100% - 300px)'};
+  height: ${(props) => props.isCardType && 'calc(100% - 300px)'};
   padding: ${(props) => props.isCardType && '20px'};
   border: ${(props) => props.isCardType && `1px solid ${COLORS.lightGrey}`};
   border-radius: 0 0 12px 12px;
   justify-content: ${(props) => props.isBarType && 'space-between'};
+  position: relative;
 `
 
 const CategoryStyle = styled.span<{
@@ -207,12 +211,20 @@ const HashStyle = styled.span<{
 const PriceStyle = styled.p<{
   fontSize: string
   textAlign?: string
+  priceTop?: string
+  priceLeft?: string
+  priceRight?: string
+  priceBottom?: string
 }>`
   font-size: ${({ fontSize }) => fontSize};
   font-weight: 700;
   text-align: ${({ textAlign }) => textAlign};
-  margin: 15px 0;
   white-space: nowrap;
+  position: absolute;
+  top: ${({ priceTop }) => priceTop};
+  bottom: ${({ priceBottom }) => priceBottom};
+  left: ${({ priceLeft }) => priceLeft};
+  right: ${({ priceRight }) => priceRight};
 `
 
 export {
