@@ -1,8 +1,8 @@
 import Pagination from '@src/components/common/Pagination'
-import WishListItem from '@src/components/MyPage/WishListItem'
 import { IProduct } from '@src/interfaces/product'
 import React from 'react'
 import styled from 'styled-components'
+import CardTypeItem from '@src/components/common/CardTypeItem'
 
 const WishList = () => {
   const products: IProduct[] = [
@@ -84,7 +84,7 @@ const WishList = () => {
     <>
       <ProductListStyle>
         {products.map((product) => (
-          <WishListItem key={product.id} product={product} />
+          <CardTypeItem key={product.id} item={product} />
         ))}
       </ProductListStyle>
       <Pagination />
