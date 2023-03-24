@@ -1,5 +1,5 @@
 import COLORS from '@src/styles/root'
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import Button from './Button'
 import ProductCard, { ImgAreaStyle, PriceStyle, TxtAreaStyle } from './ProductCard'
