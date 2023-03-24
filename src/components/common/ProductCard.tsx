@@ -105,6 +105,9 @@ const handleCardType = (cardType: string, bgImage: string) => {
           padding:0;
           position:absolute;
           bottom:0;
+          left:0;
+          width:100%;
+          padding: 0 18px 20px;
         }
         ${CategoryStyle} {
           padding:4px 9px;
@@ -178,10 +181,18 @@ const CategoryStyle = styled.span<{
     props.categoryName === '여자끼리' ? COLORS.white : '익사이팅' && COLORS.excitingTxt};
 `
 
+const HashsStyle = styled.div<{
+  marginBottom?: string
+}>`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: ${({ marginBottom }) => marginBottom};
+`
+
 const HashStyle = styled.span<{
   fontSize?: string
   color?: string
-  marginBottom?: string
 }>`
   font-size: ${({ fontSize }) => fontSize};
   color: ${(props) => props.color};
@@ -191,7 +202,6 @@ const HashStyle = styled.span<{
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  margin-bottom: ${({ marginBottom }) => marginBottom};
 `
 
 const PriceStyle = styled.p<{
@@ -202,6 +212,15 @@ const PriceStyle = styled.p<{
   font-weight: 700;
   text-align: ${({ textAlign }) => textAlign};
   margin: 15px 0;
+  white-space: nowrap;
 `
 
-export { CardHeadArea, ImgAreaStyle, TxtAreaStyle, CategoryStyle, HashStyle, PriceStyle }
+export {
+  CardHeadArea,
+  ImgAreaStyle,
+  TxtAreaStyle,
+  CategoryStyle,
+  HashsStyle,
+  HashStyle,
+  PriceStyle,
+}

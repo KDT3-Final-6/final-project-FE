@@ -7,6 +7,7 @@ import HeartButton from '../common/HeartButton'
 import ProductCard, {
   CardHeadArea,
   CategoryStyle,
+  HashsStyle,
   HashStyle,
   PriceStyle,
   TxtAreaStyle,
@@ -36,9 +37,9 @@ const WishListItem = ({ product }: IWishItem) => {
       />
       <Link to={PATH.PRODUCT_DETAIL} target="_blank">
         <CardHeadArea>
-          {product.categoryName.map((category) => (
-            <CategoryStyle key={category.id} categoryName={category.category}>
-              {category.category}
+          {product.categoryNames.map((categoryName) => (
+            <CategoryStyle key={categoryName} categoryName={categoryName}>
+              {categoryName}
             </CategoryStyle>
           ))}
         </CardHeadArea>
@@ -50,9 +51,13 @@ const WishListItem = ({ product }: IWishItem) => {
             fontSize="22px"
             marginBotton="5px"
           />
-          <HashStyle fontSize="19px" color={COLORS.lightGrey} marginBottom="26px">
-            {product.hash}
-          </HashStyle>
+          <HashsStyle marginBottom="26px">
+            {product.hashs.map((hash) => (
+              <HashStyle key={hash} fontSize="19px" color={COLORS.lightGrey}>
+                {`#${hash}`}
+              </HashStyle>
+            ))}
+          </HashsStyle>
           <PriceStyle
             fontSize="30px"
             textAlign="right"
