@@ -10,38 +10,41 @@ import WishList from './WishList'
 import MyReview from './MyReview'
 import OneOnOne from './OneOnOne'
 import InfoEdit from './InfoEdit'
+import COLORS from '@src/styles/root'
 
 type Props = {}
 
 const MyPage = (props: Props) => {
   const [activeMenu, setActiveMenu] = useState(0)
   return (
-    <div>
+    <>
       <img
         src="/images/myPage_banner.png"
         alt="banner"
         style={{ height: '190px', width: '100%' }}
       />
-      <Inner>
-        <ProfileStyle>
-          <ImageStyle>
-            <img src="/images/profile.png" alt="" />
-          </ImageStyle>
-          <span style={{ fontSize: '24px', fontWeight: 700 }}>김고투</span>
-          <RoundButton buttonType="skyBlue" width="140px" height="42px">
-            프로필 편집 <RiPencilLine />
-          </RoundButton>
-        </ProfileStyle>
-        <MenuTab setActiveMenu={setActiveMenu} activeMenu={activeMenu} />
-        <div>
-          {
-            [<OrderList />, <Cart />, <WishList />, <MyReview />, <OneOnOne />, <InfoEdit />][
-              activeMenu
-            ]
-          }
-        </div>
-      </Inner>
-    </div>
+      <ProfileStyle>
+        <ImageStyle>
+          <img src="/images/profile.png" alt="" />
+        </ImageStyle>
+        <span style={{ fontSize: '24px', fontWeight: 700 }}>김고투</span>
+        <RoundButton buttonType="skyBlue" width="140px" height="42px">
+          프로필 편집 <RiPencilLine />
+        </RoundButton>
+      </ProfileStyle>
+      <InnerWrap>
+        <Inner>
+          <MenuTab setActiveMenu={setActiveMenu} activeMenu={activeMenu} />
+          <div>
+            {
+              [<OrderList />, <Cart />, <WishList />, <MyReview />, <OneOnOne />, <InfoEdit />][
+                activeMenu
+              ]
+            }
+          </div>
+        </Inner>
+      </InnerWrap>
+    </>
   )
 }
 
@@ -64,4 +67,9 @@ const ImageStyle = styled.div`
     box-sizing: border-box;
   }
 `
+
+const InnerWrap = styled.div`
+  border-top: 1px solid ${COLORS.mediumGrey};
+`
+
 export default MyPage

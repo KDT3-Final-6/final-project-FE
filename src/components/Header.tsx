@@ -14,7 +14,7 @@ const Header = () => {
       <GnbStyle>
         <Inner height="100px" display="flex" justifyContent="space-between">
           <Link to={PATH.HOME}>
-            <img src="/public/images/Logo_Gotogether.png" alt="고투게더 로고 홈으로 이동" />
+            <img src="/images/Logo_Gotogether.png" alt="고투게더 로고 홈으로 이동" />
           </Link>
           <ButtonsStyle>
             <Link to={PATH.HOME}>
