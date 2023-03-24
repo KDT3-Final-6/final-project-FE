@@ -9,7 +9,7 @@ interface Props {
   children?: React.ReactNode
 }
 
-const RoundButton = ({ buttonType = '', width = '', height = '', children }: Props) => {
+const RoundButton = ({ buttonType, width = '', height = '', children }: Props) => {
   return (
     <ButtonStyle buttonType={buttonType} width={width} height={height}>
       {children}
