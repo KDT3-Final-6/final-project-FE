@@ -19,7 +19,7 @@ const Curation = () => {
       <Inner>
         <Title titleType="h2" fontSize="32px" title="어디로 여행을 떠날까요?" marginBotton="66px" />
         <ProductListStyle>
-          <ProductCard cardType="cardType" width="33.3333%" minHeight="500px">
+          <ProductCard cardType="cardType" imgWidth="100%" minHeight="500px">
             <Link to={PATH.PRODUCT_DETAIL} target="_blank">
               <ImgAreaStyle>
                 <img src="https://cdn.imweb.me/thumbnail/20220422/e2416c9e52bf5.jpg" alt="" />
@@ -40,7 +40,7 @@ const Curation = () => {
               </TxtAreaStyle>
             </Link>
           </ProductCard>
-          <ProductCard cardType="cardType" width="33.3333%" minHeight="500px">
+          <ProductCard cardType="cardType" imgWidth="100%" minHeight="500px">
             <Link to={PATH.PRODUCT_DETAIL} target="_blank">
               <ImgAreaStyle>
                 <img src="https://cdn.imweb.me/thumbnail/20220422/e2416c9e52bf5.jpg" alt="" />
@@ -61,7 +61,7 @@ const Curation = () => {
               </TxtAreaStyle>
             </Link>
           </ProductCard>
-          <ProductCard cardType="cardType" width="33.3333%" minHeight="500px">
+          <ProductCard cardType="cardType" imgWidth="100%" minHeight="500px">
             <Link to={PATH.PRODUCT_DETAIL} target="_blank">
               <ImgAreaStyle>
                 <img src="https://cdn.imweb.me/thumbnail/20220422/e2416c9e52bf5.jpg" alt="" />
@@ -91,6 +91,7 @@ const Curation = () => {
 export default Curation
 
 const ProductListStyle = styled.ul`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 29px;
 `
