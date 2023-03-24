@@ -9,6 +9,7 @@ import ProductCard, {
   CategoryStyle,
   HashsStyle,
   HashStyle,
+  ImgAreaStyle,
   PriceStyle,
   TxtAreaStyle,
 } from './ProductCard'
@@ -16,13 +17,32 @@ import Title from './Title'
 
 interface ICardTypeItem {
   item: IProduct
+  cardType: string
+  bgImage?: string
+  imgWidth?: string
+  imgHeight?: string
+  minHeight?: string
 }
 
-const CardTypeItem = ({ item }: ICardTypeItem) => {
+const CardTypeItem = ({
+  item,
+  cardType,
+  bgImage,
+  imgWidth,
+  imgHeight,
+  minHeight = '500px',
+}: ICardTypeItem) => {
   const [heart, setHeart] = useState(item.heart)
 
   return (
-    <ProductCard key={item.id} cardType="ImageCardType" minHeight="500px" bgImage={item.image}>
+    <ProductCard
+      key={item.id}
+      cardType={cardType}
+      bgImage={bgImage}
+      imgWidth={imgWidth}
+      imgHeight={imgHeight}
+      minHeight={minHeight}
+    >
       <HeartButton
         productId={item.id}
         top="14px"
@@ -32,12 +52,17 @@ const CardTypeItem = ({ item }: ICardTypeItem) => {
       />
       <Link to={PATH.PRODUCT_DETAIL} target="_blank">
         <CardHeadArea>
-          {item.categoryNames.map((categoryName) => (
+          {item.categoryNames?.map((categoryName) => (
             <CategoryStyle key={categoryName} categoryName={categoryName}>
               {categoryName}
             </CategoryStyle>
           ))}
         </CardHeadArea>
+        {cardType === 'cardType' && (
+          <ImgAreaStyle>
+            <img src={item.image} alt={item.title} />
+          </ImgAreaStyle>
+        )}
         <TxtAreaStyle isCardType={true}>
           <Title
             titleType="h3"
@@ -46,9 +71,12 @@ const CardTypeItem = ({ item }: ICardTypeItem) => {
             fontSize="22px"
             marginBotton="5px"
           />
-          <HashsStyle marginBottom="26px">
+          <HashsStyle
+            marginBottom="26px"
+            color={cardType === 'ImageCardType' ? COLORS.lightGrey : COLORS.hashGrey}
+          >
             {item.hashs.map((hash) => (
-              <HashStyle key={hash} fontSize="19px" color={COLORS.lightGrey}>
+              <HashStyle key={hash} fontSize="19px">
                 {`#${hash}`}
               </HashStyle>
             ))}
