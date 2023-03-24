@@ -42,7 +42,9 @@ function BarTypeItem({ item }: IBarTypeItem) {
           <Button buttonType="borderGray" onClick={() => navigate(PATH.PRODUCT_DETAIL)}>
             자세히 보기
           </Button>
-          <Button buttonType="borderGray">리뷰작성하기</Button>
+          <Button buttonType={item.review ? 'disable' : 'borderGray'}>
+            {item.review ? '리뷰작성완료' : '리뷰작성하기'}
+          </Button>
         </Buttons>
       </TxtAreaStyle>
     </ProductCard>

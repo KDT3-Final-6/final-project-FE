@@ -14,6 +14,7 @@ const OrderList = () => {
       payment: true,
       discription: '3일은 골프를 하루는 호캉스를 즐킬 수 있는 3월 특가 실속 골프 패키지',
       travelDate: '출발: 2023. 04. 02(일) / 도착: 2023. 04. 05(수)',
+      review: false,
       price: 350000,
     },
     {
@@ -23,6 +24,7 @@ const OrderList = () => {
       payment: false,
       discription: '3일은 골프를 하루는 호캉스를 즐킬 수 있는 3월 특가 실속 골프 패키지',
       travelDate: '출발: 2023. 04. 02(일) / 도착: 2023. 04. 05(수)',
+      review: true,
       price: 350000,
     },
     {
@@ -32,6 +34,7 @@ const OrderList = () => {
       payment: false,
       discription: '3일은 골프를 하루는 호캉스를 즐킬 수 있는 3월 특가 실속 골프 패키지',
       travelDate: '출발: 2023. 04. 02(일) / 도착: 2023. 04. 05(수)',
+      review: true,
       price: 350000,
     },
     {
@@ -41,6 +44,7 @@ const OrderList = () => {
       payment: false,
       discription: '3일은 골프를 하루는 호캉스를 즐킬 수 있는 3월 특가 실속 골프 패키지',
       travelDate: '출발: 2023. 04. 02(일) / 도착: 2023. 04. 05(수)',
+      review: true,
       price: 350000,
     },
   ]

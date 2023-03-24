@@ -5,5 +5,6 @@ export interface IOrder {
   payment: boolean,
   discription: string,
   travelDate: string,
+  review:boolean,
   price: number,
 }
