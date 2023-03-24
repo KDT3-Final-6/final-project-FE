@@ -1,7 +1,5 @@
-import PATH from '@src/constants/pathConst'
 import COLORS from '@src/styles/root'
-import React, { Children } from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react'
 import styled from 'styled-components'
 
 type IProduct = {
@@ -11,15 +9,17 @@ type IProduct = {
   maxHeight?: string
   minHeight?: string
   children?: React.ReactNode
+  bgImage?: string
 }
 
 const ProductCard = ({
-  cardType = 'abc',
+  cardType = 'cardType',
   width = '',
   height = '',
   maxHeight = '',
   minHeight = '',
   children,
+  bgImage = '',
 }: IProduct) => {
   return (
     <CardStyle
@@ -28,6 +28,7 @@ const ProductCard = ({
       height={height}
       maxHeight={maxHeight}
       minHeight={minHeight}
+      bgImage={bgImage}
     >
       {children}
     </CardStyle>
@@ -42,8 +43,9 @@ const CardStyle = styled.li<{
   height: string
   maxHeight: string
   minHeight: string
+  bgImage: string
 }>`
-  ${({ cardType }) => handleCardType(cardType)}
+  ${({ cardType, bgImage }) => handleCardType(cardType, bgImage)}
   width: ${({ width }) => width};
   height: ${({ height }) => height};
   max-height: ${({ maxHeight }) => maxHeight};
@@ -58,7 +60,7 @@ const CardStyle = styled.li<{
   }
 `
 
-const handleCardType = (cardType: string) => {
+const handleCardType = (cardType: string, bgImage: string) => {
   switch (cardType) {
     case 'cardType':
       return `
@@ -68,8 +70,36 @@ const handleCardType = (cardType: string) => {
         ${ImgAreaStyle} {
           height:50%;
         }
+      `
+    case 'ImageCardType':
+      return `
+        border-radius:12px;
+        overflow:hidden;
+        background:url(${bgImage}) no-repeat center;
+        background-size:cover;
+        display:flex;
+        flex-direction:column;
+        position:relative;
+        color:${COLORS.white};
 
+        a {
+          padding:14px 18px 20px;
+        }
 
+        ${ImgAreaStyle} {
+          height:50%;
+        }
+        ${TxtAreaStyle} {
+          border:0;
+          padding:0;
+          position:absolute;
+          bottom:0;
+        }
+        ${CategoryStyle} {
+          padding:4px 9px;
+          border-radius:6px;
+          margin-bottom:0;
+        }
       `
     case 'barType':
       return `
@@ -95,6 +125,12 @@ const handleCardType = (cardType: string) => {
   }
 }
 
+const CardHeadArea = styled.div`
+  display: flex;
+  gap: 8px;
+  position: relative;
+`
+
 const ImgAreaStyle = styled.div`
   position: relative;
   overflow: hidden;
@@ -111,7 +147,9 @@ const TxtAreaStyle = styled.div<{
   justify-content: ${(props) => props.isBarType && 'space-between'};
 `
 
-const CategoryStyle = styled.span`
+const CategoryStyle = styled.span<{
+  categoryName: string
+}>`
   background-color: ${COLORS.black};
   color: ${COLORS.white};
   font-size: 13px;
@@ -119,11 +157,16 @@ const CategoryStyle = styled.span`
   padding: 5px 10px;
   border-radius: 8px;
   margin-bottom: 14px;
+  background-color: ${(props) =>
+    props.categoryName === '여자끼리' ? COLORS.crimson : '익사이팅' && COLORS.exciting};
+  color: ${(props) =>
+    props.categoryName === '여자끼리' ? COLORS.white : '익사이팅' && COLORS.excitingTxt};
 `
 
-const HashStyle = styled.div<{
-  fontSize: string
-  color: string
+const HashStyle = styled.span<{
+  fontSize?: string
+  color?: string
+  marginBottom?: string
 }>`
   font-size: ${({ fontSize }) => fontSize};
   color: ${(props) => props.color};
@@ -133,14 +176,17 @@ const HashStyle = styled.div<{
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  margin-bottom: ${({ marginBottom }) => marginBottom};
 `
 
 const PriceStyle = styled.p<{
   fontSize: string
+  textAlign?: string
 }>`
   font-size: ${({ fontSize }) => fontSize};
   font-weight: 700;
+  text-align: ${({ textAlign }) => textAlign};
   margin: 15px 0;
 `
 
-export { ImgAreaStyle, TxtAreaStyle, CategoryStyle, HashStyle, PriceStyle }
+export { CardHeadArea, ImgAreaStyle, TxtAreaStyle, CategoryStyle, HashStyle, PriceStyle }
