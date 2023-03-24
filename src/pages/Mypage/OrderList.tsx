@@ -13,7 +13,7 @@ import { Helmet } from 'react-helmet'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { FiShare2 } from 'react-icons/fi'
-import Pagination from '@src/components/common/pagination'
+import Pagination from '@src/components/common/Pagination'
 
 type Props = {}
 

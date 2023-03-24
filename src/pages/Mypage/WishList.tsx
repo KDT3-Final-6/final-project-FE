@@ -1,4 +1,4 @@
-import Pagination from '@src/components/common/pagination'
+import Pagination from '@src/components/common/Pagination'
 import WishListItem from '@src/components/MyPage/WishListItem'
 import { IProduct } from '@src/interfaces/product'
 import React from 'react'
