@@ -7,7 +7,7 @@ interface IButton {
   width?: string
   height?: string
   children?: React.ReactNode
-  onClick?: () => void
+  onClick?: React.MouseEventHandler<HTMLButtonElement>
 }
 
 const Button = ({ buttonType = '', width = '', height = '', children, onClick }: IButton) => {

@@ -6,7 +6,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import ProductCard, {
-  CategoryStyle,
   HashStyle,
   ImgAreaStyle,
   PriceStyle,
@@ -26,7 +25,6 @@ const Curation = () => {
                 <img src="https://cdn.imweb.me/thumbnail/20220422/e2416c9e52bf5.jpg" alt="" />
               </ImgAreaStyle>
               <TxtAreaStyle isCardType={true}>
-                <CategoryStyle>와인러버</CategoryStyle>
                 <Title
                   titleType="h3"
                   title="어른스러움의 프랑스 보르도 와인로드 10일"
@@ -48,7 +46,6 @@ const Curation = () => {
                 <img src="https://cdn.imweb.me/thumbnail/20220422/e2416c9e52bf5.jpg" alt="" />
               </ImgAreaStyle>
               <TxtAreaStyle isCardType={true}>
-                <CategoryStyle>와인러버</CategoryStyle>
                 <Title
                   titleType="h3"
                   title="어른스러움의 프랑스 보르도 와인로드 10일"
@@ -70,7 +67,6 @@ const Curation = () => {
                 <img src="https://cdn.imweb.me/thumbnail/20220422/e2416c9e52bf5.jpg" alt="" />
               </ImgAreaStyle>
               <TxtAreaStyle isCardType={true}>
-                <CategoryStyle>와인러버</CategoryStyle>
                 <Title
                   titleType="h3"
                   title="어른스러움의 프랑스 보르도 와인로드 10일"
