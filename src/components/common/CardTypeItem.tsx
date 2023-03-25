@@ -79,7 +79,7 @@ const CardTypeItem = ({
             title={item.title}
             fontWeight={FONTWEGHT.fw600}
             fontSize={FONTSIZE.fz22}
-            marginBotton="5px"
+            marginBottom="5px"
             color={cardType === 'ImageCardType' ? COLORS.white : COLORS.c1b1b1b}
           />
           <HashsStyle color={cardType === 'ImageCardType' ? COLORS.cededed : COLORS.ca6a6a6}>

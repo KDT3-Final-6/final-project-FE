@@ -57,7 +57,7 @@ const GroupTravel = () => {
           titleType="h2"
           fontSize={FONTSIZE.fz32}
           title="내 취향대로 여행"
-          marginBotton="66px"
+          marginBottom="66px"
         />
         <ProductListStyle>
           {products.map((product) => (
