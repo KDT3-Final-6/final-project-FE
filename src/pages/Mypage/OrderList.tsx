@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Pagination from '@src/components/common/Pagination'
 import { IOrder } from '@src/interfaces/order'
 import BarTypeItem from '@src/components/common/BarTypeItem'
+import { COLORS } from '@src/styles/root'
 
 const OrderList = () => {
   const orders: IOrder[] = [
@@ -56,7 +57,7 @@ const OrderList = () => {
       </Helmet>
       <OrderListStyle>
         {orders.map((order) => (
-          <BarTypeItem key={order.id} cardType="barType" item={order}></BarTypeItem>
+          <BarTypeItem key={order.id} cardType="barType" item={order} priceColor={COLORS.c404040} />
         ))}
       </OrderListStyle>
       <Pagination />

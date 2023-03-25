@@ -68,6 +68,7 @@ const GroupTravel = () => {
               imgHeight="100%"
               height="460px"
               priceBottom="30px"
+              priceColor={COLORS.c1b1b1b}
             />
           ))}
         </ProductListStyle>

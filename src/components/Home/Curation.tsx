@@ -1,7 +1,7 @@
 import { IProduct } from '@src/interfaces/product'
 import Inner from '@src/layout/Inner'
 import Section from '@src/layout/Section'
-import { FONTSIZE } from '@src/styles/root'
+import { COLORS, FONTSIZE } from '@src/styles/root'
 import React from 'react'
 import styled from 'styled-components'
 import CardTypeItem from '../common/CardTypeItem'
@@ -25,7 +25,6 @@ const Curation = () => {
         '몽생미셀',
         '파리',
         '고성호텔',
-        '몽생미셀',
         '와인',
         '샴페인',
         '와이너리',
@@ -50,7 +49,6 @@ const Curation = () => {
         '몽생미셀',
         '파리',
         '고성호텔',
-        '몽생미셀',
         '와인',
         '샴페인',
         '와이너리',
@@ -75,7 +73,6 @@ const Curation = () => {
         '몽생미셀',
         '파리',
         '고성호텔',
-        '몽생미셀',
         '와인',
         '샴페인',
         '와이너리',
@@ -102,6 +99,7 @@ const Curation = () => {
               cardType="cardType"
               imgWidth="100%"
               priceBottom="30px"
+              priceColor={COLORS.c1b1b1b}
             />
           ))}
         </ProductListStyle>

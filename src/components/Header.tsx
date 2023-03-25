@@ -86,6 +86,7 @@ const BarStyle = styled.span`
 const ButtonsStyle = styled.div`
   display: flex;
   gap: 20px;
+  color: ${COLORS.c333};
 
   a {
     display: flex;

@@ -91,7 +91,7 @@ const WishList = () => {
             bgImage={product.image}
             priceRight="18px"
             priceBottom="20px"
-            height="430px"
+            height="400px"
           />
         ))}
       </ProductListStyle>

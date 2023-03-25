@@ -8,14 +8,16 @@ import { FiShare2 } from 'react-icons/fi'
 import PATH from '@src/constants/pathConst'
 import { useNavigate } from 'react-router-dom'
 import { IOrder } from '@src/interfaces/order'
+import { color } from 'framer-motion'
 
 interface IBarTypeItem {
   item: IOrder
   cardType: string
   height?: string
+  priceColor?: string
 }
 
-function BarTypeItem({ item, cardType, height = '220px' }: IBarTypeItem) {
+function BarTypeItem({ item, cardType, height = '220px', priceColor }: IBarTypeItem) {
   const navigate = useNavigate()
 
   return (
@@ -25,13 +27,19 @@ function BarTypeItem({ item, cardType, height = '220px' }: IBarTypeItem) {
       </ImgAreaStyle>
       <TxtAreaStyle isBarType={true}>
         <CompleteStyle isPay={item.payment}>{item.payment ? '결제완료' : '여행완료'}</CompleteStyle>
-        <Title titleType="h3" title={item.title} fontSize={FONTSIZE.fz22} marginBotton="9px" />
-        <DecStyle fontSize={FONTSIZE.fz18} color={COLORS.c646161}>
+        <Title
+          titleType="h3"
+          title={item.title}
+          fontSize={FONTSIZE.fz22}
+          marginBotton="9px"
+          color={COLORS.c404040}
+        />
+        <DecStyle fontSize={FONTSIZE.fz18} color={COLORS.c404040}>
           {item.discription}
         </DecStyle>
         <DatePriceStyle>
           <p>{item.travelDate}</p>
-          <PriceStyle fontSize={FONTSIZE.fz30}>
+          <PriceStyle fontSize={FONTSIZE.fz30} priceColor={priceColor}>
             <span>결제금액 :</span>
             {`${item.price.toLocaleString()}원`}
           </PriceStyle>
@@ -58,7 +66,7 @@ export default BarTypeItem
 const CompleteStyle = styled.p<{
   isPay?: boolean
 }>`
-  color: ${(isPay) => (isPay ? COLORS.primary : COLORS.c878787)};
+  color: ${({ isPay }) => (isPay ? COLORS.primary : COLORS.c909090)};
   font-weight: ${FONTWEGHT.fw700};
   font-size: ${FONTSIZE.fz20};
   margin: 19px 0 9px;
@@ -80,7 +88,6 @@ const DatePriceStyle = styled.div`
   margin-top: 10px;
 
   ${PriceStyle} {
-    color: ${COLORS.c646161};
     display: flex;
     align-items: center;
 

@@ -26,6 +26,7 @@ interface ICardTypeItem {
   priceLeft?: string
   priceRight?: string
   priceBottom?: string
+  priceColor?: string
 }
 
 const CardTypeItem = ({
@@ -39,6 +40,7 @@ const CardTypeItem = ({
   priceLeft,
   priceRight,
   priceBottom,
+  priceColor,
 }: ICardTypeItem) => {
   const [heart, setHeart] = useState(item.heart)
 
@@ -75,11 +77,12 @@ const CardTypeItem = ({
           <Title
             titleType="h3"
             title={item.title}
-            fontWeight={FONTWEGHT.fw400}
+            fontWeight={FONTWEGHT.fw600}
             fontSize={FONTSIZE.fz22}
             marginBotton="5px"
+            color={cardType === 'ImageCardType' ? COLORS.white : COLORS.c1b1b1b}
           />
-          <HashsStyle color={cardType === 'ImageCardType' ? COLORS.cededed : COLORS.cb5b5b5}>
+          <HashsStyle color={cardType === 'ImageCardType' ? COLORS.cededed : COLORS.ca6a6a6}>
             {item.hashs.map((hash) => (
               <HashStyle key={hash} fontSize={FONTSIZE.fz19}>
                 {`#${hash}`}
@@ -92,6 +95,7 @@ const CardTypeItem = ({
             priceLeft={priceLeft}
             priceRight={priceRight}
             priceBottom={priceBottom}
+            priceColor={priceColor}
           >{`${item.price.toLocaleString()}원`}</PriceStyle>
         </TxtAreaStyle>
       </Link>

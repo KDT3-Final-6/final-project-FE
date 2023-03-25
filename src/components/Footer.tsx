@@ -114,7 +114,7 @@ const SNSStyle = styled.li<{ iconBgColor: string }>`
 
 const FooterBottomStyle = styled.div`
   display: flex;
-  color: ${COLORS.c999};
+  color: ${COLORS.c7c7c7c};
   justify-content: space-between;
 `
 
@@ -122,6 +122,10 @@ const CopyRightStyle = styled.div`
   margin-right: 84px;
   line-height: 20px;
   font-size: ${FONTSIZE.fz13};
+
+  a {
+    display: inline-block;
+  }
 `
 
 const AccountStyle = styled.div`
@@ -131,6 +135,7 @@ const AccountStyle = styled.div`
   justify-content: space-between;
   flex-direction: column;
   line-height: 20px;
+  color: ${COLORS.c333};
 `
 
 const CSCenter = styled(AccountStyle)`
@@ -138,7 +143,7 @@ const CSCenter = styled(AccountStyle)`
 `
 
 const Strong = styled.strong`
-  color: ${COLORS.c4e4e4e};
+  color: ${COLORS.c1b1b1b};
   font-weight: ${FONTWEGHT.fw700};
   font-size: ${FONTSIZE.fz18};
   line-height: 25px;

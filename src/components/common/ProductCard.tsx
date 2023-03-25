@@ -91,13 +91,9 @@ const handleCardType = (cardType: string, bgImage: string) => {
         color:${COLORS.white};
 
         a {
-          padding:14px 18px 80px;
+          padding:14px 18px 130px;
           width:100%;
           height:100%;
-        }
-
-        ${ImgAreaStyle} {
-          height:50%;
         }
         ${TxtAreaStyle} {
           border:0;
@@ -106,7 +102,7 @@ const handleCardType = (cardType: string, bgImage: string) => {
           bottom:0;
           left:0;
           width:100%;
-          padding: 0 18px 80px;
+          padding: 0 18px 130px;
         }
         ${CategoryStyle} {
           padding:4px 9px;
@@ -216,6 +212,7 @@ const PriceStyle = styled.p<{
   priceLeft?: string
   priceRight?: string
   priceBottom?: string
+  priceColor?: string
 }>`
   font-size: ${({ fontSize }) => fontSize};
   font-weight: ${FONTWEGHT.fw700};
@@ -226,6 +223,7 @@ const PriceStyle = styled.p<{
   bottom: ${({ priceBottom }) => priceBottom};
   left: ${({ priceLeft }) => priceLeft};
   right: ${({ priceRight }) => priceRight};
+  color: ${({ priceColor }) => priceColor};
 `
 
 export {
