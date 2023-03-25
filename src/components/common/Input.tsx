@@ -4,7 +4,7 @@ import { FiSearch } from 'react-icons/fi'
 import Button from './Button'
 import { COLORS, FONTSIZE } from '@src/styles/root'
 
-interface Props {
+interface IInput {
   inputType: string
   type: string
   placeholder?: string
@@ -12,7 +12,7 @@ interface Props {
   height?: string
 }
 
-const Input = ({ inputType = '', type = 'text', placeholder, width = '', height = '' }: Props) => {
+const Input = ({ inputType = '', type = 'text', placeholder, width = '', height = '' }: IInput) => {
   return (
     <InputStyle inputType={inputType} width={width} height={height}>
       <input type={type} placeholder={placeholder} />

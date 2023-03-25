@@ -34,11 +34,11 @@ const HeartButtonStyle = styled.button<{
   width: 38px;
   height: 38px;
   position: absolute;
-  top: ${(props) => props.top};
-  right: ${(props) => props.right};
+  top: ${({ top }) => top};
+  right: ${({ right }) => right};
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.5);
-  color: ${(props) => (props.isHeart ? COLORS.heart : COLORS.white)};
+  color: ${({ isHeart }) => (isHeart ? COLORS.heart : COLORS.white)};
   font-size: ${FONTSIZE.fz18};
   display: flex;
   justify-content: center;

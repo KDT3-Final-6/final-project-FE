@@ -53,8 +53,8 @@ const CardStyle = styled.li<{
   height: ${({ height }) => height};
 
   img {
-    width: ${(props) => props.imgWidth};
-    height: ${(props) => props.imgHeight};
+    width: ${({ imgWidth }) => imgWidth};
+    height: ${({ imgHeight }) => imgHeight};
     position: absolute;
     top: 50%;
     left: 50%;
@@ -161,12 +161,12 @@ const TxtAreaStyle = styled.div<{
   isCardType?: boolean
   isBarType?: boolean
 }>`
-  width: ${(props) => props.isBarType && 'calc(100% - 300px)'};
-  height: ${(props) => props.isCardType && 'calc(100% - 300px)'};
-  padding: ${(props) => props.isCardType && '20px'};
-  border: ${(props) => props.isCardType && `1px solid ${COLORS.cededed}`};
+  width: ${({ isBarType }) => isBarType && 'calc(100% - 300px)'};
+  height: ${({ isCardType }) => isCardType && 'calc(100% - 300px)'};
+  padding: ${({ isCardType }) => isCardType && '20px'};
+  border: ${({ isCardType }) => isCardType && `1px solid ${COLORS.cededed}`};
   border-radius: 0 0 12px 12px;
-  justify-content: ${(props) => props.isBarType && 'space-between'};
+  justify-content: ${({ isBarType }) => isBarType && 'space-between'};
   position: relative;
 `
 
@@ -180,10 +180,10 @@ const CategoryStyle = styled.span<{
   padding: 5px 10px;
   border-radius: 8px;
   margin-bottom: 14px;
-  background-color: ${(props) =>
-    props.categoryName === '여자끼리' ? COLORS.cbe4b4b : '익사이팅' && COLORS.c74fff7};
-  color: ${(props) =>
-    props.categoryName === '여자끼리' ? COLORS.white : '익사이팅' && COLORS.c2e9892};
+  background-color: ${({ categoryName }) =>
+    categoryName === '여자끼리' ? COLORS.cbe4b4b : '익사이팅' && COLORS.c74fff7};
+  color: ${({ categoryName }) =>
+    categoryName === '여자끼리' ? COLORS.white : '익사이팅' && COLORS.c2e9892};
 `
 
 const HashsStyle = styled.div<{
@@ -194,7 +194,7 @@ const HashsStyle = styled.div<{
   flex-wrap: wrap;
   gap: 5px;
   margin-bottom: ${({ marginBottom }) => marginBottom};
-  color: ${(props) => props.color};
+  color: ${({ color }) => color};
   text-overflow: ellipsis;
   overflow: hidden;
   word-break: break-word;

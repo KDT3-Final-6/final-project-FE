@@ -98,7 +98,7 @@ const SNSStyle = styled.li<{ iconBgColor: string }>`
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background: ${(props) => props.iconBgColor};
+  background: ${({ iconBgColor }) => iconBgColor};
   color: ${COLORS.white};
   font-size: ${FONTSIZE.fz20};
   overflow: hidden;

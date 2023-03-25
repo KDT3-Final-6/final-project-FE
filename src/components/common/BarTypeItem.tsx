@@ -58,7 +58,7 @@ export default BarTypeItem
 const CompleteStyle = styled.p<{
   isPay?: boolean
 }>`
-  color: ${(props) => (props.isPay ? COLORS.primary : COLORS.c878787)};
+  color: ${(isPay) => (isPay ? COLORS.primary : COLORS.c878787)};
   font-weight: ${FONTWEGHT.fw700};
   font-size: ${FONTSIZE.fz20};
   margin: 19px 0 9px;
@@ -68,8 +68,8 @@ const DecStyle = styled.p<{
   fontSize: string
   color: string
 }>`
-  font-size: ${(props) => props.fontSize};
-  color: ${(props) => props.color};
+  font-size: ${({ fontSize }) => fontSize};
+  color: ${({ color }) => color};
 `
 
 const DatePriceStyle = styled.div`

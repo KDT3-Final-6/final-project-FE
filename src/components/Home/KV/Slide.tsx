@@ -1,4 +1,4 @@
-import { FONTWEGHT } from '@src/styles/root'
+import { COLORS, FONTWEGHT } from '@src/styles/root'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -19,11 +19,11 @@ const Slide = ({ children, width, height }: SlideProp) => {
 export default Slide
 
 const SlideStyle = styled.div<SlideProp>`
-  width: ${(props) => props.width};
-  height: ${(props) => props.height};
-  background-color: #ffffff;
+  width: ${({ width }) => width};
+  height: ${({ height }) => height};
+  background-color: ${COLORS.white};
   border-radius: 5px;
-  color: black;
+  color: ${COLORS.black};
   font-weight: ${FONTWEGHT.fw700};
   text-align: center;
   line-height: 90px;
