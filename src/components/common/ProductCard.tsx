@@ -181,9 +181,9 @@ const CategoryStyle = styled.span<{
   border-radius: 8px;
   margin-bottom: 14px;
   background-color: ${(props) =>
-    props.categoryName === '여자끼리' ? COLORS.crimson : '익사이팅' && COLORS.exciting};
+    props.categoryName === '여자끼리' ? COLORS.cbe4b4b : '익사이팅' && COLORS.c74fff7};
   color: ${(props) =>
-    props.categoryName === '여자끼리' ? COLORS.white : '익사이팅' && COLORS.excitingTxt};
+    props.categoryName === '여자끼리' ? COLORS.white : '익사이팅' && COLORS.c2e9892};
 `
 
 const HashsStyle = styled.div<{

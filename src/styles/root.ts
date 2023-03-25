@@ -17,6 +17,9 @@ const COLORS = {
   c767676: '#c767676',
   c090909: '#090909',
   ca6a6a6: '#a6a6a6',
+  cbe4b4b: '#be4b4b',
+  c74fff7: '#74FFF7',  
+  c2e9892: '#2e9892',
   black: '#000',
   white: '#fff',   
   youTube: '#F50000',
@@ -24,9 +27,6 @@ const COLORS = {
   instagram: 'radial-gradient(circle farthest-corner at 35% 90%, #fec564, transparent 50%), radial-gradient(circle farthest-corner at 0 140%, #fec564, transparent 50%), radial-gradient(ellipse farthest-corner at 0 -25%, #5258cf, transparent 50%), radial-gradient(ellipse farthest-corner at 20% -50%, #5258cf, transparent 50%), radial-gradient(ellipse farthest-corner at 100% 0, #893dc2, transparent 50%), radial-gradient(ellipse farthest-corner at 60% -20%, #893dc2, transparent 50%), radial-gradient(ellipse farthest-corner at 100% 100%, #d9317a, transparent), linear-gradient(#6559ca, #bc318f 30%, #e33f5f 50%, #f77638 70%, #fec66d 100%)',
   twitter: '#60ABF0',
   heart:'#ff0f0f',
-  crimson: '#be4b4b',
-  exciting: '#74FFF7',
-  excitingTxt:'#2e9892'
 }
 
 const FONTSIZE = {
