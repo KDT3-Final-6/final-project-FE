@@ -6,13 +6,30 @@ interface IButton {
   buttonType: string
   width?: string
   height?: string
+  borderRadius?: string
+  margin?: string
   children?: React.ReactNode
   onClick?: React.MouseEventHandler<HTMLButtonElement>
 }
 
-const Button = ({ buttonType = '', width = '', height = '', children, onClick }: IButton) => {
+const Button = ({
+  buttonType = '',
+  width = '',
+  height = '',
+  borderRadius = '',
+  margin = '',
+  children,
+  onClick,
+}: IButton) => {
   return (
-    <ButtonStyle buttonType={buttonType} width={width} height={height} onClick={onClick}>
+    <ButtonStyle
+      buttonType={buttonType}
+      width={width}
+      height={height}
+      borderRadius={borderRadius}
+      margin={margin}
+      onClick={onClick}
+    >
       {children}
     </ButtonStyle>
   )
@@ -24,10 +41,14 @@ export const ButtonStyle = styled.button<{
   buttonType: string
   width: string
   height: string
+  borderRadius: string
+  margin: string
 }>`
   ${({ buttonType }) => handleButtonType(buttonType)}
   width:${({ width }) => width};
   height: ${({ height }) => height};
+  border-radius: ${({ borderRadius }) => borderRadius};
+  margin: ${({ margin }) => margin};
 `
 
 const handleButtonType = (buttonType: string) => {
@@ -42,6 +63,15 @@ const handleButtonType = (buttonType: string) => {
         &:hover {
           background-color: ${COLORS.primary};
           color: ${COLORS.white};
+        }
+      `
+    case 'gray':
+      return `
+        background:${COLORS.cbcbcbc};
+        color:${COLORS.white};
+
+        &:hover {
+          background-color:${COLORS.c7c7c7c};
         }
       `
     case 'transparent':

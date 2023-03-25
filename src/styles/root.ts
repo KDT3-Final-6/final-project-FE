@@ -22,6 +22,9 @@ const COLORS = {
   c74fff7: '#74FFF7',  
   c2e9892: '#2e9892',
   c404040: '#404040',
+  cddd: '#ddd',
+  caeaeae: '#caeaeae',
+  cbcbcbc: '#bcbcbc',
   black: '#000',
   white: '#fff',   
   youTube: '#F50000',
@@ -32,6 +35,7 @@ const COLORS = {
 }
 
 const FONTSIZE = {
+  fz12: '12px',
   fz13: '13px',
   fz14: '14px',
   fz15: '14px',

@@ -6,13 +6,21 @@ import { COLORS, FONTSIZE } from '@src/styles/root'
 
 interface IInput {
   inputType: string
-  type: string
+  type?: string
   placeholder?: string
   width?: string
   height?: string
+  padding?: string
 }
 
-const Input = ({ inputType = '', type = 'text', placeholder, width = '', height = '' }: IInput) => {
+const Input = ({
+  inputType = '',
+  type = 'text',
+  placeholder,
+  width = '',
+  height = '',
+  padding = '',
+}: IInput) => {
   return (
     <InputStyle inputType={inputType} width={width} height={height}>
       <input type={type} placeholder={placeholder} />
@@ -57,6 +65,20 @@ const handleInputType = (inputType: string) => {
             display:flex;
             color:${COLORS.c646161};
             font-size:${FONTSIZE.fz22};
+          }
+        }
+      `
+    case 'textInput':
+      return `
+        border:1px solid ${COLORS.cddd};
+        width:100%;
+        height:46px;
+
+        input {
+          padding:14px 30px;
+
+          &::placeholder {
+            color:${COLORS.caeaeae};
           }
         }
       `

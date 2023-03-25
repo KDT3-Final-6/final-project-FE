@@ -66,7 +66,9 @@ const GnbStyle = styled.div`
   border-bottom: 1px solid ${COLORS.cd9d8d8};
 `
 
-const LnbStyle = styled.div``
+const LnbStyle = styled.div`
+  border-bottom: 1px solid ${COLORS.cd9d8d8};
+`
 
 const LnbListStyle = styled.ul`
   display: flex;
