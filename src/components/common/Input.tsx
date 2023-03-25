@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { FiSearch } from 'react-icons/fi'
 import Button from './Button'
-import COLORS from '@src/styles/root'
+import { COLORS } from '@src/styles/root'
 
 interface Props {
   inputType: string
@@ -41,7 +41,7 @@ const handleInputType = (inputType: string) => {
   switch (inputType) {
     case 'searchInput':
       return `
-        background:${COLORS.searchGrey};
+        background:${COLORS.cf3f3f3};
         border-radius:8px;
         position:relative;
 
@@ -55,7 +55,7 @@ const handleInputType = (inputType: string) => {
 
           svg {
             display:flex;
-            color:${COLORS.darkGrey};
+            color:${COLORS.c646161};
             font-size:22px;
           }
         }

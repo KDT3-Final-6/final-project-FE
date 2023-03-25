@@ -1,6 +1,6 @@
 import PATH from '@src/constants/pathConst'
 import { IProduct } from '@src/interfaces/product'
-import COLORS from '@src/styles/root'
+import { COLORS } from '@src/styles/root'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import HeartButton from './HeartButton'
@@ -79,7 +79,7 @@ const CardTypeItem = ({
             fontSize="22px"
             marginBotton="5px"
           />
-          <HashsStyle color={cardType === 'ImageCardType' ? COLORS.lightGrey : COLORS.hashGrey}>
+          <HashsStyle color={cardType === 'ImageCardType' ? COLORS.cededed : COLORS.cb5b5b5}>
             {item.hashs.map((hash) => (
               <HashStyle key={hash} fontSize="19px">
                 {`#${hash}`}

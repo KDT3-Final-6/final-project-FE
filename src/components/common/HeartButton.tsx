@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { BsFillSuitHeartFill } from 'react-icons/bs'
-import COLORS from '@src/styles/root'
+import { COLORS } from '@src/styles/root'
 
 interface IHeart {
   productId: string

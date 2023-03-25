@@ -4,7 +4,7 @@ import { RiPencilLine } from 'react-icons/ri'
 import styled from 'styled-components'
 import RoundButton from '@src/components/common/RoundButton'
 import MenuTab from '@src/components/MyPage/MenuTab'
-import COLORS from '@src/styles/root'
+import { COLORS } from '@src/styles/root'
 import { Outlet } from 'react-router-dom'
 
 const MyPage = () => {
@@ -60,7 +60,7 @@ const ImageStyle = styled.div`
 `
 
 const InnerWrap = styled.div`
-  border-top: 1px solid ${COLORS.mediumGrey};
+  border-top: 1px solid ${COLORS.cd9d8d8};
 `
 
 export default MyPage

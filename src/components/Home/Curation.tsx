@@ -1,18 +1,9 @@
-import PATH from '@src/constants/pathConst'
 import { IProduct } from '@src/interfaces/product'
 import Inner from '@src/layout/Inner'
 import Section from '@src/layout/Section'
-import COLORS from '@src/styles/root'
 import React from 'react'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import CardTypeItem from '../common/CardTypeItem'
-import ProductCard, {
-  HashStyle,
-  ImgAreaStyle,
-  PriceStyle,
-  TxtAreaStyle,
-} from '../common/ProductCard'
 import Title from '../common/Title'
 
 const Curation = () => {

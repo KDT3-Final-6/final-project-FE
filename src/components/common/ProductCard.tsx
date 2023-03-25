@@ -1,4 +1,4 @@
-import COLORS from '@src/styles/root'
+import { COLORS } from '@src/styles/root'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -164,7 +164,7 @@ const TxtAreaStyle = styled.div<{
   width: ${(props) => props.isBarType && 'calc(100% - 300px)'};
   height: ${(props) => props.isCardType && 'calc(100% - 300px)'};
   padding: ${(props) => props.isCardType && '20px'};
-  border: ${(props) => props.isCardType && `1px solid ${COLORS.lightGrey}`};
+  border: ${(props) => props.isCardType && `1px solid ${COLORS.cededed}`};
   border-radius: 0 0 12px 12px;
   justify-content: ${(props) => props.isBarType && 'space-between'};
   position: relative;

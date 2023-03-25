@@ -1,4 +1,4 @@
-import COLORS from '@src/styles/root'
+import { COLORS } from '@src/styles/root'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -51,9 +51,9 @@ const handleButtonType = (buttonType: string) => {
       `
     case 'borderGray':
       return `
-        border:1px solid ${COLORS.disableBgGrey};
+        border:1px solid ${COLORS.ce2e2e2};
         background-color:transparent;
-        color:${COLORS.disableTxtGrey};
+        color:${COLORS.c878787};
         padding:11.5px 58px;
         font-size:16px;
         font-weight:bold;
@@ -61,8 +61,8 @@ const handleButtonType = (buttonType: string) => {
     case 'disable':
       return `
         border:none;
-        background-color:${COLORS.disableBgGrey};
-        color:${COLORS.disableTxtGrey};
+        background-color:${COLORS.ce2e2e2};
+        color:${COLORS.c878787};
         padding:11.5px 58px;
         font-size:16px;
         font-weight:bold;
@@ -70,7 +70,7 @@ const handleButtonType = (buttonType: string) => {
       `
     case 'cartGray':
       return `
-        border: 1px solid ${COLORS.disableBgGrey};
+        border: 1px solid ${COLORS.ce2e2e2};
         background-color: transparent;
         color: #404040;
         width: 140px;

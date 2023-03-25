@@ -1,4 +1,4 @@
-import COLORS from '@src/styles/root'
+import { COLORS } from '@src/styles/root'
 import React from 'react'
 import styled from 'styled-components'
 import Button from './Button'
@@ -26,7 +26,7 @@ function BarTypeItem({ item, cardType, height = '220px' }: IBarTypeItem) {
       <TxtAreaStyle isBarType={true}>
         <CompleteStyle isPay={item.payment}>{item.payment ? '결제완료' : '여행완료'}</CompleteStyle>
         <Title titleType="h3" title={item.title} fontSize="22px" marginBotton="9px" />
-        <DecStyle fontSize="18px" color={COLORS.darkGrey}>
+        <DecStyle fontSize="18px" color={COLORS.c646161}>
           {item.discription}
         </DecStyle>
         <DatePriceStyle>
@@ -58,7 +58,7 @@ export default BarTypeItem
 const CompleteStyle = styled.p<{
   isPay?: boolean
 }>`
-  color: ${(props) => (props.isPay ? COLORS.primary : COLORS.disableTxtGrey)};
+  color: ${(props) => (props.isPay ? COLORS.primary : COLORS.c878787)};
   font-weight: bold;
   font-size: 20px;
   margin: 19px 0 9px;
@@ -80,7 +80,7 @@ const DatePriceStyle = styled.div`
   margin-top: 10px;
 
   ${PriceStyle} {
-    color: ${COLORS.darkGrey};
+    color: ${COLORS.c646161};
     display: flex;
     align-items: center;
 
