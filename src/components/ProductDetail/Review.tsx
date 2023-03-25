@@ -1,3 +1,4 @@
+import { FONTWEGHT } from '@src/styles/root'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -11,7 +12,7 @@ const Review = (props: Props) => {
         썸네일 구역
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-        <span style={{ fontWeight: 700 }}>골프 여행 짱</span>
+        <span style={{ fontWeight: FONTWEGHT.fw700 }}>골프 여행 짱</span>
         <div>★★★★☆</div>
       </div>
       <div

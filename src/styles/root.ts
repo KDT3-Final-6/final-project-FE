@@ -30,12 +30,20 @@ const COLORS = {
 }
 
 const FONTSIZE = {
+  fz13: '13px',
   fz14: '14px',
+  fz15: '14px',
   fz16: '16px',
+  fz18: '18px',
+  fz19: '19px',
   fz20: '20px',
   fz21: '21px',
+  fz22: '22px',
+  fz23: '23px',
   fz24: '24px',
+  fz25: '25px',
   fz26: '26px',
+  fz30: '30px',
   fz32: '32px',
 }
 

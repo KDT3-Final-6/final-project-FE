@@ -1,3 +1,4 @@
+import { FONTSIZE } from '@src/styles/root'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -25,7 +26,7 @@ const ButtonStyle = styled.div`
   width: 50px;
   height: 50px;
   border: 1px solid black;
-  font-size: 15px;
+  font-size: ${FONTSIZE.fz15};
   text-align: center;
   vertical-align: middle;
 `

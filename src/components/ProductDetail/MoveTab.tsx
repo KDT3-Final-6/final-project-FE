@@ -1,3 +1,4 @@
+import { FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
@@ -26,8 +27,8 @@ const MoveTabStyle = styled.div`
 
 const Tab = styled.span`
   cursor: pointer;
-  font-size: 25px;
-  font-weight: 500;
+  font-size: ${FONTSIZE.fz25};
+  font-weight: ${FONTWEGHT.fw500};
 `
 
 export default MoveTab

@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { FiSearch } from 'react-icons/fi'
 import Button from './Button'
-import { COLORS } from '@src/styles/root'
+import { COLORS, FONTSIZE } from '@src/styles/root'
 
 interface Props {
   inputType: string
@@ -56,7 +56,7 @@ const handleInputType = (inputType: string) => {
           svg {
             display:flex;
             color:${COLORS.c646161};
-            font-size:22px;
+            font-size:${FONTSIZE.fz22};
           }
         }
       `

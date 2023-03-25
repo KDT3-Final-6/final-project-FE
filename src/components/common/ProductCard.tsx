@@ -1,4 +1,4 @@
-import { COLORS } from '@src/styles/root'
+import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -175,7 +175,7 @@ const CategoryStyle = styled.span<{
 }>`
   background-color: ${COLORS.black};
   color: ${COLORS.white};
-  font-size: 13px;
+  font-size: ${FONTSIZE.fz13};
   display: inline-block;
   padding: 5px 10px;
   border-radius: 8px;
@@ -218,7 +218,7 @@ const PriceStyle = styled.p<{
   priceBottom?: string
 }>`
   font-size: ${({ fontSize }) => fontSize};
-  font-weight: 700;
+  font-weight: ${FONTWEGHT.fw700};
   text-align: ${({ textAlign }) => textAlign};
   white-space: nowrap;
   position: absolute;

@@ -5,6 +5,7 @@ import Option from './Option'
 import { AiOutlineShareAlt, AiOutlineShoppingCart } from 'react-icons/ai'
 import Button from '../common/Button'
 import Title from '../common/Title'
+import { FONTSIZE, FONTWEGHT } from '@src/styles/root'
 
 type Props = {}
 
@@ -15,8 +16,12 @@ const ProductInfo = (props: Props) => {
         이미지 슬라이드
       </div>
       <DescStyle>
-        <Title titleType="h3" title="[실속 골프 패키지] 사이판 3박 4일 골프 여행" fontSize="24px" />
-        <span style={{ fontSize: '18px' }}>여행 간단 설명</span>
+        <Title
+          titleType="h3"
+          title="[실속 골프 패키지] 사이판 3박 4일 골프 여행"
+          fontSize={FONTSIZE.fz24}
+        />
+        <span style={{ fontSize: FONTSIZE.fz18 }}>여행 간단 설명</span>
         <div style={{ display: 'flex' }}>
           <div>★★★★☆</div>
           <span>4.0</span>
@@ -26,7 +31,7 @@ const ProductInfo = (props: Props) => {
         <div style={{ textAlign: 'right' }}>
           <span>1인</span>
           {'/'}
-          <span style={{ fontWeight: 700, fontSize: '32px' }}>350,000원</span>
+          <span style={{ fontWeight: FONTWEGHT.fw700, fontSize: FONTSIZE.fz32 }}>350,000원</span>
         </div>
         <div>
           <span>인원 선택</span>

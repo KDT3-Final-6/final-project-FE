@@ -1,6 +1,6 @@
 import PATH from '@src/constants/pathConst'
 import { IProduct } from '@src/interfaces/product'
-import { COLORS } from '@src/styles/root'
+import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import HeartButton from './HeartButton'
@@ -75,19 +75,19 @@ const CardTypeItem = ({
           <Title
             titleType="h3"
             title={item.title}
-            fontWeight="normal"
-            fontSize="22px"
+            fontWeight={FONTWEGHT.fw400}
+            fontSize={FONTSIZE.fz22}
             marginBotton="5px"
           />
           <HashsStyle color={cardType === 'ImageCardType' ? COLORS.cededed : COLORS.cb5b5b5}>
             {item.hashs.map((hash) => (
-              <HashStyle key={hash} fontSize="19px">
+              <HashStyle key={hash} fontSize={FONTSIZE.fz19}>
                 {`#${hash}`}
               </HashStyle>
             ))}
           </HashsStyle>
           <PriceStyle
-            fontSize="30px"
+            fontSize={FONTSIZE.fz30}
             priceTop={priceTop}
             priceLeft={priceLeft}
             priceRight={priceRight}

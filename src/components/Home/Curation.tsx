@@ -1,6 +1,7 @@
 import { IProduct } from '@src/interfaces/product'
 import Inner from '@src/layout/Inner'
 import Section from '@src/layout/Section'
+import { FONTSIZE } from '@src/styles/root'
 import React from 'react'
 import styled from 'styled-components'
 import CardTypeItem from '../common/CardTypeItem'
@@ -87,7 +88,12 @@ const Curation = () => {
   return (
     <Section>
       <Inner>
-        <Title titleType="h2" fontSize="32px" title="어디로 여행을 떠날까요?" marginBotton="66px" />
+        <Title
+          titleType="h2"
+          fontSize={FONTSIZE.fz32}
+          title="어디로 여행을 떠날까요?"
+          marginBotton="66px"
+        />
         <ProductListStyle>
           {products.map((product) => (
             <CardTypeItem

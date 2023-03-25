@@ -1,3 +1,4 @@
+import { FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -12,8 +13,8 @@ interface ITitle {
 const Title = ({
   titleType,
   title,
-  fontSize = '25px',
-  fontWeight = '700',
+  fontSize = FONTSIZE.fz25,
+  fontWeight = FONTWEGHT.fw700,
   marginBotton = '',
 }: ITitle) => {
   return (

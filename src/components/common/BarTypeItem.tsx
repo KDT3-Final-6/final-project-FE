@@ -1,4 +1,4 @@
-import { COLORS } from '@src/styles/root'
+import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import React from 'react'
 import styled from 'styled-components'
 import Button from './Button'
@@ -25,13 +25,13 @@ function BarTypeItem({ item, cardType, height = '220px' }: IBarTypeItem) {
       </ImgAreaStyle>
       <TxtAreaStyle isBarType={true}>
         <CompleteStyle isPay={item.payment}>{item.payment ? '결제완료' : '여행완료'}</CompleteStyle>
-        <Title titleType="h3" title={item.title} fontSize="22px" marginBotton="9px" />
-        <DecStyle fontSize="18px" color={COLORS.c646161}>
+        <Title titleType="h3" title={item.title} fontSize={FONTSIZE.fz22} marginBotton="9px" />
+        <DecStyle fontSize={FONTSIZE.fz18} color={COLORS.c646161}>
           {item.discription}
         </DecStyle>
         <DatePriceStyle>
           <p>{item.travelDate}</p>
-          <PriceStyle fontSize="30px">
+          <PriceStyle fontSize={FONTSIZE.fz30}>
             <span>결제금액 :</span>
             {`${item.price.toLocaleString()}원`}
           </PriceStyle>
@@ -59,8 +59,8 @@ const CompleteStyle = styled.p<{
   isPay?: boolean
 }>`
   color: ${(props) => (props.isPay ? COLORS.primary : COLORS.c878787)};
-  font-weight: bold;
-  font-size: 20px;
+  font-weight: ${FONTWEGHT.fw700};
+  font-size: ${FONTSIZE.fz20};
   margin: 19px 0 9px;
 `
 
@@ -85,8 +85,8 @@ const DatePriceStyle = styled.div`
     align-items: center;
 
     span {
-      font-weight: normal;
-      font-size: 20px;
+      font-weight: ${FONTWEGHT.fw400};
+      font-size: ${FONTSIZE.fz20};
       margin-right: 10px;
     }
   }
@@ -107,7 +107,7 @@ const Buttons = styled.div<{
     display: flex;
     align-items: center;
     svg {
-      font-size: 20px;
+      font-size: ${FONTSIZE.fz20};
       margin-right: 10px;
     }
   }

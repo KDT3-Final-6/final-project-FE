@@ -1,5 +1,5 @@
 import Inner from '@src/layout/Inner'
-import { COLORS } from '@src/styles/root'
+import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
@@ -100,7 +100,7 @@ const SNSStyle = styled.li<{ iconBgColor: string }>`
   border-radius: 50%;
   background: ${(props) => props.iconBgColor};
   color: ${COLORS.white};
-  font-size: 20px;
+  font-size: ${FONTSIZE.fz20};
   overflow: hidden;
 
   a {
@@ -121,12 +121,12 @@ const FooterBottomStyle = styled.div`
 const CopyRightStyle = styled.div`
   margin-right: 84px;
   line-height: 20px;
-  font-size: 13px;
+  font-size: ${FONTSIZE.fz13};
 `
 
 const AccountStyle = styled.div`
   margin-right: 46px;
-  font-size: 14px;
+  font-size: ${FONTSIZE.fz14};
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -139,7 +139,7 @@ const CSCenter = styled(AccountStyle)`
 
 const Strong = styled.strong`
   color: ${COLORS.c4e4e4e};
-  font-weight: bold;
-  font-size: 18px;
+  font-weight: ${FONTWEGHT.fw700};
+  font-size: ${FONTSIZE.fz18};
   line-height: 25px;
 `

@@ -1,3 +1,4 @@
+import { FONTWEGHT } from '@src/styles/root'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -23,7 +24,7 @@ const SlideStyle = styled.div<SlideProp>`
   background-color: #ffffff;
   border-radius: 5px;
   color: black;
-  font-weight: bold;
+  font-weight: ${FONTWEGHT.fw700};
   text-align: center;
   line-height: 90px;
 `

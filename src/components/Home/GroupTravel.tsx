@@ -2,7 +2,7 @@ import PATH from '@src/constants/pathConst'
 import { IProduct } from '@src/interfaces/product'
 import Inner from '@src/layout/Inner'
 import Section from '@src/layout/Section'
-import { COLORS } from '@src/styles/root'
+import { COLORS, FONTSIZE } from '@src/styles/root'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
@@ -53,7 +53,12 @@ const GroupTravel = () => {
   return (
     <Section>
       <Inner>
-        <Title titleType="h2" fontSize="32px" title="내 취향대로 여행" marginBotton="66px" />
+        <Title
+          titleType="h2"
+          fontSize={FONTSIZE.fz32}
+          title="내 취향대로 여행"
+          marginBotton="66px"
+        />
         <ProductListStyle>
           {products.map((product) => (
             <CardTypeItem

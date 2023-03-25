@@ -1,4 +1,4 @@
-import { COLORS } from '@src/styles/root'
+import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -55,8 +55,8 @@ const handleButtonType = (buttonType: string) => {
         background-color:transparent;
         color:${COLORS.c878787};
         padding:11.5px 58px;
-        font-size:16px;
-        font-weight:bold;
+        font-size:${FONTSIZE.fz16};
+        font-weight:${FONTWEGHT.fw700};
       `
     case 'disable':
       return `
@@ -64,8 +64,8 @@ const handleButtonType = (buttonType: string) => {
         background-color:${COLORS.ce2e2e2};
         color:${COLORS.c878787};
         padding:11.5px 58px;
-        font-size:16px;
-        font-weight:bold;
+        font-size:${FONTSIZE.fz16};
+        font-weight:${FONTWEGHT.fw700};
         cursor:default;
       `
     case 'cartGray':

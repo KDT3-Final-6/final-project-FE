@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { AiOutlineHeart, AiOutlineUser, AiOutlineShoppingCart } from 'react-icons/ai'
 import { FiLogIn } from 'react-icons/fi'
-import { COLORS } from '@src/styles/root'
+import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import Input from './common/Input'
 import Inner from '@src/layout/Inner'
 
@@ -70,10 +70,10 @@ const LnbStyle = styled.div``
 
 const LnbListStyle = styled.ul`
   display: flex;
-  font-size: 20px;
+  font-size: ${FONTSIZE.fz20};
   gap: 30px;
   color: ${COLORS.c1b1b1b};
-  font-weight: 600;
+  font-weight: ${FONTWEGHT.fw600};
 `
 
 const BarStyle = styled.span`
@@ -93,13 +93,13 @@ const ButtonsStyle = styled.div`
     text-align: center;
 
     svg {
-      font-size: 23px;
+      font-size: ${FONTSIZE.fz23};
     }
 
     span {
       width: 100%;
       display: block;
-      font-size: 14px;
+      font-size: ${FONTSIZE.fz14};
       margin-top: 6px;
     }
   }
