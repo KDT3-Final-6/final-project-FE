@@ -5,6 +5,7 @@ const COLORS = {
   cededed: '#ededed',
   cd9d8d8: '#d9d8d8',
   cf3f3f3: '#f3f3f3',
+  c394128: '#394128',
   c646161: '#646161',
   c999: '#999',
   c4e4e4e: '#4e4e4e',
@@ -12,6 +13,7 @@ const COLORS = {
   c878787: '#878787',
   ce2e2e2: '#E2E2E2',
   c1b1b1b: '#1b1b1b',
+  c919F79: '#919F79',
   c333: '#333',
   c7c7c7c: '#7c7c7c',
   c767676: '#767676',
@@ -27,15 +29,12 @@ const COLORS = {
   cf6f6f6: '#f6f6f6',
   caeaeae: '#caeaeae',
   cbcbcbc: '#bcbcbc',
-<<<<<<< HEAD
   fdb813: '#fdb813',
   c3ba1ff: '#3ba1ff',
-=======
   cfdb813: '#fdb813',
   cd9d9d9: '#D9D9D9',
   cffcc43: '#ffcc43',
   c3BA1FF: '#3BA1FF',
->>>>>>> 77b4690 (Feat: 메인 페이지 후기 영역 마크업)
   black: '#000',
   white: '#fff',
   youTube: '#F50000',
@@ -63,8 +62,10 @@ const FONTSIZE = {
   fz24: '24px',
   fz25: '25px',
   fz26: '26px',
+  fz28: '28px',
   fz30: '30px',
   fz32: '32px',
+  fz45: '45px',
 }
 
 const FONTWEGHT = {

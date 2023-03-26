@@ -54,7 +54,7 @@ const GroupTravel = () => {
     <Section>
       <Inner>
         <Title fontSize={FONTSIZE.fz32} margin="0 0 66px">
-          <h2>내 취향대로 여행</h2>
+          <h2>그룹별 여행</h2>
         </Title>
         <ProductListStyle>
           {products.map((product) => (

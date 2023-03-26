@@ -9,8 +9,6 @@ interface SlideProp {
 }
 
 const Slide = ({ children, width, height }: SlideProp) => {
-  // console.log('children', children)
-
   return (
     <SlideStyle width={width} height={height}>
       <span>{children}</span>

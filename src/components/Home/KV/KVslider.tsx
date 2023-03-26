@@ -10,7 +10,7 @@ import { Navigation, FreeMode, Thumbs, EffectFade, Autoplay } from 'swiper'
 // Import Swiper styles
 import 'swiper/css' //basic
 import 'swiper/css/navigation'
-import 'swiper/css/pagination'
+import 'swiper/css/effect-fade'
 import Image from '@src/components/common/Image'
 
 const DELEAY_TIME = 5000
@@ -42,7 +42,7 @@ const KVslider = () => {
     <Container>
       {/* Main Slider */}
       <MainSwiperStyle
-        // effect="fade"
+        effect="fade"
         // fadeEffect={{ crossFade: true }}
         loop={true}
         thumbs={{ swiper: thumbsSwiper }}
@@ -123,7 +123,7 @@ const ProgressStyle = styled.div`
 
 const BarStyle = styled.div`
   width: ${({ width }: { width: string }) => width};
-  background-color: ${COLORS.fdb813};
+  background-color: ${COLORS.cfdb813};
   height: 100%;
 `
 
