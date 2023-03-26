@@ -101,7 +101,7 @@ const SNSStyle = styled.li<{ iconBgColor: string }>`
   border-radius: 50%;
   background: ${({ iconBgColor }) => iconBgColor};
   color: ${COLORS.white};
-  font-size: ${FONTSIZE.fz20};
+  font-size: ${FONTSIZE.fz18};
   overflow: hidden;
 
   a {
