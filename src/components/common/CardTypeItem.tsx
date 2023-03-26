@@ -80,9 +80,9 @@ const CardTypeItem = ({
             fontWeight={FONTWEGHT.fw600}
             fontSize={FONTSIZE.fz22}
             marginBottom="5px"
-            color={cardType === 'ImageCardType' ? COLORS.white : COLORS.c1b1b1b}
+            color={cardType === 'imageCardType' ? COLORS.white : COLORS.c1b1b1b}
           />
-          <HashsStyle color={cardType === 'ImageCardType' ? COLORS.cededed : COLORS.ca6a6a6}>
+          <HashsStyle color={cardType === 'imageCardType' ? COLORS.cededed : COLORS.ca6a6a6}>
             {item.hashs.map((hash) => (
               <HashStyle key={hash} fontSize={FONTSIZE.fz19}>
                 {`#${hash}`}

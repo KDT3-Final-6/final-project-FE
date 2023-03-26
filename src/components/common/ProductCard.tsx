@@ -79,7 +79,7 @@ const handleCardType = (cardType: string, bgImage: string) => {
           min-height:300px;
         }
       `
-    case 'ImageCardType':
+    case 'imageCardType':
       return `
         border-radius:12px;
         overflow:hidden;
