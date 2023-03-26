@@ -1,5 +1,6 @@
 import Button from '@src/components/common/Button'
-import CheckBox from '@src/components/common/CheckBox'
+import CheckBox from '@src/components/common/InputBox'
+import CheckItem from '@src/components/common/CheckItem'
 import Input from '@src/components/common/Input'
 import Title, { HightlightSpanStyle } from '@src/components/common/Title'
 import PATH from '@src/constants/pathConst'
@@ -28,10 +29,7 @@ const Login = () => {
         </Inputs>
         <Buttons>
           <ConfirmStyle>
-            <CheckBox checkboxType="checkbox">
-              <input type="checkbox" id="ex" />
-              <label htmlFor="ex">로그인 상태 유지</label>
-            </CheckBox>
+            <CheckItem type="checkbox" id="ex" labelName="로그인 상태 유지" />
             <ForgotConfirmStyle>
               <Link to={PATH.LOGIN}>아이디 찾기</Link>
               <Link to={PATH.LOGIN}>비밀번호 찾기</Link>

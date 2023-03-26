@@ -1,52 +1,46 @@
-import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
-import { color } from 'framer-motion'
+import { COLORS } from '@src/styles/root'
 import React from 'react'
 import styled from 'styled-components'
 
-interface ICheckBox {
-  checkboxType: string
-  id?: string
-  title?: string
+interface ICheckItem {
+  type?: string
+  id: string
   name?: string
-  labelName?: string
-  children?: React.ReactNode
+  labelName: string
 }
 
-const CheckBox = ({ checkboxType, title, name, labelName, children }: ICheckBox) => {
+const CheckItem = ({ type = 'checkbox', id, labelName, name }: ICheckItem) => {
   return (
-    <CheckBoxStyle checkboxType={checkboxType}>
-      <p>{title}</p>
-      {children}
-    </CheckBoxStyle>
+    <ItemStyle type={type}>
+      <input type={type} id={id} name={name} />
+      <label htmlFor={id}>{labelName}</label>
+    </ItemStyle>
   )
 }
 
-export default CheckBox
+export default CheckItem
 
-const CheckBoxStyle = styled.div<{
-  checkboxType: string
+const ItemStyle = styled.div<{
+  type: string
 }>`
   display: flex;
   align-items: center;
-  position: relative;
+  gap: 10px;
+  text-align: center;
 
   label {
     cursor: pointer;
     padding-left: 6px;
     color: ${COLORS.c1b1b1b};
   }
-  ${({ checkboxType }) => handleCheckbox(checkboxType)}
+  ${({ type }) => handleCheckItem(type)}
 `
 
-const handleCheckbox = (checkboxType: string) => {
-  switch (checkboxType) {
-    case 'checkbox':
+const handleCheckItem = (type: string) => {
+  switch (type) {
     case 'radio':
+    case 'checkbox':
       return `
-        p {
-          color:${COLORS.c1b1b1b};
-        }
-
         input {
         width: 20px;
         height: 20px;
@@ -87,12 +81,6 @@ const handleCheckbox = (checkboxType: string) => {
         }
       }
 
-      p {
-        position:absolute;
-        top:-20px;
-        left:0;
-      }
-
       label {
         display:flex;
         align-items:center;
@@ -100,13 +88,6 @@ const handleCheckbox = (checkboxType: string) => {
     `
     case 'radio':
       return `
-        p {
-          position:absolute;
-          top:-20px;
-          left:0;
-          padding-left:0;
-        }
-
         input {
           width:auto;
           height:auto;

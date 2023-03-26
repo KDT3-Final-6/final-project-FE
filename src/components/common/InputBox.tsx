@@ -2,28 +2,30 @@ import { COLORS } from '@src/styles/root'
 import React from 'react'
 import styled from 'styled-components'
 
-interface ISelect {
-  selectCount: any
+interface IInputBox {
+  inputCount?: number
   title?: string
-  children: React.ReactNode
+  children?: React.ReactNode
 }
 
-const Select = ({ selectCount = 1, title, children }: ISelect) => {
+const InputBox = ({ inputCount = 1, title, children }: IInputBox) => {
   return (
-    <SelectStyle selectCount={selectCount}>
-      {title && <p>{title}</p>}
-      <SelectAlignStyle>{children}</SelectAlignStyle>
-    </SelectStyle>
+    <CheckBoxStyle inputCount={inputCount}>
+      <p>{title}</p>
+      {children}
+    </CheckBoxStyle>
   )
 }
 
-export default Select
+export default InputBox
 
-const SelectStyle = styled.div<{
-  selectCount: number
+const CheckBoxStyle = styled.div<{
+  inputCount: number
 }>`
+  display: flex;
+  align-items: center;
   position: relative;
-  ${({ selectCount }) => handleCount(selectCount)}
+  gap: 5px;
 
   p {
     position: absolute;
@@ -37,15 +39,12 @@ const SelectStyle = styled.div<{
     height: 38px;
     padding: 0 15px;
   }
+
+  ${({ inputCount }) => handleInputCount(inputCount)}
 `
 
-const SelectAlignStyle = styled.div`
-  display: flex;
-  gap: 5px;
-`
-
-const handleCount = (selectCount: number) => {
-  switch (selectCount) {
+const handleInputCount = (inputCount: number) => {
+  switch (inputCount) {
     case 1:
       return `
         select {
