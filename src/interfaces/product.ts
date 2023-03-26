@@ -2,8 +2,8 @@ export interface IProduct {
   id: string
   title: string
   image: string
-  hash: string
+  hashs: string[]
   price: number
   heart: boolean
-  categoryName: { id: string; category: string }[]
+  categoryNames?: string[]
 }

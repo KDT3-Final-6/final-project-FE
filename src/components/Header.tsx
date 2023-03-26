@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { AiOutlineHeart, AiOutlineUser, AiOutlineShoppingCart } from 'react-icons/ai'
 import { FiLogIn } from 'react-icons/fi'
-import COLORS from '@src/styles/root'
+import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import Input from './common/Input'
 import Inner from '@src/layout/Inner'
 
@@ -63,17 +63,19 @@ const Header = () => {
 export default Header
 
 const GnbStyle = styled.div`
-  border-bottom: 1px solid ${COLORS.mediumGrey};
+  border-bottom: 1px solid ${COLORS.cd9d8d8};
 `
 
-const LnbStyle = styled.div``
+const LnbStyle = styled.div`
+  border-bottom: 1px solid ${COLORS.cd9d8d8};
+`
 
 const LnbListStyle = styled.ul`
   display: flex;
-  font-size: 20px;
+  font-size: ${FONTSIZE.fz20};
   gap: 30px;
-  color: ${COLORS.LnbText};
-  font-weight: 600;
+  color: ${COLORS.c1b1b1b};
+  font-weight: ${FONTWEGHT.fw600};
 `
 
 const BarStyle = styled.span`
@@ -86,6 +88,7 @@ const BarStyle = styled.span`
 const ButtonsStyle = styled.div`
   display: flex;
   gap: 20px;
+  color: ${COLORS.c333};
 
   a {
     display: flex;
@@ -93,13 +96,13 @@ const ButtonsStyle = styled.div`
     text-align: center;
 
     svg {
-      font-size: 23px;
+      font-size: ${FONTSIZE.fz23};
     }
 
     span {
       width: 100%;
       display: block;
-      font-size: 14px;
+      font-size: ${FONTSIZE.fz14};
       margin-top: 6px;
     }
   }

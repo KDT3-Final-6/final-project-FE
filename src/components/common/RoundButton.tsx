@@ -1,4 +1,4 @@
-import COLORS from '@src/styles/root'
+import { COLORS } from '@src/styles/root'
 import React from 'react'
 import styled from 'styled-components'
 

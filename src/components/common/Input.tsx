@@ -2,17 +2,25 @@ import React from 'react'
 import styled from 'styled-components'
 import { FiSearch } from 'react-icons/fi'
 import Button from './Button'
-import COLORS from '@src/styles/root'
+import { COLORS, FONTSIZE } from '@src/styles/root'
 
-interface Props {
+interface IInput {
   inputType: string
-  type: string
+  type?: string
   placeholder?: string
   width?: string
   height?: string
+  padding?: string
 }
 
-const Input = ({ inputType = '', type = 'text', placeholder, width = '', height = '' }: Props) => {
+const Input = ({
+  inputType = '',
+  type = 'text',
+  placeholder,
+  width = '',
+  height = '',
+  padding = '',
+}: IInput) => {
   return (
     <InputStyle inputType={inputType} width={width} height={height}>
       <input type={type} placeholder={placeholder} />
@@ -41,7 +49,7 @@ const handleInputType = (inputType: string) => {
   switch (inputType) {
     case 'searchInput':
       return `
-        background:${COLORS.searchGrey};
+        background:${COLORS.cf3f3f3};
         border-radius:8px;
         position:relative;
 
@@ -55,8 +63,22 @@ const handleInputType = (inputType: string) => {
 
           svg {
             display:flex;
-            color:${COLORS.darkGrey};
-            font-size:22px;
+            color:${COLORS.c646161};
+            font-size:${FONTSIZE.fz22};
+          }
+        }
+      `
+    case 'textInput':
+      return `
+        border:1px solid ${COLORS.cddd};
+        width:100%;
+        height:46px;
+
+        input {
+          padding:14px 30px;
+
+          &::placeholder {
+            color:${COLORS.caeaeae};
           }
         }
       `

@@ -1,5 +1,5 @@
 import Inner from '@src/layout/Inner'
-import COLORS from '@src/styles/root'
+import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
@@ -34,7 +34,7 @@ const Footer = () => {
             </SNSStyle>
           </SNSsAreaStyle>
         </FooterTopStyle>
-        <FooterButtonStyle>
+        <FooterBottomStyle>
           <CopyRightStyle>
             상호명 : (주)더샤이니ㅣ대표: 김소영ㅣ개인정보보호책임자: 김승덕ㅣ주소: 서울특별시 중구
             청계천로40, 한국관광공사 서울센터 818호
@@ -64,7 +64,7 @@ const Footer = () => {
             영업시간 : 09:00 ~ 18:00
             <br />토 / 일요일 및 공휴일 휴무
           </CSCenter>
-        </FooterButtonStyle>
+        </FooterBottomStyle>
       </Inner>
     </FooterStyle>
   )
@@ -74,7 +74,7 @@ export default Footer
 
 const FooterStyle = styled.footer`
   width: 100%;
-  border-top: 1px solid ${COLORS.mediumGrey};
+  border-top: 1px solid ${COLORS.cd9d8d8};
   padding: 25px 0 42px;
 
   img {
@@ -98,9 +98,9 @@ const SNSStyle = styled.li<{ iconBgColor: string }>`
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background: ${(props) => props.iconBgColor};
+  background: ${({ iconBgColor }) => iconBgColor};
   color: ${COLORS.white};
-  font-size: 20px;
+  font-size: ${FONTSIZE.fz20};
   overflow: hidden;
 
   a {
@@ -112,25 +112,30 @@ const SNSStyle = styled.li<{ iconBgColor: string }>`
   }
 `
 
-const FooterButtonStyle = styled.div`
+const FooterBottomStyle = styled.div`
   display: flex;
-  color: ${COLORS.footerLightGrey};
+  color: ${COLORS.c7c7c7c};
   justify-content: space-between;
 `
 
 const CopyRightStyle = styled.div`
   margin-right: 84px;
   line-height: 20px;
-  font-size: 13px;
+  font-size: ${FONTSIZE.fz13};
+
+  a {
+    display: inline-block;
+  }
 `
 
 const AccountStyle = styled.div`
   margin-right: 46px;
-  font-size: 14px;
+  font-size: ${FONTSIZE.fz14};
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   line-height: 20px;
+  color: ${COLORS.c333};
 `
 
 const CSCenter = styled(AccountStyle)`
@@ -138,8 +143,8 @@ const CSCenter = styled(AccountStyle)`
 `
 
 const Strong = styled.strong`
-  color: ${COLORS.footerDarkGrey};
-  font-weight: bold;
-  font-size: 18px;
+  color: ${COLORS.c1b1b1b};
+  font-weight: ${FONTWEGHT.fw700};
+  font-size: ${FONTSIZE.fz18};
   line-height: 25px;
 `

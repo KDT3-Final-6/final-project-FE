@@ -4,7 +4,7 @@ import { RiPencilLine } from 'react-icons/ri'
 import styled from 'styled-components'
 import RoundButton from '@src/components/common/RoundButton'
 import MenuTab from '@src/components/MyPage/MenuTab'
-import COLORS from '@src/styles/root'
+import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import { Outlet } from 'react-router-dom'
 
 const MyPage = () => {
@@ -20,7 +20,7 @@ const MyPage = () => {
         <ImageStyle>
           <img src="/images/profile.png" alt="" />
         </ImageStyle>
-        <span style={{ fontSize: '24px', fontWeight: 700 }}>김고투</span>
+        <span style={{ fontSize: FONTSIZE.fz24, fontWeight: FONTWEGHT.fw700 }}>김고투</span>
         <RoundButton buttonType="skyBlue" width="140px" height="42px">
           <div
             style={{ display: 'flex', gap: '5px', alignItems: 'center', justifyContent: 'center' }}
@@ -60,7 +60,7 @@ const ImageStyle = styled.div`
 `
 
 const InnerWrap = styled.div`
-  border-top: 1px solid ${COLORS.mediumGrey};
+  border-top: 1px solid ${COLORS.cd9d8d8};
 `
 
 export default MyPage
