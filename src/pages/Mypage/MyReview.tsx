@@ -1,9 +1,14 @@
+import ReviewBox from '@src/components/MyPage/ReviewBox'
 import React from 'react'
 
 type Props = {}
 
 const MyReview = (props: Props) => {
-  return <div>MyReview</div>
+  return (
+    <div>
+      <ReviewBox />
+    </div>
+  )
 }
 
 export default MyReview
