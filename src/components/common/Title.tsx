@@ -46,8 +46,18 @@ const TitleStyle = styled.div<{
   margin: ${({ margin }) => margin};
   color: ${({ color }) => color};
   text-align: ${({ textAlign }) => textAlign};
-
-  span {
-    color: ${COLORS.c3ba1ff};
-  }
 `
+
+const HightlightSpanStyle = styled.span<{
+  fontSize?: string
+  fontWeight?: string
+  spanMargin?: string
+}>`
+  font-size: ${({ fontSize }) => fontSize};
+  font-weight: ${({ fontWeight }) => fontWeight};
+  color: ${({ color }) => color};
+  margin: ${({ spanMargin }) => spanMargin};
+  display: inline-block;
+`
+
+export { HightlightSpanStyle }
