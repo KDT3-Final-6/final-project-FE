@@ -27,13 +27,9 @@ function BarTypeItem({ item, cardType, height = '220px', priceColor }: IBarTypeI
       </ImgAreaStyle>
       <TxtAreaStyle isBarType={true}>
         <CompleteStyle isPay={item.payment}>{item.payment ? '결제완료' : '여행완료'}</CompleteStyle>
-        <Title
-          titleType="h3"
-          title={item.title}
-          fontSize={FONTSIZE.fz22}
-          margin="0 0 9px"
-          color={COLORS.c404040}
-        />
+        <Title fontSize={FONTSIZE.fz22} margin="0 0 9px" color={COLORS.c404040}>
+          <h3>{item.title}</h3>
+        </Title>
         <DecStyle fontSize={FONTSIZE.fz18} color={COLORS.c404040}>
           {item.discription}
         </DecStyle>

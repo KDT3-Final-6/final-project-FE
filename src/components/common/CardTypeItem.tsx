@@ -75,13 +75,13 @@ const CardTypeItem = ({
         )}
         <TxtAreaStyle isCardType={true}>
           <Title
-            titleType="h3"
-            title={item.title}
             fontWeight={FONTWEGHT.fw600}
             fontSize={FONTSIZE.fz22}
             margin="0 0 5px"
             color={cardType === 'imageCardType' ? COLORS.white : COLORS.c1b1b1b}
-          />
+          >
+            <h3>{item.title}</h3>
+          </Title>
           <HashsStyle color={cardType === 'imageCardType' ? COLORS.cededed : COLORS.ca6a6a6}>
             {item.hashs.map((hash) => (
               <HashStyle key={hash} fontSize={FONTSIZE.fz19}>

@@ -8,7 +8,9 @@ const TravelReview = () => {
   return (
     <Section>
       <Inner>
-        <Title titleType="h2" fontSize={FONTSIZE.fz32} title="실제 고객 여행 후기" />
+        <Title fontSize={FONTSIZE.fz32}>
+          <h2>실제 고객 여행 후기</h2>
+        </Title>
       </Inner>
     </Section>
   )
