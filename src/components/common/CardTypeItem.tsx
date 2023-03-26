@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import HeartButton from './HeartButton'
 import ProductCard, {
-  CardHeadArea,
+  CardHeadAreaStyle,
   CategoryStyle,
   HashsStyle,
   HashStyle,
@@ -61,13 +61,13 @@ const CardTypeItem = ({
         setHeart={setHeart}
       />
       <Link to={PATH.PRODUCT_DETAIL} target="_blank">
-        <CardHeadArea>
+        <CardHeadAreaStyle>
           {item.categoryNames?.map((categoryName) => (
             <CategoryStyle key={categoryName} categoryName={categoryName}>
               {categoryName}
             </CategoryStyle>
           ))}
-        </CardHeadArea>
+        </CardHeadAreaStyle>
         {cardType === 'cardType' && (
           <ImgAreaStyle>
             <img src={item.image} alt={item.title} />

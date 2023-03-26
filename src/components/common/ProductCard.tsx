@@ -142,7 +142,7 @@ const handleCardType = (cardType: string, bgImage: string) => {
   }
 }
 
-const CardHeadArea = styled.div`
+const CardHeadAreaStyle = styled.div`
   display: flex;
   gap: 8px;
   position: relative;
@@ -227,7 +227,7 @@ const PriceStyle = styled.p<{
 `
 
 export {
-  CardHeadArea,
+  CardHeadAreaStyle,
   ImgAreaStyle,
   TxtAreaStyle,
   CategoryStyle,
