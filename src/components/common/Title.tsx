@@ -7,7 +7,7 @@ interface ITitle {
   title: string
   fontSize?: string
   fontWeight?: string
-  marginBottom?: string
+  margin?: string
   color?: string
   textAlign?: string
 }
@@ -17,7 +17,7 @@ const Title = ({
   title,
   fontSize = FONTSIZE.fz25,
   fontWeight = FONTWEGHT.fw700,
-  marginBottom = '',
+  margin = '',
   color = COLORS.c1b1b1b,
   textAlign = 'left',
 }: ITitle) => {
@@ -26,7 +26,7 @@ const Title = ({
       titleType={titleType}
       fontSize={fontSize}
       fontWeight={fontWeight}
-      marginBottom={marginBottom}
+      margin={margin}
       color={color}
       textAlign={textAlign}
     >
@@ -44,13 +44,13 @@ const TitleStyle = styled.div<{
   titleType: string
   fontSize: string
   fontWeight: string
-  marginBottom: string
+  margin: string
   color: string
   textAlign: string
 }>`
   font-size: ${({ fontSize }) => fontSize};
   font-weight: ${({ fontWeight }) => fontWeight};
-  margin-bottom: ${({ marginBottom }) => marginBottom};
+  margin: ${({ margin }) => margin};
   color: ${({ color }) => color};
   text-align: ${({ textAlign }) => textAlign};
 `

@@ -89,7 +89,7 @@ const Curation = () => {
           titleType="h2"
           fontSize={FONTSIZE.fz32}
           title="어디로 여행을 떠날까요?"
-          marginBottom="66px"
+          margin="0 0 66px"
         />
         <ProductListStyle>
           {products.map((product) => (

@@ -53,12 +53,7 @@ const GroupTravel = () => {
   return (
     <Section>
       <Inner>
-        <Title
-          titleType="h2"
-          fontSize={FONTSIZE.fz32}
-          title="내 취향대로 여행"
-          marginBottom="66px"
-        />
+        <Title titleType="h2" fontSize={FONTSIZE.fz32} title="내 취향대로 여행" margin="0 0 66px" />
         <ProductListStyle>
           {products.map((product) => (
             <CardTypeItem

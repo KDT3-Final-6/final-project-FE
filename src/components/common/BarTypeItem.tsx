@@ -31,7 +31,7 @@ function BarTypeItem({ item, cardType, height = '220px', priceColor }: IBarTypeI
           titleType="h3"
           title={item.title}
           fontSize={FONTSIZE.fz22}
-          marginBottom="9px"
+          margin="0 0 9px"
           color={COLORS.c404040}
         />
         <DecStyle fontSize={FONTSIZE.fz18} color={COLORS.c404040}>
