@@ -25,6 +25,7 @@ const COLORS = {
   cddd: '#ddd',
   caeaeae: '#caeaeae',
   cbcbcbc: '#bcbcbc',
+  c3ba1ff: '#3ba1ff',
   black: '#000',
   white: '#fff',   
   youTube: '#F50000',
