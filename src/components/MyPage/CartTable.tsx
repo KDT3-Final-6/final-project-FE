@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from '../common/Image'
 
 type Props = {}
 
@@ -9,7 +10,7 @@ const CartTable = (props: Props) => {
         <input type="checkbox" />
       </td>
       <td>
-        <img src="" alt="" />
+        <Image src="" alt="" />
         <span>내용</span>
       </td>
       <td>인원</td>

@@ -7,6 +7,7 @@ import { FiLogIn } from 'react-icons/fi'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import Input from './common/Input'
 import Inner from '@src/layout/Inner'
+import Image from './common/Image'
 
 const Header = () => {
   return (
@@ -14,7 +15,7 @@ const Header = () => {
       <GnbStyle>
         <Inner height="100px" display="flex" justifyContent="space-between">
           <Link to={PATH.HOME}>
-            <img src="/images/Logo_Gotogether.png" alt="고투게더 로고 홈으로 이동" />
+            <Image src="/images/Logo_Gotogether.png" alt="고투게더 로고 홈으로 이동" />
           </Link>
           <ButtonsStyle>
             <Link to={PATH.HOME}>

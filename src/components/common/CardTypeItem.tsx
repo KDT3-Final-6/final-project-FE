@@ -4,6 +4,7 @@ import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import HeartButton from './HeartButton'
+import Image from './Image'
 import ProductCard, {
   CardHeadAreaStyle,
   CategoryStyle,
@@ -70,7 +71,7 @@ const CardTypeItem = ({
         </CardHeadAreaStyle>
         {cardType === 'cardType' && (
           <ImgAreaStyle>
-            <img src={item.image} alt={item.title} />
+            <Image src={item.image} alt={item.title} />
           </ImgAreaStyle>
         )}
         <TxtAreaStyle isCardType={true}>

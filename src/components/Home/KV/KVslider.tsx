@@ -19,6 +19,7 @@ import SwiperCore, {
 import 'swiper/css' //basic
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
+import Image from '@src/components/common/Image'
 
 const DELEAY_TIME = 5000
 
@@ -78,7 +79,7 @@ const KVslider = () => {
       >
         {KVImages.map((item, index) => (
           <SwiperSlide key={`slide_${index}`}>
-            <img src={item.link} alt="image" />
+            <Image src={item.link} alt="image" />
           </SwiperSlide>
         ))}
       </MainSwiperStyle>

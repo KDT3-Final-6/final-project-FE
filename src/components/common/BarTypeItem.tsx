@@ -9,6 +9,7 @@ import PATH from '@src/constants/pathConst'
 import { useNavigate } from 'react-router-dom'
 import { IOrder } from '@src/interfaces/order'
 import { color } from 'framer-motion'
+import Image from './Image'
 
 interface IBarTypeItem {
   item: IOrder
@@ -23,7 +24,7 @@ function BarTypeItem({ item, cardType, height = '220px', priceColor }: IBarTypeI
   return (
     <ProductCard key={item.id} cardType={cardType} height={height}>
       <ImgAreaStyle>
-        <img src={item.image} alt={item.title} />
+        <Image src={item.image} alt={item.title} />
       </ImgAreaStyle>
       <TxtAreaStyle isBarType={true}>
         <CompleteStyle isPay={item.payment}>{item.payment ? '결제완료' : '여행완료'}</CompleteStyle>
