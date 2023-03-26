@@ -8,27 +8,31 @@ interface IInput {
   inputType: string
   type?: string
   placeholder?: string
+  title?: string
   width?: string
   height?: string
-  padding?: string
+  children?: React.ReactNode
 }
 
 const Input = ({
   inputType = '',
   type = 'text',
   placeholder,
+  title,
   width = '',
   height = '',
-  padding = '',
+  children,
 }: IInput) => {
   return (
     <InputStyle inputType={inputType} width={width} height={height}>
+      <p>{title}</p>
       <input type={type} placeholder={placeholder} />
       {inputType === 'searchInput' && (
         <Button buttonType="transparent" width="50px" height="100%">
           <FiSearch />
         </Button>
       )}
+      {children}
     </InputStyle>
   )
 }
@@ -43,6 +47,14 @@ const InputStyle = styled.div<{
   ${({ inputType }) => handleInputType(inputType)}
   width:${({ width }) => width};
   height: ${({ height }) => height};
+  position: relative;
+
+  p {
+    position: absolute;
+    top: -20px;
+    left: 0;
+    color: ${COLORS.c1b1b1b};
+  }
 `
 
 const handleInputType = (inputType: string) => {
@@ -78,7 +90,7 @@ const handleInputType = (inputType: string) => {
           padding:14px 30px;
 
           &::placeholder {
-            color:${COLORS.caeaeae};
+            color:${COLORS.ca6a6a6};
           }
         }
       `
