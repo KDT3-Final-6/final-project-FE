@@ -7,14 +7,16 @@ export const GlobalStyle = createGlobalStyle`
 @font-face { font-family: 'Pretendard-Regular'; src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff'); font-weight: ${FONTWEGHT.fw400}; font-style: normal; }
 
  * {
-    padding:0;
-    margin:0;
-    box-sizing:border-box;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
     font-family: 'Pretendard-Regular';
+    font-size: 14px;
   }
 
   #root {
     font-family: 'Pretendard-Regular';
+    font-size: 14px;
   }
 
   a {
