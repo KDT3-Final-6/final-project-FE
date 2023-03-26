@@ -65,6 +65,12 @@ const handleButtonType = (buttonType: string) => {
           color: ${COLORS.white};
         }
       `
+    case 'skyBlueFull':
+      return `
+        background-color:${COLORS.primary};
+        color:${COLORS.white};
+        height:42px;
+      `
     case 'gray':
       return `
         background:${COLORS.cbcbcbc};
