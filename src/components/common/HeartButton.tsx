@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { BsFillSuitHeartFill } from 'react-icons/bs'
-import COLORS from '@src/styles/root'
+import { COLORS, FONTSIZE } from '@src/styles/root'
 
 interface IHeart {
   productId: string
@@ -34,11 +34,14 @@ const HeartButtonStyle = styled.button<{
   width: 38px;
   height: 38px;
   position: absolute;
-  top: ${(props) => props.top};
-  right: ${(props) => props.right};
+  top: ${({ top }) => top};
+  right: ${({ right }) => right};
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.5);
-  color: ${(props) => (props.isHeart ? COLORS.heart : COLORS.white)};
-  font-size: 20px;
+  color: ${({ isHeart }) => (isHeart ? COLORS.heart : COLORS.white)};
+  font-size: ${FONTSIZE.fz18};
+  display: flex;
+  justify-content: center;
+  align-items: center;
   z-index: 1;
 `

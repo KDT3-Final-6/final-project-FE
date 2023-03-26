@@ -1,4 +1,4 @@
-import COLORS from '@src/styles/root'
+import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -7,7 +7,6 @@ type IProduct = {
   width?: string
   height?: string
   maxHeight?: string
-  minHeight?: string
   children?: React.ReactNode
   bgImage?: string
   imgWidth?: string
@@ -19,7 +18,6 @@ const ProductCard = ({
   width = '',
   height = '',
   maxHeight = '',
-  minHeight = '',
   children,
   bgImage = '',
   imgWidth = '',
@@ -31,7 +29,6 @@ const ProductCard = ({
       width={width}
       height={height}
       maxHeight={maxHeight}
-      minHeight={minHeight}
       bgImage={bgImage}
       imgWidth={imgWidth}
       imgHeight={imgHeight}
@@ -48,19 +45,16 @@ const CardStyle = styled.li<{
   width: string
   height: string
   maxHeight: string
-  minHeight: string
   bgImage: string
   imgWidth: string
   imgHeight: string
 }>`
   width: ${({ width }) => width};
   height: ${({ height }) => height};
-  max-height: ${({ maxHeight }) => maxHeight};
-  min-height: ${({ minHeight }) => minHeight};
 
   img {
-    width: ${(props) => props.imgWidth};
-    height: ${(props) => props.imgHeight};
+    width: ${({ imgWidth }) => imgWidth};
+    height: ${({ imgHeight }) => imgHeight};
     position: absolute;
     top: 50%;
     left: 50%;
@@ -75,6 +69,11 @@ const handleCardType = (cardType: string, bgImage: string) => {
       return `
         border-radius:12px;
         overflow:hidden;
+        position:relative;
+
+        a {
+          height:100%;
+        }
 
         ${ImgAreaStyle} {
           min-height:300px;
@@ -92,19 +91,18 @@ const handleCardType = (cardType: string, bgImage: string) => {
         color:${COLORS.white};
 
         a {
-          padding:14px 18px 20px;
+          padding:14px 18px 130px;
           width:100%;
           height:100%;
-        }
-
-        ${ImgAreaStyle} {
-          height:50%;
         }
         ${TxtAreaStyle} {
           border:0;
           padding:0;
           position:absolute;
           bottom:0;
+          left:0;
+          width:100%;
+          padding: 0 18px 130px;
         }
         ${CategoryStyle} {
           padding:4px 9px;
@@ -129,6 +127,10 @@ const handleCardType = (cardType: string, bgImage: string) => {
           img {
             width:100%;
           }
+        }
+
+        ${PriceStyle} {
+          position:inherit;
         }
       `
     default:
@@ -155,11 +157,13 @@ const TxtAreaStyle = styled.div<{
   isCardType?: boolean
   isBarType?: boolean
 }>`
-  width: ${(props) => props.isBarType && 'calc(100% - 300px)'};
-  padding: ${(props) => props.isCardType && '20px'};
-  border: ${(props) => props.isCardType && `1px solid ${COLORS.lightGrey}`};
+  width: ${({ isBarType }) => isBarType && 'calc(100% - 300px)'};
+  height: ${({ isCardType }) => isCardType && 'calc(100% - 300px)'};
+  padding: ${({ isCardType }) => isCardType && '20px'};
+  border: ${({ isCardType }) => isCardType && `1px solid ${COLORS.cededed}`};
   border-radius: 0 0 12px 12px;
-  justify-content: ${(props) => props.isBarType && 'space-between'};
+  justify-content: ${({ isBarType }) => isBarType && 'space-between'};
+  position: relative;
 `
 
 const CategoryStyle = styled.span<{
@@ -167,41 +171,67 @@ const CategoryStyle = styled.span<{
 }>`
   background-color: ${COLORS.black};
   color: ${COLORS.white};
-  font-size: 13px;
+  font-size: ${FONTSIZE.fz13};
   display: inline-block;
   padding: 5px 10px;
   border-radius: 8px;
   margin-bottom: 14px;
-  background-color: ${(props) =>
-    props.categoryName === '여자끼리' ? COLORS.crimson : '익사이팅' && COLORS.exciting};
-  color: ${(props) =>
-    props.categoryName === '여자끼리' ? COLORS.white : '익사이팅' && COLORS.excitingTxt};
+  background-color: ${({ categoryName }) =>
+    categoryName === '여자끼리' ? COLORS.cbe4b4b : '익사이팅' && COLORS.c74fff7};
+  color: ${({ categoryName }) =>
+    categoryName === '여자끼리' ? COLORS.white : '익사이팅' && COLORS.c2e9892};
 `
 
-const HashStyle = styled.span<{
-  fontSize?: string
-  color?: string
+const HashsStyle = styled.div<{
   marginBottom?: string
+  color?: string
 }>`
-  font-size: ${({ fontSize }) => fontSize};
-  color: ${(props) => props.color};
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: ${({ marginBottom }) => marginBottom};
+  color: ${({ color }) => color};
   text-overflow: ellipsis;
   overflow: hidden;
   word-break: break-word;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  margin-bottom: ${({ marginBottom }) => marginBottom};
+`
+
+const HashStyle = styled.span<{
+  fontSize?: string
+}>`
+  font-size: ${({ fontSize }) => fontSize};
 `
 
 const PriceStyle = styled.p<{
   fontSize: string
   textAlign?: string
+  priceTop?: string
+  priceLeft?: string
+  priceRight?: string
+  priceBottom?: string
+  priceColor?: string
 }>`
   font-size: ${({ fontSize }) => fontSize};
-  font-weight: 700;
+  font-weight: ${FONTWEGHT.fw700};
   text-align: ${({ textAlign }) => textAlign};
-  margin: 15px 0;
+  white-space: nowrap;
+  position: absolute;
+  top: ${({ priceTop }) => priceTop};
+  bottom: ${({ priceBottom }) => priceBottom};
+  left: ${({ priceLeft }) => priceLeft};
+  right: ${({ priceRight }) => priceRight};
+  color: ${({ priceColor }) => priceColor};
 `
 
-export { CardHeadArea, ImgAreaStyle, TxtAreaStyle, CategoryStyle, HashStyle, PriceStyle }
+export {
+  CardHeadArea,
+  ImgAreaStyle,
+  TxtAreaStyle,
+  CategoryStyle,
+  HashsStyle,
+  HashStyle,
+  PriceStyle,
+}

@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet'
 import styled from 'styled-components'
 import Button from '@src/components/common/Button'
 import { MdKeyboardArrowDown } from 'react-icons/md'
-import COLORS from '@src/styles/root'
+import { COLORS } from '@src/styles/root'
 
 type Props = {}
 

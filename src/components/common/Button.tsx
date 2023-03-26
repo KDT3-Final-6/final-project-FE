@@ -1,4 +1,4 @@
-import COLORS from '@src/styles/root'
+import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -6,13 +6,30 @@ interface IButton {
   buttonType: string
   width?: string
   height?: string
+  borderRadius?: string
+  margin?: string
   children?: React.ReactNode
   onClick?: React.MouseEventHandler<HTMLButtonElement>
 }
 
-const Button = ({ buttonType = '', width = '', height = '', children, onClick }: IButton) => {
+const Button = ({
+  buttonType = '',
+  width = '',
+  height = '',
+  borderRadius = '',
+  margin = '',
+  children,
+  onClick,
+}: IButton) => {
   return (
-    <ButtonStyle buttonType={buttonType} width={width} height={height} onClick={onClick}>
+    <ButtonStyle
+      buttonType={buttonType}
+      width={width}
+      height={height}
+      borderRadius={borderRadius}
+      margin={margin}
+      onClick={onClick}
+    >
       {children}
     </ButtonStyle>
   )
@@ -24,10 +41,14 @@ export const ButtonStyle = styled.button<{
   buttonType: string
   width: string
   height: string
+  borderRadius: string
+  margin: string
 }>`
   ${({ buttonType }) => handleButtonType(buttonType)}
   width:${({ width }) => width};
   height: ${({ height }) => height};
+  border-radius: ${({ borderRadius }) => borderRadius};
+  margin: ${({ margin }) => margin};
 `
 
 const handleButtonType = (buttonType: string) => {
@@ -44,6 +65,15 @@ const handleButtonType = (buttonType: string) => {
           color: ${COLORS.white};
         }
       `
+    case 'gray':
+      return `
+        background:${COLORS.cbcbcbc};
+        color:${COLORS.white};
+
+        &:hover {
+          background-color:${COLORS.c7c7c7c};
+        }
+      `
     case 'transparent':
       return `
         border:none;
@@ -51,26 +81,26 @@ const handleButtonType = (buttonType: string) => {
       `
     case 'borderGray':
       return `
-        border:1px solid ${COLORS.disableBgGrey};
+        border:1px solid ${COLORS.ce2e2e2};
         background-color:transparent;
-        color:${COLORS.disableTxtGrey}; 
+        color:${COLORS.c878787};
         padding:11.5px 58px;
-        font-size:16px;
-        font-weight:bold;
+        font-size:${FONTSIZE.fz16};
+        font-weight:${FONTWEGHT.fw700};
       `
     case 'disable':
       return `
         border:none;
-        background-color:${COLORS.disableBgGrey};
-        color:${COLORS.disableTxtGrey};
+        background-color:${COLORS.ce2e2e2};
+        color:${COLORS.c878787};
         padding:11.5px 58px;
-        font-size:16px;
-        font-weight:bold;
+        font-size:${FONTSIZE.fz16};
+        font-weight:${FONTWEGHT.fw700};
         cursor:default;
       `
     case 'cartGray':
       return `
-        border: 1px solid ${COLORS.disableBgGrey};
+        border: 1px solid ${COLORS.ce2e2e2};
         background-color: transparent;
         color: #404040;
         width: 140px;

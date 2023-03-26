@@ -1,7 +1,7 @@
 import React from 'react'
 import { MdKeyboardArrowDown } from 'react-icons/md'
 import styled from 'styled-components'
-import COLORS from '@src/styles/root'
+import { COLORS } from '@src/styles/root'
 
 interface Props {
   index: string

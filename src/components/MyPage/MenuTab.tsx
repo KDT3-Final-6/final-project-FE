@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { FONTWEGHT } from '@src/styles/root'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { useLocation } from 'react-router-dom'
@@ -89,7 +90,7 @@ const MenuTabStyle = styled.ul`
 const ActiveTabStyle = styled.li`
   background-color: #404040;
   color: #fff;
-  font-weight: 700;
+  font-weight: ${FONTWEGHT.fw700};
   padding: 10px 20px;
   border-radius: 30px;
   cursor: pointer;
