@@ -106,6 +106,14 @@ const handleButtonType = (buttonType: string) => {
         width: 140px;
         height: 42px;
       `
+    case 'cartSkyBlue':
+      return ` 
+      border: none;
+      background-color: ${COLORS.primary};
+      color: #fff;
+      width: 140px;
+      height: 42px;
+      `
     default:
       return `
         width: 180px;
