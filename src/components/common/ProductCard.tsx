@@ -97,7 +97,6 @@ const handleCardType = (cardType: string, bgImage: string) => {
         }
         ${TxtAreaStyle} {
           border:0;
-          padding:0;
           position:absolute;
           bottom:0;
           left:0;
@@ -123,9 +122,10 @@ const handleCardType = (cardType: string, bgImage: string) => {
         ${ImgAreaStyle} {
           width:300px;
           border-radius:5px;
+          background-color: ${COLORS.c1b1b1b};
 
           img {
-            width:100%;
+            width: 100%;
           }
         }
 
