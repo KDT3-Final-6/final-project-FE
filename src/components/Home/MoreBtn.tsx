@@ -44,8 +44,8 @@ const BtnStyle = styled.div<IMoreBtn>`
   }
 
   &:hover {
-    color: ${({ bgColor }) => bgColor};
-    background-color: ${({ color }) => color};
-    border: ${({ bgColor }) => bgColor};
+    background-color: ${({ bgColor }) => bgColor === `${COLORS.white}` && `${COLORS.cf6f6f6}`};
+    box-shadow: ${({ bgColor }) =>
+      bgColor !== `${COLORS.white}` && '5px 4px 18px -9px rgba(0,0,0,0.37)'};
   }
 `

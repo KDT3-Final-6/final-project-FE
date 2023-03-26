@@ -10,9 +10,13 @@ const TravelEvent = () => {
   return (
     <Section>
       <Inner>
+<<<<<<< HEAD
         <Title fontSize={FONTSIZE.fz32} margin="">
           이벤트 / 혜택
         </Title>
+=======
+        <Title titleType="h2" fontSize={FONTSIZE.fz32} marginBottom="50px" title="이벤트 / 혜택" />
+>>>>>>> 77b4690 (Feat: 메인 페이지 후기 영역 마크업)
         <ContainerStyle>
           <EventCardStyle>
             <ImageBoxStyle>

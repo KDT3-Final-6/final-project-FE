@@ -24,10 +24,18 @@ const COLORS = {
   c2e9892: '#2e9892',
   c404040: '#404040',
   cddd: '#ddd',
+  cf6f6f6: '#f6f6f6',
   caeaeae: '#caeaeae',
   cbcbcbc: '#bcbcbc',
+<<<<<<< HEAD
   fdb813: '#fdb813',
   c3ba1ff: '#3ba1ff',
+=======
+  cfdb813: '#fdb813',
+  cd9d9d9: '#D9D9D9',
+  cffcc43: '#ffcc43',
+  c3BA1FF: '#3BA1FF',
+>>>>>>> 77b4690 (Feat: 메인 페이지 후기 영역 마크업)
   black: '#000',
   white: '#fff',
   youTube: '#F50000',
