@@ -19,6 +19,7 @@ const COLORS = {
   c909090: '#909090',
   ca6a6a6: '#a6a6a6',
   cbe4b4b: '#be4b4b',
+  cb6b6b6: '#b6b6b6',
   c74fff7: '#74FFF7',
   c2e9892: '#2e9892',
   c404040: '#404040',
@@ -38,6 +39,8 @@ const COLORS = {
 }
 
 const FONTSIZE = {
+  fz10: '10px',
+  fz11: '11px',
   fz12: '12px',
   fz13: '13px',
   fz14: '14px',
