@@ -39,7 +39,7 @@ const FONTSIZE = {
   fz12: '12px',
   fz13: '13px',
   fz14: '14px',
-  fz15: '14px',
+  fz15: '15px',
   fz16: '16px',
   fz18: '18px',
   fz19: '19px',
