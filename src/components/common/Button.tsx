@@ -53,7 +53,7 @@ const handleButtonType = (buttonType: string) => {
       return `
         border:1px solid ${COLORS.disableBgGrey};
         background-color:transparent;
-        color:${COLORS.disableTxtGrey};
+        color:${COLORS.disableTxtGrey}; 
         padding:11.5px 58px;
         font-size:16px;
         font-weight:bold;
@@ -75,6 +75,14 @@ const handleButtonType = (buttonType: string) => {
         color: #404040;
         width: 140px;
         height: 42px;
+      `
+    case 'cartSkyBlue':
+      return ` 
+      border: none;
+      background-color: ${COLORS.primary};
+      color: #fff;
+      width: 140px;
+      height: 42px;
       `
     default:
       return `

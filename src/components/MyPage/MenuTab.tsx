@@ -1,12 +1,35 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
+import { useLocation } from 'react-router-dom'
+import PATH from '@src/constants/pathConst'
+
 interface Props {
   setActiveMenu: React.Dispatch<React.SetStateAction<number>>
   activeMenu: number
 }
 
 const MenuTab = ({ setActiveMenu, activeMenu }: Props) => {
+  // path 확인해서 activeMenu 활성화
+  const location = useLocation()
+  const pathName = location.pathname
+  const pathCheck = (pathName: string) => {
+    if (pathName.includes(PATH.ORDER_LIST)) {
+      return setActiveMenu(0)
+    } else if (pathName.includes(PATH.CART)) {
+      return setActiveMenu(1)
+    } else if (pathName.includes(PATH.WISHLIST)) {
+      return setActiveMenu(2)
+    } else if (pathName.includes(PATH.MY_REVIEW)) {
+      return setActiveMenu(3)
+    } else if (pathName.includes(PATH.ONE_ON_ONE)) {
+      return setActiveMenu(4)
+    } else if (pathName.includes(PATH.INFO_EDIT)) {
+      return setActiveMenu(5)
+    }
+  }
+  useEffect(() => pathCheck(pathName), [pathName])
+
   const navigate = useNavigate()
   const menuList = [
     '구매 내역',
@@ -16,6 +39,8 @@ const MenuTab = ({ setActiveMenu, activeMenu }: Props) => {
     '1 : 1 문의 내용',
     '회원 정보 수정',
   ]
+
+  // 버튼 누를 때 이동
   const navigateHandler = (index: number) => {
     if (index === 0) {
       return navigate('/mypage/orderlist')
@@ -31,6 +56,7 @@ const MenuTab = ({ setActiveMenu, activeMenu }: Props) => {
       return navigate('/mypage/infoedit')
     }
   }
+
   return (
     <MenuTabStyle>
       {menuList.map((menu, index) =>
