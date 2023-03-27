@@ -7,6 +7,7 @@ import TravelEvent from '@src/components/Home/TravelEvent'
 import TravelReview from '@src/components/Home/TravelReview'
 import React from 'react'
 import { Helmet } from 'react-helmet'
+import Banner from '@src/components/Home/Banner'
 
 function Home() {
   return (
@@ -16,8 +17,10 @@ function Home() {
       </Helmet>
       <SlideBanner />
       <Curation />
+      <Banner image="event_banner2" marginTop="100px" marginBottom="100px" type={1} />
       <GroupTravel />
       <ThemeTravel />
+      <Banner image="event_banner" marginTop="94px" marginBottom="100px" type={2} />
       <TravelReview />
       <TravelEvent />
     </>

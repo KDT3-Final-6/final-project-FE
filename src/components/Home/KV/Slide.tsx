@@ -25,6 +25,4 @@ const SlideStyle = styled.div<SlideProp>`
   border-radius: 5px;
   color: ${COLORS.black};
   font-weight: ${FONTWEGHT.fw700};
-  text-align: center;
-  line-height: 90px;
 `
