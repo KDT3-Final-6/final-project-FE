@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from '../common/Image'
 import { MdKeyboardArrowDown } from 'react-icons/md'
 import styled from 'styled-components'
 import { COLORS } from '@src/styles/root'
@@ -19,7 +20,7 @@ const CartTable = ({ index }: Props) => {
       </td>
       <td>
         <DescStyle>
-          <img src="/images/cart_image (1).jpg" alt="썸네일" />
+          <Image src="/images/cart_image (1).jpg" alt="썸네일" />
           <DescInnerStyle>
             <span>[실속 골프 패키지] 사이판 3박4일 골프여행</span>
             <span>3일은 골프를 하루는 호캉스를 즐길 수 있는 3월 특가 실속 골프 패키지</span>

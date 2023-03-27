@@ -4,8 +4,9 @@ import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import HeartButton from './HeartButton'
+import Image from './Image'
 import ProductCard, {
-  CardHeadArea,
+  CardHeadAreaStyle,
   CategoryStyle,
   HashsStyle,
   HashStyle,
@@ -61,28 +62,28 @@ const CardTypeItem = ({
         setHeart={setHeart}
       />
       <Link to={PATH.PRODUCT_DETAIL} target="_blank">
-        <CardHeadArea>
+        <CardHeadAreaStyle>
           {item.categoryNames?.map((categoryName) => (
             <CategoryStyle key={categoryName} categoryName={categoryName}>
               {categoryName}
             </CategoryStyle>
           ))}
-        </CardHeadArea>
+        </CardHeadAreaStyle>
         {cardType === 'cardType' && (
           <ImgAreaStyle>
-            <img src={item.image} alt={item.title} />
+            <Image src={item.image} alt={item.title} />
           </ImgAreaStyle>
         )}
         <TxtAreaStyle isCardType={true}>
           <Title
-            titleType="h3"
-            title={item.title}
             fontWeight={FONTWEGHT.fw600}
             fontSize={FONTSIZE.fz22}
-            marginBottom="5px"
-            color={cardType === 'ImageCardType' ? COLORS.white : COLORS.c1b1b1b}
-          />
-          <HashsStyle color={cardType === 'ImageCardType' ? COLORS.cededed : COLORS.ca6a6a6}>
+            margin="0 0 5px"
+            color={cardType === 'imageCardType' ? COLORS.white : COLORS.c1b1b1b}
+          >
+            <h3>{item.title}</h3>
+          </Title>
+          <HashsStyle color={cardType === 'imageCardType' ? COLORS.cededed : COLORS.ca6a6a6}>
             {item.hashs.map((hash) => (
               <HashStyle key={hash} fontSize={FONTSIZE.fz19}>
                 {`#${hash}`}

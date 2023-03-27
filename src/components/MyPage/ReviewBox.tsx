@@ -17,12 +17,9 @@ const ReviewBox = (props: Props) => {
       <TxtAreaStyle isBarType={true}>
         <DesStyle>
           <span>2023.02.01</span>
-          <Title
-            titleType="h2"
-            title="[실속 골프 패키지] 사이판 3박4일 골프 여행"
-            fontSize={FONTSIZE.fz22}
-            fontWeight={FONTWEGHT.fw600}
-          />
+          <Title fontSize={FONTSIZE.fz22} fontWeight={FONTWEGHT.fw600}>
+            <h2>[실속 골프 패키지] 사이판 3박4일 골프 여행</h2>
+          </Title>
           <span>
             3일은 골프를 하루는 호캉스를 가족들과 함께 즐겨서 정말 행복하고 값진 경험이었어요
           </span>

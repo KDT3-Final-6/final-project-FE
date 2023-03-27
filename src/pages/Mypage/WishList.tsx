@@ -87,7 +87,7 @@ const WishList = () => {
           <CardTypeItem
             key={product.id}
             item={product}
-            cardType="ImageCardType"
+            cardType="imageCardType"
             bgImage={product.image}
             priceRight="18px"
             priceBottom="20px"

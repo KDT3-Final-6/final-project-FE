@@ -4,13 +4,14 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { AiFillYoutube, AiFillFacebook, AiOutlineInstagram, AiOutlineTwitter } from 'react-icons/ai'
+import Image from './common/Image'
 
 const Footer = () => {
   return (
     <FooterStyle>
       <Inner>
         <FooterTopStyle>
-          <img src="/images/Logo_footer.png" alt="더샤이니 로고" />
+          <Image src="/images/Logo_footer.png" alt="더샤이니 로고" />
           <SNSsAreaStyle>
             <SNSStyle iconBgColor={COLORS.youTube} title="유튜브 보러가기">
               <Link to="https://youtu.be/Jm3TiJ5lFKQ" target="_blank">
@@ -100,7 +101,7 @@ const SNSStyle = styled.li<{ iconBgColor: string }>`
   border-radius: 50%;
   background: ${({ iconBgColor }) => iconBgColor};
   color: ${COLORS.white};
-  font-size: ${FONTSIZE.fz20};
+  font-size: ${FONTSIZE.fz18};
   overflow: hidden;
 
   a {
