@@ -76,6 +76,7 @@ const KVslider = () => {
               src={item.link}
               alt={item.title}
               height="100%"
+              imgWidth="100%"
               imgPosition="absolute"
               imgTop="50%"
               imgLeft="50%"
