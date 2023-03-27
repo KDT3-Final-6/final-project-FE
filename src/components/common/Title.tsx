@@ -3,15 +3,19 @@ import React from 'react'
 import styled from 'styled-components'
 
 interface ITitle {
+  titleType?: string
+  title?: string
   fontSize?: string
   fontWeight?: string
   margin?: string
   color?: string
   textAlign?: string
-  children: React.ReactNode
+  children?: React.ReactNode
 }
 
 const Title = ({
+  titleType = '',
+  title = '',
   fontSize = FONTSIZE.fz25,
   fontWeight = FONTWEGHT.fw700,
   margin = '',
@@ -21,12 +25,16 @@ const Title = ({
 }: ITitle) => {
   return (
     <TitleStyle
+      titleType={titleType}
       fontSize={fontSize}
       fontWeight={fontWeight}
       margin={margin}
       color={color}
       textAlign={textAlign}
     >
+      {titleType === 'h1' && <h1>{title}</h1>}
+      {titleType === 'h2' && <h2>{title}</h2>}
+      {titleType === 'h3' && <h3>{title}</h3>}
       {children}
     </TitleStyle>
   )
@@ -35,6 +43,7 @@ const Title = ({
 export default Title
 
 const TitleStyle = styled.div<{
+  titleType: string
   fontSize: string
   fontWeight: string
   margin: string

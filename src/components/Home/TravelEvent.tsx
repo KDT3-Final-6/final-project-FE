@@ -8,9 +8,7 @@ const TravelEvent = () => {
   return (
     <Section>
       <Inner>
-        <Title fontSize={FONTSIZE.fz32}>
-          <h2>이벤트 / 계획</h2>
-        </Title>
+        <Title titleType="h2" title="이벤트 / 계획" fontSize={FONTSIZE.fz32} />
       </Inner>
     </Section>
   )
