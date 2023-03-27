@@ -11,6 +11,7 @@ import count from '@src/utils/count'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import SelectOptions from '@src/components/common/SelectOptions'
+import SocialButtons from '@src/components/common/SocialButtons'
 
 const SignUp = () => {
   const years: number[] = []
@@ -60,7 +61,9 @@ const SignUp = () => {
           <br /> 생년월일, 성별, 취미를 입력하면 비슷한 유형의 여행 그룹을 추천해 드립니다.
         </h2>
       </Title>
-      <Inner width="400px" padding="90px 0 190px">
+      <Inner width="400px" padding="40px 0 190px">
+        <SocialButtons verb="가입하기" />
+        <LineSpan></LineSpan>
         <FormAreaStyle>
           <InputItem title="이메일" placeholder="이메일을 입력하세요." />
           <InputItem title="비밀번호" placeholder="비밀번호를 입력하세요." />
@@ -110,7 +113,7 @@ const SignUp = () => {
           <InputBox title="추천인">
             <Input inputType="textInput" placeholder="추천인 코드를 입력하세요." />
           </InputBox>
-          <Button buttonType="skyBlueFull" borderRadius="0" width="100%">
+          <Button buttonType="skyBlue" borderRadius="0" width="100%">
             가입하기
           </Button>
         </FormAreaStyle>
@@ -123,6 +126,13 @@ const SignUp = () => {
 }
 
 export default SignUp
+
+const LineSpan = styled.span`
+  display: block;
+  height: 1px;
+  margin: 44px 0 64px;
+  background-color: ${COLORS.cd9d9d9};
+`
 
 const FormAreaStyle = styled.div`
   display: flex;

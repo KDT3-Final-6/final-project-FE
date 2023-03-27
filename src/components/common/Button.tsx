@@ -3,12 +3,13 @@ import React from 'react'
 import styled from 'styled-components'
 
 interface IButton {
-  buttonType: string
+  buttonType?: string
   width?: string
   height?: string
   borderRadius?: string
   margin?: string
   bgColor?: string
+  color?: string
   children?: React.ReactNode
   onClick?: React.MouseEventHandler<HTMLButtonElement>
 }
@@ -16,10 +17,11 @@ interface IButton {
 const Button = ({
   buttonType = '',
   width = '',
-  height = '',
+  height = '42px',
   borderRadius = '',
   margin = '',
   bgColor = '',
+  color = '',
   children,
   onClick,
 }: IButton) => {
@@ -31,6 +33,7 @@ const Button = ({
       borderRadius={borderRadius}
       margin={margin}
       bgColor={bgColor}
+      color={color}
       onClick={onClick}
     >
       {children}
@@ -47,6 +50,7 @@ export const ButtonStyle = styled.button<{
   borderRadius: string
   margin: string
   bgColor: string
+  color: string
 }>`
   ${({ buttonType }) => handleButtonType(buttonType)}
   width: ${({ width }) => width};
@@ -54,6 +58,8 @@ export const ButtonStyle = styled.button<{
   border-radius: ${({ borderRadius }) => borderRadius};
   margin: ${({ margin }) => margin};
   background: ${({ bgColor }) => bgColor};
+  color: ${({ color }) => color};
+  font-size: 15px;
 `
 
 const handleButtonType = (buttonType: string) => {
@@ -69,12 +75,6 @@ const handleButtonType = (buttonType: string) => {
           background-color: ${COLORS.primary};
           color: ${COLORS.white};
         }
-      `
-    case 'skyBlueFull':
-      return `
-        background-color:${COLORS.primary};
-        color:${COLORS.white};
-        height:42px;
       `
     case 'gray':
       return `

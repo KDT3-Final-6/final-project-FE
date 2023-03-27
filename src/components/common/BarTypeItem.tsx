@@ -46,14 +46,18 @@ function BarTypeItem({ item, cardType, height = '220px', priceColor }: IBarTypeI
           </PriceStyle>
         </DatePriceStyle>
         <Buttons bottom="0" right="0">
-          <Button buttonType="borderGray">
+          <Button buttonType="borderGray" height="45px">
             <FiShare2 />
             공유하기
           </Button>
-          <Button buttonType="borderGray" onClick={() => navigate(PATH.PRODUCT_DETAIL)}>
+          <Button
+            buttonType="borderGray"
+            height="45px"
+            onClick={() => navigate(PATH.PRODUCT_DETAIL)}
+          >
             자세히 보기
           </Button>
-          <Button buttonType={item.review ? 'disable' : 'borderGray'}>
+          <Button buttonType={item.review ? 'disable' : 'borderGray'} height="45px">
             {item.review ? '리뷰작성완료' : '리뷰작성하기'}
           </Button>
         </Buttons>
