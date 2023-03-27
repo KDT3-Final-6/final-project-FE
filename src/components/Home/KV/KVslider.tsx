@@ -72,16 +72,7 @@ const KVslider = () => {
       >
         {KVImages.map((item, index) => (
           <SwiperSlide key={`slide_${index}`}>
-            <Image
-              src={item.link}
-              alt={item.title}
-              height="100%"
-              imgWidth="100%"
-              imgPosition="absolute"
-              imgTop="50%"
-              imgLeft="50%"
-              imgTransform="translate(-50%, -50%)"
-            >
+            <Image height="100%" bgImage={item.link}>
               <ImageTxtStyle>
                 <HashsStyle marginBottom="36px">
                   {item.hashs.map((hash) => (
