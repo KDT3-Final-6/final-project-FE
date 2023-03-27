@@ -73,6 +73,7 @@ const PAlignStyle = styled.p`
   display: flex;
   align-items: center;
   margin: 0 auto;
+  position: relative;
 
   svg {
     width: 50px;
@@ -81,7 +82,8 @@ const PAlignStyle = styled.p`
     text-align: center;
   }
   span {
-    width: calc(100% - 50px);
+    width: 100%;
     text-align: center;
+    position: absolute;
   }
 `
