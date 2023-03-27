@@ -19,22 +19,26 @@ const DELEAY_TIME = 5000
 
 const KVImages = [
   {
-    link: 'https://cdn.imweb.me/thumbnail/20220518/9e9f65c0d670e.png',
+    // link: 'https://cdn.imweb.me/thumbnail/20220518/9e9f65c0d670e.png',
+    link: '/images/thumnail/thums01.jpeg',
     title: '아이슬란드',
     hashs: ['집에 있는데', '집에', '가고싶다.'],
   },
   {
-    link: 'https://cdn.imweb.me/thumbnail/20220517/989e657d1ef50.png',
+    // link: 'https://cdn.imweb.me/thumbnail/20220517/989e657d1ef50.png',
+    link: '/images/thumnail/thums02.jpeg',
     title: '아프리카',
     hashs: ['다음생엔', '돌로', '태어나야지...'],
   },
   {
-    link: 'https://cdn.imweb.me/thumbnail/20220518/b76fbc307e765.png',
+    // link: 'https://cdn.imweb.me/thumbnail/20220518/b76fbc307e765.png',
+    link: '/images/thumnail/thums03.jpeg',
     title: '히말라야',
     hashs: ['엄마', '보고싶다.'],
   },
   {
-    link: 'https://cdn.imweb.me/thumbnail/20220518/8711f5cc2d770.png',
+    // link: 'https://cdn.imweb.me/thumbnail/20220518/8711f5cc2d770.png',
+    link: 'https://cdn.imweb.me/thumbnail/20220518/9e9f65c0d670e.png',
     title: '코카서스',
     hashs: ['우리', '혜원님', '슬라이드 구현하시느라', '수고 많으셨습니다.'],
   },
