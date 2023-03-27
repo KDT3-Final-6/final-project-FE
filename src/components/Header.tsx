@@ -18,7 +18,7 @@ const Header = () => {
             <Image src="/images/Logo_Gotogether.png" alt="고투게더 로고 홈으로 이동" />
           </Link>
           <ButtonsStyle>
-            <Link to={PATH.HOME}>
+            <Link to={PATH.WISHLIST}>
               <AiOutlineHeart />
               <span>찜상품</span>
             </Link>
