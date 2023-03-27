@@ -95,8 +95,14 @@ const SignUp = () => {
           </InputBox>
           <InputBox title="성별">
             <RadiosStyle>
-              <CheckItem type="radio" id="female" labelName="여성" name="gender" />
-              <CheckItem type="radio" id="male" labelName="남성" name="gender" />
+              <CheckItem
+                checkType="radio"
+                type="radio"
+                id="female"
+                labelName="여성"
+                name="gender"
+              />
+              <CheckItem checkType="radio" type="radio" id="male" labelName="남성" name="gender" />
             </RadiosStyle>
           </InputBox>
           <InputBox title="취미 (중복 선택 가능)">
