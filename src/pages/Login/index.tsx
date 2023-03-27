@@ -42,7 +42,7 @@ const Login = () => {
         <Button buttonType="gray" width="100%" height="42px" borderRadius="0">
           비회원 예약 조회
         </Button>
-        <LinkSpan></LinkSpan>
+        <LineSpan></LineSpan>
         <SocialButtons verb="시작하기" />
       </Inner>
     </>
@@ -86,39 +86,9 @@ const ForgotConfirmStyle = styled.div`
   }
 `
 
-export const LinkSpan = styled.span`
+const LineSpan = styled.span`
   display: block;
   height: 1px;
   margin: 44px 0;
   background-color: ${COLORS.cd9d9d9};
-`
-const SocialButtonsStyle = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-
-  button {
-    &:nth-child(2) {
-      svg {
-        font-size: 20px;
-      }
-    }
-  }
-`
-
-const PAlignStyle = styled.p`
-  display: flex;
-  align-items: center;
-  margin: 0 auto;
-
-  svg {
-    width: 50px;
-    margin: 0;
-    font-size: 25px;
-    text-align: center;
-  }
-  span {
-    width: calc(100% - 50px);
-    text-align: center;
-  }
 `

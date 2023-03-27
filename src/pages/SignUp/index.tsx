@@ -62,7 +62,9 @@ const SignUp = () => {
           <br /> 생년월일, 성별, 취미를 입력하면 비슷한 유형의 여행 그룹을 추천해 드립니다.
         </h2>
       </Title>
-      <Inner width="400px" padding="90px 0 190px">
+      <Inner width="400px" padding="40px 0 190px">
+        <SocialButtons verb="가입하기" />
+        <LineSpan></LineSpan>
         <FormAreaStyle>
           <InputItem title="이메일" placeholder="이메일을 입력하세요." />
           <InputItem title="비밀번호" placeholder="비밀번호를 입력하세요." />
@@ -119,14 +121,19 @@ const SignUp = () => {
         <AgreeStyle>
           가입하시면 <span>이용약관</span>에 동의하게 됩니다.
         </AgreeStyle>
-        <LinkSpan></LinkSpan>
-        <SocialButtons verb="가입하기" />
       </Inner>
     </>
   )
 }
 
 export default SignUp
+
+const LineSpan = styled.span`
+  display: block;
+  height: 1px;
+  margin: 44px 0 64px;
+  background-color: ${COLORS.cd9d9d9};
+`
 
 const FormAreaStyle = styled.div`
   display: flex;
