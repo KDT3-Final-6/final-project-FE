@@ -13,8 +13,7 @@ const TravelEvent = () => {
         <Title titleType="h2" title="이벤트 / 혜택" fontSize={FONTSIZE.fz32} margin="0 0 50px" />
         <ContainerStyle>
           <EventCardStyle>
-            <ImageBoxStyle>
-              {/* <img src='' alt='' /> */}
+            <ImageBoxStyle url="모로코_10일_썸네일">
               <MoreBtn bgColor={COLORS.white} bottom="16px" right="18px" />
             </ImageBoxStyle>
             <EventInfo>
@@ -23,8 +22,7 @@ const TravelEvent = () => {
             </EventInfo>
           </EventCardStyle>
           <EventCardStyle>
-            <ImageBoxStyle>
-              {/* <img src='' alt='' /> */}
+            <ImageBoxStyle url="마레모_12일_썸네일">
               <MoreBtn bgColor={COLORS.white} bottom="16px" right="18px" />
             </ImageBoxStyle>
             <EventInfo>
@@ -33,8 +31,7 @@ const TravelEvent = () => {
             </EventInfo>
           </EventCardStyle>
           <EventCardStyle>
-            <ImageBoxStyle>
-              {/* <img src='' alt='' /> */}
+            <ImageBoxStyle url="아프리카7개국_18일_썸네일">
               <MoreBtn bgColor={COLORS.white} bottom="16px" right="18px" />
             </ImageBoxStyle>
             <EventInfo>
@@ -65,7 +62,11 @@ const ImageBoxStyle = styled.div`
   width: 380px;
   height: 207px;
   border-radius: 8px;
-  background-color: #dddddd;
+  background-image: ${({ url }: { url: string }) => `url(/images/event/${url}.jpg)`};
+  background-size: 380px;
+  background-position: center;
+  background-repeat: no-repeat;
+  text-align: center;
 `
 
 const EventInfo = styled.div`
