@@ -22,6 +22,7 @@ const COLORS = {
   ca6a6a6: '#a6a6a6',
   cbe4b4b: '#be4b4b',
   cb6b6b6: '#b6b6b6',
+  cE0E0E0: '#E0E0E0',
   c74fff7: '#74FFF7',
   c2e9892: '#2e9892',
   c404040: '#404040',
