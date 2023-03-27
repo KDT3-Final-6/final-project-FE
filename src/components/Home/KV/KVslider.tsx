@@ -133,7 +133,9 @@ const KVslider = () => {
 
 export default KVslider
 
-const Container = styled.div``
+const Container = styled.div`
+  position: relative;
+`
 
 const MainSwiperStyle = styled(Swiper)`
   position: relative;
