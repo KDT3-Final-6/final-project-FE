@@ -11,7 +11,6 @@ import count from '@src/utils/count'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import SelectOptions from '@src/components/common/SelectOptions'
-import { LinkSpan } from '../Login'
 import SocialButtons from '@src/components/common/SocialButtons'
 
 const SignUp = () => {
