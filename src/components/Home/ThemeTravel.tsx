@@ -8,9 +8,7 @@ const ThemeTravel = () => {
   return (
     <Section>
       <Inner>
-        <Title fontSize={FONTSIZE.fz32} margin="0 0 50px">
-          <h2>테마별 인기 여행</h2>
-        </Title>
+        <Title titleType="h2" title="테마별 인기 여행" fontSize={FONTSIZE.fz32} margin="0 0 50px" />
       </Inner>
     </Section>
   )

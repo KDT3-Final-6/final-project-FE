@@ -25,7 +25,7 @@ const Input = ({
 }: IInput) => {
   return (
     <InputStyle inputType={inputType} width={width} height={height}>
-      <p>{title}</p>
+      {/* <p>{title}</p> */}
       <input type={type} placeholder={placeholder} />
       {inputType === 'searchInput' && (
         <Button buttonType="transparent" width="50px" height="100%">
