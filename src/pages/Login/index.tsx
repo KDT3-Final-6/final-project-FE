@@ -73,6 +73,7 @@ const ConfirmStyle = styled.div`
 
   label {
     margin-top: 4px;
+    padding-left: 0;
   }
 `
 
