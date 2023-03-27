@@ -1,21 +1,20 @@
 import Button from '@src/components/common/Button'
-import CheckBox from '@src/components/common/InputBox'
 import CheckItem from '@src/components/common/CheckItem'
 import Input from '@src/components/common/Input'
 import Title, { HightlightSpanStyle } from '@src/components/common/Title'
+import SocialLoginButtons from '@src/components/common/SocialButtons'
 import PATH from '@src/constants/pathConst'
 import Inner from '@src/layout/Inner'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import SocialButtons from '@src/components/common/SocialButtons'
 
 const Login = () => {
   return (
     <>
-      <Title textAlign="center" margin="102px 0 20px">
-        <h1>로그인</h1>
-      </Title>
+      <Title titleType="h1" title="로그인" textAlign="center" margin="102px 0 20px" />
       <Title textAlign="center" fontSize={FONTSIZE.fz18} fontWeight={FONTWEGHT.fw400}>
         <h2>
           <HightlightSpanStyle color={COLORS.c3ba1ff}>예약을 더 쉽고 빠르게</HightlightSpanStyle> 할
@@ -43,6 +42,8 @@ const Login = () => {
         <Button buttonType="gray" width="100%" height="42px" borderRadius="0">
           비회원 예약 조회
         </Button>
+        <LinkSpan></LinkSpan>
+        <SocialButtons verb="시작하기" />
       </Inner>
     </>
   )
@@ -82,5 +83,42 @@ const ForgotConfirmStyle = styled.div`
 
   a {
     display: inline-block;
+  }
+`
+
+export const LinkSpan = styled.span`
+  display: block;
+  height: 1px;
+  margin: 44px 0;
+  background-color: ${COLORS.cd9d9d9};
+`
+const SocialButtonsStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  button {
+    &:nth-child(2) {
+      svg {
+        font-size: 20px;
+      }
+    }
+  }
+`
+
+const PAlignStyle = styled.p`
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+
+  svg {
+    width: 50px;
+    margin: 0;
+    font-size: 25px;
+    text-align: center;
+  }
+  span {
+    width: calc(100% - 50px);
+    text-align: center;
   }
 `

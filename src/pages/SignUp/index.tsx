@@ -11,6 +11,8 @@ import count from '@src/utils/count'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import SelectOptions from '@src/components/common/SelectOptions'
+import { LinkSpan } from '../Login'
+import SocialButtons from '@src/components/common/SocialButtons'
 
 const SignUp = () => {
   const years: number[] = []
@@ -110,13 +112,15 @@ const SignUp = () => {
           <InputBox title="추천인">
             <Input inputType="textInput" placeholder="추천인 코드를 입력하세요." />
           </InputBox>
-          <Button buttonType="skyBlueFull" borderRadius="0" width="100%">
+          <Button buttonType="skyBlue" borderRadius="0" width="100%">
             가입하기
           </Button>
         </FormAreaStyle>
         <AgreeStyle>
           가입하시면 <span>이용약관</span>에 동의하게 됩니다.
         </AgreeStyle>
+        <LinkSpan></LinkSpan>
+        <SocialButtons verb="가입하기" />
       </Inner>
     </>
   )
