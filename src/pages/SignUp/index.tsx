@@ -106,9 +106,9 @@ const SignUp = () => {
               <CheckItem id="healing" labelName="휴식, 힐링" />
             </CheckStyle>
           </InputBox>
-          <Input inputType="textInput" placeholder="추천인 코드를 입력하세요.">
-            <p>추천인</p>
-          </Input>
+          <InputBox title="추천인">
+            <Input inputType="textInput" placeholder="추천인 코드를 입력하세요." />
+          </InputBox>
           <Button buttonType="skyBlueFull" borderRadius="0" width="100%">
             가입하기
           </Button>
