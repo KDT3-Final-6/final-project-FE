@@ -8,6 +8,7 @@ interface IButton {
   height?: string
   borderRadius?: string
   margin?: string
+  padding?: string
   bgColor?: string
   color?: string
   children?: React.ReactNode
@@ -20,6 +21,7 @@ const Button = ({
   height = '42px',
   borderRadius = '',
   margin = '',
+  padding = '',
   bgColor = '',
   color = '',
   children,
@@ -32,6 +34,7 @@ const Button = ({
       height={height}
       borderRadius={borderRadius}
       margin={margin}
+      padding={padding}
       bgColor={bgColor}
       color={color}
       onClick={onClick}
@@ -49,6 +52,7 @@ export const ButtonStyle = styled.button<{
   height: string
   borderRadius: string
   margin: string
+  padding: string
   bgColor: string
   color: string
 }>`
@@ -57,6 +61,7 @@ export const ButtonStyle = styled.button<{
   height: ${({ height }) => height};
   border-radius: ${({ borderRadius }) => borderRadius};
   margin: ${({ margin }) => margin};
+  padding: ${({ padding }) => padding};
   background: ${({ bgColor }) => bgColor};
   color: ${({ color }) => color};
   font-size: 15px;
