@@ -8,6 +8,7 @@ interface IImage {
   height?: string
   isCenter?: boolean
   margin?: string
+  imgWidth?: string
   imgMargin?: string
   imgPosition?: string
   imgTop?: string
@@ -23,6 +24,7 @@ const Image = ({
   height = '',
   isCenter = false,
   margin = '',
+  imgWidth = '',
   imgMargin = '',
   imgPosition = 'static',
   imgTop = '',
@@ -35,6 +37,7 @@ const Image = ({
       <ImageImgStyle
         src={src}
         alt={alt}
+        imgWidth={imgWidth}
         imgMargin={imgMargin}
         imgPosition={imgPosition}
         imgTop={imgTop}
@@ -61,6 +64,7 @@ const ImageStyle = styled.div<{
 `
 
 const ImageImgStyle = styled.img<{
+  imgWidth: string
   imgMargin: string
   imgPosition: string
   imgTop: string
@@ -68,7 +72,7 @@ const ImageImgStyle = styled.img<{
   imgTransform: string
 }>`
   margin: ${({ imgMargin }) => imgMargin};
-  height: 100%;
+  width: ${({ imgWidth }) => imgWidth};
   position: ${({ imgPosition }) => imgPosition};
   top: ${({ imgTop }) => imgTop};
   left: ${({ imgLeft }) => imgLeft};
