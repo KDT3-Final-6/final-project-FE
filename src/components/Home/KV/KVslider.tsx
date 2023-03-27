@@ -19,24 +19,28 @@ const DELEAY_TIME = 5000
 
 const KVImages = [
   {
+    id: '1',
     link: 'https://cdn.imweb.me/thumbnail/20220518/9e9f65c0d670e.png',
-    title: '아이슬란드',
+    titles: ['아이슬란드'],
     hashs: ['집에 있는데', '집에', '가고싶다.'],
   },
   {
+    id: '2',
     link: 'https://cdn.imweb.me/thumbnail/20220517/989e657d1ef50.png',
-    title: '아프리카',
-    hashs: ['다음생엔', '돌로', '태어나야지...'],
+    titles: ['누구든지', '라자스탄 궁전 호텔 9일'],
+    hashs: ['궁전호텔', '낙타사파리', '타르사막'],
   },
   {
+    id: '3',
     link: 'https://cdn.imweb.me/thumbnail/20220518/b76fbc307e765.png',
-    title: '히말라야',
-    hashs: ['엄마', '보고싶다.'],
+    titles: ['5070들만의 출발', '아이슬란드 링로드 11일'],
+    hashs: ['링로드 일주', '하이랜드', '빙하하이킹'],
   },
   {
+    id: '4',
     link: 'https://cdn.imweb.me/thumbnail/20220518/8711f5cc2d770.png',
-    title: '코카서스',
-    hashs: ['우리', '혜원님', '슬라이드 구현하시느라', '수고 많으셨습니다.'],
+    titles: ['영화를 보신 분들만', '시칠리아 일주 9일'],
+    hashs: ['대부', '시네마천국', '그랑블루'],
   },
 ]
 
@@ -81,14 +85,13 @@ const KVslider = () => {
                     </HashStyle>
                   ))}
                 </HashsStyle>
-                <Title
-                  titleType="h1"
-                  title={item.title}
-                  fontSize="60px"
-                  fontWeight={FONTWEGHT.fw700}
-                  color={COLORS.white}
-                  textAlign="center"
-                ></Title>
+                <Title fontSize="60px" color={COLORS.white} textAlign="center">
+                  <h1>
+                    {item.titles.map((title) => (
+                      <p key={title}>{title}</p>
+                    ))}
+                  </h1>
+                </Title>
               </ImageTxtStyle>
             </Image>
           </SwiperSlide>
@@ -206,8 +209,14 @@ const ImageTxtStyle = styled.div`
   z-index: 1;
   color: ${COLORS.white};
 
+  h1 p {
+    line-height: 80px;
+    font-weight: ${FONTWEGHT.fw600};
+  }
+
   ${HashsStyle} {
     display: flex;
+    justify-content: center;
     gap: 10px;
   }
 `
