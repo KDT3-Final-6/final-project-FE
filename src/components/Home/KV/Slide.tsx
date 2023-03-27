@@ -9,6 +9,8 @@ interface SlideProp {
 }
 
 const Slide = ({ children, width, height }: SlideProp) => {
+  // console.log('children', children)
+
   return (
     <SlideStyle width={width} height={height}>
       <span>{children}</span>
@@ -25,6 +27,4 @@ const SlideStyle = styled.div<SlideProp>`
   border-radius: 5px;
   color: ${COLORS.black};
   font-weight: ${FONTWEGHT.fw700};
-  text-align: center;
-  line-height: 90px;
 `

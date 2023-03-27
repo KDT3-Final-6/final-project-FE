@@ -1,19 +1,11 @@
 import styled from 'styled-components'
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import Slide from './Slide'
-import { motion } from 'framer-motion'
+import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 
 // import required modules
-import SwiperCore, {
-  Navigation,
-  Pagination,
-  FreeMode,
-  Thumbs,
-  Lazy,
-  EffectFade,
-  Autoplay,
-} from 'swiper'
+import { Navigation, FreeMode, Thumbs, EffectFade, Autoplay } from 'swiper'
 
 // Import Swiper styles
 import 'swiper/css' //basic
@@ -29,22 +21,6 @@ const KVImages = [
   { link: 'images/thumnail/thums02.jpeg' },
   { link: 'images/thumnail/thums04.jpeg' },
 ]
-
-const variants = {
-  filled: {
-    width: '100%',
-    transition: {
-      duration: 5,
-      ease: 'easeInOut',
-    },
-  },
-  empty: {
-    width: '0%',
-    transition: {
-      duration: 0,
-    },
-  },
-}
 
 const KVslider = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null)
@@ -70,7 +46,6 @@ const KVslider = () => {
         // fadeEffect={{ crossFade: true }}
         loop={true}
         thumbs={{ swiper: thumbsSwiper }}
-        // slideToClickedSlide={true}
         allowTouchMove={false}
         autoplay={{ delay: DELEAY_TIME, disableOnInteraction: false }}
         onBeforeInit={progressMove}
@@ -99,7 +74,10 @@ const KVslider = () => {
               <ProgressStyle>
                 <BarStyle width={`${barWidth}%`}></BarStyle>
               </ProgressStyle>
-              <div>Slide {item}</div>
+              <SlideTextStyle>
+                <p>북유럽</p>
+                <div>아이슬란드 링로드 11일</div>
+              </SlideTextStyle>
             </Slide>
           </ThumbSlideStyle>
         ))}
@@ -114,7 +92,6 @@ const Container = styled.div`
   position: relative;
   width: 100%;
   height: 720px;
-  background-color: yellow;
 `
 
 const MainSwiperStyle = styled(Swiper)`
@@ -146,7 +123,7 @@ const ProgressStyle = styled.div`
 
 const BarStyle = styled.div`
   width: ${({ width }: { width: string }) => width};
-  background-color: #fdb813;
+  background-color: ${COLORS.fdb813};
   height: 100%;
 `
 
@@ -163,5 +140,27 @@ const ThumbSlideStyle = styled(SwiperSlide)`
     ${ProgressStyle} {
       visibility: visible;
     }
+  }
+`
+
+const SlideTextStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  padding: 0 30px;
+  /* margin-left: 21px; */
+  transform: translateY(-50%);
+  p {
+    margin-bottom: 5px;
+    line-height: 1.3;
+    font-size: ${FONTSIZE.fz14};
+    color: ${COLORS.c767676};
+  }
+  div {
+    letter-spacing: -2%;
+    font-size: ${FONTSIZE.fz18};
+    color: ${COLORS.c1b1b1b};
+    font-weight: ${FONTWEGHT.fw600};
   }
 `

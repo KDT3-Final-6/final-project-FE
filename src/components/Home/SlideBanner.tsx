@@ -1,7 +1,12 @@
 import React from 'react'
+import KVslider from './KV/KVslider'
 
 const SlideBanner = () => {
-  return <div>SlideBanner</div>
+  return (
+    <>
+      <KVslider />
+    </>
+  )
 }
 
 export default SlideBanner
