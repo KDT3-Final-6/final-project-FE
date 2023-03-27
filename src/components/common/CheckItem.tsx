@@ -3,15 +3,24 @@ import React from 'react'
 import styled from 'styled-components'
 
 interface ICheckItem {
+  checkType?: string
   type?: string
   id: string
   name?: string
   labelName: string
+  width?: string
 }
 
-const CheckItem = ({ type = 'checkbox', id, labelName, name }: ICheckItem) => {
+const CheckItem = ({
+  checkType = 'checkbox',
+  type = 'checkbox',
+  id,
+  labelName,
+  name,
+  width = '',
+}: ICheckItem) => {
   return (
-    <ItemStyle type={type}>
+    <ItemStyle checkType={checkType} width={width}>
       <input type={type} id={id} name={name} />
       <label htmlFor={id}>{labelName}</label>
     </ItemStyle>
@@ -21,7 +30,8 @@ const CheckItem = ({ type = 'checkbox', id, labelName, name }: ICheckItem) => {
 export default CheckItem
 
 const ItemStyle = styled.div<{
-  type: string
+  checkType: string
+  width: string
 }>`
   display: flex;
   align-items: center;
@@ -33,11 +43,11 @@ const ItemStyle = styled.div<{
     padding-left: 6px;
     color: ${COLORS.c1b1b1b};
   }
-  ${({ type }) => handleCheckItem(type)}
+  ${({ checkType, width }) => handleCheckItem(checkType, width)}
 `
 
-const handleCheckItem = (type: string) => {
-  switch (type) {
+const handleCheckItem = (checkType: string, width: string) => {
+  switch (checkType) {
     case 'radio':
     case 'checkbox':
       return `
@@ -92,6 +102,51 @@ const handleCheckItem = (type: string) => {
           width:auto;
           height:auto;
         }
+      `
+    case 'tabType':
+      return `
+        position:relative;
+
+        input {
+        width: ${width};
+        height: 57px;
+        cursor: pointer;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        -o-appearance: none;
+        outline: none;
+        position: relative;
+
+        &::before {
+          content: '';
+          width: 100%;
+          height: 100%;
+          color: transparent;
+          border: 1px solid ${COLORS.cddd};
+          position: absolute;
+          top: 0;
+          left: 0;
+          border-radius:10px;
+        }
+
+        &:checked::before {
+          background-color: ${COLORS.cbe4b4b};
+          color: ${COLORS.white};
+          border: none;
+        }
+
+        &:checked ~ label {
+          color:${COLORS.white};
+        }
+      }
+
+      label {
+        position:absolute;
+        left:50%;
+        transform:translateX(-50%);
+        padding-left:0;
+      }
+
       `
   }
 }
