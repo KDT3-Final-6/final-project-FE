@@ -3,6 +3,8 @@ import { useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import Slide from './Slide'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
+import Image from '@src/components/common/Image'
+import { HashsStyle, HashStyle } from '@src/components/common/ProductCard'
 
 // import required modules
 import { Navigation, FreeMode, Thumbs, EffectFade, Autoplay } from 'swiper'
@@ -11,15 +13,31 @@ import { Navigation, FreeMode, Thumbs, EffectFade, Autoplay } from 'swiper'
 import 'swiper/css' //basic
 import 'swiper/css/navigation'
 import 'swiper/css/effect-fade'
-import Image from '@src/components/common/Image'
+import Title from '@src/components/common/Title'
 
 const DELEAY_TIME = 5000
 
 const KVImages = [
-  { link: 'images/thumnail/thums03.jpeg' },
-  { link: 'images/thumnail/thums01.jpeg' },
-  { link: 'images/thumnail/thums02.jpeg' },
-  { link: 'images/thumnail/thums04.jpeg' },
+  {
+    link: 'https://cdn.imweb.me/thumbnail/20220518/9e9f65c0d670e.png',
+    title: '아이슬란드',
+    hashs: ['집에 있는데', '집에', '가고싶다.'],
+  },
+  {
+    link: 'https://cdn.imweb.me/thumbnail/20220517/989e657d1ef50.png',
+    title: '아프리카',
+    hashs: ['다음생엔', '돌로', '태어나야지...'],
+  },
+  {
+    link: 'https://cdn.imweb.me/thumbnail/20220518/b76fbc307e765.png',
+    title: '히말라야',
+    hashs: ['엄마', '보고싶다.'],
+  },
+  {
+    link: 'https://cdn.imweb.me/thumbnail/20220518/8711f5cc2d770.png',
+    title: '코카서스',
+    hashs: ['우리', '혜원님', '슬라이드 구현하시느라', '수고 많으셨습니다.'],
+  },
 ]
 
 const KVslider = () => {
@@ -54,7 +72,33 @@ const KVslider = () => {
       >
         {KVImages.map((item, index) => (
           <SwiperSlide key={`slide_${index}`}>
-            <Image src={item.link} alt="image" />
+            <Image
+              src={item.link}
+              alt={item.title}
+              height="100%"
+              imgPosition="absolute"
+              imgTop="50%"
+              imgLeft="50%"
+              imgTransform="translate(-50%, -50%)"
+            >
+              <ImageTxtStyle>
+                <HashsStyle marginBottom="36px">
+                  {item.hashs.map((hash) => (
+                    <HashStyle key={hash} fontSize={FONTSIZE.fz26}>
+                      {`#${hash}`}
+                    </HashStyle>
+                  ))}
+                </HashsStyle>
+                <Title
+                  titleType="h1"
+                  title={item.title}
+                  fontSize="60px"
+                  fontWeight={FONTWEGHT.fw700}
+                  color={COLORS.white}
+                  textAlign="center"
+                ></Title>
+              </ImageTxtStyle>
+            </Image>
           </SwiperSlide>
         ))}
       </MainSwiperStyle>
@@ -88,17 +132,12 @@ const KVslider = () => {
 
 export default KVslider
 
-const Container = styled.div`
+const Container = styled.div``
+
+const MainSwiperStyle = styled(Swiper)`
   position: relative;
   width: 100%;
   height: 720px;
-`
-
-const MainSwiperStyle = styled(Swiper)`
-  img {
-    width: 100%;
-    height: 720px;
-  }
 `
 
 const ThumbnailSwiperStyle = styled(Swiper)`
@@ -162,5 +201,19 @@ const SlideTextStyle = styled.div`
     font-size: ${FONTSIZE.fz18};
     color: ${COLORS.c1b1b1b};
     font-weight: ${FONTWEGHT.fw600};
+  }
+`
+
+const ImageTxtStyle = styled.div`
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  color: ${COLORS.white};
+
+  ${HashsStyle} {
+    display: flex;
+    gap: 10px;
   }
 `
