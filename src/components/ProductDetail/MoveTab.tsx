@@ -10,7 +10,7 @@ const MoveTab = () => {
         <Tab>상품 상세</Tab>
       </Link>
       <Link to="#review">
-        <Tab>상품 후기</Tab>
+        <Tab>상품 후기(83)</Tab>
       </Link>
       <Link to="#related">
         <Tab>연관 상품</Tab>
@@ -20,9 +20,12 @@ const MoveTab = () => {
 }
 
 const MoveTabStyle = styled.div`
-  margin-top: 20px;
+  height: 50px;
+  margin-top: 50px;
   display: flex;
-  gap: 20px;
+  gap: 118px;
+  font-weight: ${FONTWEGHT.fw500};
+  font-size: ${FONTSIZE.fz26};
 `
 
 const Tab = styled.span`
