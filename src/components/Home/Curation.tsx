@@ -85,9 +85,12 @@ const Curation = () => {
   return (
     <Section>
       <Inner>
-        <Title fontSize={FONTSIZE.fz32} margin="0 0 66px">
-          <h2>어디로 여행을 떠날까요?</h2>
-        </Title>
+        <Title
+          titleType="h2"
+          title="어디로 여행을 떠날까요?"
+          fontSize={FONTSIZE.fz32}
+          margin="0 0 66px"
+        />
         <ProductListStyle>
           {products.map((product) => (
             <CardTypeItem

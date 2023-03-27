@@ -15,9 +15,12 @@ const TravelReview = () => {
   return (
     <Section>
       <Inner>
-        <Title fontSize={FONTSIZE.fz32} margin="0 0 50px">
-          실제 고객 여행 후기
-        </Title>
+        <Title
+          titleType="h2"
+          title="실제 고객 여행 후기"
+          fontSize={FONTSIZE.fz32}
+          margin="0 0 50px"
+        />
         <ContainerStyle>
           <ReviewCardStyle>
             <HeaderStyle>

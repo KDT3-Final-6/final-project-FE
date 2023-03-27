@@ -16,9 +16,11 @@ const ProductInfo = (props: Props) => {
         이미지 슬라이드
       </div>
       <DescStyle>
-        <Title fontSize={FONTSIZE.fz24}>
-          <h3>[실속 골프 패키지] 사이판 3박 4일 골프 여행</h3>
-        </Title>
+        <Title
+          titleType="h3"
+          title="[실속 골프 패키지] 사이판 3박 4일 골프 여행"
+          fontSize={FONTSIZE.fz24}
+        />
         <span style={{ fontSize: FONTSIZE.fz18 }}>여행 간단 설명</span>
         <div style={{ display: 'flex' }}>
           <div>★★★★☆</div>

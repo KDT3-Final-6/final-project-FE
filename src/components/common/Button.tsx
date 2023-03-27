@@ -8,6 +8,7 @@ interface IButton {
   height?: string
   borderRadius?: string
   margin?: string
+  bgColor?: string
   children?: React.ReactNode
   onClick?: React.MouseEventHandler<HTMLButtonElement>
 }
@@ -18,6 +19,7 @@ const Button = ({
   height = '',
   borderRadius = '',
   margin = '',
+  bgColor = '',
   children,
   onClick,
 }: IButton) => {
@@ -28,6 +30,7 @@ const Button = ({
       height={height}
       borderRadius={borderRadius}
       margin={margin}
+      bgColor={bgColor}
       onClick={onClick}
     >
       {children}
@@ -43,12 +46,14 @@ export const ButtonStyle = styled.button<{
   height: string
   borderRadius: string
   margin: string
+  bgColor: string
 }>`
   ${({ buttonType }) => handleButtonType(buttonType)}
-  width:${({ width }) => width};
+  width: ${({ width }) => width};
   height: ${({ height }) => height};
   border-radius: ${({ borderRadius }) => borderRadius};
   margin: ${({ margin }) => margin};
+  background: ${({ bgColor }) => bgColor};
 `
 
 const handleButtonType = (buttonType: string) => {

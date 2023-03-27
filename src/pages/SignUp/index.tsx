@@ -39,9 +39,7 @@ const SignUp = () => {
 
   return (
     <>
-      <Title textAlign="center" margin="102px 0 40px">
-        <h1>회원가입</h1>
-      </Title>
+      <Title titleType="h1" title="회원가입" textAlign="center" margin="102px 0 40px" />
       <Image
         src="/images/signUpUser.png"
         alt="회원가입 이미지"
@@ -68,7 +66,10 @@ const SignUp = () => {
           <InputItem title="비밀번호" placeholder="비밀번호를 입력하세요." />
           <InputItem title="비밀번호 확인" placeholder="비밀번호를 확인 입력하세요." />
           <InputItem title="이름" placeholder="이름을 입력하세요." />
-          <InputItem title="연락처" placeholder="연락처를 입력하세요." />
+          <InputItem
+            title="연락처"
+            placeholder='연락처를 입력하세요. ( " - " 없이 입력해주세요.)'
+          />
           <InputBox inputCount={3} title="생년월일">
             <SelectOptions
               onChange={(e) => handleChange('year', e.target.value)}
@@ -106,9 +107,9 @@ const SignUp = () => {
               <CheckItem id="healing" labelName="휴식, 힐링" />
             </CheckStyle>
           </InputBox>
-          <Input inputType="textInput" placeholder="추천인 코드를 입력하세요.">
-            <p>추천인</p>
-          </Input>
+          <InputBox title="추천인">
+            <Input inputType="textInput" placeholder="추천인 코드를 입력하세요." />
+          </InputBox>
           <Button buttonType="skyBlueFull" borderRadius="0" width="100%">
             가입하기
           </Button>

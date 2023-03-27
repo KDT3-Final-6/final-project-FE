@@ -10,9 +10,7 @@ const TravelEvent = () => {
   return (
     <Section>
       <Inner>
-        <Title fontSize={FONTSIZE.fz32} margin="0 0 50px">
-          <h2>이벤트 / 혜택</h2>
-        </Title>
+        <Title titleType="h2" title="이벤트 / 혜택" fontSize={FONTSIZE.fz32} margin="0 0 50px" />
         <ContainerStyle>
           <EventCardStyle>
             <ImageBoxStyle>
