@@ -1,7 +1,7 @@
 import Detail from '@src/components/ProductDetail/Detail'
 import MoveTab from '@src/components/ProductDetail/MoveTab'
 import ProductInfo from '@src/components/ProductDetail/ProductInfo'
-import Review from '@src/components/ProductDetail/Review'
+import TravelReview from '@src/components/ProductDetail/TravelReview'
 import { FONTSIZE, COLORS, FONTWEGHT } from '@src/styles/root'
 import Inner from '@src/layout/Inner'
 import { Helmet } from 'react-helmet'
@@ -26,14 +26,7 @@ const ProductDetail = (props: Props) => {
       <MoveTab />
       <hr />
       <Detail />
-      <Title fontSize={FONTSIZE.fz26} fontWeight={FONTWEGHT.fw700} margin="50px 0">
-        <h3 id="review">상품 후기(83)</h3>
-      </Title>
-      <ul style={{ display: 'flex', gap: '22px' }}>
-        <Review />
-        <Review />
-        <Review />
-      </ul>
+      <TravelReview />
       <Title fontSize={FONTSIZE.fz26} fontWeight={FONTWEGHT.fw700} margin="50px 0">
         <h3 id="related">연관 상품</h3>
       </Title>
