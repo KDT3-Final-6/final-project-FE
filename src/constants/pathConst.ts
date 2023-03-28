@@ -16,6 +16,11 @@ const PATH = {
   MY_REVIEW: 'myreview',
   ONE_ON_ONE: 'oneonone',
   INFO_EDIT: 'infoedit',
+  ADMIN: '/admin',
+  PRODUCTS_LIST: '/admin/productsList',
+  TRANSACTION_LIST: '/admin/TransactionList',
+  USER_LIST: '/admin/userList',
+  POST_LIST: '/admin/postList',
 }
 
 export default PATH
