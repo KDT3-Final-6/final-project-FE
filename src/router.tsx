@@ -20,6 +20,11 @@ import WishList from './pages/Mypage/WishList'
 import OneOnOne from './pages/Mypage/OneOnOne'
 import InfoEdit from './pages/Mypage/InfoEdit'
 import MyReview from './pages/Mypage/MyReview'
+import Admin from '@pages/Admin'
+import ProductList from '@pages/ProductsList'
+import TransactionList from '@pages/TransactionList'
+import UserList from '@pages/UserList'
+import PostList from '@pages/PostList'
 
 const router = createBrowserRouter([
   {
@@ -48,6 +53,16 @@ const router = createBrowserRouter([
           { path: PATH.ONE_ON_ONE, element: <OneOnOne /> },
           { path: PATH.INFO_EDIT, element: <InfoEdit /> },
           { path: PATH.MY_REVIEW, element: <MyReview /> },
+        ],
+      },
+      {
+        path: PATH.ADMIN,
+        element: <Admin />,
+        children: [
+          { path: PATH.PRODUCTS_LIST, element: <ProductList /> },
+          { path: PATH.TRANSACTION_LIST, element: <TransactionList /> },
+          { path: PATH.USER_LIST, element: <UserList /> },
+          { path: PATH.POST_LIST, element: <PostList /> },
         ],
       },
     ],
