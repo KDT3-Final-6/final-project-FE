@@ -12,6 +12,7 @@ interface IImage {
   imgMargin?: string
   imgBorderRadius?: string
   children?: React.ReactNode
+  border?: string
 }
 
 const Image = ({
@@ -25,9 +26,18 @@ const Image = ({
   imgMargin = '',
   imgBorderRadius = '',
   children,
+  border = '',
 }: IImage) => {
   return (
-    <ImageStyle width={width} height={height} isCenter={isCenter} margin={margin} bgImage={bgImage}>
+    <ImageStyle
+      width={width}
+      height={height}
+      isCenter={isCenter}
+      margin={margin}
+      bgImage={bgImage}
+      imgBorderRadius={imgBorderRadius}
+      border={border}
+    >
       {!bgImage && (
         <ImageImgStyle
           src={src}
@@ -49,6 +59,8 @@ const ImageStyle = styled.div<{
   isCenter: boolean
   margin?: string
   bgImage: string
+  imgBorderRadius: string
+  border: string
 }>`
   width: ${({ width }) => width};
   height: ${({ height }) => height};
@@ -56,6 +68,8 @@ const ImageStyle = styled.div<{
   margin: ${({ margin }) => margin};
   background: url(${({ bgImage }) => bgImage}) no-repeat center;
   background-size: cover;
+  border-radius: ${({ imgBorderRadius }) => imgBorderRadius};
+  border: ${({ border }) => border};
 `
 
 const ImageImgStyle = styled.img<{

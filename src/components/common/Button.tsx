@@ -129,6 +129,17 @@ const handleButtonType = (buttonType: string) => {
       color: #fff;
       width: 140px;
       height: 42px;
+      &:hover {
+        color: ${COLORS.primary};
+        border: 1px solid ${COLORS.primary};
+        background-color: transparent;
+      }
+      `
+    case 'detail':
+      return `
+        border: 1px solid ${COLORS.black};
+        color: ${COLORS.black};
+        border-radius: 3px;
       `
     default:
       return `
