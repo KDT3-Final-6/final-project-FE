@@ -10,6 +10,7 @@ interface IImage {
   margin?: string
   bgImage?: string
   imgMargin?: string
+  imgBorderRadius?: string
   children?: React.ReactNode
 }
 
@@ -22,11 +23,19 @@ const Image = ({
   margin = '',
   bgImage = '',
   imgMargin = '',
+  imgBorderRadius = '',
   children,
 }: IImage) => {
   return (
     <ImageStyle width={width} height={height} isCenter={isCenter} margin={margin} bgImage={bgImage}>
-      {!bgImage && <ImageImgStyle src={src} alt={alt} imgMargin={imgMargin} />}
+      {!bgImage && (
+        <ImageImgStyle
+          src={src}
+          alt={alt}
+          imgMargin={imgMargin}
+          imgBorderRadius={imgBorderRadius}
+        />
+      )}
       {children}
     </ImageStyle>
   )
@@ -51,6 +60,8 @@ const ImageStyle = styled.div<{
 
 const ImageImgStyle = styled.img<{
   imgMargin: string
+  imgBorderRadius: string
 }>`
   margin: ${({ imgMargin }) => imgMargin};
+  border-radius: ${({ imgBorderRadius }) => imgBorderRadius};
 `
