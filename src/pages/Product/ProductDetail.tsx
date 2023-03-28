@@ -7,6 +7,7 @@ import Inner from '@src/layout/Inner'
 import { Helmet } from 'react-helmet'
 import styled from 'styled-components'
 import Title from '@src/components/common/Title'
+import RelatedProduct from '@src/components/ProductDetail/RelatedProduct'
 
 type Props = {}
 
@@ -27,12 +28,14 @@ const ProductDetail = (props: Props) => {
       <hr />
       <Detail />
       <TravelReview />
-      <Title fontSize={FONTSIZE.fz26} fontWeight={FONTWEGHT.fw700} margin="50px 0">
+      <Title fontSize={FONTSIZE.fz26} fontWeight={FONTWEGHT.fw700} margin="80px 0 50px 0">
         <h3 id="related">연관 상품</h3>
       </Title>
-      <Title fontSize={FONTSIZE.fz26} fontWeight={FONTWEGHT.fw700} margin="50px 0">
+      <RelatedProduct />
+      <Title fontSize={FONTSIZE.fz26} fontWeight={FONTWEGHT.fw700} margin="80px 0 50px 0">
         <h3 id="review">내가 봤던 상품</h3>
       </Title>
+      <RelatedProduct />
     </Inner>
   )
 }
