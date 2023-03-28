@@ -3,22 +3,26 @@ import styled from 'styled-components'
 
 interface ISection {
   children: React.ReactNode
-  backgroundColor?: string
+  bgColor?: string
 }
 
-const Section = ({ children, backgroundColor }: ISection) => {
-  return <SectionStyle backgroundColor={backgroundColor}>{children}</SectionStyle>
+const Section = ({ children, bgColor }: ISection) => {
+  return <SectionStyle bgColor={bgColor}>{children}</SectionStyle>
 }
 
 export default Section
 
 const SectionStyle = styled.section<{
-  backgroundColor?: string
+  bgColor?: string
 }>`
-  background-color: ${({ backgroundColor }) => backgroundColor};
+  background-color: ${({ bgColor }) => bgColor};
   margin-bottom: 66px;
 
   &:first-of-type {
     margin-top: 76px;
+  }
+
+  &:last-of-type {
+    margin-bottom: 265px;
   }
 `
