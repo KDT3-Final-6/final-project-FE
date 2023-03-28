@@ -7,10 +7,17 @@ import Button from '../common/Button'
 import Title from '../common/Title'
 import { FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import StarRateWrapGet from '@src/components/common/StarRateWrapGet'
+import SelectOptions from '../common/SelectOptions'
 
 type Props = {}
 
 const ProductInfo = (props: Props) => {
+  const options = [
+    '2023/05/30(화) - 06/13(화) 도착',
+    '2023/05/30(화) - 06/13(화) 도착',
+    '2023/05/30(화) - 06/13(화) 도착',
+    '2023/05/30(화) - 06/13(화) 도착',
+  ]
   return (
     <InfoStyle>
       <div style={{ width: '50%', height: '450px', backgroundColor: 'tomato' }}>
@@ -37,10 +44,13 @@ const ProductInfo = (props: Props) => {
           </span>
         </div>
         <div>
-          <span>인원 선택</span>
-          <Option />
-          <Option />
-          <Option />
+          <span>출발일 *</span>
+          <SelectOptions
+            items={options}
+            value="출발일 옵션 선택"
+            unit=""
+            onChange={(e) => e.preventDefault()}
+          />
         </div>
         <div style={{ display: 'flex', gap: '5px', justifyContent: 'center' }}>
           <Button buttonType="skyBlue" width="180px" height="50px">

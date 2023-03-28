@@ -2,32 +2,34 @@ import React, { useState } from 'react'
 import Inner from '@src/layout/Inner'
 import { RiPencilLine } from 'react-icons/ri'
 import styled from 'styled-components'
-import RoundButton from '@src/components/common/RoundButton'
+import Image from '@src/components/common/Image'
 import MenuTab from '@src/components/MyPage/MenuTab'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import { Outlet } from 'react-router-dom'
+import Button from '@components/common/Button'
 
 const MyPage = () => {
   const [activeMenu, setActiveMenu] = useState(0)
   return (
     <>
-      <img
-        src="/images/myPage_banner.png"
-        alt="banner"
-        style={{ height: '190px', width: '100%' }}
-      />
+      <Image bgImage="/images/myPage_banner.png" alt="banner" width="100%" height="190px" />
       <ProfileStyle>
-        <ImageStyle>
-          <img src="/images/profile.png" alt="" />
-        </ImageStyle>
+        <Image
+          bgImage="/images/profile.png"
+          alt="프로필"
+          width="130px"
+          height="130px"
+          imgBorderRadius="200px"
+          border={`5px solid ${COLORS.white}`}
+        />
         <span style={{ fontSize: FONTSIZE.fz24, fontWeight: FONTWEGHT.fw700 }}>김고투</span>
-        <RoundButton buttonType="skyBlue" width="140px" height="42px">
+        <Button buttonType="cartSkyBlue" width="140px" height="42px" borderRadius="50px">
           <div
             style={{ display: 'flex', gap: '5px', alignItems: 'center', justifyContent: 'center' }}
           >
             <span>프로필 편집</span> <RiPencilLine style={{ margin: 0 }} />
           </div>
-        </RoundButton>
+        </Button>
       </ProfileStyle>
       <InnerWrap>
         <Inner>
@@ -47,16 +49,6 @@ const ProfileStyle = styled.section`
   gap: 20px;
   position: relative;
   top: -65px;
-`
-const ImageStyle = styled.div`
-  width: 130px;
-  height: 130px;
-  img {
-    width: 100%;
-    border-radius: 100px;
-    border: 5px solid white;
-    box-sizing: border-box;
-  }
 `
 
 const InnerWrap = styled.div`

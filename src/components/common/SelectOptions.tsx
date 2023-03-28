@@ -1,8 +1,8 @@
 import React from 'react'
 
 interface ISelectOptions {
-  items: number[]
-  value: number
+  items: number[] | string[]
+  value: number | string
   unit: string
   onChange: React.ChangeEventHandler<HTMLSelectElement>
 }
