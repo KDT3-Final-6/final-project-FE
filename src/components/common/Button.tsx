@@ -135,6 +135,12 @@ const handleButtonType = (buttonType: string) => {
         background-color: transparent;
       }
       `
+    case 'detail':
+      return `
+        border: 1px solid ${COLORS.black};
+        color: ${COLORS.black};
+        border-radius: 3px;
+      `
     default:
       return `
         width: 180px;
