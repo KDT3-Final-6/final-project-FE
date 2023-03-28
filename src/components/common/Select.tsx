@@ -7,7 +7,7 @@ interface ISelect {
   options: string[] | number[]
   initial: string | number
   value?: string | number
-  unit?: string
+  unit?: any
   width?: string
   height?: string
   borderRadius?: string
@@ -50,9 +50,14 @@ const Select = ({
       onClick={() => setShowOptions((prev) => !prev)}
     >
       <LabelStyle>
-        {currentValue} {unit}
+        {currentValue} {!currentValue.toString().includes(unit) && unit}
       </LabelStyle>
-      <SelectOptionsStyle show={showOptions} ref={ref} borderRadius={borderRadius}>
+      <SelectOptionsStyle
+        show={showOptions}
+        ref={ref}
+        borderRadius={borderRadius}
+        borderColor={borderColor}
+      >
         {/* <OptionStyle onClick={(e) => handleOnChangeSelectValue(e)}>인기순</OptionStyle>
         <OptionStyle onClick={(e) => handleOnChangeSelectValue(e)}>가격높은순</OptionStyle>
         <OptionStyle onClick={(e) => handleOnChangeSelectValue(e)}>가격낮은순</OptionStyle> */}
@@ -65,7 +70,7 @@ const Select = ({
             onClick={isClickDefault ? (e) => handleOnChangeSelectValue(e) : onClick}
             onChange={onChange}
           >
-            {option}
+            {option} {unit}
           </OptionStyle>
         ))}
       </SelectOptionsStyle>
@@ -111,6 +116,7 @@ const LabelStyle = styled.label`
 
 const SelectOptionsStyle = styled.ul<{
   show: boolean
+  borderColor: string
   borderRadius: string
 }>`
   position: absolute;
@@ -123,6 +129,7 @@ const SelectOptionsStyle = styled.ul<{
   /* height: 129px; */
   max-height: ${({ show }) => (show ? '300px' : '0')};
   border: ${({ show }) => (show ? `1px solid ${COLORS.cb6b6b6}` : 'none')};
+  border-color: ${({ borderColor }) => borderColor};
   border-radius: ${({ borderRadius }) => borderRadius};
   background-color: ${COLORS.white};
   z-index: 10;
