@@ -81,6 +81,7 @@ const EventInfo = styled.div`
   span {
     font-weight: ${FONTWEGHT.fw500};
     font-size: ${FONTSIZE.fz16};
+    color: ${COLORS.ca6a6a6};
     line-height: 24px;
   }
 `

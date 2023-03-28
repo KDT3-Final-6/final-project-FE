@@ -1,32 +1,33 @@
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
+import useOnClickOutside from '../hooks/useOnClickOutside'
 
 const Select = () => {
   const [currentValue, setCurrentValue] = useState('인기순')
   const [showOptions, setShowOptions] = useState(false)
-
-  console.log(showOptions)
+  const ref = useRef(null)
+  useOnClickOutside(ref, () => setShowOptions(false))
 
   const handleOnChangeSelectValue = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
     const { innerText } = e.target as HTMLLIElement
     setCurrentValue(innerText)
   }
   return (
-    <SelectBox onClick={() => setShowOptions((prev) => !prev)}>
-      <Label>{currentValue}</Label>
-      <SelectOptions show={showOptions}>
-        <Option onClick={(e) => handleOnChangeSelectValue(e)}>인기순</Option>
-        <Option onClick={(e) => handleOnChangeSelectValue(e)}>가격높은순</Option>
-        <Option onClick={(e) => handleOnChangeSelectValue(e)}>가격낮은순</Option>
-      </SelectOptions>
-    </SelectBox>
+    <SelectBoxStyle onClick={() => setShowOptions((prev) => !prev)}>
+      <LabelStyle>{currentValue}</LabelStyle>
+      <SelectOptionsStyle show={showOptions} ref={ref}>
+        <OptionStyle onClick={(e) => handleOnChangeSelectValue(e)}>인기순</OptionStyle>
+        <OptionStyle onClick={(e) => handleOnChangeSelectValue(e)}>가격높은순</OptionStyle>
+        <OptionStyle onClick={(e) => handleOnChangeSelectValue(e)}>가격낮은순</OptionStyle>
+      </SelectOptionsStyle>
+    </SelectBoxStyle>
   )
 }
 
 export default Select
 
-const SelectBox = styled.div`
+const SelectBoxStyle = styled.div`
   display: flex;
   align-items: center;
   position: relative;
@@ -48,11 +49,11 @@ const SelectBox = styled.div`
   }
 `
 
-const Label = styled.label`
+const LabelStyle = styled.label`
   font-size: ${FONTSIZE.fz14};
 `
 
-const SelectOptions = styled.ul`
+const SelectOptionsStyle = styled.ul`
   position: absolute;
   list-style: none;
   top: -1px;
@@ -68,7 +69,7 @@ const SelectOptions = styled.ul`
   box-sizing: content-box;
 `
 
-const Option = styled.li`
+const OptionStyle = styled.li`
   font-size: ${FONTSIZE.fz14};
   width: 108px;
   height: 43px;
