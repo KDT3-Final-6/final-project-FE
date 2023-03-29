@@ -13,7 +13,6 @@ import CardTypeItem from '../common/CardTypeItem'
 const ThemeTravel = () => {
   const [products, setProducts] = useState<IProduct[]>([])
   const contentTabs = ['휴양지', '골프', '트레킹', '성지순례', '문화탐방']
-  const [currentValue, setCurrentValue] = useState('휴양지')
 
   useEffect(() => {
     ;(async () => {
@@ -22,8 +21,8 @@ const ThemeTravel = () => {
   }, [])
 
   const handleTabClick = (e: React.MouseEvent<HTMLLIElement>) => {
-    const { innerText } = e.target as HTMLLIElement
-    setCurrentValue(innerText)
+    const tab = e.target
+    console.log(tab)
   }
 
   return (
@@ -54,11 +53,7 @@ const ThemeTravel = () => {
             <ContentStyle>
               <ContentTabsStyle>
                 {contentTabs.map((contentTab) => (
-                  <ContentTabStyle
-                    key={contentTab}
-                    onClick={(e) => handleTabClick(e)}
-                    currentValue={currentValue}
-                  >
+                  <ContentTabStyle key={contentTab} onClick={(e) => handleTabClick(e)}>
                     {contentTab}
                   </ContentTabStyle>
                 ))}
@@ -138,14 +133,11 @@ const ContentTabsStyle = styled.ul`
   margin-bottom: 52px;
 `
 
-const ContentTabStyle = styled.li<{
-  currentValue: string
-}>`
+const ContentTabStyle = styled.li`
   padding: 10px;
   position: relative;
   color: ${COLORS.c767676};
   cursor: pointer;
-  ${({ currentValue }) => handleTab(currentValue)}
 
   &::after {
     content: '';
@@ -157,24 +149,6 @@ const ContentTabStyle = styled.li<{
     bottom: 0;
   }
 `
-
-const handleTab = (handleTab: string) => {
-  switch (handleTab) {
-    case '휴양지':
-      return `
-      `
-    case '골프':
-      return `
-      `
-    case '트레킹':
-      return `
-      `
-    case '성지순례':
-      return ``
-    case '문화탐방':
-      return ``
-  }
-}
 
 const ProductListStyle = styled.ul`
   display: flex;
