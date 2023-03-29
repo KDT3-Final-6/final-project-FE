@@ -1,5 +1,5 @@
 import PATH from '@src/constants/pathConst'
-import { IProduct } from '@src/interfaces/product'
+import { IProduct } from '@src/env'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'

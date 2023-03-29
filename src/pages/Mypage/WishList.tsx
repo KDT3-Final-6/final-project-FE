@@ -1,9 +1,9 @@
 import Pagination from '@src/components/common/Pagination'
-import { IProduct } from '@src/interfaces/product'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import CardTypeItem from '@src/components/common/CardTypeItem'
 import { getProducts } from '@src/api/product'
+import { IProduct } from '@src/env'
 
 const WishList = () => {
   const [products, setProducts] = useState<IProduct[]>([])
