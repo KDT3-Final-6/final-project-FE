@@ -1,4 +1,3 @@
-import { IProduct } from '@src/interfaces/product'
 import Inner from '@src/layout/Inner'
 import Section from '@src/layout/Section'
 import { COLORS, FONTSIZE } from '@src/styles/root'
@@ -11,6 +10,7 @@ import { HiOutlineRefresh } from 'react-icons/hi'
 import { MdEditCalendar } from 'react-icons/md'
 import { current } from '@reduxjs/toolkit'
 import { getProducts } from '@src/api/product'
+import { IProduct } from '@src/env'
 
 const Curation = () => {
   const [products, setProducts] = useState<IProduct[]>([])
