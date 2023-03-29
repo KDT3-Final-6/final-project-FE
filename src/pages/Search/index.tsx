@@ -116,5 +116,3 @@ const ResultMsgContainerStyle = styled.div`
   padding-top: 130px;
   padding-bottom: 178px;
 `
-
-// const SelectStyle = styled.ul``
