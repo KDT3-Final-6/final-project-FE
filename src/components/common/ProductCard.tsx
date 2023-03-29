@@ -7,6 +7,7 @@ type IProduct = {
   width?: string
   height?: string
   maxHeight?: string
+  minHeight?: string
   children?: React.ReactNode
   bgImage?: string
   imgWidth?: string
@@ -18,6 +19,7 @@ const ProductCard = ({
   width = '',
   height = '',
   maxHeight = '',
+  minHeight = '300px',
   children,
   bgImage = '',
   imgWidth = '',
@@ -29,6 +31,7 @@ const ProductCard = ({
       width={width}
       height={height}
       maxHeight={maxHeight}
+      minHeight={minHeight}
       bgImage={bgImage}
       imgWidth={imgWidth}
       imgHeight={imgHeight}
@@ -45,6 +48,7 @@ const CardStyle = styled.li<{
   width: string
   height: string
   maxHeight: string
+  minHeight: string
   bgImage: string
   imgWidth: string
   imgHeight: string
@@ -60,10 +64,10 @@ const CardStyle = styled.li<{
     left: 50%;
     transform: translate(-50%, -50%);
   }
-  ${({ cardType, bgImage }) => handleCardType(cardType, bgImage)}
+  ${({ cardType, bgImage, minHeight }) => handleCardType(cardType, bgImage, minHeight)}
 `
 
-const handleCardType = (cardType: string, bgImage: string) => {
+const handleCardType = (cardType: string, bgImage: string, minHeight: string) => {
   switch (cardType) {
     case 'cardType':
       return `
@@ -76,7 +80,7 @@ const handleCardType = (cardType: string, bgImage: string) => {
         }
 
         ${ImgAreaStyle} {
-          min-height:300px;
+          min-height:${minHeight};
         }
       `
     case 'imageCardType':
@@ -145,14 +149,16 @@ const ImgAreaStyle = styled.div`
 const TxtAreaStyle = styled.div<{
   isCardType?: boolean
   isBarType?: boolean
+  minHeight?: string
 }>`
   width: ${({ isBarType }) => isBarType && 'calc(100% - 300px)'};
-  height: ${({ isCardType }) => isCardType && 'calc(100% - 300px)'};
+  height: ${({ minHeight }) => (minHeight ? `calc(100% - ${minHeight})` : 'calc(100% - 300px)')};
   padding: ${({ isCardType }) => isCardType && '20px'};
   border: ${({ isCardType }) => isCardType && `1px solid ${COLORS.cededed}`};
   border-radius: 0 0 12px 12px;
   justify-content: ${({ isBarType }) => isBarType && 'space-between'};
   position: relative;
+  background-color: ${COLORS.white};
 `
 
 const HashsStyle = styled.div<{
