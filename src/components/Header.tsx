@@ -49,7 +49,9 @@ const Header = () => {
           <LnbListStyle>
             <li>여행 큐레이션</li>
             <li>추천 여행</li>
-            <li>그룹별 여행</li>
+            <Link to={PATH.PRODUCT_GROUP}>
+              <li>그룹별 여행</li>
+            </Link>
             <li>테마별 여행</li>
             <BarStyle></BarStyle>
             <li>이벤트</li>

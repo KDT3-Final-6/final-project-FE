@@ -1,12 +1,15 @@
 import { IProduct } from '@src/env'
-import CardTypeItem from '@src/components/common/CardTypeItem'
-import { COLORS } from '@src/styles/root'
+import React from 'react'
+import Title from '../common/Title'
 import styled from 'styled-components'
-import CheckItem from '@src/components/common/CheckItem'
+import CardTypeItem from '../common/CardTypeItem'
+import { COLORS } from '@src/styles/root'
 
-type Props = {}
+interface Props {
+  title: string
+}
 
-const RelatedProduct = (props: Props) => {
+const CategoryList = ({ title }: Props) => {
   const products: IProduct[] = [
     {
       id: 1,
@@ -42,7 +45,10 @@ const RelatedProduct = (props: Props) => {
     },
   ]
   return (
-    <section>
+    <>
+      <Title margin="80px 0 50px 0">
+        <h2>{title}</h2>
+      </Title>
       <ProductListStyle>
         {products.map((product) => (
           <CardTypeItem
@@ -56,7 +62,7 @@ const RelatedProduct = (props: Props) => {
           />
         ))}
       </ProductListStyle>
-    </section>
+    </>
   )
 }
 
@@ -66,4 +72,4 @@ const ProductListStyle = styled.ul`
   gap: 13px;
 `
 
-export default RelatedProduct
+export default CategoryList

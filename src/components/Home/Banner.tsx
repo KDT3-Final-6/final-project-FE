@@ -44,7 +44,7 @@ const BannerStyle = styled.div<IBanner>`
   position: relative;
   width: 100%;
   height: 249px;
-  background-image: ${({ image }) => `url(images/${image}.png)`};
+  background-image: ${({ image }) => `url(/images/${image}.png)`};
   background-repeat: no-repeat;
   background-position: center center;
   margin-bottom: ${({ marginBottom }) => marginBottom};

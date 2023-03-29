@@ -25,6 +25,7 @@ import ProductList from '@pages/ProductsList'
 import TransactionList from '@pages/TransactionList'
 import UserList from '@pages/UserList'
 import PostList from '@pages/PostList'
+import Group from './pages/Product/Group'
 
 const router = createBrowserRouter([
   {
@@ -33,9 +34,12 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       { index: true, path: PATH.HOME, element: <Home /> },
-      { path: PATH.CART, element: <Cart /> },
       { path: PATH.CONTACT, element: <Contact /> },
-      { path: PATH.PRODUCT, element: <Product /> },
+      {
+        path: PATH.PRODUCT,
+        element: <Product />,
+        children: [{ path: PATH.PRODUCT_GROUP, element: <Group /> }],
+      },
       { path: PATH.REVIEW, element: <Review /> },
       { path: PATH.SEARCH, element: <Search /> },
       { path: PATH.LOGIN, element: <Login /> },
