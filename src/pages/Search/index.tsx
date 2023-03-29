@@ -15,7 +15,7 @@ interface Props {}
 const Search = (props: Props) => {
   const products: IProduct[] = [
     {
-      id: '1',
+      id: 1,
       title: '괌 4박 5일',
       image: 'https://cdn.imweb.me/thumbnail/20220419/31ca7e26eb12a.png',
       hashs: ['트롤링낚시', '롯데', '패밀리스윗'],
@@ -23,7 +23,7 @@ const Search = (props: Props) => {
       heart: true,
     },
     {
-      id: '2',
+      id: 2,
       title: '괌 4박 5일',
       image: 'https://cdn.imweb.me/thumbnail/20220419/31ca7e26eb12a.png',
       hashs: ['트롤링낚시', '롯데', '패밀리스윗'],
@@ -31,7 +31,7 @@ const Search = (props: Props) => {
       heart: true,
     },
     {
-      id: '3',
+      id: 3,
       title: '괌 4박 5일',
       image: 'https://cdn.imweb.me/thumbnail/20220419/31ca7e26eb12a.png',
       hashs: ['트롤링낚시', '롯데', '패밀리스윗'],
@@ -39,7 +39,7 @@ const Search = (props: Props) => {
       heart: false,
     },
     {
-      id: '4',
+      id: 4,
       title: '괌 4박 5일',
       image: 'https://cdn.imweb.me/thumbnail/20220419/31ca7e26eb12a.png',
       hashs: ['트롤링낚시', '롯데', '패밀리스윗'],
@@ -49,6 +49,8 @@ const Search = (props: Props) => {
   ]
   const hasProducts = products && products.length > 0
   const countProduct = 8
+  const selectOptions = ['인기순', '가격높은순', '가격낮은순']
+
   return (
     <section>
       <Inner>
@@ -66,7 +68,7 @@ const Search = (props: Props) => {
           <ResultContainerStyle>
             <FilterboxStyle>
               <p>{countProduct}건의 검색 결과</p>
-              <Select />
+              <Select options={selectOptions} initial="인기순" />
             </FilterboxStyle>
             <ProductListStyle>
               {products.map((product) => (

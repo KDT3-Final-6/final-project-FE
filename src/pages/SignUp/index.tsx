@@ -2,7 +2,6 @@ import Button from '@src/components/common/Button'
 import InputBox from '@src/components/common/InputBox'
 import CheckItem from '@src/components/common/CheckItem'
 import Image from '@src/components/common/Image'
-import Input from '@src/components/common/Input'
 import InputItem from '@src/components/common/InputItem'
 import Title, { HightlightSpanStyle } from '@src/components/common/Title'
 import Inner from '@src/layout/Inner'
@@ -10,8 +9,8 @@ import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import count from '@src/utils/count'
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import SelectOptions from '@src/components/common/SelectOptions'
 import SocialButtons from '@src/components/common/SocialButtons'
+import Select from '@src/components/common/Select'
 
 const SignUp = () => {
   const years: number[] = []
@@ -29,14 +28,14 @@ const SignUp = () => {
     day: 21,
   })
 
-  const handleChange = (type: 'year' | 'month' | 'day', value: string | number) => {
-    setCurrentValue((prev) => {
-      return {
-        ...prev,
-        [type]: value,
-      }
-    })
-  }
+  // const handleChange = (type: 'year' | 'month' | 'day', value: string | number) => {
+  //   setCurrentValue((prev) => {
+  //     return {
+  //       ...prev,
+  //       [type]: value,
+  //     }
+  //   })
+  // }
 
   return (
     <>
@@ -74,23 +73,33 @@ const SignUp = () => {
             placeholder='연락처를 입력하세요. ( " - " 없이 입력해주세요.)'
           />
           <InputBox inputCount={3} title="생년월일">
-            <SelectOptions
-              onChange={(e) => handleChange('year', e.target.value)}
+            <Select
+              options={years}
+              initial={1960}
+              // onChange={(e) => handleChange('year', e.target.value)}
               value={currentValue.year}
-              items={years}
               unit="년"
+              borderColor={COLORS.cddd}
+              borderRadius="0"
+              height="38px"
             />
-            <SelectOptions
-              onChange={(e) => handleChange('month', e.target.value)}
+            <Select
+              options={months}
+              initial={5}
               value={currentValue.month}
-              items={months}
               unit="월"
+              borderColor={COLORS.cddd}
+              borderRadius="0"
+              height="38px"
             />
-            <SelectOptions
-              onChange={(e) => handleChange('day', e.target.value)}
+            <Select
+              options={days}
+              initial={21}
               value={currentValue.day}
-              items={days}
               unit="일"
+              borderColor={COLORS.cddd}
+              borderRadius="0"
+              height="38px"
             />
           </InputBox>
           <InputBox title="성별">

@@ -1,13 +1,12 @@
 import React from 'react'
 import { SlArrowRight } from 'react-icons/sl'
 import styled from 'styled-components'
-import Option from './Option'
 import { AiOutlineShareAlt, AiOutlineShoppingCart } from 'react-icons/ai'
 import Button from '../common/Button'
 import Title from '../common/Title'
-import { FONTSIZE, FONTWEGHT } from '@src/styles/root'
+import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import StarRateWrapGet from '@src/components/common/StarRateWrapGet'
-import SelectOptions from '../common/SelectOptions'
+import Select from '../common/Select'
 
 type Props = {}
 
@@ -50,12 +49,21 @@ const ProductInfo = (props: Props) => {
         </div>
         <OptionSectionStyle>
           <span>출발일 *</span>
-          <SelectOptions
+          <Select
+            options={options}
+            initial="출발일 옵션 선택"
+            onChange={(e) => e.preventDefault()}
+            width="100%"
+            height="50px"
+            borderRadius="0"
+            borderColor={COLORS.black}
+          />
+          {/* <SelectOptions
             items={options}
             value="출발일 옵션 선택"
             unit=""
             onChange={(e) => e.preventDefault()}
-          />
+          /> */}
           <span>인원 *</span>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span>350,000원</span>

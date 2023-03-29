@@ -1,6 +1,6 @@
-import { ILogin } from './login'
-
-export interface ISignup extends ILogin {
+export interface ISignup {
+  id: string
+  pw:string
   name: string
   nickname: string
   phoneNumber: string

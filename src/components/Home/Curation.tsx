@@ -14,7 +14,7 @@ import { current } from '@reduxjs/toolkit'
 const Curation = () => {
   const products: IProduct[] = [
     {
-      id: '1',
+      id: 1,
       title: '어른스러움의 프랑스 보르도 와인로드 10일',
       image: 'https://cdn.imweb.me/thumbnail/20220422/e2416c9e52bf5.jpg',
       hashs: [
@@ -38,7 +38,7 @@ const Curation = () => {
       heart: true,
     },
     {
-      id: '2',
+      id: 2,
       title: '어른스러움의 프랑스 보르도 와인로드 10일',
       image: 'https://cdn.imweb.me/thumbnail/20220422/e2416c9e52bf5.jpg',
       hashs: [
@@ -62,7 +62,7 @@ const Curation = () => {
       heart: false,
     },
     {
-      id: '3',
+      id: 3,
       title: '어른스러움의 프랑스 보르도 와인로드 10일',
       image: 'https://cdn.imweb.me/thumbnail/20220422/e2416c9e52bf5.jpg',
       hashs: [

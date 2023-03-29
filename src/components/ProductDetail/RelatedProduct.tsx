@@ -8,7 +8,7 @@ type Props = {}
 const RelatedProduct = (props: Props) => {
   const products: IProduct[] = [
     {
-      id: '1',
+      id: 1,
       title: '괌 4박 5일',
       image: 'https://cdn.imweb.me/thumbnail/20220419/31ca7e26eb12a.png',
       hashs: ['트롤링낚시', '롯데', '패밀리스윗'],
@@ -16,7 +16,7 @@ const RelatedProduct = (props: Props) => {
       heart: true,
     },
     {
-      id: '2',
+      id: 2,
       title: '괌 4박 5일',
       image: 'https://cdn.imweb.me/thumbnail/20220419/31ca7e26eb12a.png',
       hashs: ['트롤링낚시', '롯데', '패밀리스윗'],
@@ -24,7 +24,7 @@ const RelatedProduct = (props: Props) => {
       heart: true,
     },
     {
-      id: '3',
+      id: 3,
       title: '괌 4박 5일',
       image: 'https://cdn.imweb.me/thumbnail/20220419/31ca7e26eb12a.png',
       hashs: ['트롤링낚시', '롯데', '패밀리스윗'],
@@ -32,7 +32,7 @@ const RelatedProduct = (props: Props) => {
       heart: false,
     },
     {
-      id: '4',
+      id: 4,
       title: '괌 4박 5일',
       image: 'https://cdn.imweb.me/thumbnail/20220419/31ca7e26eb12a.png',
       hashs: ['트롤링낚시', '롯데', '패밀리스윗'],

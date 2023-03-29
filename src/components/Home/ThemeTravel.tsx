@@ -7,7 +7,7 @@ import Title from '../common/Title'
 const ThemeTravel = () => {
   return (
     <Section>
-      <Inner>
+      <Inner width="">
         <Title titleType="h2" title="테마별 인기 여행" fontSize={FONTSIZE.fz32} margin="0 0 50px" />
       </Inner>
     </Section>

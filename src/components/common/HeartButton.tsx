@@ -4,7 +4,7 @@ import { BsFillSuitHeartFill } from 'react-icons/bs'
 import { COLORS, FONTSIZE } from '@src/styles/root'
 
 interface IHeart {
-  productId: string
+  productId?: number
   top?: string
   right?: string
   isHeart?: boolean
