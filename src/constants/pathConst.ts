@@ -10,7 +10,7 @@ const PATH = {
   USER: '/user',
   PRODUCT_DETAIL: '/product/:productId',
   MYPAGE: '/mypage',
-  CART: 'cart',
+  CART: '/mypage/cart',
   ORDER_LIST: 'orderlist',
   WISHLIST: '/mypage/wishlist',
   MY_REVIEW: 'myreview',
@@ -21,6 +21,7 @@ const PATH = {
   TRANSACTION_LIST: '/admin/TransactionList',
   USER_LIST: '/admin/userList',
   POST_LIST: '/admin/postList',
+  PRODUCT_GROUP: '/product/group',
 }
 
 export default PATH
