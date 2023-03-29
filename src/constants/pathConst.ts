@@ -22,6 +22,7 @@ const PATH = {
   USER_LIST: '/admin/userList',
   POST_LIST: '/admin/postList',
   PRODUCT_GROUP: '/product/group',
+  PRODUCT_THEME: '/product/theme',
 }
 
 export default PATH
