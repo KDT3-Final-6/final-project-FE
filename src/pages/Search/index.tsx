@@ -1,54 +1,25 @@
-import Button from '@src/components/common/Button'
+import { getProducts } from '@src/api/product'
 import CardTypeItem from '@src/components/common/CardTypeItem'
 import Input from '@src/components/common/Input'
 import Pagination from '@src/components/common/Pagination'
 import Select from '@src/components/common/Select'
-import Title from '@src/components/common/Title'
 import { IProduct } from '@src/env'
 import Inner from '@src/layout/Inner'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
-interface Props {}
+const Search = () => {
+  const [products, setProducts] = useState<IProduct[]>([])
 
-const Search = (props: Props) => {
-  const products: IProduct[] = [
-    {
-      id: 1,
-      title: '괌 4박 5일',
-      image: 'https://cdn.imweb.me/thumbnail/20220419/31ca7e26eb12a.png',
-      hashs: ['트롤링낚시', '롯데', '패밀리스윗'],
-      price: 2135000,
-      heart: true,
-    },
-    {
-      id: 2,
-      title: '괌 4박 5일',
-      image: 'https://cdn.imweb.me/thumbnail/20220419/31ca7e26eb12a.png',
-      hashs: ['트롤링낚시', '롯데', '패밀리스윗'],
-      price: 2135000,
-      heart: true,
-    },
-    {
-      id: 3,
-      title: '괌 4박 5일',
-      image: 'https://cdn.imweb.me/thumbnail/20220419/31ca7e26eb12a.png',
-      hashs: ['트롤링낚시', '롯데', '패밀리스윗'],
-      price: 2135000,
-      heart: false,
-    },
-    {
-      id: 4,
-      title: '괌 4박 5일',
-      image: 'https://cdn.imweb.me/thumbnail/20220419/31ca7e26eb12a.png',
-      hashs: ['트롤링낚시', '롯데', '패밀리스윗'],
-      price: 2135000,
-      heart: false,
-    },
-  ]
+  useEffect(() => {
+    ;(async () => {
+      setProducts(await getProducts())
+    })()
+  }, [])
+
   const hasProducts = products && products.length > 0
-  const countProduct = 8
+  // const countProduct = 8
   const selectOptions = ['인기순', '가격높은순', '가격낮은순']
 
   return (
@@ -67,21 +38,10 @@ const Search = (props: Props) => {
         {hasProducts ? (
           <ResultContainerStyle>
             <FilterboxStyle>
-              <p>{countProduct}건의 검색 결과</p>
+              <p>{products.length}건의 검색 결과</p>
               <Select options={selectOptions} initial="인기순" />
             </FilterboxStyle>
             <ProductListStyle>
-              {products.map((product) => (
-                <CardTypeItem
-                  key={product.id}
-                  item={product}
-                  cardType="cardType"
-                  imgHeight="100%"
-                  height="460px"
-                  priceBottom="30px"
-                  priceColor={COLORS.c1b1b1b}
-                />
-              ))}
               {products.map((product) => (
                 <CardTypeItem
                   key={product.id}
