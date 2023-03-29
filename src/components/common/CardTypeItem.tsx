@@ -1,13 +1,11 @@
 import PATH from '@src/constants/pathConst'
-import { IProduct } from '@src/interfaces/product'
+import { IProduct } from '@src/env'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import HeartButton from './HeartButton'
 import Image from './Image'
 import ProductCard, {
-  CardHeadAreaStyle,
-  CategoryStyle,
   HashsStyle,
   HashStyle,
   ImgAreaStyle,
@@ -62,13 +60,6 @@ const CardTypeItem = ({
         setHeart={setHeart}
       />
       <Link to={PATH.PRODUCT_DETAIL} target="_blank">
-        <CardHeadAreaStyle>
-          {item.categoryNames?.map((categoryName) => (
-            <CategoryStyle key={categoryName} categoryName={categoryName}>
-              {categoryName}
-            </CategoryStyle>
-          ))}
-        </CardHeadAreaStyle>
         {cardType === 'cardType' && (
           <ImgAreaStyle>
             <Image src={item.image} alt={item.title} />

@@ -1,48 +1,77 @@
-import { IProduct } from '@src/interfaces/product'
+import { getProducts } from '@src/api/product'
+import { IProduct } from '@src/env'
 import Inner from '@src/layout/Inner'
 import Section from '@src/layout/Section'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import CardTypeItem from '../common/CardTypeItem'
 import CheckItem from '../common/CheckItem'
 import Title from '../common/Title'
 
 const GroupTravel = () => {
-  const products: IProduct[] = [
+  const [products, setProducts] = useState<IProduct[]>([])
+
+  useEffect(() => {
+    ;(async () => {
+      setProducts(await getProducts())
+    })()
+  }, [])
+
+  const groupTabs = [
     {
-      id: 1,
-      title: '괌 4박 5일',
-      image: 'https://cdn.imweb.me/thumbnail/20220419/31ca7e26eb12a.png',
-      hashs: ['트롤링낚시', '롯데', '패밀리스윗'],
-      price: 2135000,
-      heart: true,
+      id: '5070',
+      tabName: '5070끼리',
     },
     {
-      id: 2,
-      title: '괌 4박 5일',
-      image: 'https://cdn.imweb.me/thumbnail/20220419/31ca7e26eb12a.png',
-      hashs: ['트롤링낚시', '롯데', '패밀리스윗'],
-      price: 2135000,
-      heart: true,
+      id: 'males',
+      tabName: '남자끼리',
     },
     {
-      id: 3,
-      title: '괌 4박 5일',
-      image: 'https://cdn.imweb.me/thumbnail/20220419/31ca7e26eb12a.png',
-      hashs: ['트롤링낚시', '롯데', '패밀리스윗'],
-      price: 2135000,
-      heart: false,
+      id: 'females',
+      tabName: '여자끼리',
     },
     {
-      id: 4,
-      title: '괌 4박 5일',
-      image: 'https://cdn.imweb.me/thumbnail/20220419/31ca7e26eb12a.png',
-      hashs: ['트롤링낚시', '롯데', '패밀리스윗'],
-      price: 2135000,
-      heart: false,
+      id: 'family',
+      tabName: '가족끼리',
+    },
+    {
+      id: 'anybody',
+      tabName: '누구든지',
     },
   ]
+
+  const conceptTabs = [
+    {
+      id: 'shopping',
+      tabName: '쇼핑',
+    },
+    {
+      id: 'wine',
+      tabName: '와인',
+    },
+    {
+      id: 'culture',
+      tabName: '문화탐방',
+    },
+    {
+      id: 'amen',
+      tabName: '성지순례',
+    },
+    {
+      id: 'volunteer',
+      tabName: '봉사활동',
+    },
+    {
+      id: 'tracking',
+      tabName: '트레킹',
+    },
+    {
+      id: 'golf',
+      tabName: '골프',
+    },
+  ]
+
   return (
     <Section>
       <Inner>
@@ -52,106 +81,56 @@ const GroupTravel = () => {
             <GroupStyle>
               <Title titleType="h3" title="그룹" fontSize="26px" fontWeight={FONTWEGHT.fw600} />
               <WrapStyle>
-                <CheckItem
-                  checkType="tabType"
-                  type="radio"
-                  id="5070"
-                  name="group"
-                  labelName="5070끼리"
-                  width="138px"
-                />
-                <CheckItem
-                  checkType="tabType"
-                  type="radio"
-                  id="males"
-                  name="group"
-                  labelName="남자끼리"
-                  width="122px"
-                />
-                <CheckItem
-                  checkType="tabType"
-                  type="radio"
-                  id="females"
-                  name="group"
-                  labelName="여자끼리"
-                  width="122px"
-                />
-                <CheckItem
-                  checkType="tabType"
-                  type="radio"
-                  id="family"
-                  name="group"
-                  labelName="가족끼리"
-                  width="122px"
-                />
-                <CheckItem
-                  checkType="tabType"
-                  type="radio"
-                  id="anybody"
-                  name="group"
-                  labelName="누구든지"
-                  width="122px"
-                />
+                {groupTabs.map((groupTab) => (
+                  <CheckItem
+                    key={groupTab.id}
+                    checkType="tabType"
+                    type="radio"
+                    id={groupTab.id}
+                    name="group"
+                    labelName={groupTab.tabName}
+                    width={
+                      groupTab.tabName.length === 2
+                        ? '82px'
+                        : groupTab.tabName.length === 3
+                        ? '102px'
+                        : groupTab.tabName.length === 4
+                        ? '122px'
+                        : '138px'
+                    }
+                    bgColor={COLORS.cbe4b4b}
+                  />
+                ))}
               </WrapStyle>
             </GroupStyle>
             <ConceptStyle>
               <Title titleType="h3" title="컨셉" fontSize="26px" fontWeight={FONTWEGHT.fw600} />
               <WrapStyle>
-                <CheckItem
-                  checkType="tabType"
-                  type="checkbox"
-                  id="shopping"
-                  labelName="쇼핑"
-                  width="82px"
-                />
-                <CheckItem
-                  checkType="tabType"
-                  type="checkbox"
-                  id="wine"
-                  labelName="와인"
-                  width="82px"
-                />
-                <CheckItem
-                  checkType="tabType"
-                  type="checkbox"
-                  id="culture"
-                  labelName="문화탐방"
-                  width="122px"
-                />
-                <CheckItem
-                  checkType="tabType"
-                  type="checkbox"
-                  id="amen"
-                  labelName="성지순례"
-                  width="122px"
-                />
-                <CheckItem
-                  checkType="tabType"
-                  type="checkbox"
-                  id="volunteer"
-                  labelName="봉사활동"
-                  width="122px"
-                />
-                <CheckItem
-                  checkType="tabType"
-                  type="checkbox"
-                  id="tracking"
-                  labelName="트레킹"
-                  width="102px"
-                />
-                <CheckItem
-                  checkType="tabType"
-                  type="checkbox"
-                  id="golf"
-                  labelName="골프"
-                  width="82px"
-                />
+                {conceptTabs.map((conceptTab) => (
+                  <CheckItem
+                    key={conceptTab.id}
+                    checkType="tabType"
+                    type="checkbox"
+                    id={conceptTab.id}
+                    labelName={conceptTab.tabName}
+                    width={
+                      conceptTab.tabName.length === 2
+                        ? '82px'
+                        : conceptTab.tabName.length === 3
+                        ? '102px'
+                        : conceptTab.tabName.length === 4
+                        ? '122px'
+                        : '138px'
+                    }
+                    bgColor={COLORS.cbe4b4b}
+                  />
+                ))}
               </WrapStyle>
             </ConceptStyle>
           </div>
         </TabStyle>
         <ProductListStyle>
-          {products.map((product) => (
+          {products.slice(0, 4).map((product) => (
             <CardTypeItem
               key={product.id}
               item={product}

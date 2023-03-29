@@ -103,11 +103,6 @@ const handleCardType = (cardType: string, bgImage: string) => {
           width:100%;
           padding: 0 18px 130px;
         }
-        ${CategoryStyle} {
-          padding:4px 9px;
-          border-radius:6px;
-          margin-bottom:0;
-        }
       `
     case 'barType':
       return `
@@ -142,12 +137,6 @@ const handleCardType = (cardType: string, bgImage: string) => {
   }
 }
 
-const CardHeadAreaStyle = styled.div`
-  display: flex;
-  gap: 8px;
-  position: relative;
-`
-
 const ImgAreaStyle = styled.div`
   position: relative;
   overflow: hidden;
@@ -164,22 +153,6 @@ const TxtAreaStyle = styled.div<{
   border-radius: 0 0 12px 12px;
   justify-content: ${({ isBarType }) => isBarType && 'space-between'};
   position: relative;
-`
-
-const CategoryStyle = styled.span<{
-  categoryName: string
-}>`
-  background-color: ${COLORS.black};
-  color: ${COLORS.white};
-  font-size: ${FONTSIZE.fz13};
-  display: inline-block;
-  padding: 5px 10px;
-  border-radius: 8px;
-  margin-bottom: 14px;
-  background-color: ${({ categoryName }) =>
-    categoryName === '여자끼리' ? COLORS.cbe4b4b : '익사이팅' && COLORS.c74fff7};
-  color: ${({ categoryName }) =>
-    categoryName === '여자끼리' ? COLORS.white : '익사이팅' && COLORS.c2e9892};
 `
 
 const HashsStyle = styled.div<{
@@ -226,12 +199,4 @@ const PriceStyle = styled.p<{
   color: ${({ priceColor }) => priceColor};
 `
 
-export {
-  CardHeadAreaStyle,
-  ImgAreaStyle,
-  TxtAreaStyle,
-  CategoryStyle,
-  HashsStyle,
-  HashStyle,
-  PriceStyle,
-}
+export { ImgAreaStyle, TxtAreaStyle, HashsStyle, HashStyle, PriceStyle }
