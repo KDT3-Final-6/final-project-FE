@@ -81,8 +81,6 @@ const ButtonsStyle = styled.div`
   margin-bottom: 76px;
 
   button {
-    display: flex;
-    align-items: center;
     border-radius: 50px;
     padding: 14px 24px;
     height: auto;

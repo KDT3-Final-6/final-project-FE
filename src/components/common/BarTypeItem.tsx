@@ -116,8 +116,6 @@ const Buttons = styled.div<{
   bottom: ${({ bottom }) => bottom};
   right: ${({ right }) => right};
   button {
-    display: flex;
-    align-items: center;
     svg {
       font-size: ${FONTSIZE.fz20};
       margin-right: 10px;
