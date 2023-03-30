@@ -28,6 +28,7 @@ import PostList from '@pages/PostList'
 import Group from '@pages/Product/Group'
 import Theme from '@pages/Product/Theme'
 import Recommend from './pages/Product/Recommend'
+import Result from './pages/Survey/Result'
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,7 @@ const router = createBrowserRouter([
       { path: PATH.LOGIN, element: <Login /> },
       { path: PATH.SIGNUP, element: <SignUp /> },
       { path: PATH.SURVEY, element: <Survey /> },
+      { path: PATH.SURVEY_RESULT, element: <Result /> },
       { path: PATH.USER, element: <User /> },
       { path: PATH.PRODUCT_DETAIL, element: <ProductDetail /> },
       {
