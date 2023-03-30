@@ -125,6 +125,12 @@ const SignUp = () => {
               <CheckItem id="healing" labelName="휴식, 힐링" />
             </CheckStyle>
           </InputBox>
+          <InputBox title="개인정보 제3자 제공 동의">
+            <CheckStyle>
+              <CheckItem id="agreeSMS" labelName="SMS 수신 동의" />
+              <CheckItem id="agreeEmail" labelName="E-Mail 수신 동의" />
+            </CheckStyle>
+          </InputBox>
           <Button buttonType="skyBlue" borderRadius="0" width="100%">
             가입하기
           </Button>
