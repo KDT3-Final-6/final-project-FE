@@ -32,12 +32,6 @@ const CheckItem = ({
   register,
   errorMsg,
 }: ICheckItem) => {
-  const inputProps: { [key: string]: any } = {}
-  if (register) {
-    inputProps['...register'] = register(name, {
-      required: errorMsg,
-    })
-  }
   return (
     <ItemStyle checkType={checkType} width={width} color={color} bgColor={bgColor}>
       <input
@@ -45,10 +39,10 @@ const CheckItem = ({
         id={id}
         name={name}
         value={id}
-        {...inputProps}
-        // {...register(name, {
-        //   required: errorMsg,
-        // })}
+        {...(register &&
+          register(name, {
+            required: errorMsg,
+          }))}
       />
       <label htmlFor={id}>{labelName}</label>
     </ItemStyle>
