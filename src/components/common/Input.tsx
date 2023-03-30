@@ -11,6 +11,7 @@ interface IInput {
   title?: string
   width?: string
   height?: string
+  isDisabled?: boolean
   children?: React.ReactNode
 }
 
@@ -21,12 +22,12 @@ const Input = ({
   title,
   width = '',
   height = '',
+  isDisabled = false,
   children,
 }: IInput) => {
   return (
     <InputStyle inputType={inputType} width={width} height={height}>
-      {/* <p>{title}</p> */}
-      <input type={type} placeholder={placeholder} />
+      <input type={type} placeholder={placeholder} disabled={isDisabled} />
       {inputType === 'searchInput' && (
         <Button buttonType="transparent" width="50px" height="100%">
           <FiSearch />
@@ -81,6 +82,7 @@ const handleInputType = (inputType: string) => {
         }
       `
     case 'textInput':
+    case 'disabledInput':
       return `
         border:1px solid ${COLORS.cddd};
         width:100%;
@@ -92,6 +94,10 @@ const handleInputType = (inputType: string) => {
           &::placeholder {
             color:${COLORS.ca6a6a6};
           }
+        }
+
+        input:disabled {
+          background-color:${COLORS.cededed};
         }
       `
     case 'transparent':

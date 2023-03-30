@@ -10,7 +10,7 @@ interface IInputItem {
   placeholder: string
   color?: string
   highlight?: string
-  disabled?: boolean
+  isDisabled?: boolean
 }
 
 const InputItem = ({
@@ -19,12 +19,12 @@ const InputItem = ({
   placeholder,
   color = COLORS.c3ba1ff,
   highlight = '(필수입력)',
-  disabled = false,
+  isDisabled = false,
 }: IInputItem) => {
   return (
-    <Input inputType={inputType} placeholder={placeholder} disabled={disabled}>
+    <Input inputType={inputType} placeholder={placeholder} isDisabled={isDisabled}>
       <PAlignStyle>
-        {title} {!disabled && <HighlightSpanStyle color={color}>{highlight}</HighlightSpanStyle>}
+        {title} {!isDisabled && <HighlightSpanStyle color={color}>{highlight}</HighlightSpanStyle>}
       </PAlignStyle>
     </Input>
   )
