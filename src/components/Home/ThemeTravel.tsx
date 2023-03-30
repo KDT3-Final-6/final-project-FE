@@ -252,9 +252,6 @@ const ContentTabStyle = styled.li<{
     &::after {
       background-color: ${({ className }) => className === 'isActive' && COLORS.c5D7865};
     }
-
-    ${PanelStyle} {
-    }
   }
   &:nth-of-type(3) {
     color: ${({ className }) => className === 'isActive' && COLORS.c78645D};
