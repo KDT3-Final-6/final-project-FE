@@ -11,6 +11,7 @@ import { MdEditCalendar } from 'react-icons/md'
 import { current } from '@reduxjs/toolkit'
 import { getProducts } from '@src/api/product'
 import { IProduct } from '@src/env'
+import { useNavigate } from 'react-router-dom'
 
 const Curation = () => {
   const [products, setProducts] = useState<IProduct[]>([])
@@ -20,6 +21,8 @@ const Curation = () => {
       setProducts(await getProducts())
     })()
   }, [products])
+
+  const navigate = useNavigate()
 
   return (
     <Section>
@@ -58,7 +61,9 @@ const Curation = () => {
             title="내 취향에 맞는 여행을 더 자세히 알아보고 싶다면?"
             fontSize="26px"
           />
-          <Button buttonType="transparent">자세한 여행 큐레이션 받기</Button>
+          <Button buttonType="transparent" onClick={() => navigate('/survey')}>
+            자세한 여행 큐레이션 받기
+          </Button>
         </PreferBannerStyle>
       </Inner>
     </Section>
