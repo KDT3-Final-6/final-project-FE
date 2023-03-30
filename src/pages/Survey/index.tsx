@@ -5,6 +5,7 @@ import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import Inner from '@src/layout/Inner'
 import Button from '@src/components/common/Button'
 import Item from '@src/components/Survey/Item'
+import Banner from '@src/components/Survey/Banner'
 
 interface Props {}
 
@@ -55,12 +56,7 @@ const Survey = (props: Props) => {
   const [survey, setSurvey] = useState(0)
   return (
     <div style={{ marginBottom: '100px' }}>
-      <Image bgImage="/images/survey_banner.jpg" height="419px" width="100%">
-        <BannerStyle>
-          <span>여러분이 원하는 여행을 쏙! 골라서 보여 드릴게요~</span>
-          <span>나에게 맞는 답을 선택해 주세요.</span>
-        </BannerStyle>
-      </Image>
+      <Banner />
       <section>
         <Inner>
           {survey < 6 && (
@@ -127,22 +123,6 @@ const Survey = (props: Props) => {
     </div>
   )
 }
-
-const BannerStyle = styled.div`
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  span {
-    color: ${COLORS.white};
-    font-size: 40px;
-    font-weight: ${FONTWEGHT.fw700};
-  }
-`
 
 const CourseStyle = styled.div`
   margin: 117px auto 77px auto;
