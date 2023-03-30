@@ -21,7 +21,7 @@ const CheckItem = ({
   name,
   width = '',
   color = '',
-  bgColor = '',
+  bgColor = COLORS.cbe4b4b,
 }: ICheckItem) => {
   return (
     <ItemStyle checkType={checkType} width={width} color={color} bgColor={bgColor}>
@@ -133,6 +133,8 @@ const handleCheckItem = (checkType: string, width: string, bgColor: string) => {
           top: 0;
           left: 0;
           border-radius:10px;
+          display: flex;
+          align-items: center;
         }
 
         &:checked::before {
