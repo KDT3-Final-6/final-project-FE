@@ -32,7 +32,7 @@ const Login = () => {
             <ForgotConfirmStyle>
               <Link to={PATH.LOGIN}>아이디 찾기</Link>
               <Link to={PATH.LOGIN}>비밀번호 찾기</Link>
-              <Link to={PATH.LOGIN}>회원가입</Link>
+              <Link to={PATH.SIGNUP}>회원가입</Link>
             </ForgotConfirmStyle>
           </ConfirmStyle>
         </Buttons>
@@ -72,7 +72,6 @@ const ConfirmStyle = styled.div`
   margin-bottom: 25px;
 
   label {
-    margin-top: 4px;
     padding-left: 0;
   }
 `
@@ -80,7 +79,6 @@ const ConfirmStyle = styled.div`
 const ForgotConfirmStyle = styled.div`
   display: flex;
   gap: 10px;
-  padding-top: 4px;
 
   a {
     display: inline-block;
