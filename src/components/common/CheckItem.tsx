@@ -10,6 +10,7 @@ interface ICheckItem {
   labelName: string
   width?: string
   color?: string
+  bgColor?: string
 }
 
 const CheckItem = ({
@@ -20,9 +21,10 @@ const CheckItem = ({
   name,
   width = '',
   color = '',
+  bgColor = '',
 }: ICheckItem) => {
   return (
-    <ItemStyle checkType={checkType} width={width} color={color}>
+    <ItemStyle checkType={checkType} width={width} color={color} bgColor={bgColor}>
       <input type={type} id={id} name={name} />
       <label htmlFor={id}>{labelName}</label>
     </ItemStyle>
@@ -35,6 +37,7 @@ const ItemStyle = styled.div<{
   checkType: string
   width: string
   color: string
+  bgColor: string
 }>`
   display: flex;
   align-items: center;
@@ -46,10 +49,10 @@ const ItemStyle = styled.div<{
     padding-left: 6px;
     color: ${COLORS.c1b1b1b};
   }
-  ${({ checkType, width, color }) => handleCheckItem(checkType, width, color)}
+  ${({ checkType, width, color, bgColor }) => handleCheckItem(checkType, width, bgColor)}
 `
 
-const handleCheckItem = (checkType: string, width: string, color: string) => {
+const handleCheckItem = (checkType: string, width: string, bgColor: string) => {
   switch (checkType) {
     case 'radio':
     case 'checkbox':
@@ -133,7 +136,7 @@ const handleCheckItem = (checkType: string, width: string, color: string) => {
         }
 
         &:checked::before {
-          background-color: ${color};
+          background-color: ${bgColor};
           color: ${COLORS.white};
           border: none;
         }

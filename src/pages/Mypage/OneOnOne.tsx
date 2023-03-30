@@ -1,20 +1,27 @@
 import Button from '@src/components/common/Button'
 import OneOnOneCard from '@src/components/MyPage/OneOnOneCard'
+import QuestionCard from '@src/components/MyPage/QuestionCard'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 type Props = {}
 
 const OneOnOne = (props: Props) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const handleClick = () => setIsOpen((prev) => !prev)
   return (
     <ContainerStyle>
       <BtnBoxStyle>
-        <Button width="140px" buttonType="cartSkyBlue">
+        <Button width="140px" buttonType="cartSkyBlue" onClick={handleClick}>
           문의 작성
         </Button>
       </BtnBoxStyle>
-      <OneOnOneCard />
+      <CardSectionStyle>
+        <QuestionCard isOpen={isOpen} setIsOpen={setIsOpen} />
+        <OneOnOneCard />
+        <OneOnOneCard />
+      </CardSectionStyle>
     </ContainerStyle>
   )
 }
@@ -35,4 +42,10 @@ const BtnBoxStyle = styled.section`
     font-size: ${FONTSIZE.fz16};
     font-weight: ${FONTWEGHT.fw600};
   }
+`
+
+const CardSectionStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
 `

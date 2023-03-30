@@ -8,6 +8,8 @@ import TravelReview from '@src/components/Home/TravelReview'
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import Banner from '@src/components/Home/Banner'
+import FloatingNav from '@src/components/Home/FloatingNav'
+import styled from 'styled-components'
 
 function Home() {
   return (
@@ -23,6 +25,7 @@ function Home() {
       <Banner image="event_banner" marginTop="94px" marginBottom="100px" type={2} />
       <TravelReview />
       <TravelEvent />
+      <FloatingNav />
     </>
   )
 }

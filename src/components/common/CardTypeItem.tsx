@@ -1,13 +1,11 @@
 import PATH from '@src/constants/pathConst'
-import { IProduct } from '@src/interfaces/product'
+import { IProduct } from '@src/env'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import HeartButton from './HeartButton'
 import Image from './Image'
 import ProductCard, {
-  CardHeadAreaStyle,
-  CategoryStyle,
   HashsStyle,
   HashStyle,
   ImgAreaStyle,
@@ -22,12 +20,14 @@ interface ICardTypeItem {
   bgImage?: string
   imgWidth?: string
   imgHeight?: string
+  width?: string
   height?: string
   priceTop?: string
   priceLeft?: string
   priceRight?: string
   priceBottom?: string
   priceColor?: string
+  minHeight?: string
 }
 
 const CardTypeItem = ({
@@ -36,12 +36,14 @@ const CardTypeItem = ({
   bgImage,
   imgWidth,
   imgHeight,
+  width = '',
   height = '500px',
   priceTop,
   priceLeft,
   priceRight,
   priceBottom,
   priceColor,
+  minHeight,
 }: ICardTypeItem) => {
   const [heart, setHeart] = useState(item.heart)
 
@@ -52,7 +54,9 @@ const CardTypeItem = ({
       bgImage={bgImage}
       imgWidth={imgWidth}
       imgHeight={imgHeight}
+      width={width}
       height={height}
+      minHeight={minHeight}
     >
       <HeartButton
         productId={item.id}
@@ -62,19 +66,12 @@ const CardTypeItem = ({
         setHeart={setHeart}
       />
       <Link to={PATH.PRODUCT_DETAIL} target="_blank">
-        <CardHeadAreaStyle>
-          {item.categoryNames?.map((categoryName) => (
-            <CategoryStyle key={categoryName} categoryName={categoryName}>
-              {categoryName}
-            </CategoryStyle>
-          ))}
-        </CardHeadAreaStyle>
         {cardType === 'cardType' && (
           <ImgAreaStyle>
             <Image src={item.image} alt={item.title} />
           </ImgAreaStyle>
         )}
-        <TxtAreaStyle isCardType={true}>
+        <TxtAreaStyle isCardType={true} minHeight={minHeight}>
           <Title
             titleType="h3"
             title={item.title}

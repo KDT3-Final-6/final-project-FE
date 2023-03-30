@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 interface IButton {
   buttonType?: string
+  type?: 'button' | 'submit' | 'reset' | undefined
   width?: string
   height?: string
   borderRadius?: string
@@ -17,6 +18,7 @@ interface IButton {
 
 const Button = ({
   buttonType = '',
+  type = 'button',
   width = '',
   height = '42px',
   borderRadius = '',
@@ -29,6 +31,7 @@ const Button = ({
 }: IButton) => {
   return (
     <ButtonStyle
+      type={type}
       buttonType={buttonType}
       width={width}
       height={height}
