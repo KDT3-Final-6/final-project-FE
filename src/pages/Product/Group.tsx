@@ -4,6 +4,7 @@ import React from 'react'
 import ProductList from '@src/components/Group/ProductList'
 import Banner from '@components/Home/Banner'
 import CategoryList from '@src/components/Group/CategoryList'
+import ProductSlider from '@src/components/Group/ProductSlider'
 
 type Props = {}
 
@@ -15,7 +16,9 @@ const Group = (props: Props) => {
           <h1>그룹별 여행</h1>
         </Title>
       </Inner>
-      <div style={{ width: '100%', height: '569px', backgroundColor: 'tomato' }}>슬라이더 영역</div>
+      <div style={{ width: '100%', height: '569px' }}>
+        <ProductSlider />
+      </div>
       <Inner>
         <ProductList title="TOP 10 인기 그룹별 여행" />
         <ProductList title="방금 뜬 그룹별 여행" />

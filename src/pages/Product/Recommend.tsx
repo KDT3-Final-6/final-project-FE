@@ -4,13 +4,16 @@ import ProductList from '@src/components/Group/ProductList'
 import CategoryList from '@src/components/Group/CategoryList'
 import Title from '@src/components/common/Title'
 import Banner from '@src/components/Home/Banner'
+import ProductSlider from '@src/components/Group/ProductSlider'
 
 type Props = {}
 
 const Recommend = (props: Props) => {
   return (
     <div>
-      <div style={{ height: '569px', backgroundColor: 'tomato' }}>슬라이드 영역</div>
+      <div style={{ height: '569px' }}>
+        <ProductSlider />
+      </div>
       <Inner>
         <ProductList title="그룹별여행" />
         <CategoryList title="추천 여행" />
