@@ -1,7 +1,7 @@
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
-import useOnClickOutside from '../hooks/useOnClickOutside'
+import useOnClickOutside from '@src/hooks/useOnClickOutside'
 
 interface ISelect {
   options: string[] | number[]
