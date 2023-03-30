@@ -20,7 +20,7 @@ const GroupTravel = () => {
 
   const groupTabs = [
     {
-      id: '5070',
+      id: 'age5070',
       tabName: '5070끼리',
     },
     {
@@ -98,7 +98,6 @@ const GroupTravel = () => {
                         ? '122px'
                         : '138px'
                     }
-                    bgColor={COLORS.cbe4b4b}
                   />
                 ))}
               </WrapStyle>
@@ -122,7 +121,6 @@ const GroupTravel = () => {
                         ? '122px'
                         : '138px'
                     }
-                    bgColor={COLORS.cbe4b4b}
                   />
                 ))}
               </WrapStyle>
@@ -192,6 +190,114 @@ const WrapStyle = styled.div`
   padding-left: 40px;
   margin-left: 40px;
   border-left: 1px solid ${COLORS.cd9d9d9};
+
+  input {
+    &#age5070:checked,
+    &#males:checked,
+    &#females:checked,
+    &#family:checked,
+    &#anybody:checked {
+      width: 145px;
+      & ~ label {
+        padding-left: 30px;
+      }
+    }
+    &#age5070:checked {
+      width: 160px;
+    }
+    &:checked::before {
+      box-sizing: border-box;
+      padding-left: 20px;
+    }
+    &#age5070:checked {
+      &::before {
+        content: url('/images/icons/tabAge5070.png');
+        background-color: ${COLORS.cAF50D0};
+      }
+    }
+    &#males:checked {
+      &::before {
+        content: url('/images/icons/tabMales.png');
+        background-color: ${COLORS.c4BBE87};
+      }
+    }
+    &#females:checked {
+      &::before {
+        content: url('/images/icons/tabFemales.png');
+        background-color: ${COLORS.cbe4b4b};
+      }
+    }
+
+    &#family:checked {
+      &::before {
+        content: url('/images/icons/tabFamily.png');
+        background-color: ${COLORS.c4688EA};
+      }
+    }
+    &#anybody:checked {
+      &::before {
+        content: url('/images/icons/tabAnybody.png');
+        background-color: ${COLORS.cF0A22D};
+      }
+    }
+
+    &#shopping:checked {
+      &::before {
+        background-color: ${COLORS.cFFB0B0};
+      }
+      & ~ label {
+        color: ${COLORS.c813333};
+      }
+    }
+    &#wine:checked {
+      &::before {
+        background-color: ${COLORS.cFFB0E9};
+      }
+      & ~ label {
+        color: ${COLORS.c813346};
+      }
+    }
+    &#culture:checked {
+      &::before {
+        background-color: ${COLORS.cDCB0FF};
+      }
+      & ~ label {
+        color: ${COLORS.c5E3381};
+      }
+    }
+    &#amen:checked {
+      &::before {
+        background-color: ${COLORS.cFFE9B0};
+      }
+      & ~ label {
+        color: ${COLORS.c725C24};
+      }
+    }
+    &#volunteer:checked {
+      &::before {
+        background-color: ${COLORS.c74fff7};
+      }
+      & ~ label {
+        color: ${COLORS.c1B5754};
+      }
+    }
+    &#tracking:checked {
+      &::before {
+        background-color: ${COLORS.cE6FFB0};
+      }
+      & ~ label {
+        color: ${COLORS.c3E8133};
+      }
+    }
+    &#golf:checked {
+      &::before {
+        background-color: ${COLORS.cB0C6FF};
+      }
+      & ~ label {
+        color: ${COLORS.c335281};
+      }
+    }
+  }
 `
 
 const ConceptStyle = styled(GroupStyle)`
