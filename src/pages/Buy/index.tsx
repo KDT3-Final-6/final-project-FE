@@ -63,7 +63,6 @@ const index = () => {
     register,
     handleSubmit,
     setValue,
-    watch,
     formState: { errors },
   } = useForm({})
 

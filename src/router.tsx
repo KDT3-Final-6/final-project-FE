@@ -29,7 +29,8 @@ import Group from '@pages/Product/Group'
 import Theme from '@pages/Product/Theme'
 import Recommend from '@pages/Product/Recommend'
 import Buy from '@pages/Buy'
-import Result from './pages/Survey/Result'
+import Result from '@pages/Survey/Result'
+import Consult from '@pages/Consult'
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,7 @@ const router = createBrowserRouter([
       { path: PATH.USER, element: <User /> },
       { path: PATH.PRODUCT_DETAIL, element: <ProductDetail /> },
       { path: PATH.BUY, element: <Buy /> },
+      { path: PATH.CONSULT, element: <Consult /> },
       {
         path: PATH.MYPAGE,
         element: <MyPage />,
