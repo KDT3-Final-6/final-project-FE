@@ -2,14 +2,15 @@ import { COLORS } from '@src/styles/root'
 import React from 'react'
 import styled from 'styled-components'
 import Input from './Input'
-import { HightlightSpanStyle } from './Title'
+import { HighlightSpanStyle } from './Title'
 
 interface IInputItem {
   inputType?: string
   title: string
   placeholder: string
   color?: string
-  hightlight?: string
+  highlight?: string
+  disabled?: boolean
 }
 
 const InputItem = ({
@@ -17,12 +18,13 @@ const InputItem = ({
   title,
   placeholder,
   color = COLORS.c3ba1ff,
-  hightlight = '(필수입력)',
+  highlight = '(필수입력)',
+  disabled = false,
 }: IInputItem) => {
   return (
-    <Input inputType={inputType} placeholder={placeholder}>
+    <Input inputType={inputType} placeholder={placeholder} disabled={disabled}>
       <PAlignStyle>
-        {title} <HightlightSpanStyle color={color}>{hightlight}</HightlightSpanStyle>
+        {title} {!disabled && <HighlightSpanStyle color={color}>{highlight}</HighlightSpanStyle>}
       </PAlignStyle>
     </Input>
   )

@@ -3,7 +3,7 @@ import InputBox from '@src/components/common/InputBox'
 import CheckItem from '@src/components/common/CheckItem'
 import Image from '@src/components/common/Image'
 import InputItem from '@src/components/common/InputItem'
-import Title, { HightlightSpanStyle } from '@src/components/common/Title'
+import Title, { HighlightSpanStyle } from '@src/components/common/Title'
 import Inner from '@src/layout/Inner'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import count from '@src/utils/count'
@@ -49,14 +49,14 @@ const SignUp = () => {
       />
       <Title textAlign="center" fontSize={FONTSIZE.fz18} fontWeight={FONTWEGHT.fw400}>
         <h2>
-          <HightlightSpanStyle
+          <HighlightSpanStyle
             color={COLORS.c3ba1ff}
             fontSize={FONTSIZE.fz20}
             fontWeight={FONTWEGHT.fw600}
             spanMargin="0 0 20px"
           >
             반갑습니다!
-          </HightlightSpanStyle>
+          </HighlightSpanStyle>
           <br /> 생년월일, 성별, 취미를 입력하면 비슷한 유형의 여행 그룹을 추천해 드립니다.
         </h2>
       </Title>
@@ -146,13 +146,13 @@ const LineSpan = styled.span`
   background-color: ${COLORS.cd9d9d9};
 `
 
-const FormAreaStyle = styled.div`
+export const FormAreaStyle = styled.div`
   display: flex;
   flex-direction: column;
   gap: 55px;
 `
 
-const RadiosStyle = styled.div`
+export const RadiosStyle = styled.div`
   display: flex;
   gap: 10px;
   margin-top: 10px;
@@ -164,7 +164,7 @@ const RadiosStyle = styled.div`
   }
 `
 
-const CheckStyle = styled(RadiosStyle)`
+export const CheckStyle = styled(RadiosStyle)`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   margin-top: 10px;
