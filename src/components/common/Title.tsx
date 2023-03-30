@@ -69,4 +69,4 @@ const HightlightSpanStyle = styled.span<{
   display: inline-block;
 `
 
-export { HightlightSpanStyle }
+export { HightlightSpanStyle, TitleStyle }
