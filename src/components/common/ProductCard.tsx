@@ -129,6 +129,10 @@ const handleCardType = (cardType: string, bgImage: string, minHeight: string) =>
           }
         }
 
+        ${TxtAreaStyle} {
+          height:auto;
+        }
+
         ${PriceStyle} {
           position:inherit;
         }
