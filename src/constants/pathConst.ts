@@ -25,6 +25,7 @@ const PATH = {
   PRODUCT_GROUP: '/product/group',
   PRODUCT_THEME: '/product/theme',
   PRODUCT_RECOMMEND: '/product/recommend',
+  ADD_PRODUCT: '/admin/addproduct',
 }
 
 export default PATH
