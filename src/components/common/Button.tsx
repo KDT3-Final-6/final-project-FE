@@ -129,7 +129,7 @@ const handleButtonType = (buttonType: string) => {
       return ` 
       border: none;
       background-color: ${COLORS.primary};
-      color: #fff;
+      color: ${COLORS.white}
       width: 140px;
       height: 42px;
       &:hover {
@@ -143,6 +143,11 @@ const handleButtonType = (buttonType: string) => {
         border: 1px solid ${COLORS.black};
         color: ${COLORS.black};
         border-radius: 3px;
+        &:hover {
+          background-color: ${COLORS.primary};
+          color: ${COLORS.white};
+          border: none;
+        }
       `
     default:
       return `

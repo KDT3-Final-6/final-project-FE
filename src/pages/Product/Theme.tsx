@@ -8,6 +8,7 @@ import styled from 'styled-components'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import MoreBtn from '@src/components/Home/MoreBtn'
 import MonthProductList from '@src/components/Theme/MonthProductList'
+import ProductSlider from '@src/components/Group/ProductSlider'
 
 type Props = {}
 
@@ -19,7 +20,9 @@ const Theme = (props: Props) => {
           <h1>테마별 여행</h1>
         </Title>
       </Inner>
-      <div style={{ width: '100%', height: '569px', backgroundColor: 'tomato' }}>슬라이더 영역</div>
+      <div style={{ width: '100%', height: '569px' }}>
+        <ProductSlider />
+      </div>
       <Inner>
         <CategoryList title="TOP 10 인기 테마별 여행" />
         <Title margin="50px 0">
