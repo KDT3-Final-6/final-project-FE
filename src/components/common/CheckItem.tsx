@@ -157,6 +157,8 @@ const handleCheckItem = (checkType: string, width: string, bgColor: string) => {
           background-color: ${bgColor};
           color: ${COLORS.white};
           border: none;
+          display:flex;
+          align-items:center;
         }
 
         &:checked ~ label {
