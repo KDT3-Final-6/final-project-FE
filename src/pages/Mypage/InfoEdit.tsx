@@ -64,6 +64,7 @@ const InfoEdit = () => {
                 labelName="여성"
                 name="gender"
                 isChecked={userGender === 'female' && true}
+                isDisable={true}
               />
               <CheckItem
                 checkType="radio"
@@ -72,6 +73,7 @@ const InfoEdit = () => {
                 labelName="남성"
                 name="gender"
                 isChecked={userGender === 'male' && true}
+                isDisable={true}
               />
             </RadiosStyle>
           </InputBox>
