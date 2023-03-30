@@ -7,6 +7,7 @@ const PATH = {
   LOGIN: '/login',
   SIGNUP: '/signup',
   SURVEY: '/survey',
+  SURVEY_RESULT: '/result',
   USER: '/user',
   PRODUCT_DETAIL: '/product/:productId',
   MYPAGE: '/mypage',
