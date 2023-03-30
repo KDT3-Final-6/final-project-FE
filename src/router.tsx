@@ -27,7 +27,8 @@ import UserList from '@pages/UserList'
 import PostList from '@pages/PostList'
 import Group from '@pages/Product/Group'
 import Theme from '@pages/Product/Theme'
-import Recommend from './pages/Product/Recommend'
+import Recommend from '@pages/Product/Recommend'
+import Buy from '@pages/Buy'
 import Result from './pages/Survey/Result'
 
 const router = createBrowserRouter([
@@ -59,6 +60,7 @@ const router = createBrowserRouter([
       { path: PATH.SURVEY_RESULT, element: <Result /> },
       { path: PATH.USER, element: <User /> },
       { path: PATH.PRODUCT_DETAIL, element: <ProductDetail /> },
+      { path: PATH.BUY, element: <Buy /> },
       {
         path: PATH.MYPAGE,
         element: <MyPage />,
