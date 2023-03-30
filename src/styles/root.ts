@@ -30,7 +30,7 @@ const COLORS = {
   c4b4a4a: '#4b4a4a',
   cddd: '#ddd',
   cf6f6f6: '#f6f6f6',
-  caeaeae: '#caeaeae',
+  caeaeae: '#aeaeae',
   cbcbcbc: '#bcbcbc',
   c3ba1ff: '#3ba1ff',
   cfdb813: '#fdb813',
