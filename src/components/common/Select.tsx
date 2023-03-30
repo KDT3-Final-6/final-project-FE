@@ -12,6 +12,7 @@ interface ISelect {
   height?: string
   borderRadius?: string
   borderColor?: string
+  fontSize?: string
   isClickDefault?: boolean
   onChange?: React.ChangeEventHandler<HTMLLIElement>
   onClick?: React.MouseEventHandler<HTMLLIElement>
@@ -27,6 +28,7 @@ const Select = ({
   borderRadius = '8px',
   borderColor = COLORS.cb6b6b6,
   isClickDefault = true,
+  fontSize = '14px',
   onChange,
   onClick,
 }: ISelect) => {
@@ -49,7 +51,7 @@ const Select = ({
       isClickDefault={isClickDefault}
       onClick={() => setShowOptions((prev) => !prev)}
     >
-      <LabelStyle>
+      <LabelStyle fontSize={fontSize}>
         {currentValue} {!currentValue.toString().includes(unit) && unit}
       </LabelStyle>
       <SelectOptionsStyle
@@ -58,13 +60,11 @@ const Select = ({
         borderRadius={borderRadius}
         borderColor={borderColor}
       >
-        {/* <OptionStyle onClick={(e) => handleOnChangeSelectValue(e)}>인기순</OptionStyle>
-        <OptionStyle onClick={(e) => handleOnChangeSelectValue(e)}>가격높은순</OptionStyle>
-        <OptionStyle onClick={(e) => handleOnChangeSelectValue(e)}>가격낮은순</OptionStyle> */}
         {options.map((option) => (
           <OptionStyle
             width={width}
             height={height}
+            fontSize={fontSize}
             key={option}
             value={value}
             onClick={isClickDefault ? (e) => handleOnChangeSelectValue(e) : onClick}
@@ -109,8 +109,9 @@ const SelectBoxStyle = styled.div<{
   }
 `
 
-const LabelStyle = styled.label`
-  font-size: ${FONTSIZE.fz14};
+const LabelStyle = styled.label<{ fontSize: string }>`
+  /* font-size: ${FONTSIZE.fz14}; */
+  font-size: ${({ fontSize }) => fontSize};
   cursor: pointer;
 `
 
@@ -139,8 +140,10 @@ const SelectOptionsStyle = styled.ul<{
 const OptionStyle = styled.li<{
   width: string
   height: string
+  fontSize: string
 }>`
-  font-size: ${FONTSIZE.fz14};
+  /* font-size: ${FONTSIZE.fz14}; */
+  font-size: ${({ fontSize }) => fontSize};
   width: ${({ width }) => width};
   height: ${({ height }) => height};
   padding: 12px 16px;
