@@ -20,12 +20,14 @@ interface ICardTypeItem {
   bgImage?: string
   imgWidth?: string
   imgHeight?: string
+  width?: string
   height?: string
   priceTop?: string
   priceLeft?: string
   priceRight?: string
   priceBottom?: string
   priceColor?: string
+  minHeight?: string
 }
 
 const CardTypeItem = ({
@@ -34,12 +36,14 @@ const CardTypeItem = ({
   bgImage,
   imgWidth,
   imgHeight,
+  width = '',
   height = '500px',
   priceTop,
   priceLeft,
   priceRight,
   priceBottom,
   priceColor,
+  minHeight,
 }: ICardTypeItem) => {
   const [heart, setHeart] = useState(item.heart)
 
@@ -50,7 +54,9 @@ const CardTypeItem = ({
       bgImage={bgImage}
       imgWidth={imgWidth}
       imgHeight={imgHeight}
+      width={width}
       height={height}
+      minHeight={minHeight}
     >
       <HeartButton
         productId={item.id}
@@ -65,7 +71,7 @@ const CardTypeItem = ({
             <Image src={item.image} alt={item.title} />
           </ImgAreaStyle>
         )}
-        <TxtAreaStyle isCardType={true}>
+        <TxtAreaStyle isCardType={true} minHeight={minHeight}>
           <Title
             titleType="h3"
             title={item.title}
