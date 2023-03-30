@@ -134,12 +134,12 @@ const Container = styled.div`
 const MainSwiperStyle = styled(Swiper)`
   position: relative;
   width: 100%;
-  height: 720px;
+  height: calc(100vh - 192px);
 `
 
 const ThumbnailSwiperStyle = styled(Swiper)`
   position: absolute;
-  bottom: 36px;
+  bottom: 70px;
   left: 0;
   right: 0;
   z-index: 2;
