@@ -12,7 +12,14 @@ import CardTypeItem from '../common/CardTypeItem'
 
 const ThemeTravel = () => {
   const [products, setProducts] = useState<IProduct[]>([])
-  const contentTabs = ['휴양지', '골프', '트레킹', '성지순례', '문화탐방']
+  const [activeTab, setActiveTab] = useState(1)
+  const contents = [
+    { id: 0, tab: '휴양지' },
+    { id: 1, tab: '골프' },
+    { id: 2, tab: '트레킹' },
+    { id: 3, tab: '성지순례' },
+    { id: 4, tab: '문화탐방' },
+  ]
 
   useEffect(() => {
     ;(async () => {
@@ -20,25 +27,46 @@ const ThemeTravel = () => {
     })()
   }, [])
 
-  const handleTabClick = (e: React.MouseEvent<HTMLLIElement>) => {
-    const tab = e.target
-    console.log(tab)
-  }
-
   return (
     <Section overflow="hidden">
       <Inner>
         <Title titleType="h2" title="테마별 인기 여행" fontSize={FONTSIZE.fz32} margin="0 0 50px" />
         <ThemeTravelStyle>
           <ThemeContentStyle>
-            <PanelStyle>
+            <PanelStyle activeTab={activeTab}>
               <Title
                 titleType="h3"
-                title="골프여행"
+                title={`${
+                  activeTab === 0
+                    ? '휴양지'
+                    : activeTab === 1
+                    ? '골프'
+                    : activeTab === 2
+                    ? '트레킹'
+                    : activeTab === 3
+                    ? '성지순례'
+                    : activeTab === 4
+                    ? '문화탐방'
+                    : ''
+                } 여행`}
                 fontSize={FONTSIZE.fz26}
                 color={COLORS.white}
               />
-              <p>다양한 지역에서의 골프 여행으로 아주 특별하고 즐거운 경함을 만들어보세요.</p>
+              <p>
+                다양한 지역에서의{' '}
+                {activeTab === 0
+                  ? '휴양지'
+                  : activeTab === 1
+                  ? '골프'
+                  : activeTab === 2
+                  ? '트레킹'
+                  : activeTab === 3
+                  ? '성지순례'
+                  : activeTab === 4
+                  ? '문화탐방'
+                  : ''}{' '}
+                여행으로 아주 특별하고 즐거운 경함을 만들어보세요.
+              </p>
               <Button
                 buttonType="transparent"
                 bgColor={COLORS.white}
@@ -50,11 +78,15 @@ const ThemeTravel = () => {
                 <AiOutlinePlus />
               </Button>
             </PanelStyle>
-            <ContentStyle>
+            <ContentStyle activeTab={activeTab}>
               <ContentTabsStyle>
-                {contentTabs.map((contentTab) => (
-                  <ContentTabStyle key={contentTab} onClick={(e) => handleTabClick(e)}>
-                    {contentTab}
+                {contents.map((content) => (
+                  <ContentTabStyle
+                    key={content.id}
+                    onClick={() => setActiveTab(content.id)}
+                    className={activeTab === content.id ? 'isActive' : ''}
+                  >
+                    {content.tab}
                   </ContentTabStyle>
                 ))}
               </ContentTabsStyle>
@@ -73,7 +105,7 @@ const ThemeTravel = () => {
               </ProductListStyle>
             </ContentStyle>
           </ThemeContentStyle>
-          <BlankStyle></BlankStyle>
+          <BlankStyle activeTab={activeTab}></BlankStyle>
         </ThemeTravelStyle>
       </Inner>
     </Section>
@@ -85,16 +117,17 @@ export default ThemeTravel
 const ThemeTravelStyle = styled.div`
   display: flex;
   position: relative;
-  background-color: ${COLORS.cE5EFE8};
 `
 
-const BlankStyle = styled.div`
+const BlankStyle = styled.div<{
+  activeTab: number
+}>`
   position: absolute;
-  background-color: ${COLORS.cE5EFE8};
   top: 0;
   right: -100%;
   width: 100%;
   height: 100%;
+  ${({ activeTab }) => handleChangeBg(activeTab)}
 `
 
 const ThemeContentStyle = styled.div`
@@ -102,8 +135,12 @@ const ThemeContentStyle = styled.div`
   width: 100%;
 `
 
-const PanelStyle = styled.div`
-  background: url('/images/themeGolf.png') no-repeat center;
+const PanelStyle = styled.div<{
+  activeTab: number
+}>`
+  ${({ activeTab }) => handleChangeImg(activeTab)}
+  background-repeat: no-repeat;
+  background-position: center;
   background-size: cover;
   width: 345px;
   padding: 85px 76px;
@@ -121,10 +158,63 @@ const PanelStyle = styled.div`
   }
 `
 
-const ContentStyle = styled.div`
+const handleChangeImg = (activeTab: number) => {
+  switch (activeTab) {
+    case 0:
+      return `
+        background-image:url('/images/themeVacation.jpg');
+      `
+    case 1:
+      return `
+        background-image:url('/images/themeGolf.png');
+      `
+    case 2:
+      return `
+        background-image:url('/images/themeTracking.jpg');
+      `
+    case 3:
+      return `
+        background-image:url('/images/themeAmen.jpg');
+      `
+    case 4:
+      return `
+        background-image:url('/images/themeCulture.jpg');
+      `
+  }
+}
+
+const ContentStyle = styled.div<{
+  activeTab: number
+}>`
   padding: 66px 104px;
   width: calc(100% - 345px);
+  ${({ activeTab }) => handleChangeBg(activeTab)}
 `
+
+const handleChangeBg = (activeTab: number) => {
+  switch (activeTab) {
+    case 0:
+      return `
+        background-color:${COLORS.cE5EBEF};
+      `
+    case 1:
+      return `
+        background-color:${COLORS.cE5EFE8};
+      `
+    case 2:
+      return `
+        background-color:${COLORS.cEFE7E5};
+      `
+    case 3:
+      return `
+        background-color:${COLORS.cE8E5EF};
+      `
+    case 4:
+      return `
+        background-color:${COLORS.cEFE5EE};
+      `
+  }
+}
 
 const ContentTabsStyle = styled.ul`
   display: flex;
@@ -133,7 +223,9 @@ const ContentTabsStyle = styled.ul`
   margin-bottom: 52px;
 `
 
-const ContentTabStyle = styled.li`
+const ContentTabStyle = styled.li<{
+  className: string
+}>`
   padding: 10px;
   position: relative;
   color: ${COLORS.c767676};
@@ -147,6 +239,40 @@ const ContentTabStyle = styled.li`
     height: 5px;
     left: 0;
     bottom: 0;
+  }
+
+  &:first-of-type {
+    color: ${({ className }) => className === 'isActive' && COLORS.c5D7078};
+    &::after {
+      background-color: ${({ className }) => className === 'isActive' && COLORS.c5D7078};
+    }
+  }
+  &:nth-of-type(2) {
+    color: ${({ className }) => className === 'isActive' && COLORS.c5D7865};
+    &::after {
+      background-color: ${({ className }) => className === 'isActive' && COLORS.c5D7865};
+    }
+
+    ${PanelStyle} {
+    }
+  }
+  &:nth-of-type(3) {
+    color: ${({ className }) => className === 'isActive' && COLORS.c78645D};
+    &::after {
+      background-color: ${({ className }) => className === 'isActive' && COLORS.c78645D};
+    }
+  }
+  &:nth-of-type(4) {
+    color: ${({ className }) => className === 'isActive' && COLORS.c6A5984};
+    &::after {
+      background-color: ${({ className }) => className === 'isActive' && COLORS.c6A5984};
+    }
+  }
+  &:nth-of-type(5) {
+    color: ${({ className }) => className === 'isActive' && COLORS.c874B7A};
+    &::after {
+      background-color: ${({ className }) => className === 'isActive' && COLORS.c874B7A};
+    }
   }
 `
 
