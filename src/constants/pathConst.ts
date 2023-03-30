@@ -12,6 +12,7 @@ const PATH = {
   PRODUCT_DETAIL: '/product/:productId',
   MYPAGE: '/mypage',
   CART: '/mypage/cart',
+  BUY: '/buy',
   ORDER_LIST: 'orderlist',
   WISHLIST: '/mypage/wishlist',
   MY_REVIEW: 'myreview',

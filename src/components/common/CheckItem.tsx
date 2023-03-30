@@ -1,16 +1,23 @@
-import { COLORS } from '@src/styles/root'
+import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import React from 'react'
 import styled from 'styled-components'
+import { UseFormRegister } from 'react-hook-form'
 
+interface TInputValues {
+  paymentMethod?: string
+}
 interface ICheckItem {
   checkType?: string
   type?: string
   id: string
-  name?: string
+  name?: string // Path<TInputValues>;
   labelName: string
   width?: string
   color?: string
   bgColor?: string
+  fontSize?: string
+  register?: any //UseFormRegister<TInputValues>;
+  errorMsg?: string
 }
 
 const CheckItem = ({
@@ -22,10 +29,21 @@ const CheckItem = ({
   width = '',
   color = '',
   bgColor = COLORS.cbe4b4b,
+  register,
+  errorMsg,
 }: ICheckItem) => {
   return (
     <ItemStyle checkType={checkType} width={width} color={color} bgColor={bgColor}>
-      <input type={type} id={id} name={name} />
+      <input
+        type={type}
+        id={id}
+        name={name}
+        value={id}
+        {...(register &&
+          register(name, {
+            required: errorMsg,
+          }))}
+      />
       <label htmlFor={id}>{labelName}</label>
     </ItemStyle>
   )
@@ -112,6 +130,51 @@ const handleCheckItem = (checkType: string, width: string, bgColor: string) => {
     case 'tabType':
       return `
         position:relative;
+        
+        input {
+        width: ${width};
+        height: 48px;
+        cursor: pointer;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        -o-appearance: none;
+        outline: none;
+        position: relative;
+
+        &::before {
+          content: '';
+          width: 100%;
+          height: 100%;
+          color: transparent;
+          border: 1px solid ${COLORS.cddd};
+          position: absolute;
+          top: 0;
+          left: 0;
+          border-radius:10px;
+        }
+
+        &:checked::before {
+          background-color: ${bgColor};
+          color: ${COLORS.white};
+          border: none;
+        }
+
+        &:checked ~ label {
+          color:${COLORS.white};
+        }
+      }
+
+      label {
+        position:absolute;
+        left:50%;
+        transform:translateX(-50%);
+        padding-left:0;
+      }
+
+      `
+    case 'paymentType':
+      return `
+        position:relative;
 
         input {
         width: ${width};
@@ -153,6 +216,9 @@ const handleCheckItem = (checkType: string, width: string, bgColor: string) => {
         left:50%;
         transform:translateX(-50%);
         padding-left:0;
+        width:100%;
+        font-size: ${FONTSIZE.fz20};
+        font-weight:${FONTWEGHT.fw600};
       }
 
       `
