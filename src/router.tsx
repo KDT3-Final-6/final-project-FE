@@ -69,6 +69,7 @@ const router = createBrowserRouter([
         path: PATH.MYPAGE,
         element: <MyPage />,
         children: [
+          { path: PATH.MYPAGE, element: <OrderList /> },
           { path: PATH.ORDER_LIST, element: <OrderList /> },
           { path: PATH.CART, element: <Cart /> },
           { path: PATH.WISHLIST, element: <WishList /> },
