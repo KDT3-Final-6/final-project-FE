@@ -11,6 +11,7 @@ interface IInput {
   title?: string
   width?: string
   height?: string
+  isDisabled?: boolean
   borderRadius?: string
   bgColor?: string
   borderColor?: string
@@ -27,6 +28,7 @@ const Input = ({
   borderRadius = '8px',
   borderColor = '',
   bgColor = `${COLORS.cf3f3f3}`,
+  isDisabled = false,
   children,
 }: IInput) => {
   return (
@@ -39,7 +41,7 @@ const Input = ({
       borderColor={borderColor}
     >
       {/* <p>{title}</p> */}
-      <input type={type} placeholder={placeholder} />
+      <input type={type} placeholder={placeholder} disabled={isDisabled} />
       {inputType === 'searchInput' && (
         <Button buttonType="transparent" width="50px" height="100%">
           <FiSearch />
@@ -104,6 +106,7 @@ const handleInputType = (
         }
       `
     case 'textInput':
+    case 'disabledInput':
       return `
         border:1px solid ${COLORS.cddd};
         width:100%;
@@ -115,6 +118,10 @@ const handleInputType = (
           &::placeholder {
             color:${COLORS.ca6a6a6};
           }
+        }
+
+        input:disabled {
+          background-color:${COLORS.cededed};
         }
       `
     case 'transparent':

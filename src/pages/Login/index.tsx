@@ -1,7 +1,7 @@
 import Button from '@src/components/common/Button'
 import CheckItem from '@src/components/common/CheckItem'
 import Input from '@src/components/common/Input'
-import Title, { HightlightSpanStyle } from '@src/components/common/Title'
+import Title, { HighlightSpanStyle } from '@src/components/common/Title'
 import SocialLoginButtons from '@src/components/common/SocialButtons'
 import PATH from '@src/constants/pathConst'
 import Inner from '@src/layout/Inner'
@@ -17,7 +17,7 @@ const Login = () => {
       <Title titleType="h1" title="로그인" textAlign="center" margin="102px 0 20px" />
       <Title textAlign="center" fontSize={FONTSIZE.fz18} fontWeight={FONTWEGHT.fw400}>
         <h2>
-          <HightlightSpanStyle color={COLORS.c3ba1ff}>예약을 더 쉽고 빠르게</HightlightSpanStyle> 할
+          <HighlightSpanStyle color={COLORS.c3ba1ff}>예약을 더 쉽고 빠르게</HighlightSpanStyle> 할
           수 있습니다.
         </h2>
       </Title>

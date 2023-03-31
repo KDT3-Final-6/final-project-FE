@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import useOnClickOutside from '@src/hooks/useOnClickOutside'
 
 interface ISelect {
-  options: string[] | number[]
+  options?: string[] | number[]
   initial: string | number
   value?: string | number
   unit?: any
@@ -14,6 +14,7 @@ interface ISelect {
   borderColor?: string
   fontSize?: string
   isClickDefault?: boolean
+  isDisabled?: boolean
   onChange?: React.ChangeEventHandler<HTMLLIElement>
   onClick?: React.MouseEventHandler<HTMLLIElement>
 }
@@ -28,6 +29,7 @@ const Select = ({
   borderRadius = '8px',
   borderColor = COLORS.cb6b6b6,
   isClickDefault = true,
+  isDisabled = false,
   fontSize = '14px',
   onChange,
   onClick,
@@ -49,9 +51,10 @@ const Select = ({
       borderRadius={borderRadius}
       borderColor={borderColor}
       isClickDefault={isClickDefault}
-      onClick={() => setShowOptions((prev) => !prev)}
+      isDisabled={isDisabled}
+      onClick={() => !isDisabled && setShowOptions((prev) => !prev)}
     >
-      <LabelStyle fontSize={fontSize}>
+      <LabelStyle fontSize={fontSize} isDisabled={isDisabled}>
         {currentValue} {!currentValue.toString().includes(unit) && unit}
       </LabelStyle>
       <SelectOptionsStyle
@@ -60,7 +63,7 @@ const Select = ({
         borderRadius={borderRadius}
         borderColor={borderColor}
       >
-        {options.map((option) => (
+        {options?.map((option) => (
           <OptionStyle
             width={width}
             height={height}
@@ -86,6 +89,7 @@ const SelectBoxStyle = styled.div<{
   borderRadius: string
   width: string
   height: string
+  isDisabled: boolean
 }>`
   display: flex;
   align-items: center;
@@ -94,8 +98,8 @@ const SelectBoxStyle = styled.div<{
   height: ${({ height }) => height};
   padding: 12px 16px;
   border-radius: ${({ borderRadius }) => borderRadius};
-  background-color: ${COLORS.white};
-  cursor: pointer;
+  background-color: ${({ isDisabled }) => (isDisabled ? COLORS.cededed : COLORS.white)};
+  cursor: ${({ isDisabled }) => !isDisabled && 'pointer'};
   border: 1px solid ${({ borderColor }) => borderColor};
   &::before {
     content: '⌵';
@@ -105,14 +109,17 @@ const SelectBoxStyle = styled.div<{
     transform: translateY(-50%);
   }
   &:hover {
-    background-color: ${COLORS.cf6f6f6};
+    background-color: ${({ isDisabled }) => !isDisabled && COLORS.cf6f6f6};
   }
 `
 
-const LabelStyle = styled.label<{ fontSize: string }>`
-  /* font-size: ${FONTSIZE.fz14}; */
+const LabelStyle = styled.label<{
+  fontSize: string
+  isDisabled: boolean
+}>`
   font-size: ${({ fontSize }) => fontSize};
-  cursor: pointer;
+  color: ${({ isDisabled }) => isDisabled && COLORS.caeaeae};
+  cursor: ${({ isDisabled }) => !isDisabled && 'pointer'};
 `
 
 const SelectOptionsStyle = styled.ul<{

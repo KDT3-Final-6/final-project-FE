@@ -2,6 +2,7 @@ import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import React from 'react'
 import styled from 'styled-components'
 import { UseFormRegister } from 'react-hook-form'
+import { boolean } from 'yup'
 
 interface TInputValues {
   paymentMethod?: string
@@ -18,6 +19,8 @@ interface ICheckItem {
   fontSize?: string
   register?: any //UseFormRegister<TInputValues>;
   errorMsg?: string
+  isChecked?: boolean
+  isDisable?: boolean
 }
 
 const CheckItem = ({
@@ -31,14 +34,25 @@ const CheckItem = ({
   bgColor = COLORS.cbe4b4b,
   register,
   errorMsg,
+  isChecked = false,
+  isDisable = false,
 }: ICheckItem) => {
   return (
-    <ItemStyle checkType={checkType} width={width} color={color} bgColor={bgColor}>
+    <ItemStyle
+      checkType={checkType}
+      width={width}
+      color={color}
+      bgColor={bgColor}
+      isChecked={isChecked}
+      isDisable={isDisable}
+    >
       <input
         type={type}
         id={id}
         name={name}
         value={id}
+        defaultChecked={isChecked}
+        disabled={isDisable}
         {...(register &&
           register(name, {
             required: errorMsg,
@@ -56,6 +70,8 @@ const ItemStyle = styled.div<{
   width: string
   color: string
   bgColor: string
+  isChecked: boolean
+  isDisable: boolean
 }>`
   display: flex;
   align-items: center;
@@ -63,14 +79,21 @@ const ItemStyle = styled.div<{
   text-align: center;
 
   label {
-    cursor: pointer;
+    cursor: ${({ isDisable }) => !isDisable && 'pointer'};
     padding-left: 6px;
     color: ${COLORS.c1b1b1b};
   }
-  ${({ checkType, width, color, bgColor }) => handleCheckItem(checkType, width, bgColor)}
+  ${({ checkType, width, bgColor, isChecked, isDisable }) =>
+    handleCheckItem(checkType, width, bgColor, isChecked, isDisable)}
 `
 
-const handleCheckItem = (checkType: string, width: string, bgColor: string) => {
+const handleCheckItem = (
+  checkType: string,
+  width: string,
+  bgColor: string,
+  isChecked: boolean,
+  isDisabled: boolean
+) => {
   switch (checkType) {
     case 'radio':
     case 'checkbox':
@@ -78,7 +101,7 @@ const handleCheckItem = (checkType: string, width: string, bgColor: string) => {
         input {
         width: 20px;
         height: 20px;
-        cursor: pointer;
+        cursor: ${!isDisabled && 'pointer'};
         -moz-appearance: none;
         -webkit-appearance: none;
         -o-appearance: none;
@@ -109,7 +132,7 @@ const handleCheckItem = (checkType: string, width: string, bgColor: string) => {
         }
 
         &:checked::before {
-          background-color: ${COLORS.primary};
+          background-color: ${isChecked ? COLORS.caeaeae : COLORS.primary};
           color: ${COLORS.white};
           border: none;
         }

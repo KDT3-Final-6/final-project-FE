@@ -119,7 +119,6 @@ export const GroupStyle = styled.div`
         background-color: ${COLORS.cbe4b4b};
       }
     }
-
     &#family:checked {
       &::before {
         content: url('/images/icons/tabFamily.png');
