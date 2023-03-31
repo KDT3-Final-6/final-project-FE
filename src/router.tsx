@@ -30,7 +30,9 @@ import Theme from '@pages/Product/Theme'
 import Recommend from '@pages/Product/Recommend'
 import Buy from '@pages/Buy'
 import Result from '@pages/Survey/Result'
+import AddProduct from '@pages/AddProduct'
 import Consult from '@pages/Consult'
+import EditProduct from '@pages/EditProduct'
 
 const router = createBrowserRouter([
   {
@@ -80,9 +82,11 @@ const router = createBrowserRouter([
         element: <Admin />,
         children: [
           { index: true, path: PATH.PRODUCTS_LIST, element: <ProductList /> },
+          { path: PATH.ADD_PRODUCT, element: <AddProduct /> },
           { path: PATH.TRANSACTION_LIST, element: <TransactionList /> },
           { path: PATH.USER_LIST, element: <UserList /> },
           { path: PATH.POST_LIST, element: <PostList /> },
+          { path: PATH.EDIT_PRODUCT, element: <EditProduct /> },
         ],
       },
     ],

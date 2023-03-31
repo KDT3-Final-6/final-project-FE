@@ -70,6 +70,7 @@ const COLORS = {
   c1B5754: '#1B5754',
   c3E8133: '#3E8133',
   c335281: '#335281',
+  cd5dae8: '#d5dae8',
   black: '#000',
   white: '#fff',
   youTube: '#F50000',
