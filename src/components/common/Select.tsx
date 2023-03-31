@@ -12,6 +12,7 @@ interface ISelect {
   height?: string
   borderRadius?: string
   borderColor?: string
+  fontSize?: string
   isClickDefault?: boolean
   isDisabled?: boolean
   onChange?: React.ChangeEventHandler<HTMLLIElement>
@@ -29,6 +30,7 @@ const Select = ({
   borderColor = COLORS.cb6b6b6,
   isClickDefault = true,
   isDisabled = false,
+  fontSize = '14px',
   onChange,
   onClick,
 }: ISelect) => {
@@ -52,7 +54,7 @@ const Select = ({
       isDisabled={isDisabled}
       onClick={() => !isDisabled && setShowOptions((prev) => !prev)}
     >
-      <LabelStyle isDisabled={isDisabled}>
+      <LabelStyle fontSize={fontSize} isDisabled={isDisabled}>
         {currentValue} {!currentValue.toString().includes(unit) && unit}
       </LabelStyle>
       <SelectOptionsStyle
@@ -65,6 +67,7 @@ const Select = ({
           <OptionStyle
             width={width}
             height={height}
+            fontSize={fontSize}
             key={option}
             value={value}
             onClick={isClickDefault ? (e) => handleOnChangeSelectValue(e) : onClick}
@@ -111,10 +114,12 @@ const SelectBoxStyle = styled.div<{
 `
 
 const LabelStyle = styled.label<{
+  fontSize: string
   isDisabled: boolean
 }>`
-  font-size: ${FONTSIZE.fz14};
+  font-size: ${({ fontSize }) => fontSize};
   color: ${({ isDisabled }) => isDisabled && COLORS.caeaeae};
+  cursor: ${({ isDisabled }) => !isDisabled && 'pointer'};
 `
 
 const SelectOptionsStyle = styled.ul<{
@@ -142,8 +147,10 @@ const SelectOptionsStyle = styled.ul<{
 const OptionStyle = styled.li<{
   width: string
   height: string
+  fontSize: string
 }>`
-  font-size: ${FONTSIZE.fz14};
+  /* font-size: ${FONTSIZE.fz14}; */
+  font-size: ${({ fontSize }) => fontSize};
   width: ${({ width }) => width};
   height: ${({ height }) => height};
   padding: 12px 16px;

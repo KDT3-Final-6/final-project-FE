@@ -12,6 +12,9 @@ interface IInput {
   width?: string
   height?: string
   isDisabled?: boolean
+  borderRadius?: string
+  bgColor?: string
+  borderColor?: string
   children?: React.ReactNode
 }
 
@@ -22,11 +25,22 @@ const Input = ({
   title,
   width = '',
   height = '',
+  borderRadius = '8px',
+  borderColor = '',
+  bgColor = `${COLORS.cf3f3f3}`,
   isDisabled = false,
   children,
 }: IInput) => {
   return (
-    <InputStyle inputType={inputType} width={width} height={height}>
+    <InputStyle
+      inputType={inputType}
+      width={width}
+      height={height}
+      borderRadius={borderRadius}
+      bgColor={bgColor}
+      borderColor={borderColor}
+    >
+      {/* <p>{title}</p> */}
       <input type={type} placeholder={placeholder} disabled={isDisabled} />
       {inputType === 'searchInput' && (
         <Button buttonType="transparent" width="50px" height="100%">
@@ -44,8 +58,12 @@ const InputStyle = styled.div<{
   inputType: string
   width: string
   height: string
+  borderRadius: string
+  bgColor: string
+  borderColor: string
 }>`
-  ${({ inputType }) => handleInputType(inputType)}
+  ${({ inputType, borderRadius, bgColor, borderColor }) =>
+    handleInputType(inputType, borderRadius, bgColor, borderColor)}
   width:${({ width }) => width};
   height: ${({ height }) => height};
   position: relative;
@@ -58,12 +76,18 @@ const InputStyle = styled.div<{
   }
 `
 
-const handleInputType = (inputType: string) => {
+const handleInputType = (
+  inputType: string,
+  borderRadius: string,
+  bgColor: string,
+  borderColor: string
+) => {
   switch (inputType) {
     case 'searchInput':
       return `
-        background:${COLORS.cf3f3f3};
-        border-radius:8px;
+        background:${bgColor};
+        border-radius:${borderRadius};
+        border:1px solid ${borderColor};
         position:relative;
 
         input {
