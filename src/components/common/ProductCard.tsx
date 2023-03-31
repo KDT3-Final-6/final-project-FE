@@ -106,6 +106,7 @@ const handleCardType = (cardType: string, bgImage: string, minHeight: string) =>
           left:0;
           width:100%;
           padding: 0 18px 130px;
+          background-color:transparent;
         }
       `
     case 'barType':
@@ -126,6 +127,10 @@ const handleCardType = (cardType: string, bgImage: string, minHeight: string) =>
           img {
             width: 100%;
           }
+        }
+
+        ${TxtAreaStyle} {
+          height:auto;
         }
 
         ${PriceStyle} {

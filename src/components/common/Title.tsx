@@ -57,7 +57,7 @@ const TitleStyle = styled.div<{
   text-align: ${({ textAlign }) => textAlign};
 `
 
-const HightlightSpanStyle = styled.span<{
+const HighlightSpanStyle = styled.span<{
   fontSize?: string
   fontWeight?: string
   spanMargin?: string
@@ -69,4 +69,4 @@ const HightlightSpanStyle = styled.span<{
   display: inline-block;
 `
 
-export { HightlightSpanStyle }
+export { HighlightSpanStyle, TitleStyle }

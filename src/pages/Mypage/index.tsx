@@ -7,6 +7,7 @@ import MenuTab from '@src/components/MyPage/MenuTab'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import { Outlet } from 'react-router-dom'
 import Button from '@components/common/Button'
+import Title, { HighlightSpanStyle } from '@src/components/common/Title'
 
 const MyPage = () => {
   const [activeMenu, setActiveMenu] = useState(0)
@@ -23,6 +24,25 @@ const MyPage = () => {
           border={`5px solid ${COLORS.white}`}
         />
         <span style={{ fontSize: FONTSIZE.fz24, fontWeight: FONTWEGHT.fw700 }}>김고투</span>
+        <Title
+          titleType="h3"
+          title="KimGoto@gmail.com"
+          fontSize={FONTSIZE.fz15}
+          fontWeight={FONTWEGHT.fw400}
+          margin="-10px 0 0"
+        />
+        <Title textAlign="center" fontSize={FONTSIZE.fz18} fontWeight={FONTWEGHT.fw400}>
+          <h2>
+            <HighlightSpanStyle
+              color={COLORS.c3ba1ff}
+              fontSize={FONTSIZE.fz20}
+              fontWeight={FONTWEGHT.fw600}
+              spanMargin="0 0 20px"
+            >
+              일반회원
+            </HighlightSpanStyle>
+          </h2>
+        </Title>
         <Button buttonType="cartSkyBlue" width="140px" height="42px" borderRadius="50px">
           <div
             style={{ display: 'flex', gap: '5px', alignItems: 'center', justifyContent: 'center' }}

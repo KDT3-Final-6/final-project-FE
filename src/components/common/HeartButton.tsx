@@ -18,7 +18,13 @@ const HeartButton = ({ productId, isHeart = false, setHeart, top = '', right = '
   }
 
   return (
-    <HeartButtonStyle onClick={toggleHeart} top={top} right={right} isHeart={isHeart}>
+    <HeartButtonStyle
+      onClick={toggleHeart}
+      top={top}
+      right={right}
+      isHeart={isHeart}
+      title="찜하기"
+    >
       <BsFillSuitHeartFill />
     </HeartButtonStyle>
   )
@@ -37,11 +43,12 @@ const HeartButtonStyle = styled.button<{
   top: ${({ top }) => top};
   right: ${({ right }) => right};
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.3);
   color: ${({ isHeart }) => (isHeart ? COLORS.heart : COLORS.white)};
   font-size: ${FONTSIZE.fz18};
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
 `
