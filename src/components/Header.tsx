@@ -45,6 +45,7 @@ const Header = () => {
             width="350px"
             height="50px"
             placeholder="여행 그룹이나 상품을 검색해보세요."
+            borderColor="none"
           />
           <LnbListStyle>
             <li>여행 큐레이션</li>
