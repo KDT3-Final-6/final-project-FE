@@ -1,7 +1,7 @@
 import React from 'react'
 
-const index = () => {
-  return <div>index</div>
+const ProductList = () => {
+  return <div>ProductList</div>
 }
 
-export default index
+export default ProductList

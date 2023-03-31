@@ -7,7 +7,7 @@ import styled from 'styled-components'
 const index = () => {
   const countUser = 135 // 유저 수, 패칭해 올 데이터
   return (
-    <>
+    <ContainerStyle>
       <InputWrapStyle>
         <Input
           inputType="searchInput"
@@ -40,11 +40,18 @@ const index = () => {
         ))}
       </UserListStyle>
       <Pagination />
-    </>
+    </ContainerStyle>
   )
 }
 
 export default index
+
+const ContainerStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
 
 const InputWrapStyle = styled.div`
   display: flex;

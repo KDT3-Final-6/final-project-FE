@@ -1,0 +1,222 @@
+[
+  {
+    "categoryId": 1,
+    "categoryName": "그룹별여행",
+    "child": [
+      {
+        "categoryId": 2,
+        "categoryName": "5070끼리",
+        "child": []
+      },
+      {
+        "categoryId": 3,
+        "categoryName": "남자끼리",
+        "child": []
+      },
+      {
+        "categoryId": 4,
+        "categoryName": "여자끼리",
+        "child": []
+      },
+      {
+        "categoryId": 5,
+        "categoryName": "가족끼리",
+        "child": []
+      },
+      {
+        "categoryId": 6,
+        "categoryName": "누구든지",
+        "child": []
+      }
+    ]
+  },
+  {
+    "categoryId": 7,
+    "categoryName": "지역별여행",
+    "child": [
+      {
+        "categoryId": 8,
+        "categoryName": "동남아/태평양",
+        "child": [
+          {
+            "categoryId": 9,
+            "categoryName": "동남아시아",
+            "child": []
+          },
+          {
+            "categoryId": 10,
+            "categoryName": "괌&사이판&하와이",
+            "child": []
+          },
+          {
+            "categoryId": 11,
+            "categoryName": "호주&뉴질랜드",
+            "child": []
+          }
+        ]
+      },
+      {
+        "categoryId": 12,
+        "categoryName": "인도/중앙아시아",
+        "child": [
+          {
+            "categoryId": 13,
+            "categoryName": "인도&주변국",
+            "child": []
+          },
+          {
+            "categoryId": 14,
+            "categoryName": "중앙아시아",
+            "child": []
+          }
+        ]
+      },
+      {
+        "categoryId": 15,
+        "categoryName": "아프리카/중동",
+        "child": [
+          {
+            "categoryId": 16,
+            "categoryName": "동남아프리카",
+            "child": []
+          },
+          {
+            "categoryId": 17,
+            "categoryName": "북아프리카&중동",
+            "child": []
+          }
+        ]
+      },
+      {
+        "categoryId": 18,
+        "categoryName": "유럽/코카서스",
+        "child": [
+          {
+            "categoryId": 19,
+            "categoryName": "코카서스",
+            "child": []
+          },
+          {
+            "categoryId": 20,
+            "categoryName": "유럽",
+            "child": []
+          }
+        ]
+      },
+      {
+        "categoryId": 21,
+        "categoryName": "중남미/북미",
+        "child": [
+          {
+            "categoryId": 22,
+            "categoryName": "중남미",
+            "child": []
+          },
+          {
+            "categoryId": 23,
+            "categoryName": "북미",
+            "child": []
+          }
+        ]
+      },
+      {
+        "categoryId": 24,
+        "categoryName": "대만/중국/일본",
+        "child": [
+          {
+            "categoryId": 25,
+            "categoryName": "대만",
+            "child": []
+          },
+          {
+            "categoryId": 26,
+            "categoryName": "중국",
+            "child": []
+          },
+          {
+            "categoryId": 27,
+            "categoryName": "일본",
+            "child": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "categoryId": 28,
+    "categoryName": "테마별여행",
+    "child": [
+      {
+        "categoryId": 29,
+        "categoryName": "문화탐방",
+        "child": []
+      },
+      {
+        "categoryId": 30,
+        "categoryName": "골프여행",
+        "child": [
+          {
+            "categoryId": 31,
+            "categoryName": "유럽/미국/특수지역",
+            "child": []
+          },
+          {
+            "categoryId": 32,
+            "categoryName": "태국/라오스/미얀마",
+            "child": []
+          },
+          {
+            "categoryId": 33,
+            "categoryName": "필리핀/인도네시아",
+            "child": []
+          },
+          {
+            "categoryId": 34,
+            "categoryName": "베트남/캄보디아",
+            "child": []
+          },
+          {
+            "categoryId": 35,
+            "categoryName": "싱가폴/기타동남아",
+            "child": []
+          },
+          {
+            "categoryId": 36,
+            "categoryName": "중국/일본/대만",
+            "child": []
+          }
+        ]
+      },
+      {
+        "categoryId": 37,
+        "categoryName": "휴양지",
+        "child": []
+      },
+      {
+        "categoryId": 38,
+        "categoryName": "트레킹",
+        "child": []
+      },
+      {
+        "categoryId": 39,
+        "categoryName": "성지순례",
+        "child": []
+      },
+      {
+        "categoryId": 40,
+        "categoryName": "볼론투어",
+        "child": []
+      },
+      {
+        "categoryId": 41,
+        "categoryName": "쇼핑",
+        "child": []
+      },
+      {
+        "categoryId": 42,
+        "categoryName": "와인",
+        "child": []
+      }
+    ]
+  }
+]

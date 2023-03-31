@@ -129,7 +129,7 @@ const handleButtonType = (buttonType: string) => {
       return ` 
       border: none;
       background-color: ${COLORS.primary};
-      color: ${COLORS.white}
+      color: ${COLORS.white};
       width: 140px;
       height: 42px;
       &:hover {

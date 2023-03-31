@@ -29,7 +29,10 @@ const UserCard = () => {
           width="108px"
           height="24px"
           borderColor="transparent"
+          borderRadius="0"
           fontSize="16px"
+          arrowImg="/images/icons/bottom-arrow1.png"
+          topPosition="44%"
         />
       </span>
       <span>
