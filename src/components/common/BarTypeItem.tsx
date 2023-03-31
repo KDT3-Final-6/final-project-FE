@@ -45,7 +45,7 @@ function BarTypeItem({ item, cardType, height = '220px', priceColor }: IBarTypeI
             {`${item.price.toLocaleString()}원`}
           </PriceStyle>
         </DatePriceStyle>
-        <Buttons bottom="0" right="0">
+        <Buttons right="0">
           <Button buttonType="borderGray" height="45px">
             <FiShare2 />
             공유하기
@@ -113,7 +113,7 @@ const Buttons = styled.div<{
   justify-content: end;
   margin-top: 10px;
   position: absolute;
-  bottom: ${({ bottom }) => bottom};
+  padding-top: 10px;
   right: ${({ right }) => right};
   button {
     svg {
