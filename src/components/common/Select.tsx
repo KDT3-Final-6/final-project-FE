@@ -117,7 +117,8 @@ const SelectBoxStyle = styled.div<{
   border: 1px solid ${({ borderColor }) => borderColor};
   border-color: ${({ show, borderColor }) => (show ? 'transparent' : borderColor)};
   /* border-right: 1px solid transparent; */
-  border-right: 1px solid ${({ type }) => type === 'searchFilterInput' && 'transparent'};
+  border-right: 1px solid
+    ${({ type, borderColor }) => (type === 'searchFilterInput' ? 'transparent' : borderColor)};
   &::before {
     content: '';
     background-image: ${({ arrowImg }) => `url(${arrowImg})`};
