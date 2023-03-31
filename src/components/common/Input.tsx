@@ -27,6 +27,7 @@ const Input = ({
   height = '',
   borderRadius = '8px',
   borderColor = '',
+
   bgColor = `${COLORS.cf3f3f3}`,
   isDisabled = false,
   children,
@@ -68,6 +69,10 @@ const InputStyle = styled.div<{
   height: ${({ height }) => height};
   position: relative;
 
+  input {
+    font-size: ${FONTSIZE.fz16};
+  }
+
   p {
     position: absolute;
     top: -20px;
@@ -89,7 +94,28 @@ const handleInputType = (
         border-radius:${borderRadius};
         border:1px solid ${borderColor};
         position:relative;
+        input {
+          padding:15px 19px;
+        }
 
+        button {
+          position:absolute;
+          right:0;
+
+          svg {
+            display:flex;
+            color:${COLORS.c646161};
+            font-size:${FONTSIZE.fz22};
+          }
+        }
+      `
+    case 'searchFilterInput':
+      return `
+        background:${bgColor};
+        border-radius:${borderRadius};
+        border:1px solid ${borderColor};
+        border-left:1px solid transparent;
+        position:relative;
         input {
           padding:15px 19px;
         }
