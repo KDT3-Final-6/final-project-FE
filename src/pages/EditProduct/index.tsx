@@ -8,9 +8,9 @@ import Image from '@src/components/common/Image'
 import categories from '../../../public/mockData/category.json'
 import Button from '@src/components/common/Button'
 
-interface Props {}
+type Props = {}
 
-const AddProduct = (props: Props) => {
+const index = (props: Props) => {
   const [attachment, setAttachment] = useState('')
   const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -27,10 +27,10 @@ const AddProduct = (props: Props) => {
     reader.readAsDataURL(theFile)
   }
   return (
-    <ContainerStyle>
+    <div style={{ backgroundColor: COLORS.cf3f3f3, padding: '32px 0' }}>
       <Inner>
         <Title fontSize={FONTSIZE.fz32} margin="0 0 32px 0">
-          <h1>상품 추가</h1>
+          <h1>상품 수정</h1>
         </Title>
         <ProductTableStyle>
           <colgroup>
@@ -161,18 +161,77 @@ const AddProduct = (props: Props) => {
         </ProductTableStyle>
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Button margin="20px 0" buttonType="cartSkyBlue">
-            상품 추가
+            상품 수정
+          </Button>
+        </div>
+        <ProductTableStyle>
+          <colgroup>
+            <col width="20%" />
+          </colgroup>
+          <tr>
+            <th>옵션</th>
+            <td colSpan={6}>
+              <OptionsStyle>
+                <OptionNameStyle>
+                  <label htmlFor="option-name">옵션명</label>
+                  <input type="text" id="option-name" />
+                </OptionNameStyle>
+                <div style={{ display: 'flex', gap: '10px' }}>
+                  <ColFlexStyle>
+                    <label htmlFor="">
+                      출발 날짜 <input type="text" placeholder="YYYY.MM.DD" />
+                    </label>
+                    <label htmlFor="">
+                      출발 시간{' '}
+                      <select name="" id="">
+                        <option value="am">AM</option>
+                        <option value="pm">PM</option>
+                      </select>{' '}
+                      <input type="text" />
+                    </label>
+                  </ColFlexStyle>
+                  <div>
+                    <ColFlexStyle>
+                      <label htmlFor="">
+                        도착 날짜 <input type="text" placeholder="YYYY.MM.DD" />
+                      </label>
+                      <label htmlFor="">
+                        도착 시간{' '}
+                        <select name="" id="">
+                          <option value="am">AM</option>
+                          <option value="pm">PM</option>
+                        </select>{' '}
+                        <input type="text" />
+                      </label>
+                    </ColFlexStyle>
+                  </div>
+                </div>
+              </OptionsStyle>
+            </td>
+          </tr>
+          <tr>
+            <th>최소/최대 옵션 선택양</th>
+            <td colSpan={6}>
+              <ThumbnailStyle>
+                <label htmlFor="option-max">
+                  최대 <input type="text" id="option-max" />
+                </label>
+                <label htmlFor="option-min">
+                  최소 <input type="text" id="option-min" />
+                </label>
+              </ThumbnailStyle>
+            </td>
+          </tr>
+        </ProductTableStyle>
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <Button margin="20px 0" buttonType="cartSkyBlue">
+            옵션 추가 및 수정
           </Button>
         </div>
       </Inner>
-    </ContainerStyle>
+    </div>
   )
 }
-
-const ContainerStyle = styled.div`
-  background-color: ${COLORS.cf3f3f3};
-  padding: 32px 0;
-`
 
 const ProductTableStyle = styled.table`
   width: 100%;
@@ -256,4 +315,18 @@ const StatusStyle = styled.div`
   }
 `
 
-export default AddProduct
+const OptionsStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+const OptionNameStyle = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  input {
+    width: 300px;
+  }
+`
+
+export default index

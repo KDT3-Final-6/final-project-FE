@@ -32,6 +32,7 @@ import Buy from '@pages/Buy'
 import Result from '@pages/Survey/Result'
 import AddProduct from '@pages/AddProduct'
 import Consult from '@pages/Consult'
+import EditProduct from '@pages/EditProduct'
 
 const router = createBrowserRouter([
   {
@@ -85,6 +86,7 @@ const router = createBrowserRouter([
           { path: PATH.TRANSACTION_LIST, element: <TransactionList /> },
           { path: PATH.USER_LIST, element: <UserList /> },
           { path: PATH.POST_LIST, element: <PostList /> },
+          { path: PATH.EDIT_PRODUCT, element: <EditProduct /> },
         ],
       },
     ],

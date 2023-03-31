@@ -28,6 +28,7 @@ const PATH = {
   PRODUCT_THEME: '/product/theme',
   PRODUCT_RECOMMEND: '/product/recommend',
   ADD_PRODUCT: '/admin/addproduct',
+  EDIT_PRODUCT: '/admin/editproduct',
 }
 
 export default PATH
