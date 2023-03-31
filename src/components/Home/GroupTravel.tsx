@@ -1,5 +1,5 @@
 import { getProducts } from '@src/api/product'
-import { IProduct } from '@src/env'
+import { IProduct } from '@src/interfaces/product'
 import Inner from '@src/layout/Inner'
 import Section from '@src/layout/Section'
 import { COLORS, FONTSIZE } from '@src/styles/root'

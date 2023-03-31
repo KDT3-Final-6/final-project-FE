@@ -1,9 +1,9 @@
-import { IProduct } from '@src/env'
 import React from 'react'
 import Title from '../common/Title'
 import styled from 'styled-components'
 import CardTypeItem from '../common/CardTypeItem'
 import { COLORS } from '@src/styles/root'
+import { IProduct } from '@src/interfaces/product'
 
 interface Props {
   title: string
