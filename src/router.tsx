@@ -22,7 +22,7 @@ import InfoEdit from './pages/Mypage/InfoEdit'
 import MyReview from './pages/Mypage/MyReview'
 import Admin from '@pages/Admin'
 import ProductList from '@pages/ProductsList'
-import TransactionList from '@pages/TransactionList'
+import TransactionList from '@src/pages/Admin/TransactionList'
 import UserList from '@pages/UserList'
 import PostList from '@pages/PostList'
 import Group from '@pages/Product/Group'
@@ -69,6 +69,7 @@ const router = createBrowserRouter([
         path: PATH.MYPAGE,
         element: <MyPage />,
         children: [
+          { path: PATH.MYPAGE, element: <OrderList /> },
           { path: PATH.ORDER_LIST, element: <OrderList /> },
           { path: PATH.CART, element: <Cart /> },
           { path: PATH.WISHLIST, element: <WishList /> },

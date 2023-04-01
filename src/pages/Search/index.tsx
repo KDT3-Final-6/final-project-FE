@@ -3,7 +3,7 @@ import CardTypeItem from '@src/components/common/CardTypeItem'
 import Input from '@src/components/common/Input'
 import Pagination from '@src/components/common/Pagination'
 import Select from '@src/components/common/Select'
-import { IProduct } from '@src/env'
+import { IProduct } from '@src/interfaces/product'
 import Inner from '@src/layout/Inner'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import React, { useEffect, useState } from 'react'
@@ -39,7 +39,7 @@ const Search = () => {
           <ResultContainerStyle>
             <FilterboxStyle>
               <p>{products.length}건의 검색 결과</p>
-              <Select options={selectOptions} initial="인기순" />
+              <Select options={selectOptions} initial={selectOptions[0]} />
             </FilterboxStyle>
             <ProductListStyle>
               {products.map((product) => (

@@ -23,6 +23,7 @@ const COLORS = {
   cbe4b4b: '#be4b4b',
   cb6b6b6: '#b6b6b6',
   cE0E0E0: '#E0E0E0',
+  cefefef: '#efefef',
   cF5F5F5: '#F5F5F5',
   c74fff7: '#74FFF7',
   c2e9892: '#2e9892',

@@ -5,7 +5,7 @@ import useOnClickOutside from '@src/hooks/useOnClickOutside'
 
 interface ISelect {
   options?: string[] | number[]
-  initial: string | number
+  initial?: string | number
   value?: string | number
   unit?: any
   width?: string
@@ -13,8 +13,11 @@ interface ISelect {
   borderRadius?: string
   borderColor?: string
   fontSize?: string
+  arrowImg?: string
+  topPosition?: string
   isClickDefault?: boolean
   isDisabled?: boolean
+  type?: string
   onChange?: React.ChangeEventHandler<HTMLLIElement>
   onClick?: React.MouseEventHandler<HTMLLIElement>
 }
@@ -31,6 +34,9 @@ const Select = ({
   isClickDefault = true,
   isDisabled = false,
   fontSize = '14px',
+  topPosition = '48%',
+  arrowImg = '/images/icons/bottom-arrow2.png',
+  type = '',
   onChange,
   onClick,
 }: ISelect) => {
@@ -50,12 +56,16 @@ const Select = ({
       height={height}
       borderRadius={borderRadius}
       borderColor={borderColor}
+      show={showOptions}
+      arrowImg={arrowImg}
+      topPosition={topPosition}
+      type={type}
       isClickDefault={isClickDefault}
       isDisabled={isDisabled}
       onClick={() => !isDisabled && setShowOptions((prev) => !prev)}
     >
       <LabelStyle fontSize={fontSize} isDisabled={isDisabled}>
-        {currentValue} {!currentValue.toString().includes(unit) && unit}
+        {currentValue} {!currentValue?.toString().includes(unit) && unit}
       </LabelStyle>
       <SelectOptionsStyle
         show={showOptions}
@@ -90,6 +100,10 @@ const SelectBoxStyle = styled.div<{
   width: string
   height: string
   isDisabled: boolean
+  show: boolean
+  arrowImg: string
+  topPosition: string
+  type: string
 }>`
   display: flex;
   align-items: center;
@@ -101,12 +115,22 @@ const SelectBoxStyle = styled.div<{
   background-color: ${({ isDisabled }) => (isDisabled ? COLORS.cededed : COLORS.white)};
   cursor: ${({ isDisabled }) => !isDisabled && 'pointer'};
   border: 1px solid ${({ borderColor }) => borderColor};
+  border-color: ${({ show, borderColor }) => (show ? 'transparent' : borderColor)};
+  /* border-right: 1px solid transparent; */
+  border-right: 1px solid
+    ${({ type, borderColor }) => (type === 'searchFilterInput' ? 'transparent' : borderColor)};
   &::before {
-    content: '⌵';
+    content: '';
+    background-image: ${({ arrowImg }) => `url(${arrowImg})`};
+    background-size: contain;
+    background-repeat: no-repeat;
     position: absolute;
-    top: 42%;
+    width: 16px;
+    height: 16px;
+    top: ${({ topPosition }) => topPosition};
     right: 16px;
     transform: translateY(-50%);
+    font-size: 30px;
   }
   &:hover {
     background-color: ${({ isDisabled }) => !isDisabled && COLORS.cf6f6f6};
@@ -134,7 +158,6 @@ const SelectOptionsStyle = styled.ul<{
   width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-  /* height: 129px; */
   max-height: ${({ show }) => (show ? '300px' : '0')};
   border: ${({ show }) => (show ? `1px solid ${COLORS.cb6b6b6}` : 'none')};
   border-color: ${({ borderColor }) => borderColor};

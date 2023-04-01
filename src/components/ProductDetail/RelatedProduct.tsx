@@ -1,8 +1,8 @@
-import { IProduct } from '@src/env'
 import CardTypeItem from '@src/components/common/CardTypeItem'
 import { COLORS } from '@src/styles/root'
 import styled from 'styled-components'
 import CheckItem from '@src/components/common/CheckItem'
+import { IProduct } from '@src/interfaces/product'
 
 type Props = {}
 

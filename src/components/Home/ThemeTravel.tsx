@@ -6,9 +6,9 @@ import styled from 'styled-components'
 import Button from '../common/Button'
 import Title from '../common/Title'
 import { AiOutlinePlus } from 'react-icons/ai'
-import { IProduct } from '@src/env'
 import { getProducts } from '@src/api/product'
 import CardTypeItem from '../common/CardTypeItem'
+import { IProduct } from '@src/interfaces/product'
 
 const ThemeTravel = () => {
   const [products, setProducts] = useState<IProduct[]>([])

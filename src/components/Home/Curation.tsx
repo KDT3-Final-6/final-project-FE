@@ -10,8 +10,8 @@ import { HiOutlineRefresh } from 'react-icons/hi'
 import { MdEditCalendar } from 'react-icons/md'
 import { current } from '@reduxjs/toolkit'
 import { getProducts } from '@src/api/product'
-import { IProduct } from '@src/env'
 import { useNavigate } from 'react-router-dom'
+import { IProduct } from '@src/interfaces/product'
 
 const Curation = () => {
   const [products, setProducts] = useState<IProduct[]>([])
