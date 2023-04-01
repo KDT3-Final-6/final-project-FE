@@ -5,6 +5,7 @@ const API_URL = {
   cart: '/carts',
   order: '/orders',
   search: '/search',
+  products:'/products',
   recommend: '/recommends',
   review: '/reviews',
   survey:'/survey'
