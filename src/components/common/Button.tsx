@@ -12,6 +12,7 @@ interface IButton {
   padding?: string
   bgColor?: string
   color?: string
+  isDisabled?: boolean
   children?: React.ReactNode
   onClick?: React.MouseEventHandler<HTMLButtonElement>
 }
@@ -26,6 +27,7 @@ const Button = ({
   padding = '',
   bgColor = '',
   color = '',
+  isDisabled = false,
   children,
   onClick,
 }: IButton) => {
@@ -40,6 +42,7 @@ const Button = ({
       padding={padding}
       bgColor={bgColor}
       color={color}
+      disabled={isDisabled}
       onClick={onClick}
     >
       {children}
