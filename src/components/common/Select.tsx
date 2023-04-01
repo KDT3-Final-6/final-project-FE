@@ -5,7 +5,7 @@ import useOnClickOutside from '@src/hooks/useOnClickOutside'
 
 interface ISelect {
   options?: string[] | number[]
-  initial: string | number
+  initial?: string | number
   value?: string | number
   unit?: any
   width?: string
@@ -65,7 +65,7 @@ const Select = ({
       onClick={() => !isDisabled && setShowOptions((prev) => !prev)}
     >
       <LabelStyle fontSize={fontSize} isDisabled={isDisabled}>
-        {currentValue} {!currentValue.toString().includes(unit) && unit}
+        {currentValue} {!currentValue?.toString().includes(unit) && unit}
       </LabelStyle>
       <SelectOptionsStyle
         show={showOptions}
@@ -117,7 +117,8 @@ const SelectBoxStyle = styled.div<{
   border: 1px solid ${({ borderColor }) => borderColor};
   border-color: ${({ show, borderColor }) => (show ? 'transparent' : borderColor)};
   /* border-right: 1px solid transparent; */
-  border-right: 1px solid ${({ type }) => type === 'searchFilterInput' && 'transparent'};
+  border-right: 1px solid
+    ${({ type, borderColor }) => (type === 'searchFilterInput' ? 'transparent' : borderColor)};
   &::before {
     content: '';
     background-image: ${({ arrowImg }) => `url(${arrowImg})`};
