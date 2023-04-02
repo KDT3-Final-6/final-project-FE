@@ -16,6 +16,8 @@ interface IInput {
   bgColor?: string
   borderColor?: string
   children?: React.ReactNode
+  register?: object
+  ariaInvalid?: boolean
 }
 
 const Input = ({
@@ -29,6 +31,8 @@ const Input = ({
   bgColor = `${COLORS.cf3f3f3}`,
   isDisabled = false,
   children,
+  register,
+  ariaInvalid,
 }: IInput) => {
   return (
     <InputStyle
@@ -39,7 +43,13 @@ const Input = ({
       bgColor={bgColor}
       borderColor={borderColor}
     >
-      <input type={type} placeholder={placeholder} disabled={isDisabled} />
+      <input
+        type={type}
+        placeholder={placeholder}
+        disabled={isDisabled}
+        {...register}
+        aria-invalid={ariaInvalid}
+      />
       {inputType === 'searchInput' && (
         <Button buttonType="transparent" width="50px" height="100%">
           <FiSearch />

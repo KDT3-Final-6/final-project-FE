@@ -21,8 +21,12 @@ const InfoEdit = () => {
             placeholder="KimGoto@gmail.com"
             isDisabled={true}
           />
-          <InputItem title="비밀번호" placeholder="비밀번호를 입력하세요." />
-          <InputItem title="비밀번호 확인" placeholder="비밀번호를 확인 입력하세요." />
+          <InputItem type="password" title="비밀번호" placeholder="비밀번호를 입력하세요." />
+          <InputItem
+            type="password"
+            title="비밀번호 확인"
+            placeholder="비밀번호를 확인 입력하세요."
+          />
           <InputItem title="이름" placeholder="김고투" isDisabled={true} />
           <InputItem
             title="연락처"
@@ -60,32 +64,33 @@ const InfoEdit = () => {
               <CheckItem
                 checkType="radio"
                 type="radio"
-                id="female"
+                id="Female"
                 labelName="여성"
                 name="gender"
-                isChecked={userGender === 'female' && true}
+                isChecked={userGender === 'Female' && true}
                 isDisable={true}
               />
               <CheckItem
                 checkType="radio"
                 type="radio"
-                id="male"
+                id="Male"
                 labelName="남성"
                 name="gender"
-                isChecked={userGender === 'male' && true}
+                isChecked={userGender === 'Male' && true}
                 isDisable={true}
               />
             </RadiosStyle>
           </InputBox>
           <InputBox title="취미 (중복 선택 가능)">
             <CheckStyle>
-              <CheckItem id="golf" labelName="골프" />
-              <CheckItem id="fishing" labelName="낚시" />
-              <CheckItem id="climb" labelName="등산" />
-              <CheckItem id="hanRyang" labelName="먹고 즐기기" />
-              <CheckItem id="volunteer" labelName="봉사" />
-              <CheckItem id="shopping" labelName="쇼핑" />
-              <CheckItem id="healing" labelName="휴식, 힐링" />
+              <CheckItem id="GOLF" labelName="골프" />
+              <CheckItem id="WINE" labelName="와인" />
+              <CheckItem id="TREKKING" labelName="트레킹" />
+              <CheckItem id="VACATION" labelName="휴식, 힐링" />
+              <CheckItem id="VOLUNTEER" labelName="봉사활동" />
+              <CheckItem id="SHOPPING" labelName="쇼핑" />
+              <CheckItem id="CULTURE" labelName="문화탐방" />
+              <CheckItem id="PILGRIMAGE" labelName="성지순례" />
             </CheckStyle>
           </InputBox>
           <InputBox title="개인정보 제3자 제공 동의">
