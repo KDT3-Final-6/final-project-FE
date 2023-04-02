@@ -1,10 +1,10 @@
 import Title from '@src/components/common/Title'
 import Inner from '@src/layout/Inner'
 import React from 'react'
-import ProductList from '@src/components/Group/ProductList'
+import ProductList from '@src/components/ProductPage/ProductList'
 import Banner from '@components/Home/Banner'
-import CategoryList from '@src/components/Group/CategoryList'
-import ProductSlider from '@src/components/Group/ProductSlider'
+import CategoryList from '@src/components/ProductPage/CategoryList'
+import ProductSlider from '@src/components/ProductPage/District/ProductSlider'
 
 type Props = {}
 

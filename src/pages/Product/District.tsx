@@ -5,7 +5,7 @@ import Image from '@src/components/common/Image'
 import styled from 'styled-components'
 import { FONTSIZE, FONTWEGHT, COLORS } from '@src/styles/root'
 import DistrictCheckTab from '@src/components/ProductPage/District/DistrictCheckTab'
-import CategoryList from '@src/components/Group/CategoryList'
+import CategoryList from '@src/components/ProductPage/CategoryList'
 
 type Props = {}
 

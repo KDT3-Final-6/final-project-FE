@@ -1,10 +1,11 @@
 import React from 'react'
 import Inner from '@src/layout/Inner'
-import ProductList from '@src/components/Group/ProductList'
-import CategoryList from '@src/components/Group/CategoryList'
+import ProductList from '@src/components/ProductPage/ProductList'
+import CategoryList from '@src/components/ProductPage/CategoryList'
 import Title from '@src/components/common/Title'
 import Banner from '@src/components/Home/Banner'
-import ProductSlider from '@src/components/Group/ProductSlider'
+import ProductSlider from '@src/components/ProductPage/District/ProductSlider'
+import ThemeTravel from '@src/components/Home/ThemeTravel'
 
 type Props = {}
 
@@ -17,11 +18,10 @@ const Recommend = (props: Props) => {
       <Inner>
         <ProductList title="그룹별여행" />
         <CategoryList title="추천 여행" />
-        <Title margin="80px 0 50px 0">
-          <h2>테마별 인기 여행</h2>
-        </Title>
-        <div style={{ height: '696px', backgroundColor: 'tomato' }}></div>
-        <Banner image="event_banner" marginTop="94px" marginBottom="26px" type={2} />
+      </Inner>
+      <ThemeTravel />
+      <Inner>
+        <Banner image="event_banner" marginTop="50px" marginBottom="26px" type={2} />
         <Banner image="event_banner2" marginBottom="100px" type={1} />
       </Inner>
     </div>
