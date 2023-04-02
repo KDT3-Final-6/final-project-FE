@@ -22,12 +22,10 @@ const Input = ({
   inputType = '',
   type = 'text',
   placeholder,
-  title,
   width = '',
   height = '',
   borderRadius = '8px',
   borderColor = '',
-
   bgColor = `${COLORS.cf3f3f3}`,
   isDisabled = false,
   children,
@@ -41,7 +39,6 @@ const Input = ({
       bgColor={bgColor}
       borderColor={borderColor}
     >
-      {/* <p>{title}</p> */}
       <input type={type} placeholder={placeholder} disabled={isDisabled} />
       {inputType === 'searchInput' && (
         <Button buttonType="transparent" width="50px" height="100%">

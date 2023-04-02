@@ -9,8 +9,12 @@ export const getProducts = async () => {
   return json
 }
 
+// export const getProducts = async () => {
+//   const data:IProduct = await axiosInstance.get(API_URL.products)
+//   return data
+// }
+
 export const getRecommendProducts = async() => {
-  const res = await axiosInstance.get(API_URL.recommend)
-  const data:IProduct = res.data
+  const data: IProduct = await axiosInstance.get(API_URL.recommend)
   return data
 }
