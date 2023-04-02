@@ -97,6 +97,7 @@ const handleCheckItem = (
 ) => {
   switch (checkType) {
     case 'checkbox':
+    case 'radio':
       return `
         input {
         width: 20px;
