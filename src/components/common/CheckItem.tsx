@@ -83,8 +83,8 @@ const ItemStyle = styled.div<{
     padding-left: 6px;
     color: ${COLORS.c1b1b1b};
   }
-  ${({ checkType, width, bgColor, isChecked, isDisable }) =>
-    handleCheckItem(checkType, width, bgColor, isChecked, isDisable)}
+  ${({ checkType, width, bgColor, isChecked, isDisable, color }) =>
+    handleCheckItem(checkType, width, bgColor, isChecked, isDisable, color)}
 `
 
 const handleCheckItem = (
@@ -92,10 +92,10 @@ const handleCheckItem = (
   width: string,
   bgColor: string,
   isChecked: boolean,
-  isDisabled: boolean
+  isDisabled: boolean,
+  color: string
 ) => {
   switch (checkType) {
-    case 'radio':
     case 'checkbox':
       return `
         input {
@@ -246,6 +246,30 @@ const handleCheckItem = (
         font-weight:${FONTWEGHT.fw600};
       }
 
+      `
+    case 'districtTab':
+      return `
+        position: relative;
+        input {
+          display: none;
+        }
+        label {
+          height: 57px;
+          width: 100%;
+          padding: 14px 20px;
+          cursor: pointer;
+          font-weight: ${FONTWEGHT.fw600};
+          font-size: ${FONTSIZE.fz24};
+          border: 1px solid ${COLORS.cddd};
+          border-radius:10px;
+          display: flex;
+          align-items: center;
+        }
+        input:checked + label {
+          background-color: ${bgColor};
+          color: ${color};
+          border: 1px solid ${bgColor};
+        }
       `
   }
 }
