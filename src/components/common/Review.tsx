@@ -3,24 +3,24 @@ import styled from 'styled-components'
 import { FONTSIZE, COLORS } from '@src/styles/root'
 import StarRateWrapGet from './StarRateWrapGet'
 import { HiChevronRight } from 'react-icons/hi'
+import { IReviewContent } from '@src/interfaces/review'
 
-type Props = {}
+interface Props {
+  review: IReviewContent
+}
 
-const Review = (props: Props) => {
+const Review = ({ review }: Props) => {
   return (
     <ReviewCardStyle>
       <HeaderStyle>
-        <span>김고투</span>
+        <span>{review.memberNickName}</span>
         <GradeStyle>
-          <StarRateWrapGet AVR_RATE={5} />
-          <span>{5.0}</span>
+          <StarRateWrapGet AVR_RATE={review.scope} />
+          <span>{review.scope}</span>
         </GradeStyle>
       </HeaderStyle>
       <ContentStyle>
-        <p>
-          하와이에서 가장 아름다운 골프 플레이스로 정글에서 게임을 즐기는 느낌의 이색적인 코스
-          최고!!
-        </p>
+        <p>{review.postContent}</p>
         <BtnStyle>
           <span>자세히 보기</span>
           <HiChevronRight />

@@ -27,7 +27,6 @@ const Theme = (props: Props) => {
       <Inner>
         <CategoryList title="TOP 10 인기 테마별 여행" />
       </Inner>
-
       <ThemeTravel />
       <Inner>
         <Banner image="event_banner2" marginTop="100px" marginBottom="20px" type={1} />

@@ -1,11 +1,12 @@
-import axios from 'axios';
-import API_URL from '@src/constants/apiUrlConst';
-import { axiosInstance } from './instance';
-import { IProduct } from "@src/interfaces/product";
+import axios from 'axios'
+import API_URL from '@src/constants/apiUrlConst'
+import { axiosInstance } from './instance'
+import { IProduct, IProductDetail } from '@src/interfaces/product'
+import { IReview } from '@src/interfaces/review'
 
 export const getProducts = async () => {
   const data = await axios.get('/mockData/product.json')
-  const json:IProduct[] = data.data
+  const json: IProduct[] = data.data
   return json
 }
 
@@ -14,7 +15,17 @@ export const getProducts = async () => {
 //   return data
 // }
 
-export const getRecommendProducts = async() => {
+export const getRecommendProducts = async () => {
   const data: IProduct = await axiosInstance.get(API_URL.recommend)
+  return data
+}
+
+export const getProductDetail = async (id: number) => {
+  const data: IProductDetail = await axiosInstance.get(`${API_URL.products}/${id}`)
+  return data
+}
+
+export const getReviewsForProduct = async (id: number) => {
+  const data: IReview = await axiosInstance.get(`${API_URL.review}/${id}`)
   return data
 }

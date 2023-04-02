@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Title from '../common/Title'
 import Review from '../common/Review'
+import { initReview } from '@src/interfaces/review'
 
 const TravelReview = () => {
   return (
@@ -17,9 +18,9 @@ const TravelReview = () => {
           margin="0 0 50px"
         />
         <ContainerStyle>
-          <Review />
-          <Review />
-          <Review />
+          <Review review={initReview} />
+          <Review review={initReview} />
+          <Review review={initReview} />
         </ContainerStyle>
       </Inner>
     </Section>
