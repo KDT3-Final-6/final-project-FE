@@ -37,7 +37,12 @@ export interface IProductDetail {
 
 interface IproductCategories {
   categoryName: string
-  child: null | string
+  child: null | IproductCategory
+}
+
+interface IproductCategory {
+  categoryName: string
+  child: null | IproductCategory
 }
 
 export const initProductDetail = {

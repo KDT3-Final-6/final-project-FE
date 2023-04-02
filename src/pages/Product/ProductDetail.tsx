@@ -31,12 +31,12 @@ const ProductDetail = () => {
     <Inner padding="32px 0">
       <Helmet>
         {/* 브라우저 탭에 보여줄 수 있는 title 정의하는 훅 (=HTML의 head영역) */}
-        <title>
-          홈 {'>'} 테마별 여행 {'>'} 골프
-        </title>
+        <title>{productDetail.productName}</title>
       </Helmet>
       <CategoryStyle>
-        {/* 추후에 카테고리 불러오면 수정 예정 */}홈 {'>'} 테마별 여행 {'>'} 골프
+        {/* 추후에 카테고리 불러오면 수정 예정 */}홈 {'>'}{' '}
+        {productDetail.productCategories[2].categoryName} {'>'}{' '}
+        {productDetail.productCategories[2].child!.categoryName}
       </CategoryStyle>
       <ProductInfo productDetail={productDetail} pathname={pathname} />
       <MoveTab />
