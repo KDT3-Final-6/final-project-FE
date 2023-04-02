@@ -25,6 +25,7 @@ const PATH = {
   USER_LIST: 'userlist',
   POST_LIST: 'postlist',
   PRODUCT_GROUP: '/product/group',
+  PRODUCT_DISTRICT: '/product/district',
   PRODUCT_THEME: '/product/theme',
   PRODUCT_RECOMMEND: '/product/recommend',
   ADD_PRODUCT: '/admin/addproduct',

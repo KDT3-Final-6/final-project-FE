@@ -48,18 +48,22 @@ const Header = () => {
             borderColor="none"
           />
           <LnbListStyle>
-            <li>여행 큐레이션</li>
+            <Link to={PATH.SURVEY}>
+              <li>여행 큐레이션</li>
+            </Link>
             <Link to={PATH.PRODUCT_RECOMMEND}>
               <li>추천 여행</li>
             </Link>
             <Link to={PATH.PRODUCT_GROUP}>
               <li>그룹별 여행</li>
             </Link>
+            <Link to={PATH.PRODUCT_DISTRICT}>
+              <li>지역별 여행</li>
+            </Link>
             <Link to={PATH.PRODUCT_THEME}>
               <li>테마별 여행</li>
             </Link>
-            <BarStyle></BarStyle>
-            <li>이벤트</li>
+            <BarStyle />
             <li>커뮤니티</li>
           </LnbListStyle>
         </Inner>
