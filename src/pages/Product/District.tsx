@@ -5,6 +5,7 @@ import Image from '@src/components/common/Image'
 import styled from 'styled-components'
 import { FONTSIZE, FONTWEGHT, COLORS } from '@src/styles/root'
 import DistrictCheckTab from '@src/components/ProductPage/District/DistrictCheckTab'
+import CategoryList from '@src/components/Group/CategoryList'
 
 type Props = {}
 
@@ -28,6 +29,8 @@ const District = (props: Props) => {
           <h2>지역 선택하기</h2>
         </Title>
         <DistrictCheckTab />
+        <CategoryList title="동남아시아" />
+        <CategoryList title="유럽" />
       </Inner>
     </div>
   )
