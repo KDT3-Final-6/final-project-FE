@@ -7,7 +7,7 @@ import Title, { HighlightSpanStyle } from '@src/components/common/Title'
 import Inner from '@src/layout/Inner'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import count from '@src/utils/count'
-import React, { useEffect, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 import SocialButtons from '@src/components/common/SocialButtons'
 import Select from '@src/components/common/Select'
@@ -17,58 +17,21 @@ import { IUser } from '@src/interfaces/user'
 import { hideLoading, showLoading } from '@src/reduxStore/loadingSlice'
 import { signup } from '@src/api/auth'
 import MESSAGES from '@src/constants/messages'
-import { getProducts } from '@src/api/product'
 
 const SignUp = () => {
   const dispatch = useDispatch()
   const {
     register,
     handleSubmit,
+    watch,
     formState: { isSubmitting, errors, isDirty },
   } = useForm<IUser>()
 
-  const [formData, setFormData] = useState<IUser>({
-    memberEmail: '',
-    memberPassword: '',
-    memberName: '',
-    memberNickname: '',
-    memberPhone: '',
-    memberBirthDate: '',
-    memberHobby: '',
-    memberGender: '',
-    memberSmsAgree: false,
-    memberEmailAgree: false,
-  })
   const [currentValue, setCurrentValue] = useState({
     year: 1960,
     month: 5,
     day: 21,
   })
-
-  useEffect(() => {
-    ;(async () => {
-      try {
-        dispatch(showLoading())
-        const response = await signup({
-          memberEmail: formData.memberEmail,
-          memberPassword: formData.memberPassword,
-          memberName: formData.memberName,
-          memberNickname: formData.memberNickname,
-          memberPhone: formData.memberPhone,
-          memberBirthDate: formData.memberBirthDate,
-          memberHobby: formData.memberHobby,
-          memberGender: formData.memberGender,
-          memberSmsAgree: formData.memberSmsAgree,
-          memberEmailAgree: formData.memberEmailAgree,
-        })
-        console.log(response)
-      } catch (error) {
-        console.log(MESSAGES.SIGNUP.error)
-      } finally {
-        dispatch(hideLoading())
-      }
-    })()
-  }, [])
 
   const years: number[] = []
   count(years, 1950, 2023)
@@ -79,24 +42,45 @@ const SignUp = () => {
   const days: number[] = []
   count(days, 1, 31)
 
-  // const handleChange = (type: 'year' | 'month' | 'day', value: string | number) => {
-  //   setCurrentValue((prev) => {
-  //     return {
-  //       ...prev,
-  //       [type]: value,
-  //     }
-  //   })
-  // }
+  const [formData, setFormData] = useState<IUser>({
+    memberEmail: '',
+    memberPassword: '',
+    memberPasswordConfirm: '',
+    memberName: '',
+    memberNickname: '',
+    memberPhone: '',
+    memberBirthDate: '',
+    memberGender: '',
+    memberHobby: [],
+    memberSmsAgree: false,
+    memberEmailAgree: false,
+  })
 
   const onSubmit = async (data: IUser) => {
     setFormData(data)
-  }
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'enter') {
-      e.preventDefault()
+    try {
+      dispatch(showLoading())
+      await signup({
+        memberEmail: formData.memberEmail,
+        memberPassword: formData.memberPassword,
+        memberName: formData.memberName,
+        memberNickname: formData.memberNickname,
+        memberPhone: formData.memberPhone,
+        memberBirthDate: formData.memberBirthDate,
+        memberGender: formData.memberGender,
+        memberHobby: formData.memberHobby,
+        memberSmsAgree: formData.memberSmsAgree,
+        memberEmailAgree: formData.memberEmailAgree,
+      })
+    } catch (error) {
+      console.log(MESSAGES.SIGNUP.error)
+    } finally {
+      dispatch(hideLoading())
     }
   }
+
+  const passwordRef = useRef<string | null>(null)
+  passwordRef.current = watch('memberPassword')
 
   return (
     <>
@@ -124,10 +108,43 @@ const SignUp = () => {
       <Inner width="400px" padding="40px 0 190px">
         <SocialButtons verb="가입하기" />
         <LineSpan></LineSpan>
-        <FormAreaStyle onSubmit={handleSubmit(onSubmit)} onKeyDown={handleKeyDown}>
-          <InputItem title="이메일" placeholder="이메일을 입력하세요." />
-          <InputItem title="비밀번호" placeholder="비밀번호를 입력하세요." />
-          <InputItem title="비밀번호 확인" placeholder="비밀번호를 확인 입력하세요." />
+        <FormAreaStyle onSubmit={handleSubmit(onSubmit)}>
+          <InputItem
+            title="이메일"
+            placeholder="이메일을 입력하세요."
+            ariaInvalid={!isDirty ? undefined : errors.memberEmail ? true : false}
+            register={{
+              ...register('memberEmail', {
+                required: '이메일을 입력해주세요.',
+                pattern: { value: /\S+@\S+\.\S+/, message: '이메일을 확인해주세요.' },
+              }),
+            }}
+            errorMessage={errors.memberEmail && errors.memberEmail.message}
+          />
+          <InputItem
+            type="password"
+            title="비밀번호"
+            placeholder="비밀번호를 입력하세요."
+            register={{
+              ...register('memberPassword', {
+                required: '비밀번호를 입력해주세요.',
+                minLength: { value: 8, message: '비밀번호는 8자 이상 16자 이하로 입력해주세요.' },
+                maxLength: { value: 16, message: '비밀번호는 8자 이상 16자 이하로 입력해주세요.' },
+              }),
+            }}
+            errorMessage={errors.memberPassword && errors.memberPassword.message}
+          />
+          <InputItem
+            type="password"
+            title="비밀번호 확인"
+            placeholder="비밀번호를 확인 입력하세요."
+            register={{
+              ...register('memberPasswordConfirm', {
+                required: true,
+                validate: (value) => value === passwordRef.current,
+              }),
+            }}
+          />
           <InputItem title="이름" placeholder="이름을 입력하세요." />
           <InputItem
             title="연락처"
@@ -164,22 +181,23 @@ const SignUp = () => {
               <CheckItem
                 checkType="radio"
                 type="radio"
-                id="female"
+                id="Female"
                 labelName="여성"
                 name="gender"
               />
-              <CheckItem checkType="radio" type="radio" id="male" labelName="남성" name="gender" />
+              <CheckItem checkType="radio" type="radio" id="Male" labelName="남성" name="gender" />
             </RadiosStyle>
           </InputBox>
           <InputBox title="취미 (중복 선택 가능)">
             <CheckStyle>
-              <CheckItem id="golf" labelName="골프" />
-              <CheckItem id="fishing" labelName="낚시" />
-              <CheckItem id="climb" labelName="등산" />
-              <CheckItem id="hanRyang" labelName="먹고 즐기기" />
-              <CheckItem id="volunteer" labelName="봉사" />
-              <CheckItem id="shopping" labelName="쇼핑" />
-              <CheckItem id="healing" labelName="휴식, 힐링" />
+              <CheckItem id="GOLF" labelName="골프" />
+              <CheckItem id="WINE" labelName="와인" />
+              <CheckItem id="TREKKING" labelName="트레킹" />
+              <CheckItem id="VACATION" labelName="휴식, 힐링" />
+              <CheckItem id="VOLUNTEER" labelName="봉사활동" />
+              <CheckItem id="SHOPPING" labelName="쇼핑" />
+              <CheckItem id="CULTURE" labelName="문화탐방" />
+              <CheckItem id="PILGRIMAGE" labelName="성지순례" />
             </CheckStyle>
           </InputBox>
           <InputBox title="개인정보 제3자 제공 동의">

@@ -24,7 +24,7 @@ const Login = () => {
       <Inner width="400px" padding="44px 0 190px">
         <Inputs>
           <Input inputType="textInput" placeholder="아이디를 입력하세요." />
-          <Input inputType="textInput" placeholder="비밀번호를 입력하세요." />
+          <Input inputType="textInput" type="password" placeholder="비밀번호를 입력하세요." />
         </Inputs>
         <Buttons>
           <ConfirmStyle>
