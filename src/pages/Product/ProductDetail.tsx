@@ -42,12 +42,12 @@ const ProductDetail = () => {
       <MoveTab />
       <hr />
       <Detail productDetail={productDetail} />
-      <TravelReview />
-      <Title fontSize={FONTSIZE.fz26} fontWeight={FONTWEGHT.fw700} margin="80px 0 50px 0">
+      <TravelReview productId={productId} />
+      <Title fontSize={FONTSIZE.fz26} fontWeight={FONTWEGHT.fw500} margin="80px 0 50px 0">
         <h3 id="related">연관 상품</h3>
       </Title>
       <RelatedProduct />
-      <Title fontSize={FONTSIZE.fz26} fontWeight={FONTWEGHT.fw700} margin="80px 0 50px 0">
+      <Title fontSize={FONTSIZE.fz26} fontWeight={FONTWEGHT.fw500} margin="80px 0 50px 0">
         <h3 id="review">내가 봤던 상품</h3>
       </Title>
       <RelatedProduct />

@@ -78,6 +78,7 @@ const ProductInfo = ({ productDetail, pathname }: Props) => {
             width="180px"
             height="50px"
             buttonType="detail"
+            // 추후에 주소 값은 수정 예정
             onClick={() => onCopy(`http://localhost:5173${pathname}`)}
           >
             <div
