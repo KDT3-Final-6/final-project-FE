@@ -1,14 +1,15 @@
 import React from 'react'
 import Inner from '@src/layout/Inner'
 import Title from '@src/components/common/Title'
-import ProductList from '@src/components/Group/ProductList'
-import CategoryList from '@src/components/Group/CategoryList'
+import ProductList from '@src/components/ProductPage/ProductList'
+import CategoryList from '@src/components/ProductPage/CategoryList'
 import Banner from '@src/components/Home/Banner'
 import styled from 'styled-components'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import MoreBtn from '@src/components/Home/MoreBtn'
 import MonthProductList from '@src/components/Theme/MonthProductList'
-import ProductSlider from '@src/components/Group/ProductSlider'
+import ProductSlider from '@src/components/ProductPage/District/ProductSlider'
+import ThemeTravel from '@src/components/Home/ThemeTravel'
 
 type Props = {}
 
@@ -25,10 +26,10 @@ const Theme = (props: Props) => {
       </div>
       <Inner>
         <CategoryList title="TOP 10 인기 테마별 여행" />
-        <Title margin="50px 0">
-          <h2>테마별 인기 여행</h2>
-          <div style={{ height: '696px', backgroundColor: 'tomato', marginTop: '50px' }}></div>
-        </Title>
+      </Inner>
+
+      <ThemeTravel />
+      <Inner>
         <Banner image="event_banner2" marginTop="100px" marginBottom="20px" type={1} />
         <ContainerStyle>
           <EventCardStyle>

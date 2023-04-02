@@ -33,6 +33,7 @@ import Result from '@pages/Survey/Result'
 import AddProduct from '@pages/AddProduct'
 import Consult from '@pages/Consult'
 import EditProduct from '@pages/EditProduct'
+import District from './pages/Product/District'
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,7 @@ const router = createBrowserRouter([
           { path: PATH.PRODUCT_GROUP, element: <Group /> },
           { path: PATH.PRODUCT_THEME, element: <Theme /> },
           { path: PATH.PRODUCT_RECOMMEND, element: <Recommend /> },
+          { path: PATH.PRODUCT_DISTRICT, element: <District /> },
         ],
       },
       { path: PATH.REVIEW, element: <Review /> },

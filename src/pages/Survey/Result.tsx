@@ -1,7 +1,7 @@
 import React from 'react'
 import Banner from '@src/components/Survey/Banner'
 import Title from '@src/components/common/Title'
-import CategoryList from '@src/components/Group/CategoryList'
+import CategoryList from '@src/components/ProductPage/CategoryList'
 import Inner from '@src/layout/Inner'
 import EventBanner from '@components/Home/Banner'
 import { FONTSIZE } from '@src/styles/root'

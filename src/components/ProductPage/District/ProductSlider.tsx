@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import SwiperCore, { Navigation, Pagination } from 'swiper'
-import Image from '../common/Image'
+import Image from '../../common/Image'
 import styled from 'styled-components'
 import { TfiAngleRight, TfiAngleLeft } from 'react-icons/tfi'
 
