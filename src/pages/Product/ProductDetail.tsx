@@ -8,10 +8,25 @@ import { Helmet } from 'react-helmet'
 import styled from 'styled-components'
 import Title from '@src/components/common/Title'
 import RelatedProduct from '@src/components/ProductDetail/RelatedProduct'
+import { getProductDetail } from '@src/api/product'
+import { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
+import { IProductDetail, initProductDetail } from '@src/interfaces/product'
 
-type Props = {}
+const ProductDetail = () => {
+  const [productDetail, setProductDetail] = useState<IProductDetail>(initProductDetail)
+  const location = useLocation()
+  const { pathname } = location
+  const productId = Number(pathname.slice(9))
 
-const ProductDetail = (props: Props) => {
+  useEffect(() => {
+    const fetchData = async () => {
+      const detail = await getProductDetail(productId)
+      setProductDetail(detail)
+    }
+    fetchData()
+  }, [])
+  console.log(productDetail)
   return (
     <Inner padding="32px 0">
       <Helmet>
@@ -23,10 +38,10 @@ const ProductDetail = (props: Props) => {
       <CategoryStyle>
         {/* 추후에 카테고리 불러오면 수정 예정 */}홈 {'>'} 테마별 여행 {'>'} 골프
       </CategoryStyle>
-      <ProductInfo />
+      <ProductInfo productDetail={productDetail} pathname={pathname} />
       <MoveTab />
       <hr />
-      <Detail />
+      <Detail productDetail={productDetail} />
       <TravelReview />
       <Title fontSize={FONTSIZE.fz26} fontWeight={FONTWEGHT.fw700} margin="80px 0 50px 0">
         <h3 id="related">연관 상품</h3>

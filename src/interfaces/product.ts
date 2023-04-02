@@ -22,3 +22,32 @@ export interface IProduct {
   price: number
   heart: boolean
 }
+
+export interface IProductDetail {
+  contentDetail: string
+  periodOptions: string[]
+  productCategories: IproductCategories[]
+  productContent: string
+  productImages: string[]
+  productName: string
+  productPrice: number
+  productStatus: string
+  productThumbnail: string
+}
+
+interface IproductCategories {
+  categoryName: string
+  child: null | string
+}
+
+export const initProductDetail = {
+  contentDetail: '',
+  periodOptions: [''],
+  productCategories: [{ categoryName: '', child: null }],
+  productContent: '',
+  productImages: [''],
+  productName: '',
+  productPrice: 0,
+  productStatus: '',
+  productThumbnail: '',
+}

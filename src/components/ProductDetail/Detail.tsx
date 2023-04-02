@@ -1,10 +1,14 @@
+import { IProductDetail } from '@src/interfaces/product'
 import { COLORS } from '@src/styles/root'
 import React from 'react'
 import styled from 'styled-components'
+import Image from '../common/Image'
 
-type Props = {}
+interface Props {
+  productDetail: IProductDetail
+}
 
-const Detail = (props: Props) => {
+const Detail = ({ productDetail }: Props) => {
   return (
     <DetailStyle id="detail">
       <ReservationStyle>
@@ -27,9 +31,9 @@ const Detail = (props: Props) => {
           <span>좌석: 8석(최소 출발: 2명)</span>
         </ReservationDescStyle>
       </ReservationStyle>
-
-      <img src="/images/product_detail/01_01_하와이와이키키_골프팩_7일.jpg" alt="1" />
-      <img src="/images/product_detail/01_02_하와이와이키키_골프팩_7일.jpg" alt="2" />
+      {productDetail.productImages.map((image, index) => (
+        <Image src={image} alt={String(index)}></Image>
+      ))}
     </DetailStyle>
   )
 }

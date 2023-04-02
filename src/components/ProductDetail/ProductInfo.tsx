@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { SlArrowRight } from 'react-icons/sl'
 import styled from 'styled-components'
 import { AiOutlineShareAlt, AiOutlineShoppingCart } from 'react-icons/ai'
@@ -7,30 +7,35 @@ import Title from '../common/Title'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import StarRateWrapGet from '@src/components/common/StarRateWrapGet'
 import Select from '../common/Select'
+import { IProductDetail } from '@src/interfaces/product'
+import Image from '../common/Image'
+import { useNavigate } from 'react-router-dom'
+import useCopyClipBoard from '@src/utils/copyURL'
 
-type Props = {}
+interface Props {
+  productDetail: IProductDetail
+  pathname: string
+}
 
-const ProductInfo = (props: Props) => {
-  const options = [
-    '2023/05/30(화) - 06/13(화) 도착',
-    '2023/05/30(화) - 06/13(화) 도착',
-    '2023/05/30(화) - 06/13(화) 도착',
-    '2023/05/30(화) - 06/13(화) 도착',
-  ]
+const ProductInfo = ({ productDetail, pathname }: Props) => {
+  const onCopy = useCopyClipBoard()
+  const [quantity, setQuantity] = useState(1)
+  const minusQuantity = () => {
+    quantity > 1 ? setQuantity((prev) => prev - 1) : 1
+  }
+  const plusQuantity = () => {
+    setQuantity((prev) => prev + 1)
+  }
+  const navigate = useNavigate()
   return (
     <InfoStyle>
-      <div style={{ width: '50%', height: '450px', backgroundColor: 'tomato' }}>
-        이미지 슬라이드
-      </div>
+      <Image bgImage={productDetail.productThumbnail} width="50%" height="450px" />
       <DescStyle>
         <TitleDescStyle>
           <Title fontSize={FONTSIZE.fz32}>
-            <h1>[실속 골프 패키지] 사이판 3박 4일 골프 여행</h1>
+            <h1>{productDetail.productName}</h1>
           </Title>
-          <span style={{ fontSize: FONTSIZE.fz18 }}>
-            와! 골프 진짜 짱이다! 우와아ㅏ 넓은 평지에서 뒹굴면 너무 재미있을 듯! 2줄 3줄이 됐을 땐
-            어떻게 나오지?? 확인해 보겠습ㄴ디ㅏ
-          </span>
+          <span style={{ fontSize: FONTSIZE.fz18 }}>{productDetail.productContent}</span>
           <RateStyle>
             <StarRateWrapGet AVR_RATE={80} />
             <span className="rate-number">4.0</span>
@@ -44,13 +49,13 @@ const ProductInfo = (props: Props) => {
           <span
             style={{ fontWeight: FONTWEGHT.fw700, fontSize: FONTSIZE.fz32, marginLeft: '10px' }}
           >
-            350,000원
+            {productDetail.productPrice.toLocaleString()}원
           </span>
         </div>
         <OptionSectionStyle>
           <span>출발일 *</span>
           <Select
-            options={options}
+            options={productDetail.periodOptions}
             initial="출발일 옵션 선택"
             onChange={(e) => e.preventDefault()}
             width="100%"
@@ -58,24 +63,23 @@ const ProductInfo = (props: Props) => {
             borderRadius="0"
             borderColor={COLORS.black}
           />
-          {/* <SelectOptions
-            items={options}
-            value="출발일 옵션 선택"
-            unit=""
-            onChange={(e) => e.preventDefault()}
-          /> */}
           <span>인원 *</span>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span>350,000원</span>
+            <span>{productDetail.productPrice.toLocaleString()}원</span>
             <div style={{ display: 'flex' }}>
-              <OptionCountStyle>-</OptionCountStyle>
-              <OptionCountStyle>1</OptionCountStyle>
-              <OptionCountStyle>+</OptionCountStyle>
+              <OptionCountStyle onClick={minusQuantity}>-</OptionCountStyle>
+              <OptionCountStyle>{quantity}</OptionCountStyle>
+              <OptionCountStyle onClick={plusQuantity}>+</OptionCountStyle>
             </div>
           </div>
         </OptionSectionStyle>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Button width="180px" height="50px" buttonType="detail">
+          <Button
+            width="180px"
+            height="50px"
+            buttonType="detail"
+            onClick={() => onCopy(`http://localhost:5173${pathname}`)}
+          >
             <div
               style={{
                 display: 'flex',
@@ -101,7 +105,7 @@ const ProductInfo = (props: Props) => {
               장바구니
             </div>
           </Button>
-          <Button width="180px" height="50px" buttonType="detail">
+          <Button width="180px" height="50px" buttonType="detail" onClick={() => navigate('/buy')}>
             구매하기
           </Button>
         </div>
@@ -169,5 +173,6 @@ const OptionCountStyle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `
 export default ProductInfo
