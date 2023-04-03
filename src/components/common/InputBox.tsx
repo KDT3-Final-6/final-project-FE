@@ -1,4 +1,4 @@
-import { COLORS } from '@src/styles/root'
+import { COLORS, FONTWEGHT } from '@src/styles/root'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -32,6 +32,7 @@ const CheckBoxStyle = styled.div<{
     top: -20px;
     left: 0;
     color: ${COLORS.c1b1b1b};
+    font-weight: ${FONTWEGHT.fw700};
   }
 
   select {

@@ -16,7 +16,7 @@ const ThemeTravel = () => {
   const contents = [
     { id: 0, tab: '휴양지' },
     { id: 1, tab: '골프' },
-    { id: 2, tab: '트레킹' },
+    { id: 2, tab: '트래킹' },
     { id: 3, tab: '성지순례' },
     { id: 4, tab: '문화탐방' },
   ]
@@ -42,7 +42,7 @@ const ThemeTravel = () => {
                     : activeTab === 1
                     ? '골프'
                     : activeTab === 2
-                    ? '트레킹'
+                    ? '트래킹'
                     : activeTab === 3
                     ? '성지순례'
                     : activeTab === 4
@@ -59,7 +59,7 @@ const ThemeTravel = () => {
                   : activeTab === 1
                   ? '골프'
                   : activeTab === 2
-                  ? '트레킹'
+                  ? '트래킹'
                   : activeTab === 3
                   ? '성지순례'
                   : activeTab === 4

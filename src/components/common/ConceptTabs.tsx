@@ -32,8 +32,8 @@ const ConceptTabs = ({ title = false }: IConceptTabs) => {
       tabName: '봉사활동',
     },
     {
-      id: 'tracking',
-      tabName: '트레킹',
+      id: 'trekking',
+      tabName: '트래킹',
     },
     {
       id: 'golf',
@@ -126,7 +126,7 @@ const ConceptStyle = styled(GroupStyle)`
         color: ${COLORS.c1B5754};
       }
     }
-    &#tracking:checked {
+    &#trekking:checked {
       &::before {
         background-color: ${COLORS.cE6FFB0};
       }

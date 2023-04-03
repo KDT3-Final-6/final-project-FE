@@ -40,7 +40,7 @@ const surveyItems = {
     { id: 19, name: '문화탐방', imgSrc: 'culture.jpg' },
     { id: 20, name: '성지순례', imgSrc: 'judaism.jpg' },
     { id: 21, name: '봉사활동', imgSrc: 'volunteer.jpg' },
-    { id: 22, name: '트레킹', imgSrc: 'tracking.jpg' },
+    { id: 22, name: '트래킹', imgSrc: 'tracking.jpg' },
     { id: 23, name: '골프', imgSrc: 'golf.jpg' },
     { id: 24, name: '그 외', imgSrc: 'hobby.jpg' },
   ],
