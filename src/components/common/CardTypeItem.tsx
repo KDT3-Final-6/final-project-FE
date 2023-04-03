@@ -65,7 +65,7 @@ const CardTypeItem = ({
         isHeart={heart}
         setHeart={setHeart}
       />
-      <Link to={PATH.PRODUCT_DETAIL} target="_blank">
+      <Link to={`/product/${item?.productId}`} target="_blank">
         {cardType === 'cardType' && (
           <ImgAreaStyle>
             <Image src={item?.productThumbnail} alt={item?.productName} />
