@@ -1,4 +1,4 @@
-import { COLORS } from '@src/styles/root'
+import { COLORS, FONTWEGHT } from '@src/styles/root'
 import React from 'react'
 import styled from 'styled-components'
 import Input from './Input'
@@ -40,8 +40,8 @@ const InputItem = ({
     >
       <PAlignStyle>
         {title} {!isDisabled && <HighlightSpanStyle color={color}>{highlight}</HighlightSpanStyle>}
-        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
       </PAlignStyle>
+      {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </Input>
   )
 }
@@ -52,8 +52,16 @@ const PAlignStyle = styled.p`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  font-weight: ${FONTWEGHT.fw700};
+
+  ${HighlightSpanStyle} {
+    font-weight: ${FONTWEGHT.fw500};
+  }
 `
 
-const ErrorMessage = styled.p`
+export const ErrorMessage = styled.span`
   color: red;
+  font-weight: ${FONTWEGHT.fw400};
+  margin-top: 5px;
+  display: block;
 `

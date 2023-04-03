@@ -85,7 +85,7 @@ const InfoEdit = () => {
             <CheckStyle>
               <CheckItem id="GOLF" labelName="골프" />
               <CheckItem id="WINE" labelName="와인" />
-              <CheckItem id="TREKKING" labelName="트레킹" />
+              <CheckItem id="TREKKING" labelName="트래킹" />
               <CheckItem id="VACATION" labelName="휴식, 힐링" />
               <CheckItem id="VOLUNTEER" labelName="봉사활동" />
               <CheckItem id="SHOPPING" labelName="쇼핑" />
