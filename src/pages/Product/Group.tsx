@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import ProductList from '@src/components/ProductPage/ProductList'
 import Banner from '@components/Home/Banner'
 import CategoryList from '@src/components/ProductPage/CategoryList'
-import ProductSlider from '@src/components/ProductPage/District/ProductSlider'
+import ProductSlider from '@src/components/ProductPage/ProductSlider'
 import { IProductContent } from '@src/interfaces/product'
 import { getCategoryProducts } from '@src/api/product'
 

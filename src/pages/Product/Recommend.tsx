@@ -4,7 +4,7 @@ import ProductList from '@src/components/ProductPage/ProductList'
 import CategoryList from '@src/components/ProductPage/CategoryList'
 import Title from '@src/components/common/Title'
 import Banner from '@src/components/Home/Banner'
-import ProductSlider from '@src/components/ProductPage/District/ProductSlider'
+import ProductSlider from '@src/components/ProductPage/ProductSlider'
 import ThemeTravel from '@src/components/Home/ThemeTravel'
 
 type Props = {}

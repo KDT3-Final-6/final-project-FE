@@ -87,7 +87,7 @@ const CardTypeItem = ({
             priceRight={priceRight}
             priceBottom={priceBottom}
             priceColor={priceColor}
-          >{`${item?.productPrice.toLocaleString()}원`}</PriceStyle>
+          >{`${item?.productPrice?.toLocaleString()}원`}</PriceStyle>
         </TxtAreaStyle>
       </Link>
     </ProductCard>
