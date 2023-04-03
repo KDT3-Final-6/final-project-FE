@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Inner from '@src/layout/Inner'
 import Title from '@src/components/common/Title'
 import ProductList from '@src/components/ProductPage/ProductList'
@@ -7,13 +7,21 @@ import Banner from '@src/components/Home/Banner'
 import styled from 'styled-components'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import MoreBtn from '@src/components/Home/MoreBtn'
-import MonthProductList from '@src/components/Theme/MonthProductList'
-import ProductSlider from '@src/components/ProductPage/District/ProductSlider'
+import MonthProductList from '@src/components/ProductPage/MonthProductList'
+import ProductSlider from '@src/components/ProductPage/ProductSlider'
 import ThemeTravel from '@src/components/Home/ThemeTravel'
+import { IProductContent } from '@src/interfaces/product'
+import { getCategoryProducts } from '@src/api/product'
 
-type Props = {}
-
-const Theme = (props: Props) => {
+const Theme = () => {
+  const [themeProduct, setThemeProduct] = useState<IProductContent[]>([])
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getCategoryProducts('테마별여행')
+      setThemeProduct(data.content)
+    }
+    fetchData()
+  }, [])
   return (
     <div style={{ margin: '32px 0' }}>
       <Inner>
@@ -25,7 +33,7 @@ const Theme = (props: Props) => {
         <ProductSlider />
       </div>
       <Inner>
-        <CategoryList title="TOP 10 인기 테마별 여행" />
+        <CategoryList title="TOP 10 인기 테마별 여행" products={themeProduct} />
       </Inner>
       <ThemeTravel />
       <Inner>
@@ -59,7 +67,7 @@ const Theme = (props: Props) => {
             </EventInfo>
           </EventCardStyle>
         </ContainerStyle>
-        <MonthProductList />
+        <MonthProductList products={themeProduct} />
       </Inner>
     </div>
   )

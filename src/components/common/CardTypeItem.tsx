@@ -1,5 +1,5 @@
 import PATH from '@src/constants/pathConst'
-import { IProduct } from '@src/interfaces/product'
+import { IProductContent } from '@src/interfaces/product'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -15,7 +15,7 @@ import ProductCard, {
 import Title from './Title'
 
 interface ICardTypeItem {
-  item: IProduct
+  item: IProductContent
   cardType: string
   bgImage?: string
   imgWidth?: string
@@ -45,11 +45,11 @@ const CardTypeItem = ({
   priceColor,
   minHeight,
 }: ICardTypeItem) => {
-  const [heart, setHeart] = useState(item.heart)
+  const [heart, setHeart] = useState(item?.isWished)
 
   return (
     <ProductCard
-      key={item.id}
+      key={item?.productId}
       cardType={cardType}
       bgImage={bgImage}
       imgWidth={imgWidth}
@@ -59,7 +59,7 @@ const CardTypeItem = ({
       minHeight={minHeight}
     >
       <HeartButton
-        productId={item.id}
+        productId={item?.productId}
         top="14px"
         right="18px"
         isHeart={heart}
@@ -68,25 +68,18 @@ const CardTypeItem = ({
       <Link to={PATH.PRODUCT_DETAIL} target="_blank">
         {cardType === 'cardType' && (
           <ImgAreaStyle>
-            <Image src={item.image} alt={item.title} />
+            <Image src={item?.productThumbnail} alt={item?.productName} />
           </ImgAreaStyle>
         )}
         <TxtAreaStyle isCardType={true} minHeight={minHeight}>
           <Title
             titleType="h3"
-            title={item.title}
+            title={item?.productName}
             fontWeight={FONTWEGHT.fw600}
             fontSize={FONTSIZE.fz22}
             margin="0 0 5px"
             color={cardType === 'imageCardType' ? COLORS.white : COLORS.c1b1b1b}
           />
-          <HashsStyle color={cardType === 'imageCardType' ? COLORS.cededed : COLORS.ca6a6a6}>
-            {item.hashs.map((hash) => (
-              <HashStyle key={hash} fontSize={FONTSIZE.fz19}>
-                {`#${hash}`}
-              </HashStyle>
-            ))}
-          </HashsStyle>
           <PriceStyle
             fontSize={FONTSIZE.fz30}
             priceTop={priceTop}
@@ -94,7 +87,7 @@ const CardTypeItem = ({
             priceRight={priceRight}
             priceBottom={priceBottom}
             priceColor={priceColor}
-          >{`${item.price.toLocaleString()}원`}</PriceStyle>
+          >{`${item?.productPrice?.toLocaleString()}원`}</PriceStyle>
         </TxtAreaStyle>
       </Link>
     </ProductCard>

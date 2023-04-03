@@ -1,14 +1,16 @@
 const API_URL = {
   login: '/login',
-  logout:'/logout',
+  logout: '/logout',
   members: '/members',
   cart: '/carts',
   order: '/orders',
   search: '/search',
-  products:'/products',
+  products: '/products',
   recommend: '/recommends',
   review: '/reviews',
-  survey:'/survey'
+  survey: '/survey',
+  category: '/search/category',
+  relation: '/products/relation',
 }
 
 export default API_URL

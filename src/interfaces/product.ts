@@ -1,26 +1,17 @@
-// export interface IProduct {
-//   content: {
-//     productId: number,
-//     productName: string,
-//     productThumbnail: string,
-//     productPrice: number,
-//     productStatus: string,
-//     productContent: string,
-//     contentDetail: string
-//   }[],
-//   totalPages: number,
-//   totalElements: number,
-//   pageNumber: number,
-//   size:number,
-// }
-
 export interface IProduct {
-  id: number
-  title: string
-  image: string
-  hashs: string[]
-  price: number
-  heart: boolean
+  content: IProductContent[]
+  totalPages: number
+  totalElements: number
+  pageNumber: number
+  size: number
+}
+
+export interface IProductContent {
+  productId: number
+  productName: string
+  productThumbnail: string
+  productPrice: number
+  isWished: boolean
 }
 
 export interface IProductDetail {
@@ -37,12 +28,7 @@ export interface IProductDetail {
 
 interface IproductCategories {
   categoryName: string
-  child: null | IproductCategory
-}
-
-interface IproductCategory {
-  categoryName: string
-  child: null | IproductCategory
+  child: null | IproductCategories
 }
 
 export const initProductDetail = {

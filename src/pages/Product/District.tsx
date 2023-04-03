@@ -29,8 +29,8 @@ const District = (props: Props) => {
           <h2>지역 선택하기</h2>
         </Title>
         <DistrictCheckTab />
-        <CategoryList title="동남아시아" />
-        <CategoryList title="유럽" />
+        {/* <CategoryList title="동남아시아" />
+        <CategoryList title="유럽" /> */}
       </Inner>
     </div>
   )

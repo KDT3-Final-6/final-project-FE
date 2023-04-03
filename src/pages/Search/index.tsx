@@ -3,14 +3,14 @@ import CardTypeItem from '@src/components/common/CardTypeItem'
 import Input from '@src/components/common/Input'
 import Pagination from '@src/components/common/Pagination'
 import Select from '@src/components/common/Select'
-import { IProduct } from '@src/interfaces/product'
+import { IProductContent } from '@src/interfaces/product'
 import Inner from '@src/layout/Inner'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 const Search = () => {
-  const [products, setProducts] = useState<IProduct[]>([])
+  const [products, setProducts] = useState<IProductContent[]>([])
 
   useEffect(() => {
     ;(async () => {
@@ -44,7 +44,7 @@ const Search = () => {
             <ProductListStyle>
               {products.map((product) => (
                 <CardTypeItem
-                  key={product.id}
+                  key={product.productId}
                   item={product}
                   cardType="cardType"
                   imgHeight="100%"
