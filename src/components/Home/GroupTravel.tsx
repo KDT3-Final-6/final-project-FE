@@ -1,5 +1,5 @@
 import { getProducts } from '@src/api/product'
-import { IProduct } from '@src/interfaces/product'
+import { IProductContent } from '@src/interfaces/product'
 import Inner from '@src/layout/Inner'
 import Section from '@src/layout/Section'
 import { COLORS, FONTSIZE } from '@src/styles/root'
@@ -11,7 +11,7 @@ import GroupTabs from '../common/GroupTabs'
 import Title from '../common/Title'
 
 const GroupTravel = () => {
-  const [products, setProducts] = useState<IProduct[]>([])
+  const [products, setProducts] = useState<IProductContent[]>([])
 
   useEffect(() => {
     ;(async () => {
@@ -32,7 +32,7 @@ const GroupTravel = () => {
         <ProductListStyle>
           {products.slice(0, 4).map((product) => (
             <CardTypeItem
-              key={product.id}
+              key={product.productId}
               item={product}
               cardType="cardType"
               imgHeight="100%"

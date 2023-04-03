@@ -11,16 +11,16 @@ import { MdEditCalendar } from 'react-icons/md'
 import { current } from '@reduxjs/toolkit'
 import { getProducts } from '@src/api/product'
 import { useNavigate } from 'react-router-dom'
-import { IProduct } from '@src/interfaces/product'
+import { IProductContent } from '@src/interfaces/product'
 
 const Curation = () => {
-  const [products, setProducts] = useState<IProduct[]>([])
+  const [products, setProducts] = useState<IProductContent[]>([])
 
   useEffect(() => {
     ;(async () => {
       setProducts(await getProducts())
     })()
-  }, [products])
+  }, [])
 
   const navigate = useNavigate()
 
@@ -46,7 +46,7 @@ const Curation = () => {
         <ProductListStyle>
           {products.slice(0, 3).map((product) => (
             <CardTypeItem
-              key={product.id}
+              key={product.productId}
               item={product}
               cardType="cardType"
               imgWidth="100%"

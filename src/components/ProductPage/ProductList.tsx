@@ -1,117 +1,86 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import CardTypeItem from '@src/components/common/CardTypeItem'
 import styled from 'styled-components'
-import Title from '../common/Title'
-import CheckItem from '../common/CheckItem'
-import { COLORS } from '@src/styles/root'
-import { IProduct } from '@src/interfaces/product'
+import { COLORS, FONTSIZE } from '@src/styles/root'
+import { IProductContent } from '@src/interfaces/product'
+import GroupTabs from './GroupTabs'
+import { getCategoryProducts } from '@src/api/product'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import SwiperCore, { Navigation } from 'swiper'
+import { TfiArrowLeft, TfiArrowRight } from 'react-icons/tfi'
 
 interface Props {
   title: string
 }
 
 const ProductList = ({ title }: Props) => {
-  const products: IProduct[] = [
-    {
-      id: 1,
-      title: '괌 4박 5일',
-      image: 'https://cdn.imweb.me/thumbnail/20220419/31ca7e26eb12a.png',
-      hashs: ['트롤링낚시', '롯데', '패밀리스윗'],
-      price: 2135000,
-      heart: true,
+  const [group, setGroup] = useState('5070끼리')
+  const [products, setProducts] = useState<IProductContent[]>([])
+
+  const fetchData = async () => {
+    const data = await getCategoryProducts(group)
+    setProducts(data.content)
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [group])
+
+  SwiperCore.use([Navigation])
+  const prevRef = useRef(null)
+  const nextRef = useRef(null)
+  const [swiperSetting, setSwiperSetting] = useState<any>(null)
+  const settings = {
+    navigation: { prevEl: prevRef.current, nextEl: nextRef.current },
+    onInit: (swiper: SwiperCore) => {
+      if (typeof swiper.params.navigation !== 'boolean') {
+        if (swiper.params.navigation) {
+          swiper.params.navigation.prevEl = prevRef.current
+          swiper.params.navigation.nextEl = nextRef.current
+        }
+      }
+      swiper.navigation.update()
     },
-    {
-      id: 2,
-      title: '괌 4박 5일',
-      image: 'https://cdn.imweb.me/thumbnail/20220419/31ca7e26eb12a.png',
-      hashs: ['트롤링낚시', '롯데', '패밀리스윗'],
-      price: 2135000,
-      heart: true,
-    },
-    {
-      id: 3,
-      title: '괌 4박 5일',
-      image: 'https://cdn.imweb.me/thumbnail/20220419/31ca7e26eb12a.png',
-      hashs: ['트롤링낚시', '롯데', '패밀리스윗'],
-      price: 2135000,
-      heart: false,
-    },
-    {
-      id: 4,
-      title: '괌 4박 5일',
-      image: 'https://cdn.imweb.me/thumbnail/20220419/31ca7e26eb12a.png',
-      hashs: ['트롤링낚시', '롯데', '패밀리스윗'],
-      price: 2135000,
-      heart: false,
-    },
-  ]
+    slidesPerView: 4,
+    spaceBetween: 10,
+  }
+
+  useEffect(() => {
+    if (!swiperSetting) {
+      setSwiperSetting(settings)
+    }
+  }, [swiperSetting])
+
   return (
     <>
       <SectionStyle>
-        <Title>
-          <h2>{title}</h2>
-        </Title>
-        <WrapStyle>
-          <CheckItem
-            checkType="tabType"
-            type="radio"
-            id="5070"
-            name="group"
-            labelName="5070끼리"
-            width="138px"
-            color={COLORS.c9747ff}
-          />
-          <CheckItem
-            checkType="tabType"
-            type="radio"
-            id="males"
-            name="group"
-            labelName="남자끼리"
-            width="122px"
-            color={COLORS.c4bbe87}
-          />
-          <CheckItem
-            checkType="tabType"
-            type="radio"
-            id="females"
-            name="group"
-            labelName="여자끼리"
-            width="122px"
-            color={COLORS.cbe4b4b}
-          />
-          <CheckItem
-            checkType="tabType"
-            type="radio"
-            id="family"
-            name="group"
-            labelName="가족끼리"
-            width="122px"
-            color={COLORS.c4688ea}
-          />
-          <CheckItem
-            checkType="tabType"
-            type="radio"
-            id="anybody"
-            name="group"
-            labelName="누구든지"
-            width="122px"
-            color={COLORS.cf0a22d}
-          />
-        </WrapStyle>
+        <GroupTabs setGroup={setGroup} title={title} />
       </SectionStyle>
-      <ProductListStyle>
-        {products.map((product) => (
-          <CardTypeItem
-            key={product.id}
-            item={product}
-            cardType="cardType"
-            imgHeight="100%"
-            height="460px"
-            priceBottom="30px"
-            priceColor={COLORS.c1b1b1b}
-          />
-        ))}
-      </ProductListStyle>
+      <div style={{ position: 'relative' }}>
+        <SlidePrevStyle ref={prevRef}>
+          <TfiArrowLeft />
+        </SlidePrevStyle>
+        {swiperSetting && (
+          <Swiper {...settings}>
+            {products.length > 0 &&
+              products.map((product) => (
+                <SwiperSlide key={product.productId}>
+                  <CardTypeItem
+                    item={product}
+                    cardType="cardType"
+                    imgHeight="100%"
+                    height="460px"
+                    priceBottom="30px"
+                    priceColor={COLORS.c1b1b1b}
+                  />
+                </SwiperSlide>
+              ))}
+          </Swiper>
+        )}
+        <SlideNextStyle ref={nextRef}>
+          <TfiArrowRight />
+        </SlideNextStyle>
+      </div>
     </>
   )
 }
@@ -122,19 +91,40 @@ const SectionStyle = styled.div`
   padding: 60px 0 40px 0;
 `
 
-const WrapStyle = styled.div`
+const SlidePrevStyle = styled.button`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: -40px;
+  z-index: 9;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  font-size: 40px;
   display: flex;
-  gap: 16px;
+  justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
-  padding-bottom: 10px;
-  padding-left: 40px;
-  margin-left: 40px;
+  border: 1px solid ${COLORS.cF5F5F5};
+  color: ${COLORS.c4b4a4a};
+  background-color: rgba(255, 255, 255, 0.8);
 `
 
-const ProductListStyle = styled.ul`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 13px;
+const SlideNextStyle = styled.button`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: -40px;
+  z-index: 9;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  font-size: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid ${COLORS.cF5F5F5};
+  color: ${COLORS.c4b4a4a};
+  background-color: rgba(255, 255, 255, 0.8);
 `
+
 export default ProductList

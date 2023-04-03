@@ -7,6 +7,7 @@ import { boolean } from 'yup'
 interface TInputValues {
   paymentMethod?: string
 }
+
 interface ICheckItem {
   checkType?: string
   type?: string
@@ -21,6 +22,7 @@ interface ICheckItem {
   errorMsg?: string
   isChecked?: boolean
   isDisable?: boolean
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 const CheckItem = ({
@@ -36,6 +38,7 @@ const CheckItem = ({
   errorMsg,
   isChecked = false,
   isDisable = false,
+  onChange,
 }: ICheckItem) => {
   return (
     <ItemStyle
@@ -53,6 +56,7 @@ const CheckItem = ({
         value={id}
         defaultChecked={isChecked}
         disabled={isDisable}
+        onChange={onChange}
         {...(register &&
           register(name, {
             required: errorMsg,
@@ -97,7 +101,6 @@ const handleCheckItem = (
 ) => {
   switch (checkType) {
     case 'checkbox':
-    case 'radio':
       return `
         input {
         width: 20px;
