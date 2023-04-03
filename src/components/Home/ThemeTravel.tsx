@@ -8,10 +8,10 @@ import Title from '../common/Title'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { getProducts } from '@src/api/product'
 import CardTypeItem from '../common/CardTypeItem'
-import { IProduct } from '@src/interfaces/product'
+import { IProductContent } from '@src/interfaces/product'
 
 const ThemeTravel = () => {
-  const [products, setProducts] = useState<IProduct[]>([])
+  const [products, setProducts] = useState<IProductContent[]>([])
   const [activeTab, setActiveTab] = useState(1)
   const contents = [
     { id: 0, tab: '휴양지' },
@@ -93,7 +93,7 @@ const ThemeTravel = () => {
               <ProductListStyle>
                 {products.map((product) => (
                   <CardTypeItem
-                    key={product.id}
+                    key={product.productId}
                     item={product}
                     cardType="cardType"
                     height="400px"

@@ -42,19 +42,19 @@ const ProductList = () => {
             </thead>
             <tbody>
               {products.map((product) => (
-                <tr key={product.id}>
-                  <td>{product.id}</td>
+                <tr key={product.productId}>
+                  <td>{product.productId}</td>
                   <td>
                     <Image
-                      bgImage={product.image}
+                      bgImage={product.productThumbnail}
                       width="123px"
                       height="93px"
                       imgBorderRadius="10px"
                     ></Image>
                   </td>
-                  <td>{product.title}</td>
-                  <td>{product.price}</td>
-                  <td>{product.heart ? '품절' : '판매 중'}</td>
+                  <td>{product.productName}</td>
+                  <td>{product.productPrice}</td>
+                  <td>{product.isWished ? '품절' : '판매 중'}</td>
                   <td>
                     <div
                       style={{
@@ -66,7 +66,7 @@ const ProductList = () => {
                     >
                       <Button
                         width="83px"
-                        onClick={() => navigate(`/admin/editProduct/${product.id}`)}
+                        onClick={() => navigate(`/admin/editProduct/${product.productId}`)}
                       >
                         수정하기
                       </Button>
