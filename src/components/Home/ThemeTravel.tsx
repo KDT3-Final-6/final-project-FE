@@ -1,14 +1,16 @@
 import Inner from '@src/layout/Inner'
 import Section from '@src/layout/Section'
 import { COLORS, FONTSIZE } from '@src/styles/root'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import styled from 'styled-components'
 import Button from '../common/Button'
 import Title from '../common/Title'
 import { AiOutlinePlus } from 'react-icons/ai'
-import { getProducts } from '@src/api/product'
+import { getCategoryProducts } from '@src/api/product'
 import CardTypeItem from '../common/CardTypeItem'
 import { IProductContent } from '@src/interfaces/product'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import SwiperCore, { Navigation } from 'swiper'
 
 const ThemeTravel = () => {
   const [products, setProducts] = useState<IProductContent[]>([])
@@ -22,10 +24,46 @@ const ThemeTravel = () => {
   ]
 
   useEffect(() => {
-    ;(async () => {
-      setProducts(await getProducts())
-    })()
-  }, [])
+    const fetchData = async () => {
+      const keyword = () => {
+        if (activeTab === 0) return '휴양지'
+        if (activeTab === 1) return '골프여행'
+        if (activeTab === 2) return '트레킹'
+        if (activeTab === 3) return '성지순례'
+        if (activeTab === 4) return '문화탐방'
+        return '휴양지'
+      }
+      const data = await getCategoryProducts(keyword())
+      setProducts(data.content)
+    }
+    fetchData()
+  }, [activeTab])
+  console.log(products)
+
+  SwiperCore.use([Navigation])
+  const prevRef = useRef(null)
+  const nextRef = useRef(null)
+  const [swiperSetting, setSwiperSetting] = useState<any>(null)
+  const settings = {
+    navigation: { prevEl: prevRef.current, nextEl: nextRef.current },
+    onInit: (swiper: SwiperCore) => {
+      if (typeof swiper.params.navigation !== 'boolean') {
+        if (swiper.params.navigation) {
+          swiper.params.navigation.prevEl = prevRef.current
+          swiper.params.navigation.nextEl = nextRef.current
+        }
+      }
+      swiper.navigation.update()
+    },
+    slidesPerView: 4,
+    spaceBetween: 20,
+  }
+
+  useEffect(() => {
+    if (!swiperSetting) {
+      setSwiperSetting(settings)
+    }
+  }, [swiperSetting])
 
   return (
     <Section overflow="hidden">
@@ -90,7 +128,7 @@ const ThemeTravel = () => {
                   </ContentTabStyle>
                 ))}
               </ContentTabsStyle>
-              <ProductListStyle>
+              {/* <ProductListStyle>
                 {products.map((product) => (
                   <CardTypeItem
                     key={product.productId}
@@ -102,6 +140,24 @@ const ThemeTravel = () => {
                     priceBottom="17px"
                   />
                 ))}
+              </ProductListStyle> */}
+              <ProductListStyle>
+                {swiperSetting && (
+                  <Swiper {...settings}>
+                    {products.map((product) => (
+                      <SwiperSlide key={product.productId}>
+                        <CardTypeItem
+                          item={product}
+                          cardType="cardType"
+                          height="400px"
+                          imgHeight="100%"
+                          minHeight="250px"
+                          priceBottom="17px"
+                        />
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                )}
               </ProductListStyle>
             </ContentStyle>
           </ThemeContentStyle>
@@ -273,14 +329,18 @@ const ContentTabStyle = styled.li<{
   }
 `
 
-const ProductListStyle = styled.ul`
-  display: flex;
-  flex-flow: row nowrap;
-  gap: 20px;
-  position: relative;
-  z-index: 1;
+// const ProductListStyle = styled.ul`
+//   display: flex;
+//   flex-flow: row nowrap;
+//   gap: 20px;
+//   position: relative;
+//   z-index: 1;
 
-  li {
-    min-width: 230px;
-  }
+//   li {
+//     min-width: 230px;
+//   }
+// `
+
+const ProductListStyle = styled.ul`
+  width: 970px;
 `
