@@ -1,15 +1,27 @@
 import Inner from '@src/layout/Inner'
 import Title from '@src/components/common/Title'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from '@src/components/common/Image'
 import styled from 'styled-components'
 import { FONTSIZE, FONTWEGHT, COLORS } from '@src/styles/root'
 import DistrictCheckTab from '@src/components/ProductPage/District/DistrictCheckTab'
 import CategoryList from '@src/components/ProductPage/CategoryList'
+import districtTab from '@src/constants/districtTab'
+import { getCategoryProducts } from '@src/api/product'
 
 type Props = {}
 
 const District = (props: Props) => {
+  const [checkTab, setCheckTab] = useState<string[]>([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      for (const check of checkTab) {
+        const data = await getCategoryProducts(check)
+      }
+    }
+    console.log(checkTab)
+  }, [checkTab])
   return (
     <div style={{ margin: '32px 0' }}>
       <Inner>
@@ -28,9 +40,8 @@ const District = (props: Props) => {
         <Title margin="69px 0 50px 0">
           <h2>지역 선택하기</h2>
         </Title>
-        <DistrictCheckTab />
-        {/* <CategoryList title="동남아시아" />
-        <CategoryList title="유럽" /> */}
+        <DistrictCheckTab setCheckTab={setCheckTab} />
+        {checkTab.length === 0 && <NullDistrict>선택된 지역이 없습니다.</NullDistrict>}
       </Inner>
     </div>
   )
@@ -52,6 +63,13 @@ const BannerStyle = styled.div`
     font-size: ${FONTSIZE.fz16};
     font-weight: ${FONTWEGHT.fw400};
   }
+`
+
+const NullDistrict = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 50px 0;
 `
 
 export default District
