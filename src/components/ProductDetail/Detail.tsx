@@ -32,7 +32,7 @@ const Detail = ({ productDetail }: Props) => {
         </ReservationDescStyle>
       </ReservationStyle>
       {productDetail.productImages.map((image, index) => (
-        <Image src={image} alt={String(index)}></Image>
+        <Image src={image} alt={String(index)} key={index}></Image>
       ))}
     </DetailStyle>
   )

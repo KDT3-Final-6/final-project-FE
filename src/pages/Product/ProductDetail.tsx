@@ -36,7 +36,6 @@ const ProductDetail = () => {
       <CategoryStyle>
         {/* 추후에 카테고리 불러오면 수정 예정 */}홈 {'>'}{' '}
         {productDetail.productCategories[2]?.categoryName} {'>'}{' '}
-        {productDetail.productCategories[2]?.child!.categoryName}
       </CategoryStyle>
       <ProductInfo productDetail={productDetail} pathname={pathname} />
       <MoveTab />

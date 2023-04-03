@@ -41,13 +41,10 @@ const TravelReview = ({ productId }: Props) => {
         </Title>
         <div style={{ display: 'flex', gap: '20px' }}>
           {reviews.length > 0 ? (
-            reviews.map((review) => <Review review={review} />)
+            reviews.map((review) => <Review review={review} key={review.memberNickName} />)
           ) : (
             <NoReviewStyle>리뷰가 없습니다.</NoReviewStyle>
           )}
-          {/* <Review />
-          <Review />
-          <Review /> */}
         </div>
       </Inner>
     </section>
