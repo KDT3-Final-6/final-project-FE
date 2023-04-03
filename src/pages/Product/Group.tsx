@@ -42,8 +42,8 @@ const Group = (props: Props) => {
         <ProductSlider />
       </div>
       <Inner>
-        <ProductList title="TOP 10 인기 그룹별 여행" />
-        <ProductList title="방금 뜬 그룹별 여행" />
+        <ProductList title="TOP 10 인기 그룹별 여행" labelName="top" />
+        <ProductList title="방금 뜬 그룹별 여행" labelName="recent" />
         <CategoryList title="여자끼리" products={woman} />
         <CategoryList title="남자끼리" products={man} />
         <Banner image="event_banner2" marginTop="100px" marginBottom="100px" type={1} />

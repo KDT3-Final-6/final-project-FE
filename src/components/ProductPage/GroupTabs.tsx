@@ -7,37 +7,39 @@ import styled from 'styled-components'
 interface Props {
   setGroup: React.Dispatch<SetStateAction<string>>
   title: string
+  labelName: string
 }
 
-const GroupTabs = ({ setGroup, title }: Props) => {
+const GroupTabs = ({ setGroup, title, labelName }: Props) => {
   const groupTabs = [
     {
-      id: '5070끼리',
+      id: 'age5070',
       tabName: '5070끼리',
     },
     {
-      id: '남자끼리',
+      id: 'males',
       tabName: '남자끼리',
     },
     {
-      id: '여자끼리',
+      id: 'females',
       tabName: '여자끼리',
     },
     {
-      id: '가족끼리',
+      id: 'family',
       tabName: '가족끼리',
     },
     {
-      id: '누구든지',
+      id: 'anybody',
       tabName: '누구든지',
     },
   ]
+
   const groupChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setGroup(event.target.id)
   }
 
   return (
-    <>
+    <div style={{ display: 'flex', alignItems: 'center' }}>
       <Title titleType="h2" fontSize={FONTSIZE.fz32} title={title}></Title>
       <WrapStyle>
         {groupTabs.map((groupTab) => (
@@ -45,8 +47,8 @@ const GroupTabs = ({ setGroup, title }: Props) => {
             key={groupTab.id}
             checkType="tabType"
             type="radio"
-            id={groupTab.id}
-            name="group"
+            id={groupTab.id + labelName}
+            name={labelName}
             labelName={groupTab.tabName}
             width={
               groupTab.tabName.length === 2
@@ -58,10 +60,11 @@ const GroupTabs = ({ setGroup, title }: Props) => {
                 : '138px'
             }
             onChange={groupChangeHandler}
+            isChecked={groupTab.tabName === '5070끼리' && true}
           />
         ))}
       </WrapStyle>
-    </>
+    </div>
   )
 }
 
@@ -82,46 +85,45 @@ const WrapStyle = styled.div`
   }
 
   input {
-    &#5070끼리:checked,
-    &#남자끼리:checked,
-    &#여자끼리:checked,
-    &#가족끼리:checked,
-    &#누구든지:checked {
+    &:checked {
       width: 145px;
       & ~ label {
         padding-left: 30px;
       }
+      &::before {
+        content: '';
+      }
     }
     &:checked::before {
       box-sizing: border-box;
-      padding: 0 20px;
+      padding-left: 20px;
     }
-    &#5070끼리:checked {
+    &[id^='age5070']:checked {
       width: 160px;
       &::before {
         content: url('/images/icons/tabAge5070.png');
         background-color: ${COLORS.cAF50D0};
       }
     }
-    &#남자끼리:checked {
+    &[id^='males']:checked {
       &::before {
         content: url('/images/icons/tabMales.png');
         background-color: ${COLORS.c4BBE87};
       }
     }
-    &#여자끼리:checked {
+    &[id^='females']:checked {
       &::before {
         content: url('/images/icons/tabFemales.png');
         background-color: ${COLORS.cbe4b4b};
       }
     }
-    &#가족끼리:checked {
+    &[id^='family']:checked {
       &::before {
         content: url('/images/icons/tabFamily.png');
         background-color: ${COLORS.c4688EA};
       }
     }
-    &#누구든지:checked {
+    &[id^='anybody']:checked {
       &::before {
         content: url('/images/icons/tabAnybody.png');
         background-color: ${COLORS.cF0A22D};

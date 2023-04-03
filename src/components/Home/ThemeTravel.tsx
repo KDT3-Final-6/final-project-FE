@@ -38,7 +38,6 @@ const ThemeTravel = () => {
     }
     fetchData()
   }, [activeTab])
-  console.log(products)
 
   SwiperCore.use([Navigation])
   const prevRef = useRef(null)
@@ -128,19 +127,6 @@ const ThemeTravel = () => {
                   </ContentTabStyle>
                 ))}
               </ContentTabsStyle>
-              {/* <ProductListStyle>
-                {products.map((product) => (
-                  <CardTypeItem
-                    key={product.productId}
-                    item={product}
-                    cardType="cardType"
-                    height="400px"
-                    imgHeight="100%"
-                    minHeight="250px"
-                    priceBottom="17px"
-                  />
-                ))}
-              </ProductListStyle> */}
               <ProductListStyle>
                 {swiperSetting && (
                   <Swiper {...settings}>
@@ -328,18 +314,6 @@ const ContentTabStyle = styled.li<{
     }
   }
 `
-
-// const ProductListStyle = styled.ul`
-//   display: flex;
-//   flex-flow: row nowrap;
-//   gap: 20px;
-//   position: relative;
-//   z-index: 1;
-
-//   li {
-//     min-width: 230px;
-//   }
-// `
 
 const ProductListStyle = styled.ul`
   width: 970px;
