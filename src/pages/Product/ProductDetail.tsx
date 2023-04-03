@@ -26,7 +26,7 @@ const ProductDetail = () => {
     }
     fetchData()
   }, [])
-  console.log(productDetail)
+
   return (
     <Inner padding="32px 0">
       <Helmet>
@@ -35,8 +35,8 @@ const ProductDetail = () => {
       </Helmet>
       <CategoryStyle>
         {/* 추후에 카테고리 불러오면 수정 예정 */}홈 {'>'}{' '}
-        {productDetail.productCategories[2].categoryName} {'>'}{' '}
-        {productDetail.productCategories[2].child!.categoryName}
+        {productDetail.productCategories[2]?.categoryName} {'>'}{' '}
+        {productDetail.productCategories[2]?.child!.categoryName}
       </CategoryStyle>
       <ProductInfo productDetail={productDetail} pathname={pathname} />
       <MoveTab />
@@ -46,11 +46,11 @@ const ProductDetail = () => {
       <Title fontSize={FONTSIZE.fz26} fontWeight={FONTWEGHT.fw500} margin="80px 0 50px 0">
         <h3 id="related">연관 상품</h3>
       </Title>
-      <RelatedProduct />
+      <RelatedProduct productId={productId} />
       <Title fontSize={FONTSIZE.fz26} fontWeight={FONTWEGHT.fw500} margin="80px 0 50px 0">
         <h3 id="review">내가 봤던 상품</h3>
       </Title>
-      <RelatedProduct />
+      <RelatedProduct productId={productId} />
     </Inner>
   )
 }

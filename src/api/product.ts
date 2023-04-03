@@ -34,3 +34,8 @@ export const getCategoryProducts = async (keyword: string) => {
   const data: IProduct = await axiosInstance.get(`${API_URL.category}/?category=${keyword}`)
   return data
 }
+
+export const getRelatedProducts = async (id: number) => {
+  const data: IProduct = await axiosInstance.get(`${API_URL.relation}/${id}`)
+  return data
+}

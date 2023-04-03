@@ -1,15 +1,22 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Inner from '@src/layout/Inner'
 import ProductList from '@src/components/ProductPage/ProductList'
 import CategoryList from '@src/components/ProductPage/CategoryList'
-import Title from '@src/components/common/Title'
 import Banner from '@src/components/Home/Banner'
 import ProductSlider from '@src/components/ProductPage/ProductSlider'
 import ThemeTravel from '@src/components/Home/ThemeTravel'
+import { getCategoryProducts } from '@src/api/product'
+import { IProductContent } from '@src/interfaces/product'
 
-type Props = {}
-
-const Recommend = (props: Props) => {
+const Recommend = () => {
+  const [recommendList, setRecommendList] = useState<IProductContent[]>([])
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getCategoryProducts('여자끼리')
+      setRecommendList(data.content)
+    }
+    fetchData()
+  }, [])
   return (
     <div>
       <div style={{ height: '569px' }}>
@@ -17,7 +24,7 @@ const Recommend = (props: Props) => {
       </div>
       <Inner>
         <ProductList title="그룹별여행" />
-        <CategoryList title="추천 여행" />
+        <CategoryList title="추천 여행" products={recommendList} />
       </Inner>
       <ThemeTravel />
       <Inner>
