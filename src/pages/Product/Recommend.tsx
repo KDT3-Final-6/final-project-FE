@@ -23,7 +23,7 @@ const Recommend = () => {
         <ProductSlider />
       </div>
       <Inner>
-        <ProductList title="그룹별여행" />
+        <ProductList title="그룹별여행" labelName="group" />
         <CategoryList title="추천 여행" products={recommendList} />
       </Inner>
       <ThemeTravel />

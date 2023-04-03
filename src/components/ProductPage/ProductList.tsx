@@ -11,14 +11,23 @@ import { TfiArrowLeft, TfiArrowRight } from 'react-icons/tfi'
 
 interface Props {
   title: string
+  labelName: string
 }
 
-const ProductList = ({ title }: Props) => {
-  const [group, setGroup] = useState('5070끼리')
+const ProductList = ({ title, labelName }: Props) => {
+  const [group, setGroup] = useState('age5070')
   const [products, setProducts] = useState<IProductContent[]>([])
 
+  const groupName = (group: string) => {
+    if (group.includes('age5070')) return '5070끼리' as string
+    if (group.includes('males')) return '남자끼리' as string
+    if (group.includes('females')) return '여자끼리' as string
+    if (group.includes('family')) return '가족끼리' as string
+    if (group.includes('anyone')) return '누구든지' as string
+    return '5070끼리'
+  }
   const fetchData = async () => {
-    const data = await getCategoryProducts(group)
+    const data = await getCategoryProducts(groupName(group))
     setProducts(data.content)
   }
 
@@ -54,7 +63,7 @@ const ProductList = ({ title }: Props) => {
   return (
     <>
       <SectionStyle>
-        <GroupTabs setGroup={setGroup} title={title} />
+        <GroupTabs setGroup={setGroup} title={title} labelName={labelName} />
       </SectionStyle>
       <div style={{ position: 'relative' }}>
         <SlidePrevStyle ref={prevRef}>
