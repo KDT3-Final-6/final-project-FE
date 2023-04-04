@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import Select from '@components/common/Select'
@@ -14,6 +14,7 @@ const UserCard = () => {
   const grade = '일반회원'
 
   const selectOptions = ['일반회원', '관리자']
+  const [currentValue, setCurrentValue] = useState<string>(selectOptions[0])
 
   return (
     <UserCardStyle>
@@ -26,6 +27,8 @@ const UserCard = () => {
         <Select
           options={selectOptions}
           initial={grade}
+          currentValue={currentValue}
+          setCurrentValue={setCurrentValue}
           width="108px"
           height="24px"
           borderColor="transparent"

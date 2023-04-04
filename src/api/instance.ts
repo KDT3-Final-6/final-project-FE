@@ -1,15 +1,20 @@
-import { getCookie } from "@src/utils/cookie";
-import axios from "axios"
+import { getCookie } from '@src/utils/cookie'
+import axios from 'axios'
 
 const API_BASE_URL: string = import.meta.env.VITE_BASE_URL
 
-const axiosApi = (url: string) => {
-  const instance = axios.create({ baseURL: url })
-  instance.defaults.timeout = 3000;
+const axiosApi = (url: string, forData: boolean) => {
+  const instance = axios.create({
+    baseURL: url,
+    headers: {
+      'Content-Type': forData ? 'multipart/form-data' : 'application/json',
+    },
+  })
+  instance.defaults.timeout = 3000
 
   instance.interceptors.response.use(
     (response) => {
-      return response.data;
+      return response.data
     },
     (error) => {
       return Promise.reject(error)
@@ -30,4 +35,5 @@ const axiosApi = (url: string) => {
   return instance
 }
 
-export const axiosInstance = axiosApi(API_BASE_URL)
+export const axiosInstance = axiosApi(API_BASE_URL, false)
+export const axiosFormDataInstance = axiosApi(API_BASE_URL, true)

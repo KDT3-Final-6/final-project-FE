@@ -2,9 +2,10 @@ import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 import useOnClickOutside from '@src/hooks/useOnClickOutside'
+import { IProductOption } from '@src/interfaces/product'
 
 interface ISelect {
-  options?: string[] | number[]
+  options?: Array<string | number>
   initial?: string | number
   value?: string | number
   unit?: any
@@ -18,14 +19,18 @@ interface ISelect {
   isClickDefault?: boolean
   isDisabled?: boolean
   type?: string
-  register?: object
+  register?: any
+  selectValue?: string
+  currentValue: string
+  setIsModalOpen?: any //React.Dispatch<React.SetStateAction<boolean>>
+  setSelcetedProduct?: any
+  setCurrentValue: React.Dispatch<React.SetStateAction<string>>
   onChange?: React.ChangeEventHandler<HTMLLIElement>
   onClick?: React.MouseEventHandler<HTMLLIElement>
 }
 
 const Select = ({
   options,
-  initial,
   value,
   unit,
   width = '128px',
@@ -39,10 +44,13 @@ const Select = ({
   arrowImg = '/images/icons/bottom-arrow2.png',
   type = '',
   register,
+  currentValue,
+  setSelcetedProduct,
+  setCurrentValue,
+  setIsModalOpen,
   onChange,
   onClick,
 }: ISelect) => {
-  const [currentValue, setCurrentValue] = useState(initial)
   const [showOptions, setShowOptions] = useState(false)
   const ref = useRef(null)
   useOnClickOutside(ref, () => setShowOptions(false))
@@ -50,6 +58,13 @@ const Select = ({
   const handleOnChangeSelectValue = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
     const { innerText } = e.target as HTMLLIElement
     setCurrentValue(innerText)
+    /**selected modal -> 따로 select컴포넌트를 분리하던가 해야할듯*/
+    if (innerText === '상품문의') {
+      setSelcetedProduct(null)
+      setIsModalOpen(true)
+    } else {
+      setIsModalOpen(false)
+    }
   }
 
   return (

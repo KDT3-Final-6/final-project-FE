@@ -27,6 +27,8 @@ const ProductInfo = ({ productDetail, pathname }: Props) => {
     setQuantity((prev) => prev + 1)
   }
   const navigate = useNavigate()
+  const [currentValue, setCurrentValue] = useState<string>('출발일 옵션 선택')
+
   return (
     <InfoStyle>
       <Image bgImage={productDetail.productThumbnail} width="50%" height="450px" />
@@ -54,15 +56,16 @@ const ProductInfo = ({ productDetail, pathname }: Props) => {
         </div>
         <OptionSectionStyle>
           <span>출발일 *</span>
-          <Select
+          {/* <Select
             options={productDetail.periodOptions}
-            initial="출발일 옵션 선택"
+            currentValue={currentValue}
+            setCurrentValue={setCurrentValue}
             onChange={(e) => e.preventDefault()}
             width="100%"
             height="50px"
             borderRadius="0"
             borderColor={COLORS.black}
-          />
+          /> */}
           <span>인원 *</span>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span>{productDetail.productPrice.toLocaleString()}원</span>
