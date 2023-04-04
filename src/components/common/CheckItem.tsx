@@ -11,7 +11,7 @@ interface TInputValues {
 interface ICheckItem {
   checkType?: string
   type?: string
-  id: string
+  id?: string
   name?: string // Path<TInputValues>;
   labelName: string
   width?: string
@@ -21,6 +21,7 @@ interface ICheckItem {
   register?: any //UseFormRegister<TInputValues>;
   isChecked?: boolean
   isDisable?: boolean
+  value?: string | boolean
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
   onClick?: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
@@ -37,6 +38,7 @@ const CheckItem = ({
   register,
   isChecked = false,
   isDisable = false,
+  value,
   onChange,
   onClick,
 }: ICheckItem) => {
@@ -53,7 +55,7 @@ const CheckItem = ({
         type={type}
         id={id}
         name={name}
-        value={id}
+        value={value ? value : id}
         defaultChecked={isChecked}
         disabled={isDisable}
         onChange={onChange}

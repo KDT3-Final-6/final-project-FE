@@ -342,14 +342,14 @@ const SignUp = () => {
                 labelName="SMS 수신 동의"
                 register={{ ...register('memberSmsAgree') }}
                 onClick={handleAgreeChange}
-                isChecked={selectedAgree}
+                value={selectedAgree}
               />
               <CheckItem
                 id="agreeEmail"
                 labelName="E-Mail 수신 동의"
                 register={{ ...register('memberEmailAgree') }}
                 onClick={handleAgreeChange}
-                isChecked={selectedAgree}
+                value={selectedAgree}
               />
             </CheckStyle>
           </InputBox>
