@@ -101,6 +101,7 @@ const handleCheckItem = (
 ) => {
   switch (checkType) {
     case 'checkbox':
+    case 'radio':
       return `
         input {
         width: 20px;
@@ -136,7 +137,7 @@ const handleCheckItem = (
         }
 
         &:checked::before {
-          background-color: ${isChecked ? COLORS.caeaeae : COLORS.primary};
+          background-color: ${isDisabled ? COLORS.caeaeae : COLORS.primary};
           color: ${COLORS.white};
           border: none;
         }

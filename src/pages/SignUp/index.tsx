@@ -6,11 +6,9 @@ import InputItem, { ErrorMessage } from '@src/components/common/InputItem'
 import Title, { HighlightSpanStyle } from '@src/components/common/Title'
 import Inner from '@src/layout/Inner'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
-import count from '@src/utils/count'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 import SocialButtons from '@src/components/common/SocialButtons'
-import Select from '@src/components/common/Select'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { IUser } from '@src/interfaces/user'
@@ -42,22 +40,31 @@ const SignUp = () => {
     memberEmailAgree: false,
   })
 
-  const [currentValue, setCurrentValue] = useState({
-    year: 1960,
-    month: 5,
-    day: 21,
-  })
+  const years = Array.from({ length: 64 }, (_, i) => 2023 - i)
+  const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear())
+  const handleYearChange = (e: any) => {
+    setSelectedYear(parseInt(e.target.value))
+  }
 
-  const years: number[] = []
-  count(years, 1950, 2023)
+  const months = Array.from({ length: 12 }, (_, i) => 1 + i)
+  const [selectedMonths, setSelectedMonths] = useState<number>(new Date().getMonth())
+  const handleMonthChange = (e: any) => {
+    setSelectedMonths(parseInt(e.target.value))
+  }
 
-  const months: number[] = []
-  count(months, 1, 12)
+  const days = Array.from({ length: 31 }, (_, i) => 1 + i)
+  const [selectedDays, setSelectedDays] = useState<number>(new Date().getDay())
+  const handleDayChange = (e: any) => {
+    setSelectedDays(parseInt(e.target.value))
+  }
 
-  const days: number[] = []
-  count(days, 1, 31)
+  const [selectedGender, setSelectedGender] = useState<string>('')
+  const handleGenderChange = (e: any) => {
+    setSelectedGender(e.target.id)
+  }
 
   const onSubmit = async (data: IUser) => {
+    setFormData(data)
     try {
       dispatch(showLoading())
       await signup({
@@ -195,52 +202,55 @@ const SignUp = () => {
             errorMessage={errors.memberPhone && errors.memberPhone.message}
           />
           <InputBox inputCount={3} title="생년월일">
-            <Select
-              options={years}
-              value={currentValue.year}
-              initial={1960}
-              unit="년"
-              borderColor={COLORS.cddd}
-              borderRadius="0"
-              height="38px"
-              register={{
-                ...register('birthYear', {
-                  required: '생년월일을 선택해주세요.',
-                }),
-              }}
-            />
-            <Select
-              options={months}
-              value={currentValue.month}
-              initial={5}
-              unit="월"
-              borderColor={COLORS.cddd}
-              borderRadius="0"
-              height="38px"
-            />
-            <Select
-              options={days}
-              value={currentValue.day}
-              initial={21}
-              unit="일"
-              borderColor={COLORS.cddd}
-              borderRadius="0"
-              height="38px"
-            />
-            {(errors.birthYear || errors.birthMonth || errors.birthDay) && (
-              <ErrorMessage role="alert">{errors.birthYear!.message}</ErrorMessage>
-            )}
+            <select {...register('birthYear')} onChange={handleYearChange} value={selectedYear}>
+              <option value="default" hidden>
+                년
+              </option>
+              {years.map((year) => (
+                <option key={year} value={year}>
+                  {`${year} 년`}
+                </option>
+              ))}
+            </select>
+            <select {...register('birthMonth')} onChange={handleMonthChange} value={selectedMonths}>
+              <option value="default" hidden>
+                월
+              </option>
+              {months.map((month) => (
+                <option key={month} value={month}>
+                  {`${month} 월`}
+                </option>
+              ))}
+            </select>
+            <select {...register('birthDay')} onChange={handleDayChange} value={selectedDays}>
+              <option value="default" hidden>
+                일
+              </option>
+              {days.map((day) => (
+                <option key={day} value={day}>
+                  {`${day} 일`}
+                </option>
+              ))}
+            </select>
           </InputBox>
           <InputBox title="성별">
-            <RadiosStyle>
+            <RadiosStyle onChange={handleGenderChange}>
               <CheckItem
                 checkType="radio"
                 type="radio"
                 id="Female"
                 labelName="여성"
                 name="gender"
+                isChecked={selectedGender === 'Female'}
               />
-              <CheckItem checkType="radio" type="radio" id="Male" labelName="남성" name="gender" />
+              <CheckItem
+                checkType="radio"
+                type="radio"
+                id="Male"
+                labelName="남성"
+                name="gender"
+                isChecked={selectedGender === 'Male'}
+              />
             </RadiosStyle>
           </InputBox>
           <InputBox title="취미 (중복 선택 가능)">
