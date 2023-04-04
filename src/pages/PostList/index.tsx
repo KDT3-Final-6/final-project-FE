@@ -3,16 +3,21 @@ import Input from '@src/components/common/Input'
 import Pagination from '@src/components/common/Pagination'
 import Select from '@src/components/common/Select'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
+import { useState } from 'react'
 import styled from 'styled-components'
 
 const index = () => {
   const selectOptions = ['문의유형1', '문의유형2']
+  const [currentValue, setCurrentValue] = useState<string>(selectOptions[0])
+
   const count = 100
   return (
     <ContainerStyle>
       <InputWrapStyle>
         <Select
           options={selectOptions}
+          currentValue={currentValue}
+          setCurrentValue={setCurrentValue}
           initial="문의유형"
           width="126px"
           height="56px"

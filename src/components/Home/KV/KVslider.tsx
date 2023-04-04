@@ -21,26 +21,30 @@ const KVImages = [
   {
     id: '1',
     link: 'https://cdn.imweb.me/thumbnail/20220518/9e9f65c0d670e.png',
-    titles: ['아이슬란드'],
-    hashs: ['집에 있는데', '집에', '가고싶다.'],
+    titles: ['50세 이상 여자끼리', '모로코 & 튀니지 15일'],
+    hashs: ['모로코', '튀니지', '지중해'],
+    country: '북아메리카',
   },
   {
     id: '2',
     link: 'https://cdn.imweb.me/thumbnail/20220517/989e657d1ef50.png',
     titles: ['누구든지', '라자스탄 궁전 호텔 9일'],
     hashs: ['궁전호텔', '낙타사파리', '타르사막'],
+    country: '인도',
   },
   {
     id: '3',
     link: 'https://cdn.imweb.me/thumbnail/20220518/b76fbc307e765.png',
     titles: ['5070들만의 출발', '아이슬란드 링로드 11일'],
     hashs: ['링로드 일주', '하이랜드', '빙하하이킹'],
+    country: '북유럽',
   },
   {
     id: '4',
     link: 'https://cdn.imweb.me/thumbnail/20220518/8711f5cc2d770.png',
     titles: ['영화를 보신 분들만', '시칠리아 일주 9일'],
     hashs: ['대부', '시네마천국', '그랑블루'],
+    country: '유럽 이탈리아',
   },
 ]
 
@@ -107,15 +111,15 @@ const KVslider = () => {
         watchSlidesProgress={true}
         modules={[FreeMode, Navigation, Thumbs]}
       >
-        {[1, 2, 3, 4].map((item, index) => (
+        {KVImages.map((item, index) => (
           <ThumbSlideStyle key={`slide_${index}`}>
             <Slide width="100%" height="90px">
               <ProgressStyle>
                 <BarStyle width={`${barWidth}%`}></BarStyle>
               </ProgressStyle>
               <SlideTextStyle>
-                <p>북유럽</p>
-                <div>아이슬란드 링로드 11일</div>
+                <p>{item.country}</p>
+                <div>{item.titles[1]}</div>
               </SlideTextStyle>
             </Slide>
           </ThumbSlideStyle>

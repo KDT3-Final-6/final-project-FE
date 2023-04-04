@@ -19,8 +19,8 @@ const Search = () => {
   }, [])
 
   const hasProducts = products && products.length > 0
-  // const countProduct = 8
   const selectOptions = ['인기순', '가격높은순', '가격낮은순']
+  const [currentValue, setCurrentValue] = useState<string>(selectOptions[0])
 
   return (
     <section>
@@ -39,7 +39,12 @@ const Search = () => {
           <ResultContainerStyle>
             <FilterboxStyle>
               <p>{products.length}건의 검색 결과</p>
-              <Select options={selectOptions} initial={selectOptions[0]} />
+              <Select
+                currentValue={currentValue}
+                setCurrentValue={setCurrentValue}
+                options={selectOptions}
+                initial={selectOptions[0]}
+              />
             </FilterboxStyle>
             <ProductListStyle>
               {products.map((product) => (

@@ -276,5 +276,53 @@ const handleCheckItem = (
           border: 1px solid ${bgColor};
         }
       `
+    case 'rectType':
+      return `
+        input {
+        width: 24px;
+        height: 24px;
+        cursor: ${!isDisabled && 'pointer'};
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        -o-appearance: none;
+        outline: none;
+        content: none;
+        position: relative;
+
+        &::before {
+          content: '✔';
+          width:100%;
+          height: 100%;
+          font-size:15px;
+          color: transparent;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          border: 1px solid ${COLORS.c4b4a4a};
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+
+        &[type="checkbox"]::before {
+          border-radius:4px;
+        }
+
+        &[type="radio"]::before {
+          border-radius:2px;
+        }
+
+        &:checked::before {
+          background-color: transparent;
+          color: ${COLORS.white};
+          border:1px solid ${COLORS.c4b4a4a};
+        }
+      }
+
+      label {
+        display:flex;
+        align-items:center;
+      }
+    `
   }
 }
