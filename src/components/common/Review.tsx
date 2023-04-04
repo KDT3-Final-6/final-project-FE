@@ -13,7 +13,7 @@ const Review = ({ review }: Props) => {
   return (
     <ReviewCardStyle>
       <HeaderStyle>
-        <span>{review.memberNickName}</span>
+        <span>{review.memberNickname}</span>
         <GradeStyle>
           <StarRateWrapGet AVR_RATE={review.scope} />
           <span>{review.scope}</span>

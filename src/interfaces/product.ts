@@ -32,7 +32,7 @@ export interface IproductCategories {
   children: null | IproductCategories[]
 }
 
-interface IProductOption {
+export interface IProductOption {
   endAirline: string
   endDate: string
   endDetail: string

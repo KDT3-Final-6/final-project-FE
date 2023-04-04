@@ -7,13 +7,13 @@ export interface IReview {
 }
 
 export interface IReviewContent {
-  memberNickName: string
+  memberNickname: string
   postContent: string
   scope: number
 }
 
 export const initReview = {
-  memberNickName: '',
+  memberNickname: '',
   postContent: '',
   scope: 0,
 }

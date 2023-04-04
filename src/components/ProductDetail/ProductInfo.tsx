@@ -56,7 +56,7 @@ const ProductInfo = ({ productDetail, pathname }: Props) => {
         </div>
         <OptionSectionStyle>
           <span>출발일 *</span>
-          <Select
+          {/* <Select
             options={productDetail.periodOptions}
             currentValue={currentValue}
             setCurrentValue={setCurrentValue}
@@ -65,7 +65,7 @@ const ProductInfo = ({ productDetail, pathname }: Props) => {
             height="50px"
             borderRadius="0"
             borderColor={COLORS.black}
-          />
+          /> */}
           <span>인원 *</span>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span>{productDetail.productPrice.toLocaleString()}원</span>
