@@ -1,0 +1,13 @@
+.pagination-ul {
+  display: flex;
+  color: #767676;
+  gap: 40px;
+  margin: 90px 0;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.current-page {
+  font-weight: 700;
+  color: black;
+}
