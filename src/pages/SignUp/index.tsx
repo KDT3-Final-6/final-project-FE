@@ -24,73 +24,91 @@ const SignUp = () => {
     watch,
     formState: { isSubmitting, errors, isDirty },
   } = useForm<IUser>()
-  const [FormData, setFormData] = useState<IUser>({
-    memberEmail: '',
-    memberPassword: '',
-    memberPasswordConfirm: '',
-    memberName: '',
-    memberNickname: '',
-    memberPhone: '',
-    birthYear: '',
-    birthMonth: '',
-    birthDay: '',
-    memberGender: '',
-    memberHobby: [],
-    memberSmsAgree: false,
-    memberEmailAgree: false,
-  })
+  const hobbys = [
+    { id: 'GOLF', labelName: '골프' },
+    { id: 'WINE', labelName: '와인' },
+    { id: 'TREKKING', labelName: '트래킹' },
+    { id: 'VACATION', labelName: '휴식, 힐링' },
+    { id: 'VOLUNTEER', labelName: '봉사활동' },
+    { id: 'SHOPPING', labelName: '쇼핑' },
+    { id: 'CULTURE', labelName: '문화탐방' },
+    { id: 'PILGRIMAGE', labelName: '성지순례' },
+  ]
+
+  const passwordRef = useRef<string | null>(null)
+  passwordRef.current = watch('memberPassword')
 
   const years = Array.from({ length: 64 }, (_, i) => 2023 - i)
   const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear())
-  const handleYearChange = (e: any) => {
+  const handleYearChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedYear(parseInt(e.target.value))
   }
 
-  const months = Array.from({ length: 12 }, (_, i) => 1 + i)
+  const addZero = (date: number) => {
+    if (date < 10) {
+      const zeroDate = ('00' + date).slice(-2)
+      return zeroDate
+    }
+    return date
+  }
+
+  const months = Array.from({ length: 12 }, (_, i) => addZero(1 + i))
   const [selectedMonths, setSelectedMonths] = useState<number>(new Date().getMonth())
-  const handleMonthChange = (e: any) => {
+  const handleMonthChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedMonths(parseInt(e.target.value))
   }
 
-  const days = Array.from({ length: 31 }, (_, i) => 1 + i)
+  const days = Array.from({ length: 31 }, (_, i) => addZero(1 + i))
   const [selectedDays, setSelectedDays] = useState<number>(new Date().getDay())
-  const handleDayChange = (e: any) => {
+  const handleDayChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedDays(parseInt(e.target.value))
   }
 
   const [selectedGender, setSelectedGender] = useState<string>('')
-  const handleGenderChange = (e: any) => {
+  const handleGenderChange = (e: React.ChangeEvent<HTMLDivElement>) => {
     setSelectedGender(e.target.id)
   }
 
+  const [selectedHobby, setSelectedHobby] = useState<string[]>([])
+  const handleHobbyChange = (checked: boolean, item: string) => {
+    checked
+      ? setSelectedHobby((prev) => [...prev, item])
+      : setSelectedHobby(selectedHobby.filter((el) => el !== item))
+  }
+
+  const [selectedAgree, setSelectedAgree] = useState<boolean>(false)
+  const handleAgreeChange = (checked: boolean) => {
+    checked ? setSelectedAgree(true) : setSelectedAgree(false)
+  }
+  let res: object | any
   const onSubmit = async (data: IUser) => {
-    setFormData(data)
     try {
       dispatch(showLoading())
-      await signup({
-        memberEmail: FormData.memberEmail,
-        memberPassword: FormData.memberPassword,
-        memberName: FormData.memberName,
-        memberNickname: FormData.memberNickname,
-        memberPhone: FormData.memberPhone,
-        memberBirthDate: `${FormData.birthYear}-${FormData.birthMonth}-${FormData.birthDay}`,
-        memberGender: '',
-        memberHobby: [],
-        memberSmsAgree: false,
-        memberEmailAgree: false,
+      res = await signup({
+        memberEmail: data.memberEmail,
+        memberPassword: data.memberPassword,
+        memberName: data.memberName,
+        memberNickname: data.memberNickname,
+        memberPhone: data.memberPhone,
+        memberBirthDate: `${data.birthYear}-${data.birthMonth}-${data.birthDay}`,
+        memberGender: data.memberGender,
+        memberHobby: data.memberHobby,
+        memberSmsAgree: data.memberSmsAgree,
+        memberEmailAgree: data.memberEmailAgree,
       })
-    } catch (error) {
-      console.log(MESSAGES.SIGNUP.error)
+
+      if (res.status === 200) {
+        alert('회원가입이 완료되었습니다.')
+      }
+      if (res.data) {
+        alert(res.data)
+      }
+    } catch (error: any) {
+      alert(MESSAGES.SIGNUP.error)
     } finally {
       dispatch(hideLoading())
     }
-    alert(MESSAGES.SIGNUP.complete)
   }
-
-  console.log(errors, isSubmitting)
-
-  const passwordRef = useRef<string | null>(null)
-  passwordRef.current = watch('memberPassword')
 
   return (
     <>
@@ -139,8 +157,12 @@ const SignUp = () => {
             register={{
               ...register('memberPassword', {
                 required: '비밀번호는 필수 입력값입니다.',
-                minLength: { value: 8, message: '비밀번호는 8자 이상 16자 이하로 입력해주세요.' },
-                maxLength: { value: 16, message: '비밀번호는 8자 이상 16자 이하로 입력해주세요.' },
+                pattern: {
+                  value: /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/,
+                  message: '영문, 숫자, 특수문자 조합으로 입력해주세요',
+                },
+                minLength: { value: 8, message: '8자 이상 16자 이하로 입력해주세요.' },
+                maxLength: { value: 16, message: '8자 이상 16자 이하로 입력해주세요.' },
               }),
             }}
             errorMessage={errors.memberPassword && errors.memberPassword.message}
@@ -195,15 +217,22 @@ const SignUp = () => {
                 required: '휴대폰 번호를 작성해주세요.',
                 pattern: {
                   value: /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/,
-                  message: '연락처를 다시 확인해주세요.',
+                  message: '" - " 없이 입력해주세요.',
+                },
+                maxLength: {
+                  value: 11,
+                  message: '휴대폰 번호를 다시 한번 확인해주세요.',
                 },
               }),
             }}
             errorMessage={errors.memberPhone && errors.memberPhone.message}
           />
-          <InputBox inputCount={3} title="생년월일">
-            <select {...register('birthYear')} onChange={handleYearChange} value={selectedYear}>
-              <option value="default" hidden>
+          <InputBox inputCount={3} title="생년월일" required={true}>
+            <select
+              {...register('birthYear', { required: '생년월일을 선택해주세요.' })}
+              onChange={handleYearChange}
+            >
+              <option value="" hidden>
                 년
               </option>
               {years.map((year) => (
@@ -212,8 +241,11 @@ const SignUp = () => {
                 </option>
               ))}
             </select>
-            <select {...register('birthMonth')} onChange={handleMonthChange} value={selectedMonths}>
-              <option value="default" hidden>
+            <select
+              {...register('birthMonth', { required: '생년월일을 선택해주세요.' })}
+              onChange={handleMonthChange}
+            >
+              <option value="" hidden>
                 월
               </option>
               {months.map((month) => (
@@ -222,8 +254,11 @@ const SignUp = () => {
                 </option>
               ))}
             </select>
-            <select {...register('birthDay')} onChange={handleDayChange} value={selectedDays}>
-              <option value="default" hidden>
+            <select
+              {...register('birthDay', { required: '생년월일을 선택해주세요.' })}
+              onChange={handleDayChange}
+            >
+              <option value="" hidden>
                 일
               </option>
               {days.map((day) => (
@@ -232,6 +267,13 @@ const SignUp = () => {
                 </option>
               ))}
             </select>
+            {errors.birthYear ? (
+              <ErrorMessage>{errors.birthYear.message}</ErrorMessage>
+            ) : errors.birthMonth ? (
+              <ErrorMessage>{errors.birthMonth.message}</ErrorMessage>
+            ) : errors.birthDay ? (
+              <ErrorMessage>{errors.birthDay.message}</ErrorMessage>
+            ) : null}
           </InputBox>
           <InputBox title="성별">
             <RadiosStyle onChange={handleGenderChange}>
@@ -255,20 +297,30 @@ const SignUp = () => {
           </InputBox>
           <InputBox title="취미 (중복 선택 가능)">
             <CheckStyle>
-              <CheckItem id="GOLF" labelName="골프" />
-              <CheckItem id="WINE" labelName="와인" />
-              <CheckItem id="TREKKING" labelName="트래킹" />
-              <CheckItem id="VACATION" labelName="휴식, 힐링" />
-              <CheckItem id="VOLUNTEER" labelName="봉사활동" />
-              <CheckItem id="SHOPPING" labelName="쇼핑" />
-              <CheckItem id="CULTURE" labelName="문화탐방" />
-              <CheckItem id="PILGRIMAGE" labelName="성지순례" />
+              {hobbys.map((hobby) => (
+                <CheckItem
+                  key={hobby.id}
+                  id={hobby.id}
+                  labelName={hobby.labelName}
+                  onChange={(e) => handleHobbyChange(e.target.checked, e.target.id)}
+                />
+              ))}
             </CheckStyle>
           </InputBox>
           <InputBox title="개인정보 제3자 제공 동의">
             <CheckStyle>
-              <CheckItem id="agreeSMS" labelName="SMS 수신 동의" />
-              <CheckItem id="agreeEmail" labelName="E-Mail 수신 동의" />
+              <CheckItem
+                id="agreeSMS"
+                labelName="SMS 수신 동의"
+                onChange={(e) => handleAgreeChange(e.target.checked)}
+                isChecked={selectedAgree}
+              />
+              <CheckItem
+                id="agreeEmail"
+                labelName="E-Mail 수신 동의"
+                onChange={(e) => handleAgreeChange(e.target.checked)}
+                isChecked={selectedAgree}
+              />
             </CheckStyle>
           </InputBox>
           <Button

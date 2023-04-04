@@ -39,7 +39,12 @@ const InputItem = ({
       ariaInvalid={ariaInvalid}
     >
       <PAlignStyle>
-        {title} {!isDisabled && <HighlightSpanStyle color={color}>{highlight}</HighlightSpanStyle>}
+        {title}{' '}
+        {!isDisabled && (
+          <HighlightSpanStyle color={color} fontWeight={FONTWEGHT.fw500}>
+            {highlight}
+          </HighlightSpanStyle>
+        )}
       </PAlignStyle>
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </Input>
@@ -53,10 +58,6 @@ const PAlignStyle = styled.p`
   display: flex;
   justify-content: space-between;
   font-weight: ${FONTWEGHT.fw700};
-
-  ${HighlightSpanStyle} {
-    font-weight: ${FONTWEGHT.fw500};
-  }
 `
 
 export const ErrorMessage = styled.span`
