@@ -1,17 +1,35 @@
 import { COLORS, FONTWEGHT } from '@src/styles/root'
 import React from 'react'
 import styled from 'styled-components'
+import { HighlightSpanStyle } from './Title'
 
 interface IInputBox {
   inputCount?: number
   title?: string
+  highlight?: string
+  required?: boolean
+  color?: string
   children?: React.ReactNode
 }
 
-const InputBox = ({ inputCount = 1, title, children }: IInputBox) => {
+const InputBox = ({
+  inputCount = 1,
+  title,
+  highlight = '(필수입력)',
+  required,
+  color = COLORS.c3ba1ff,
+  children,
+}: IInputBox) => {
   return (
     <CheckBoxStyle inputCount={inputCount}>
-      <p>{title}</p>
+      <p>
+        {title}{' '}
+        {required && (
+          <HighlightSpanStyle color={color} fontWeight={FONTWEGHT.fw500}>
+            {highlight}
+          </HighlightSpanStyle>
+        )}
+      </p>
       {children}
     </CheckBoxStyle>
   )
@@ -28,11 +46,14 @@ const CheckBoxStyle = styled.div<{
   gap: 5px;
 
   p {
+    width: 100%;
     position: absolute;
     top: -20px;
     left: 0;
     color: ${COLORS.c1b1b1b};
     font-weight: ${FONTWEGHT.fw700};
+    display: flex;
+    justify-content: space-between;
   }
 
   select {
