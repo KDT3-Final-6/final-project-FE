@@ -10,6 +10,9 @@ import { CheckStyle, FormAreaStyle, RadiosStyle } from '../SignUp'
 
 const InfoEdit = () => {
   const [userGender, setUserGender] = useState('Male')
+  const [annualValue, setAnnualValue] = useState<any>(1960)
+  const [monthValue, setMonthValue] = useState<any>(5)
+  const [dateValue, setDateValue] = useState<any>(21)
 
   return (
     <>
@@ -36,6 +39,8 @@ const InfoEdit = () => {
           <InputBox inputCount={3} title="생년월일">
             <Select
               initial={1960}
+              currentValue={annualValue}
+              setCurrentValue={setAnnualValue}
               unit="년"
               borderColor={COLORS.cddd}
               borderRadius="0"
@@ -44,6 +49,8 @@ const InfoEdit = () => {
             />
             <Select
               initial={5}
+              currentValue={monthValue}
+              setCurrentValue={setMonthValue}
               unit="월"
               borderColor={COLORS.cddd}
               borderRadius="0"
@@ -52,6 +59,8 @@ const InfoEdit = () => {
             />
             <Select
               initial={21}
+              currentValue={dateValue}
+              setCurrentValue={setDateValue}
               unit="일"
               borderColor={COLORS.cddd}
               borderRadius="0"
