@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { FiSearch } from 'react-icons/fi'
 import Button from './Button'
 import { COLORS, FONTSIZE } from '@src/styles/root'
+import { ErrorMessage } from './InputItem'
 
 interface IInput {
   inputType: string
@@ -18,6 +19,7 @@ interface IInput {
   children?: React.ReactNode
   register?: object
   ariaInvalid?: boolean
+  errorMessage?: string
 }
 
 const Input = ({
@@ -33,6 +35,7 @@ const Input = ({
   children,
   register,
   ariaInvalid,
+  errorMessage = '',
 }: IInput) => {
   return (
     <InputStyle
