@@ -5,7 +5,7 @@ import '@src/styles/paginate.css'
 
 interface Props {
   totalElements: number
-  changePageHandler: (event: any) => void
+  changePageHandler: (event: { selected: number }) => void
 }
 
 const Paginate = ({ totalElements, changePageHandler }: Props) => {

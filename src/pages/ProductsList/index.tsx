@@ -26,7 +26,7 @@ const ProductList = () => {
     fetchData()
   }, [page])
 
-  const changePageHandler = (event: any) => {
+  const changePageHandler = (event: { selected: number }) => {
     setPage(event.selected + 1)
   }
   const navigate = useNavigate()
