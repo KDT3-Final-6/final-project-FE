@@ -46,3 +46,8 @@ export const getAdminProducts = async (page: number = 1) => {
   const data: IProduct = await axiosInstance.get(API_URL.admin_products + `?page=${page}`)
   return data
 }
+
+export const getAdminProductDetail = async (id: number) => {
+  const data: IProductDetail = await axiosInstance.get(`${API_URL.products}/${id}`)
+  return data
+}

@@ -16,7 +16,7 @@ export interface IProductContent {
 
 export interface IProductDetail {
   contentDetail: string
-  periodOptions: string[]
+  periodOptions: IProductOption[]
   productCategories: IproductCategories[]
   productContent: string
   productImages: string[]
@@ -31,9 +31,41 @@ interface IproductCategories {
   child: null | IproductCategories
 }
 
+interface IProductOption {
+  endAirline: string
+  endDate: string
+  endDetail: string
+  maximumQunatity: number
+  minimumQunatity: number
+  optionName: string
+  period: number
+  periodOptionId: number
+  periodOptionStatus: string
+  soldQuantity: number
+  startAirline: string
+  startDate: string
+  startDetail: string
+}
+
+const initProductOption = {
+  endAirline: '',
+  endDate: '',
+  endDetail: '',
+  maximumQunatity: 0,
+  minimumQunatity: 0,
+  optionName: '',
+  period: 0,
+  periodOptionId: 0,
+  periodOptionStatus: '',
+  soldQuantity: 0,
+  startAirline: '',
+  startDate: '',
+  startDetail: '',
+}
+
 export const initProductDetail = {
   contentDetail: '',
-  periodOptions: [''],
+  periodOptions: [initProductOption],
   productCategories: [{ categoryName: '', child: null }],
   productContent: '',
   productImages: [''],
