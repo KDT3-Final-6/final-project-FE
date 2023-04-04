@@ -1,10 +1,12 @@
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
-import React, { useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import styled, { css, keyframes } from 'styled-components'
 import Button from '@components/common/Button'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+import Select from '../common/Select'
+import SelectItemModal from './SelectItemModal'
 
 interface IQuestionCard {
   isOpen: boolean
@@ -16,12 +18,19 @@ interface IOneOnOneForm {
   content?: string
 }
 
+const schema = yup.object().shape({
+  title: yup.string().required('제목을 입력해주세요.'),
+  content: yup.string().required('문의내용을 입력해 주세요.'),
+})
+
 const QuestionCard = ({ isOpen, setIsOpen }: IQuestionCard) => {
   const [errorsMessage, setErrorsMessage] = useState<string>('')
-  const schema = yup.object().shape({
-    title: yup.string().required('제목을 입력해주세요.'),
-    content: yup.string().required('문의내용을 입력해 주세요.'),
-  })
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+  const [selcetedProduct, setSelcetedProduct] = useState<string | null>(null)
+
+  const selectOptions: string[] = ['문의유형', '주문/결제', '환불문의', '상품문의', '회원정보']
+  const [currentValue, setCurrentValue] = useState<string>(selectOptions[0])
+  console.log('isModalOpen', isModalOpen)
 
   const {
     register,
@@ -36,10 +45,16 @@ const QuestionCard = ({ isOpen, setIsOpen }: IQuestionCard) => {
 
   const onValid: SubmitHandler<IOneOnOneForm> = ({ title, content }, event: any) => {
     event.preventDefault()
-    console.log(title, content)
+    if (currentValue === '문의유형' || currentValue === '') {
+      alert('문의유형을 선택해 주세요.')
+      return
+    }
+    console.log(title, currentValue, content, selcetedProduct)
     setIsOpen(false)
     setValue('title', '')
     setValue('content', '')
+    setSelcetedProduct(null)
+    setCurrentValue(selectOptions[0])
   }
 
   const onInvalid = (errors: any) => {
@@ -48,24 +63,73 @@ const QuestionCard = ({ isOpen, setIsOpen }: IQuestionCard) => {
     alert(errorMessage)
   }
 
-  return (
-    <FormStyle isOpen={isOpen} onSubmit={handleSubmit(onValid, onInvalid)}>
-      <TitleInputStyle placeholder="제목을 입력해주세요." {...register('title')} />
+  const handleCancelBtn = () => {
+    setValue('title', '')
+    setValue('content', '')
+    setCurrentValue('문의유형')
+    setSelcetedProduct(null)
+    setIsOpen(false)
+  }
 
-      <ContentInputStyle
-        placeholder="문의할 내용을 작성해 주세요"
-        {...register('content')}
-      ></ContentInputStyle>
-      <FooterStyle>
-        <ButtonBoxStyle>
-          <Button type="submit" buttonType="borderGray">
-            저장하기
-          </Button>
-          <Button buttonType="borderGray" onClick={() => setIsOpen((prev) => !prev)}>
-            취소하기
-          </Button>
-        </ButtonBoxStyle>
-      </FooterStyle>
+  return (
+    <FormStyle isOpen={isOpen}>
+      <form onSubmit={handleSubmit(onValid, onInvalid)}>
+        <HeaderStyle>
+          <TitleInputStyle placeholder="제목을 입력해주세요." {...register('title')} />
+          <Select
+            currentValue={currentValue}
+            setCurrentValue={setCurrentValue}
+            setIsModalOpen={setIsModalOpen}
+            setSelcetedProduct={setSelcetedProduct}
+            initial={selectOptions[0]}
+            width="127px"
+            height="32px"
+            options={selectOptions}
+            borderRadius="0"
+            register={register}
+          />
+        </HeaderStyle>
+
+        {selcetedProduct && currentValue === '상품문의' && (
+          <QnATypeSectionStyle>
+            <span>상품</span>
+            <span>:</span>
+            <span>{selcetedProduct}</span>
+            <Button
+              width="65px"
+              height="32px"
+              borderRadius="24px"
+              bgColor="#404040"
+              color={`${COLORS.white}`}
+              onClick={() => setIsModalOpen((prev) => !prev)}
+            >
+              변경
+            </Button>
+          </QnATypeSectionStyle>
+        )}
+        <TextareaStyle
+          placeholder="문의할 내용을 작성해 주세요"
+          {...register('content')}
+        ></TextareaStyle>
+        <FooterStyle>
+          <ButtonBoxStyle>
+            <Button type="submit" buttonType="borderGray">
+              저장하기
+            </Button>
+            <Button buttonType="borderGray" onClick={handleCancelBtn}>
+              취소하기
+            </Button>
+          </ButtonBoxStyle>
+        </FooterStyle>
+      </form>
+      {currentValue === '상품문의' && isModalOpen && (
+        <SelectItemModal
+          setIsModalOpen={setIsModalOpen}
+          setCurrentValue={setCurrentValue}
+          selcetedProduct={selcetedProduct}
+          setSelcetedProduct={setSelcetedProduct}
+        />
+      )}
     </FormStyle>
   )
 }
@@ -83,9 +147,9 @@ const fadeIn = keyframes`
   }
 `
 
-const FormStyle = styled.form<{ isOpen: boolean }>`
+const FormStyle = styled.div<{ isOpen: boolean }>`
   width: 1180px;
-  min-height: 200px;
+  min-height: 300px;
   border: 1px solid ${COLORS.cddd};
   border-radius: 12px;
   padding: 0 24px;
@@ -99,6 +163,24 @@ const FormStyle = styled.form<{ isOpen: boolean }>`
         `
       : ''};
 `
+const HeaderStyle = styled.div`
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid ${COLORS.cddd};
+`
+const QnATypeSectionStyle = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+  button {
+    border-color: #404040;
+    &:hover {
+      box-shadow: ${COLORS.boxShowdow};
+      background-color: #404040;
+    }
+  }
+`
 
 const TitleInputStyle = styled.input`
   display: flex;
@@ -106,7 +188,6 @@ const TitleInputStyle = styled.input`
   align-items: center;
   padding-top: 25px;
   padding-bottom: 12px;
-  border-bottom: 1px solid ${COLORS.cddd};
   font-weight: ${FONTWEGHT.fw500};
   line-height: 31px;
   font-size: ${FONTSIZE.fz20};
@@ -120,12 +201,20 @@ const TitleInputStyle = styled.input`
   }
 `
 
-const ContentInputStyle = styled.input`
-  padding-top: 24px;
+const TextareaStyle = styled.textarea`
+  margin-top: 24px;
   font-size: ${FONTSIZE.fz20};
   width: 100%;
+  border: none;
+  min-height: 120px;
+  /* border: 1px solid; */
+  background-color: transparent;
   &::placeholder {
     color: ${COLORS.ca6a6a6};
+    font-size: ${FONTSIZE.fz20};
+  }
+  &:focus {
+    outline: none;
   }
 `
 
@@ -140,4 +229,7 @@ const ButtonBoxStyle = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+  button:hover {
+    box-shadow: ${COLORS.boxShowdow};
+  }
 `
