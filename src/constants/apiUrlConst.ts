@@ -11,6 +11,7 @@ const API_URL = {
   survey: '/survey',
   category: '/search/category',
   relation: '/products/relation',
+  admin_products: '/admins/products',
 }
 
 export default API_URL

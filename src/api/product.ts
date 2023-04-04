@@ -39,3 +39,10 @@ export const getRelatedProducts = async (id: number) => {
   const data: IProduct = await axiosInstance.get(`${API_URL.relation}/${id}`)
   return data
 }
+
+// 관리자 api
+
+export const getAdminProducts = async (page: number = 1) => {
+  const data: IProduct = await axiosInstance.get(API_URL.admin_products + `?page=${page}`)
+  return data
+}

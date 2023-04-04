@@ -1,14 +1,34 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { COLORS, FONTSIZE } from '@src/styles/root'
 import Inner from '@src/layout/Inner'
 import Title from '@src/components/common/Title'
-import products from '../../../public/mockData/product.json'
 import Image from '@src/components/common/Image'
 import Button from '@src/components/common/Button'
 import { useNavigate } from 'react-router-dom'
+import { IProductContent } from '@src/interfaces/product'
+import { getAdminProducts } from '@src/api/product'
+import Paginate from '@src/components/common/Paginate'
 
 const ProductList = () => {
+  const [products, setProducts] = useState<IProductContent[]>([])
+  const [page, setPage] = useState<number>(1)
+  const [totalElement, setTotalElement] = useState<number>(0)
+  const [elementLength, setElementLength] = useState<number>(0)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getAdminProducts(page)
+      setProducts(data.content)
+      setTotalElement(data.totalPages)
+      setElementLength(data.content.length)
+    }
+    fetchData()
+  }, [page])
+
+  const changePageHandler = (event: any) => {
+    setPage(event.selected + 1)
+  }
   const navigate = useNavigate()
   return (
     <ContainerStyle>
@@ -19,7 +39,7 @@ const ProductList = () => {
         <input type="text" />
         <TableContainerStyle>
           <div>
-            상품 <span style={{ fontWeight: 700, color: COLORS.primary }}>8</span>개
+            상품 <span style={{ fontWeight: 700, color: COLORS.primary }}>{elementLength}</span>개
           </div>
           <TableStyle>
             <colgroup>
@@ -78,6 +98,7 @@ const ProductList = () => {
             </tbody>
           </TableStyle>
         </TableContainerStyle>
+        <Paginate totalElements={totalElement} changePageHandler={changePageHandler} />
       </Inner>
     </ContainerStyle>
   )
