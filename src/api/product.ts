@@ -1,7 +1,12 @@
 import axios from 'axios'
 import API_URL from '@src/constants/apiUrlConst'
-import { axiosInstance } from './instance'
-import { IProduct, IProductContent, IProductDetail } from '@src/interfaces/product'
+import { axiosFormDataInstance, axiosInstance } from './instance'
+import {
+  IProduct,
+  IProductContent,
+  IProductDetail,
+  IproductCategories,
+} from '@src/interfaces/product'
 import { IReview } from '@src/interfaces/review'
 
 export const getProducts = async () => {
@@ -49,5 +54,15 @@ export const getAdminProducts = async (page: number = 1) => {
 
 export const getAdminProductDetail = async (id: number) => {
   const data: IProductDetail = await axiosInstance.get(`${API_URL.products}/${id}`)
+  return data
+}
+
+export const postAddProduct = async (productData: any) => {
+  const response = await axiosFormDataInstance.post(API_URL.admin_products, { data: productData })
+  return response
+}
+
+export const getCategory = async () => {
+  const data: IproductCategories[] = await axiosInstance.get(API_URL.admin_categories)
   return data
 }

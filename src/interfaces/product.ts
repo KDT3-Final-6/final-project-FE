@@ -26,9 +26,10 @@ export interface IProductDetail {
   productThumbnail: string
 }
 
-interface IproductCategories {
+export interface IproductCategories {
+  categoryId: number
   categoryName: string
-  child: null | IproductCategories
+  children: null | IproductCategories[]
 }
 
 interface IProductOption {
@@ -66,7 +67,7 @@ const initProductOption = {
 export const initProductDetail = {
   contentDetail: '',
   periodOptions: [initProductOption],
-  productCategories: [{ categoryName: '', child: null }],
+  productCategories: [{ categoryName: '', children: null, categoryId: 0 }],
   productContent: '',
   productImages: [''],
   productName: '',
