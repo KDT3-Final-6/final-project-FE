@@ -9,7 +9,7 @@ import React, { useState } from 'react'
 import { CheckStyle, FormAreaStyle, RadiosStyle } from '../SignUp'
 
 const InfoEdit = () => {
-  const [userGender, setUserGender] = useState('male')
+  const [userGender, setUserGender] = useState('Male')
 
   return (
     <>
@@ -67,7 +67,7 @@ const InfoEdit = () => {
                 id="Female"
                 labelName="여성"
                 name="gender"
-                isChecked={userGender === 'Female' && true}
+                isChecked={userGender === 'Female'}
                 isDisable={true}
               />
               <CheckItem
@@ -76,7 +76,7 @@ const InfoEdit = () => {
                 id="Male"
                 labelName="남성"
                 name="gender"
-                isChecked={userGender === 'Male' && true}
+                isChecked={userGender === 'Male'}
                 isDisable={true}
               />
             </RadiosStyle>

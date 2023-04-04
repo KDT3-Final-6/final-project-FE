@@ -19,7 +19,6 @@ interface ISelect {
   isDisabled?: boolean
   type?: string
   register?: object
-  selectValue?: string
   onChange?: React.ChangeEventHandler<HTMLLIElement>
   onClick?: React.MouseEventHandler<HTMLLIElement>
 }
@@ -40,7 +39,6 @@ const Select = ({
   arrowImg = '/images/icons/bottom-arrow2.png',
   type = '',
   register,
-  selectValue,
   onChange,
   onClick,
 }: ISelect) => {
