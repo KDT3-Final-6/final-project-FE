@@ -3,7 +3,7 @@ import { axiosInstance } from './instance';
 
 interface ILogin{
   token: string
-  name: string
+  userName: string
 }
 
 
