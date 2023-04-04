@@ -2,9 +2,10 @@ import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 import useOnClickOutside from '@src/hooks/useOnClickOutside'
+import { IProductOption } from '@src/interfaces/product'
 
 interface ISelect {
-  options?: string[] | number[]
+  options?: Array<string | number>
   initial?: string | number
   value?: string | number
   unit?: any

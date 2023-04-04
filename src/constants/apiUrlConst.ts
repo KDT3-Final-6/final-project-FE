@@ -12,6 +12,7 @@ const API_URL = {
   category: '/search/category',
   relation: '/products/relation',
   admin_products: '/admins/products',
+  admin_categories: '/admins/categories',
 }
 
 export default API_URL
