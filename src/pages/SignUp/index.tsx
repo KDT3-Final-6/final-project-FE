@@ -17,9 +17,12 @@ import { signup } from '@src/api/auth'
 import MESSAGES from '@src/constants/messages'
 import Modal from 'react-modal'
 import { setModal } from '@src/reduxStore/modalSlice'
+import { useNavigate } from 'react-router-dom'
+import PATH from '@src/constants/pathConst'
 
 const SignUp = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -101,7 +104,7 @@ const SignUp = () => {
             isOpen: true,
             text: MESSAGES.SIGNUP.complete,
             onClickOK: () => {
-              dispatch(setModal({ isOpen: false }))
+              dispatch(setModal({ route: navigate(PATH.LOGIN) }))
             },
           })
         )
