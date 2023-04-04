@@ -15,6 +15,8 @@ import { IUser } from '@src/interfaces/user'
 import { hideLoading, showLoading } from '@src/reduxStore/loadingSlice'
 import { signup } from '@src/api/auth'
 import MESSAGES from '@src/constants/messages'
+import Modal from 'react-modal'
+import { setModal } from '@src/reduxStore/modalSlice'
 
 const SignUp = () => {
   const dispatch = useDispatch()
@@ -40,9 +42,8 @@ const SignUp = () => {
 
   const years = Array.from({ length: 64 }, (_, i) => 2023 - i)
   const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear())
-  const handleYearChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleYearChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
     setSelectedYear(parseInt(e.target.value))
-  }
 
   const addZero = (date: number) => {
     if (date < 10) {
@@ -54,37 +55,34 @@ const SignUp = () => {
 
   const months = Array.from({ length: 12 }, (_, i) => addZero(1 + i))
   const [selectedMonths, setSelectedMonths] = useState<number>(new Date().getMonth())
-  const handleMonthChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleMonthChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
     setSelectedMonths(parseInt(e.target.value))
-  }
 
   const days = Array.from({ length: 31 }, (_, i) => addZero(1 + i))
   const [selectedDays, setSelectedDays] = useState<number>(new Date().getDay())
-  const handleDayChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleDayChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
     setSelectedDays(parseInt(e.target.value))
-  }
 
   const [selectedGender, setSelectedGender] = useState<string>('')
-  const handleGenderChange = (e: React.ChangeEvent<HTMLDivElement>) => {
+  const handleGenderChange = (e: React.ChangeEvent<HTMLDivElement>) =>
     setSelectedGender(e.target.id)
-  }
 
   const [selectedHobby, setSelectedHobby] = useState<string[]>([])
-  const handleHobbyChange = (checked: boolean, item: string) => {
+  const handleHobbyChange = (checked: boolean, item: string) =>
     checked
       ? setSelectedHobby((prev) => [...prev, item])
       : setSelectedHobby(selectedHobby.filter((el) => el !== item))
-  }
 
   const [selectedAgree, setSelectedAgree] = useState<boolean>(false)
-  const handleAgreeChange = (checked: boolean) => {
-    checked ? setSelectedAgree(true) : setSelectedAgree(false)
-  }
-  let res: object | any
+  const handleAgreeChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setSelectedAgree(e.target.checked)
+
+  console.log(selectedAgree)
+
   const onSubmit = async (data: IUser) => {
     try {
       dispatch(showLoading())
-      res = await signup({
+      const res: object | any = await signup({
         memberEmail: data.memberEmail,
         memberPassword: data.memberPassword,
         memberName: data.memberName,
@@ -98,13 +96,37 @@ const SignUp = () => {
       })
 
       if (res.status === 200) {
-        alert('회원가입이 완료되었습니다.')
+        dispatch(
+          setModal({
+            isOpen: true,
+            text: MESSAGES.SIGNUP.complete,
+            onClickOK: () => {
+              dispatch(setModal({ isOpen: false }))
+            },
+          })
+        )
       }
       if (res.data) {
-        alert(res.data)
+        dispatch(
+          setModal({
+            isOpen: true,
+            text: res.data,
+            onClickOK: () => {
+              dispatch(setModal({ isOpen: false }))
+            },
+          })
+        )
       }
     } catch (error: any) {
-      alert(MESSAGES.SIGNUP.error)
+      dispatch(
+        setModal({
+          isOpen: true,
+          text: MESSAGES.SIGNUP.error,
+          onClickOK: () => {
+            dispatch(setModal({ isOpen: false }))
+          },
+        })
+      )
     } finally {
       dispatch(hideLoading())
     }
@@ -283,6 +305,7 @@ const SignUp = () => {
                 id="Female"
                 labelName="여성"
                 name="gender"
+                register={{ ...register('memberGender') }}
                 isChecked={selectedGender === 'Female'}
               />
               <CheckItem
@@ -291,6 +314,7 @@ const SignUp = () => {
                 id="Male"
                 labelName="남성"
                 name="gender"
+                register={{ ...register('memberGender') }}
                 isChecked={selectedGender === 'Male'}
               />
             </RadiosStyle>
@@ -302,6 +326,7 @@ const SignUp = () => {
                   key={hobby.id}
                   id={hobby.id}
                   labelName={hobby.labelName}
+                  register={{ ...register('memberHobby') }}
                   onChange={(e) => handleHobbyChange(e.target.checked, e.target.id)}
                 />
               ))}
@@ -312,13 +337,15 @@ const SignUp = () => {
               <CheckItem
                 id="agreeSMS"
                 labelName="SMS 수신 동의"
-                onChange={(e) => handleAgreeChange(e.target.checked)}
+                register={{ ...register('memberSmsAgree') }}
+                onClick={handleAgreeChange}
                 isChecked={selectedAgree}
               />
               <CheckItem
                 id="agreeEmail"
                 labelName="E-Mail 수신 동의"
-                onChange={(e) => handleAgreeChange(e.target.checked)}
+                register={{ ...register('memberEmailAgree') }}
+                onClick={handleAgreeChange}
                 isChecked={selectedAgree}
               />
             </CheckStyle>
@@ -340,6 +367,8 @@ const SignUp = () => {
     </>
   )
 }
+
+Modal.setAppElement('#root')
 
 export default SignUp
 

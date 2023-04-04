@@ -163,8 +163,9 @@ const index = () => {
                   labelName={paymentMethod.tabName}
                   width="132px"
                   bgColor={COLORS.primary}
-                  register={register}
-                  errorMsg="결제 방법을 선택해주세요."
+                  register={{
+                    ...register('paymentMethod', { required: '결제 방법을 선택해주세요.' }),
+                  }}
                 />
               ))}
             </WrapStyle>

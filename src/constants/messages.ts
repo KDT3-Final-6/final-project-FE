@@ -9,7 +9,7 @@ const MESSAGES = {
   },
   SIGNUP: {
     error: '회원가입중 오류가 발생했습니다.',
-    complete: '회원가입 완료'
+    complete: '회원가입이 완료되었습니다.'
   }
 }
 
