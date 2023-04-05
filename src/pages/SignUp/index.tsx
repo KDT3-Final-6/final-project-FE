@@ -43,11 +43,6 @@ const SignUp = () => {
   const passwordRef = useRef<string | null>(null)
   passwordRef.current = watch('memberPassword')
 
-  const years = Array.from({ length: 64 }, (_, i) => 2023 - i)
-  const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear())
-  const handleYearChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
-    setSelectedYear(parseInt(e.target.value))
-
   const addZero = (date: number) => {
     if (date < 10) {
       const zeroDate = ('00' + date).slice(-2)
@@ -55,6 +50,11 @@ const SignUp = () => {
     }
     return date
   }
+
+  const years = Array.from({ length: 64 }, (_, i) => 2023 - i)
+  const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear())
+  const handleYearChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
+    setSelectedYear(parseInt(e.target.value))
 
   const months = Array.from({ length: 12 }, (_, i) => addZero(1 + i))
   const [selectedMonths, setSelectedMonths] = useState<number>(new Date().getMonth())
@@ -77,8 +77,7 @@ const SignUp = () => {
       : setSelectedHobby(selectedHobby.filter((el) => el !== item))
 
   const [selectedAgree, setSelectedAgree] = useState<boolean>(false)
-  const handleAgreeChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setSelectedAgree(e.target.checked)
+  const handleAgreeChange = (checked: boolean) => setSelectedAgree(checked)
 
   console.log(selectedAgree)
 
@@ -341,15 +340,15 @@ const SignUp = () => {
                 id="agreeSMS"
                 labelName="SMS 수신 동의"
                 register={{ ...register('memberSmsAgree') }}
-                onClick={handleAgreeChange}
-                value={selectedAgree}
+                onClick={(e) => handleAgreeChange(e.target.checked)}
+                isChecked={selectedAgree}
               />
               <CheckItem
                 id="agreeEmail"
                 labelName="E-Mail 수신 동의"
                 register={{ ...register('memberEmailAgree') }}
-                onClick={handleAgreeChange}
-                value={selectedAgree}
+                onClick={(e) => handleAgreeChange(e.target.checked)}
+                isChecked={selectedAgree}
               />
             </CheckStyle>
           </InputBox>
