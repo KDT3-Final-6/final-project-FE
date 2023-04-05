@@ -19,6 +19,7 @@ const ModalBox = () => {
   const customStyle: any = {
     overlay: {
       backgroundColor: 'rgba(0,0,0,0.5)',
+      zIndex: '10',
     },
     content: {
       display: 'flex',
@@ -34,7 +35,6 @@ const ModalBox = () => {
       borderRadius: '10px',
       backgroundColor: COLORS.white,
       boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-      zIndex: '10',
     },
   }
 
