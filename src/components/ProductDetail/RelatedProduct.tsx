@@ -6,8 +6,8 @@ import { IProductContent } from '@src/interfaces/product'
 import { useState, useEffect, useRef } from 'react'
 import { getRelatedProducts } from '@src/api/product'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import SwiperCore, { Navigation } from 'swiper'
-import { TfiArrowLeft, TfiArrowRight } from 'react-icons/tfi'
+import useSwiperSetting from '@src/hooks/useSwiperSetting'
+import SlideButtons from '../common/SlideButtons'
 
 interface Props {
   productId: number
@@ -23,54 +23,27 @@ const RelatedProduct = ({ productId }: Props) => {
     fetchData()
   }, [])
 
-  SwiperCore.use([Navigation])
   const prevRef = useRef(null)
   const nextRef = useRef(null)
-  const [swiperSetting, setSwiperSetting] = useState<any>(null)
-  const settings = {
-    navigation: { prevEl: prevRef.current, nextEl: nextRef.current },
-    onInit: (swiper: SwiperCore) => {
-      if (typeof swiper.params.navigation !== 'boolean') {
-        if (swiper.params.navigation) {
-          swiper.params.navigation.prevEl = prevRef.current
-          swiper.params.navigation.nextEl = nextRef.current
-        }
-      }
-      swiper.navigation.update()
-    },
-    slidesPerView: 4,
-    spaceBetween: 10,
-  }
-
-  useEffect(() => {
-    if (!swiperSetting) {
-      setSwiperSetting(settings)
-    }
-  }, [swiperSetting])
+  const settings = useSwiperSetting({ prevRef, nextRef })
   return (
     <div style={{ position: 'relative' }}>
-      <SlidePrevStyle ref={prevRef}>
-        <TfiArrowLeft />
-      </SlidePrevStyle>
-      {swiperSetting && (
-        <Swiper {...settings}>
-          {releatedProducts.map((product) => (
-            <SwiperSlide key={product.productId}>
-              <CardTypeItem
-                item={product}
-                cardType="cardType"
-                imgHeight="100%"
-                height="460px"
-                priceBottom="30px"
-                priceColor={COLORS.c1b1b1b}
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      )}
-      <SlideNextStyle ref={nextRef}>
-        <TfiArrowRight />
-      </SlideNextStyle>
+      <SlideButtons direction="left" ref={prevRef} />
+      <Swiper {...settings}>
+        {releatedProducts.map((product) => (
+          <SwiperSlide key={product.productId}>
+            <CardTypeItem
+              item={product}
+              cardType="cardType"
+              imgHeight="100%"
+              height="460px"
+              priceBottom="30px"
+              priceColor={COLORS.c1b1b1b}
+            />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+      <SlideButtons ref={nextRef} direction="right" />
     </div>
   )
 }

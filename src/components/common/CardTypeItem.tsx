@@ -1,5 +1,5 @@
 import PATH from '@src/constants/pathConst'
-import { IProductContent } from '@src/interfaces/product'
+import { ICurrentProduct, IProductContent } from '@src/interfaces/product'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -15,7 +15,7 @@ import ProductCard, {
 import Title from './Title'
 
 interface ICardTypeItem {
-  item: IProductContent
+  item: IProductContent | ICurrentProduct
   cardType: string
   bgImage?: string
   imgWidth?: string
@@ -45,7 +45,7 @@ const CardTypeItem = ({
   priceColor,
   minHeight,
 }: ICardTypeItem) => {
-  const [heart, setHeart] = useState(item?.isWished)
+  const [heart, setHeart] = useState(false)
 
   return (
     <ProductCard
