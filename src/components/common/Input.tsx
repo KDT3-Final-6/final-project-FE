@@ -19,7 +19,6 @@ interface IInput {
   children?: React.ReactNode
   register?: object
   ariaInvalid?: boolean
-  errorMessage?: string
 }
 
 const Input = ({
@@ -35,7 +34,6 @@ const Input = ({
   children,
   register,
   ariaInvalid,
-  errorMessage = '',
 }: IInput) => {
   return (
     <InputStyle
