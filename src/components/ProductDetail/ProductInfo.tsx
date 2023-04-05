@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { SetStateAction, useState } from 'react'
 import { SlArrowRight } from 'react-icons/sl'
 import styled from 'styled-components'
 import { AiOutlineShareAlt, AiOutlineShoppingCart } from 'react-icons/ai'
@@ -15,9 +15,10 @@ import useCopyClipBoard from '@src/utils/copyURL'
 interface Props {
   productDetail: IProductDetail
   pathname: string
+  setOptionId: React.Dispatch<SetStateAction<string>>
 }
 
-const ProductInfo = ({ productDetail, pathname }: Props) => {
+const ProductInfo = ({ productDetail, pathname, setOptionId }: Props) => {
   const onCopy = useCopyClipBoard()
   const [quantity, setQuantity] = useState(1)
   const minusQuantity = () => {
@@ -27,7 +28,9 @@ const ProductInfo = ({ productDetail, pathname }: Props) => {
     setQuantity((prev) => prev + 1)
   }
   const navigate = useNavigate()
-  const [currentValue, setCurrentValue] = useState<string>('출발일 옵션 선택')
+  const optionIdChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setOptionId(event.target.value)
+  }
 
   return (
     <InfoStyle>
@@ -56,16 +59,14 @@ const ProductInfo = ({ productDetail, pathname }: Props) => {
         </div>
         <OptionSectionStyle>
           <span>출발일 *</span>
-          {/* <Select
-            options={productDetail.periodOptions}
-            currentValue={currentValue}
-            setCurrentValue={setCurrentValue}
-            onChange={(e) => e.preventDefault()}
-            width="100%"
-            height="50px"
-            borderRadius="0"
-            borderColor={COLORS.black}
-          /> */}
+          <select onChange={optionIdChangeHandler}>
+            {productDetail?.periodOptions &&
+              productDetail?.periodOptions.map((option, index) => (
+                <option key={option.periodOptionId} value={index}>
+                  {option.optionName}
+                </option>
+              ))}
+          </select>
           <span>인원 *</span>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span>{productDetail.productPrice.toLocaleString()}원</span>
