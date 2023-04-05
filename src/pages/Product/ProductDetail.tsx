@@ -16,6 +16,7 @@ import CurrentProduct from '@src/components/ProductDetail/CurrentProduct'
 
 const ProductDetail = () => {
   const [productDetail, setProductDetail] = useState<IProductDetail>(initProductDetail)
+  const [optionIndex, setOptionIndex] = useState<number>(0)
   const { pathname } = useLocation()
   const productId = Number(pathname.slice(9))
 
@@ -69,10 +70,14 @@ const ProductDetail = () => {
         {/* 추후에 카테고리 불러오면 수정 예정 */}홈 {'>'}{' '}
         {productDetail.productCategories[2]?.categoryName} {'>'}{' '}
       </CategoryStyle>
-      <ProductInfo productDetail={productDetail} pathname={pathname} />
+      <ProductInfo
+        productDetail={productDetail}
+        pathname={pathname}
+        setOptionIndex={setOptionIndex}
+      />
       <MoveTab />
       <hr />
-      <Detail productDetail={productDetail} />
+      <Detail productDetail={productDetail} optionIndex={optionIndex} />
       <TravelReview productId={productId} />
       <Title fontSize={FONTSIZE.fz26} fontWeight={FONTWEGHT.fw500} margin="80px 0 50px 0">
         <h3 id="related">연관 상품</h3>
