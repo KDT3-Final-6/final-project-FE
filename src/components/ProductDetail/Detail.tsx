@@ -6,37 +6,39 @@ import Image from '../common/Image'
 
 interface Props {
   productDetail: IProductDetail
-  optionId: string
+  optionIndex: number
 }
 
-const Detail = ({ productDetail, optionId }: Props) => {
-  const [optionList, setOptionList] = useState(productDetail?.periodOptions[0])
+const Detail = ({ productDetail, optionIndex }: Props) => {
+  const [optionList, setOptionList] = useState(initProductOption)
   useEffect(() => {
-    setOptionList(productDetail.periodOptions[Number(optionId)])
-  }, [optionId])
-  console.log(optionList)
+    setOptionList(productDetail.periodOptions[optionIndex - 1])
+  }, [optionIndex, productDetail])
+
   return (
     <DetailStyle id="detail">
-      <ReservationStyle>
-        <div>
-          <span>
-            여행 상세 일정: {optionList?.period - 1}박 {optionList?.period}일{' '}
-          </span>
-        </div>
-        <ReservationDescStyle>
-          <span>일정</span>
-          <span>
-            출발: {optionList?.startDate} {optionList?.startDetail}
-          </span>
-          <span>
-            도착 : {optionList?.endDate} {optionList?.endDetail}
-          </span>
-        </ReservationDescStyle>
-        <ReservationDescStyle>
-          <span>예약 현황</span>
-          <span>예약 {optionList?.soldQuantity}석</span>
-        </ReservationDescStyle>
-      </ReservationStyle>
+      {optionIndex ? (
+        <ReservationStyle>
+          <div>
+            <span>
+              여행 상세 일정: {optionList?.period - 1}박 {optionList?.period}일{' '}
+            </span>
+          </div>
+          <ReservationDescStyle>
+            <span>일정</span>
+            <span>
+              출발: {optionList?.startDate} {optionList?.startDetail}
+            </span>
+            <span>
+              도착 : {optionList?.endDate} {optionList?.endDetail}
+            </span>
+          </ReservationDescStyle>
+          <ReservationDescStyle>
+            <span>예약 현황</span>
+            <span>예약 {optionList?.soldQuantity}석</span>
+          </ReservationDescStyle>
+        </ReservationStyle>
+      ) : null}
       {productDetail.productImages.map((image, index) => (
         <Image src={image} alt={String(index)} key={index}></Image>
       ))}

@@ -45,6 +45,17 @@ export const getRelatedProducts = async (id: number) => {
   return data
 }
 
+export const postCartProduct = async (optionId: string, quantity: number) => {
+  const response = await axiosInstance.post(API_URL.cart, {
+    productIds: [
+      {
+        periodOptionId: +optionId,
+        quantity: quantity,
+      },
+    ],
+  })
+}
+
 // 관리자 api
 
 export const getAdminProducts = async (page: number = 1) => {

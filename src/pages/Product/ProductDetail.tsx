@@ -16,7 +16,7 @@ import CurrentProduct from '@src/components/ProductDetail/CurrentProduct'
 
 const ProductDetail = () => {
   const [productDetail, setProductDetail] = useState<IProductDetail>(initProductDetail)
-  const [optionId, setOptionId] = useState<string>('0')
+  const [optionIndex, setOptionIndex] = useState<number>(0)
   const { pathname } = useLocation()
   const productId = Number(pathname.slice(9))
 
@@ -36,7 +36,6 @@ const ProductDetail = () => {
     }
     fetchData()
   }, [])
-  console.log(optionId)
 
   // 최근 본 상품 불러오기
   const currentList = JSON.parse(localStorage.getItem('cart')!)
@@ -71,10 +70,14 @@ const ProductDetail = () => {
         {/* 추후에 카테고리 불러오면 수정 예정 */}홈 {'>'}{' '}
         {productDetail.productCategories[2]?.categoryName} {'>'}{' '}
       </CategoryStyle>
-      <ProductInfo productDetail={productDetail} pathname={pathname} setOptionId={setOptionId} />
+      <ProductInfo
+        productDetail={productDetail}
+        pathname={pathname}
+        setOptionIndex={setOptionIndex}
+      />
       <MoveTab />
       <hr />
-      <Detail productDetail={productDetail} optionId={optionId} />
+      <Detail productDetail={productDetail} optionIndex={optionIndex} />
       <TravelReview productId={productId} />
       <Title fontSize={FONTSIZE.fz26} fontWeight={FONTWEGHT.fw500} margin="80px 0 50px 0">
         <h3 id="related">연관 상품</h3>

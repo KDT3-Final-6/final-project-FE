@@ -6,19 +6,26 @@ import Button from '../common/Button'
 import Title from '../common/Title'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import StarRateWrapGet from '@src/components/common/StarRateWrapGet'
-import Select from '../common/Select'
 import { IProductDetail } from '@src/interfaces/product'
 import Image from '../common/Image'
 import { useNavigate } from 'react-router-dom'
 import useCopyClipBoard from '@src/utils/copyURL'
+import { postCartProduct } from '@src/api/product'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 
 interface Props {
   productDetail: IProductDetail
   pathname: string
-  setOptionId: React.Dispatch<SetStateAction<string>>
+  setOptionIndex: React.Dispatch<SetStateAction<number>>
 }
 
-const ProductInfo = ({ productDetail, pathname, setOptionId }: Props) => {
+interface schemaType {
+  optionId: string
+}
+
+const ProductInfo = ({ productDetail, pathname, setOptionIndex }: Props) => {
   const onCopy = useCopyClipBoard()
   const [quantity, setQuantity] = useState(1)
   const minusQuantity = () => {
@@ -29,13 +36,27 @@ const ProductInfo = ({ productDetail, pathname, setOptionId }: Props) => {
   }
   const navigate = useNavigate()
   const optionIdChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setOptionId(event.target.value)
+    setOptionIndex(event.target.selectedIndex)
+  }
+
+  const schema = yup.object().shape({
+    optionId: yup.string(),
+  })
+
+  const { register, handleSubmit } = useForm<schemaType>({ resolver: yupResolver(schema) })
+  const onSubmit = async (data: schemaType) => {
+    try {
+      await postCartProduct(data.optionId, quantity)
+      window.confirm('장바구니로 이동하시겠습니까?') && navigate('/mypage/cart')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
     <InfoStyle>
       <Image bgImage={productDetail.productThumbnail} width="50%" height="450px" />
-      <DescStyle>
+      <DescStyle onSubmit={handleSubmit(onSubmit)}>
         <TitleDescStyle>
           <Title fontSize={FONTSIZE.fz32}>
             <h1>{productDetail.productName}</h1>
@@ -59,10 +80,11 @@ const ProductInfo = ({ productDetail, pathname, setOptionId }: Props) => {
         </div>
         <OptionSectionStyle>
           <span>출발일 *</span>
-          <select onChange={optionIdChangeHandler}>
+          <select {...register('optionId', { onChange: optionIdChangeHandler })}>
+            <option defaultValue="0">옵션을 선택해 주세요.</option>
             {productDetail?.periodOptions &&
-              productDetail?.periodOptions.map((option, index) => (
-                <option key={option.periodOptionId} value={index}>
+              productDetail?.periodOptions.map((option) => (
+                <option key={option.periodOptionId} value={option.periodOptionId}>
                   {option.optionName}
                 </option>
               ))}
@@ -97,7 +119,7 @@ const ProductInfo = ({ productDetail, pathname, setOptionId }: Props) => {
               공유하기
             </div>
           </Button>
-          <Button width="180px" height="50px" buttonType="detail">
+          <Button width="180px" height="50px" buttonType="detail" type="submit">
             <div
               style={{
                 display: 'flex',
@@ -126,7 +148,7 @@ const InfoStyle = styled.div`
   height: 450px;
 `
 
-const DescStyle = styled.div`
+const DescStyle = styled.form`
   margin-left: 10px;
   width: 50%;
   height: 100%;
