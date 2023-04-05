@@ -48,7 +48,7 @@ export interface IProductOption {
   startDetail: string
 }
 
-const initProductOption = {
+export const initProductOption = {
   endAirline: '',
   endDate: '',
   endDetail: '',
