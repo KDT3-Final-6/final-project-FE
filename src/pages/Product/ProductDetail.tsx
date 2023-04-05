@@ -12,20 +12,52 @@ import { getProductDetail } from '@src/api/product'
 import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { IProductDetail, initProductDetail } from '@src/interfaces/product'
+import CurrentProduct from '@src/components/ProductDetail/CurrentProduct'
 
 const ProductDetail = () => {
   const [productDetail, setProductDetail] = useState<IProductDetail>(initProductDetail)
-  const location = useLocation()
-  const { pathname } = location
+  const { pathname } = useLocation()
   const productId = Number(pathname.slice(9))
 
   useEffect(() => {
     const fetchData = async () => {
       const detail = await getProductDetail(productId)
       setProductDetail(detail)
+
+      // 최근 본 상품에 넣을 아이템
+      const newCurrentItem = {
+        productId,
+        productName: detail.productName,
+        productPrice: detail.productPrice,
+        productThumbnail: detail.productThumbnail,
+      }
+      setCurrent(newCurrentItem)
     }
     fetchData()
   }, [])
+
+  // 최근 본 상품 불러오기
+  const currentList = JSON.parse(localStorage.getItem('cart')!)
+
+  // 최근 본 상품 중복 확인
+  const duplicationItemCheck = () => {
+    for (const item of currentList) {
+      if (item.productId === productId) {
+        return true
+      }
+    }
+  }
+
+  // 최근 본 상품 넣기
+  const setCurrent = (newCurrentItem: Object) => {
+    if (currentList && duplicationItemCheck()) {
+      localStorage.setItem('cart', JSON.stringify([...currentList]))
+    } else if (currentList) {
+      localStorage.setItem('cart', JSON.stringify([...currentList, newCurrentItem]))
+    } else {
+      localStorage.setItem('cart', JSON.stringify([newCurrentItem]))
+    }
+  }
 
   return (
     <Inner padding="32px 0">
@@ -47,9 +79,9 @@ const ProductDetail = () => {
       </Title>
       <RelatedProduct productId={productId} />
       <Title fontSize={FONTSIZE.fz26} fontWeight={FONTWEGHT.fw500} margin="80px 0 50px 0">
-        <h3 id="review">내가 봤던 상품</h3>
+        <h3 id="review">최근 본 상품</h3>
       </Title>
-      <RelatedProduct productId={productId} />
+      <CurrentProduct currentList={currentList} />
     </Inner>
   )
 }

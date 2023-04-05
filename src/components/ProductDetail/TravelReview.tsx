@@ -20,7 +20,7 @@ const TravelReview = ({ productId }: Props) => {
     }
     fetchData()
   }, [])
-  console.log(reviews)
+
   return (
     <section>
       <Inner>

@@ -75,3 +75,10 @@ export const initProductDetail = {
   productStatus: '',
   productThumbnail: '',
 }
+
+export interface ICurrentProduct {
+  productId: number
+  productName: string
+  productPrice: number
+  productThumbnail: string
+}
