@@ -18,6 +18,7 @@ import { login } from '@src/api/auth'
 import { setModal } from '@src/reduxStore/modalSlice'
 import MESSAGES from '@src/constants/messages'
 import { ErrorMessage } from '@src/components/common/InputItem'
+import { Helmet } from 'react-helmet'
 
 const Login = () => {
   const dispatch = useDispatch()
@@ -36,8 +37,8 @@ const Login = () => {
         memberEmail: data.memberEmail,
         memberPassword: data.memberPassword,
       })
-      setCookies('userName', response.userName)
-      setCookies('accessToken', response.token)
+      setCookies('userName', response.userName, { maxAge: 3600, httpOnly: true })
+      setCookies('accessToken', response.token, { maxAge: 3600, httpOnly: true })
       dispatch(
         setModal({
           isOpen: true,
@@ -60,9 +61,7 @@ const Login = () => {
           setModal({
             isOpen: true,
             text: MESSAGES.LOGIN.error,
-            onClickOK: () => {
-              dispatch(setModal({ isOpen: false }))
-            },
+            onClickOK: () => dispatch(setModal({ isOpen: false })),
           })
         )
       }
@@ -73,6 +72,9 @@ const Login = () => {
 
   return (
     <>
+      <Helmet>
+        <title>고투게더 로그인</title>
+      </Helmet>
       <Title titleType="h1" title="로그인" textAlign="center" margin="102px 0 20px" />
       <Title textAlign="center" fontSize={FONTSIZE.fz18} fontWeight={FONTWEGHT.fw400}>
         <h2>

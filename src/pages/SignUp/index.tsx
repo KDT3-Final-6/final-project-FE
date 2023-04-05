@@ -19,6 +19,7 @@ import Modal from 'react-modal'
 import { setModal } from '@src/reduxStore/modalSlice'
 import { useNavigate } from 'react-router-dom'
 import PATH from '@src/constants/pathConst'
+import { Helmet } from 'react-helmet'
 
 const SignUp = () => {
   const dispatch = useDispatch()
@@ -136,6 +137,9 @@ const SignUp = () => {
 
   return (
     <>
+      <Helmet>
+        <title>고투게더 회원가입</title>
+      </Helmet>
       <Title titleType="h1" title="회원가입" textAlign="center" margin="102px 0 40px" />
       <Image
         src="/images/signUpUser.png"
