@@ -84,7 +84,7 @@ const SignUp = () => {
   const onSubmit = async (data: IUser) => {
     try {
       dispatch(showLoading())
-      const res: object | any = await signup({
+      const response = await signup({
         memberEmail: data.memberEmail,
         memberPassword: data.memberPassword,
         memberName: data.memberName,
@@ -97,7 +97,7 @@ const SignUp = () => {
         memberEmailAgree: data.memberEmailAgree,
       })
 
-      if (res.status === 200) {
+      if (response.status === 200) {
         dispatch(
           setModal({
             isOpen: true,
@@ -108,11 +108,11 @@ const SignUp = () => {
           })
         )
       }
-      if (res.data) {
+      if (response.data) {
         dispatch(
           setModal({
             isOpen: true,
-            text: res.data,
+            text: response.data,
             onClickOK: () => {
               dispatch(setModal({ isOpen: false }))
             },

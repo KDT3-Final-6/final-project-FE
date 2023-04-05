@@ -26,14 +26,13 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { isSubmitting, errors, isDirty },
   } = useForm<ILogin>()
 
   const onSubmit = async (data: ILogin) => {
     try {
       dispatch(showLoading())
-      const response: object | any = await login({
+      const response = await login({
         memberEmail: data.memberEmail,
         memberPassword: data.memberPassword,
       })
