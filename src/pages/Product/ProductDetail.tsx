@@ -15,17 +15,48 @@ import { IProductDetail, initProductDetail } from '@src/interfaces/product'
 
 const ProductDetail = () => {
   const [productDetail, setProductDetail] = useState<IProductDetail>(initProductDetail)
-  const location = useLocation()
-  const { pathname } = location
+  const { pathname } = useLocation()
   const productId = Number(pathname.slice(9))
 
   useEffect(() => {
     const fetchData = async () => {
       const detail = await getProductDetail(productId)
       setProductDetail(detail)
+
+      // 최근 본 상품에 넣을 아이템
+      const newCartItem = {
+        productId,
+        productName: detail.productName,
+        productPrice: detail.productPrice,
+        productThumbnail: detail.productThumbnail,
+      }
+      setCart(newCartItem)
     }
     fetchData()
   }, [])
+
+  // 최근 본 상품 불러오기
+  const cartList = JSON.parse(localStorage.getItem('cart')!)
+
+  // 최근 본 상품 중복 확인
+  const duplicationItemCheck = () => {
+    for (const item of cartList) {
+      if (item.productId === productId) {
+        return true
+      }
+    }
+  }
+
+  // 최근 본 상품 넣기
+  const setCart = (newCartItem: Object) => {
+    if (cartList && duplicationItemCheck()) {
+      localStorage.setItem('cart', JSON.stringify([...cartList]))
+    } else if (cartList) {
+      localStorage.setItem('cart', JSON.stringify([...cartList, newCartItem]))
+    } else {
+      localStorage.setItem('cart', JSON.stringify([newCartItem]))
+    }
+  }
 
   return (
     <Inner padding="32px 0">
