@@ -31,6 +31,7 @@ const ProductInfo = ({ productDetail, pathname, setOptionIndex }: Props) => {
   const minusQuantity = () => {
     quantity > 1 ? setQuantity((prev) => prev - 1) : 1
   }
+
   const plusQuantity = () => {
     setQuantity((prev) => prev + 1)
   }
