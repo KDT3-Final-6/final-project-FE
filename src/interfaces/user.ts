@@ -1,6 +1,9 @@
-export interface IUser {
+export interface ILogin {
   memberEmail: string,
   memberPassword: string,
+}
+
+export interface IUser extends ILogin {
   memberPasswordConfirm:string,
   memberName: string,
   memberNickname: string,

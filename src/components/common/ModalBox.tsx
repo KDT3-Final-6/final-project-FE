@@ -22,11 +22,11 @@ const ModalBox = () => {
     },
     content: {
       display: 'flex',
-      justifyContent: 'space-between',
+      justifyContent: 'space-around',
       alignItems: 'center',
       flexDirection: 'column',
       width: '310px',
-      height: '150px',
+      height: '200px',
       top: '50%',
       left: '50%',
       transform: 'translate(-50%, -50%)',
@@ -70,6 +70,8 @@ export default ModalBox
 
 const ModalTxtStyle = styled.p`
   font-weight: ${FONTWEGHT.fw700};
+  white-space: pre-line;
+  text-align: center;
 `
 
 const ModalFormStyle = styled.form``

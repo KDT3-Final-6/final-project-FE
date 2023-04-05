@@ -5,6 +5,7 @@ const modal = createSlice({
   initialState: {
     isOpen: false,
     text: '',
+    route:'',
     onClickOK: () => { },
     onClickCancel: () => { },
   },

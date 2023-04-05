@@ -1,7 +1,8 @@
 const MESSAGES = {
   LOGIN: {
-    checkEmail: '이메일을 확인해주세요.',
-    checkPW: '비밀번호를 확인해주세요.',
+    error: '비정상적인 로그인입니다.',
+    complete: '로그인 되었습니다.',
+    inCorrect: "가입되지 않은 이메일이거나\n\n비밀번호가 일치하지 않습니다."
   },
   LOGOUT: {
     error: '비정상적인 로그아웃입니다.',
