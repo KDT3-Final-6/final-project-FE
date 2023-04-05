@@ -14,6 +14,7 @@ import { postCartProduct } from '@src/api/product'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
+import useCounter from '@src/hooks/useCounter'
 
 interface Props {
   productDetail: IProductDetail
@@ -27,14 +28,7 @@ interface schemaType {
 
 const ProductInfo = ({ productDetail, pathname, setOptionIndex }: Props) => {
   const onCopy = useCopyClipBoard()
-  const [quantity, setQuantity] = useState(1)
-  const minusQuantity = () => {
-    quantity > 1 ? setQuantity((prev) => prev - 1) : 1
-  }
-
-  const plusQuantity = () => {
-    setQuantity((prev) => prev + 1)
-  }
+  const { quantity, plusQuantity, minusQuantity } = useCounter()
   const navigate = useNavigate()
   const optionIdChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setOptionIndex(event.target.selectedIndex)

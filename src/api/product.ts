@@ -6,6 +6,7 @@ import {
   IProductContent,
   IProductDetail,
   IproductCategories,
+  ICartResponse,
 } from '@src/interfaces/product'
 import { IReview } from '@src/interfaces/review'
 
@@ -45,6 +46,11 @@ export const getRelatedProducts = async (id: number) => {
   return data
 }
 
+export const getCartProdcts = async () => {
+  const response: ICartResponse = await axiosInstance(API_URL.cart)
+  return response
+}
+
 export const postCartProduct = async (optionId: string, quantity: number) => {
   const response = await axiosInstance.post(API_URL.cart, {
     productIds: [
@@ -56,8 +62,18 @@ export const postCartProduct = async (optionId: string, quantity: number) => {
   })
 }
 
-// 관리자 api
+export const editCartProduct = async (cartId: number, periodOptionId: number, quantity: number) => {
+  const response = await axiosInstance.patch(`${API_URL.cart}/${cartId}`, {
+    periodOptionId,
+    quantity,
+  })
+}
 
+export const deleteCartProduct = async (cartId: number) => {
+  const response = await axiosInstance.delete(API_URL.cart, {})
+}
+
+/** 관리자 api */
 export const getAdminProducts = async (page: number = 1) => {
   const data: IProduct = await axiosInstance.get(API_URL.admin_products + `?page=${page}`)
   return data

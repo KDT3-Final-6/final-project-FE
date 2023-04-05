@@ -1,14 +1,25 @@
 import CartTable from '@src/components/MyPage/CartTable'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet'
 import styled from 'styled-components'
 import Button from '@src/components/common/Button'
 import { MdKeyboardArrowDown } from 'react-icons/md'
 import { COLORS } from '@src/styles/root'
+import { getCartProdcts } from '@src/api/product'
+import { ICartList } from '@src/interfaces/product'
 
-type Props = {}
+const Cart = () => {
+  const [cartList, setCartList] = useState<ICartList[]>([])
 
-const Cart = (props: Props) => {
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getCartProdcts()
+      setCartList(data.content)
+    }
+    fetchData()
+  }, [])
+
+  console.log(cartList)
   return (
     <>
       <Helmet>
@@ -69,7 +80,6 @@ const Cart = (props: Props) => {
         </tbody>
       </ResultStyle>
       <PaymentBoxStyle>
-        <Button buttonType="cartSkyBlue" children="주문 수정하기"></Button>
         <Button buttonType="cartSkyBlue" children="결제하기"></Button>
       </PaymentBoxStyle>
     </>
