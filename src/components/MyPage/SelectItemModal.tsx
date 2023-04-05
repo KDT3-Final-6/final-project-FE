@@ -121,8 +121,7 @@ const SelectItemModal = ({
             labelName="주문 상품 선택 안함"
             name="orderList"
             checkType="rectType"
-            register={register}
-            errorMsg="문의할 상품을 선택해주세요"
+            register={{ ...register('orderList', { required: '문의할 상품을 선택해주세요' }) }}
           />
         </div>
         <Button onClick={handleCloseModal} width="24px" height="24px" borderRadius="50%">
@@ -138,8 +137,7 @@ const SelectItemModal = ({
             labelName={item.productName}
             name="orderList"
             checkType="rectType"
-            register={register}
-            errorMsg="문의할 상품을 선택해주세요"
+            register={{ ...register('orderList', { required: '문의할 상품을 선택해주세요' }) }}
           />
         ))}
       </article>

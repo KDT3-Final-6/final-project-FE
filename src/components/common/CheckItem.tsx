@@ -11,7 +11,7 @@ interface TInputValues {
 interface ICheckItem {
   checkType?: string
   type?: string
-  id: string
+  id?: string
   name?: string // Path<TInputValues>;
   labelName: string
   width?: string
@@ -19,10 +19,11 @@ interface ICheckItem {
   bgColor?: string
   fontSize?: string
   register?: any //UseFormRegister<TInputValues>;
-  errorMsg?: string
   isChecked?: boolean
   isDisable?: boolean
+  value?: string | boolean
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
+  onClick?: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 const CheckItem = ({
@@ -35,10 +36,11 @@ const CheckItem = ({
   color = '',
   bgColor = COLORS.cbe4b4b,
   register,
-  errorMsg,
   isChecked = false,
   isDisable = false,
+  value,
   onChange,
+  onClick,
 }: ICheckItem) => {
   return (
     <ItemStyle
@@ -53,14 +55,12 @@ const CheckItem = ({
         type={type}
         id={id}
         name={name}
-        value={id}
+        value={value ? value : id}
         defaultChecked={isChecked}
         disabled={isDisable}
         onChange={onChange}
-        {...(register &&
-          register(name, {
-            required: errorMsg,
-          }))}
+        onClick={onClick}
+        {...register}
       />
       <label htmlFor={id}>{labelName}</label>
     </ItemStyle>
