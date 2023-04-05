@@ -1,15 +1,15 @@
-import { configureStore } from "@reduxjs/toolkit";
-import loadingSlice from "./loadingSlice";
-import modal from "./modalSlice";
+import { configureStore } from '@reduxjs/toolkit'
+import { setupListeners } from '@reduxjs/toolkit/query/react'
+import { qnaApi } from './api/qnaApiSlice'
+import rootReducer from './rootReducer'
 
-const store = configureStore({
-  reducer: {
-    loading: loadingSlice.reducer,
-    modal: modal.reducer,
-  },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
-  devTools: true,
+export const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(qnaApi.middleware),
 })
 
-export type RootState = ReturnType<typeof store.getState>
-export default store
+setupListeners(store.dispatch)
+
+export type AppDispatch = typeof store.dispatch
+
+// export type RootState = ReturnType<typeof store.getState>

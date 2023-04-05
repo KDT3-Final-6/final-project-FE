@@ -6,19 +6,27 @@ import splitDate from '@src/utils/splitDate'
 import { IoIosArrowDown } from 'react-icons/io'
 import { IoIosArrowUp } from 'react-icons/io'
 import OneOnOneAnswerCard from './OneOnOneAnswerCard'
+import { IQnAContent } from '@src/interfaces/post'
 
-const OneOnOneCard = () => {
+interface IOneOnOneCard {
+  postInfo: IQnAContent
+}
+const OneOnOneCard = ({ postInfo }: IOneOnOneCard) => {
   const [isInquiryOpen, setIsInquiryOpen] = useState<boolean>(false)
-  const postTitle = '비용 문의합니다.' // 1:1문의내용 제목, 데이터 패칭할 것
-  const postContent =
-    '이거저거이거저거 문의드립니다~~~~~~~~이거저거이거저거 문의드립니다~~~~~~~~이거저거이거저거 문의드립니다~~~~~~~~이거저거이거저거 문의드립니다~~~~~~~~이거저거이거저거 문의드립니다~~~~~~~~이거저거이거저거 문의드립니다~~~~~~~~이거저거이거저거 문의드립니다~~~~~~~~이거저거이거저거 문의드립니다~~~~~~~~이거저거이거저거 문의드립니다~~~~~~~~이거저거이거저거 문의드립니다~~~~~~~~이거저거이거저거 문의드립니다~~~~~~~~이거저거이거저거 문의드립니다~~~~~~~~이거저거이거저거 문의드립니다~~~~~~~~이거저거이거저거 문의드립니다~~~~~~~~이거저거이거저거 문의드립니다~~~~~~~~이거저거이거저거 문의드립니다~~~~~~~~' // 1:1문의내용 제목, 데이터 패칭할 것
-  const createdDate = '2023-03-27' // 글쓴 날짜 제목, 데이터 패칭할 것
+  const {
+    postId,
+    postTitle,
+    postContent,
+    inquiryType,
+    qnAStatus,
+    answer,
+    purchasedProductName,
+    createdDate,
+    replyDate,
+  } = postInfo
+
   const time = '16:27' // 글쓴 시간, 데이터 패칭할 것
-  const inquiryType = '회원 문의' // 문의유형 타입, 데이터 패칭할 것
-  const qnAStatus = '답변완료' // 답변상태
-  const answer =
-    '안녕하세요. 고투게더 담당자입니다.안녕하세요. 고투게더 담당자입니다.안녕하세요. 고투게더 담당자입니다.안녕하세요. 고투게더 담당자입니다.안녕하세요. 고투게더 담당자입니다.안녕하세요. 고투게더 담당자입니다.안녕하세요. 고투게더 담당자입니다.안녕하세요. 고투게더 담당자입니다.안녕하세요. 고투게더 담당자입니다.안녕하세요. 고투게더 담당자입니다.안녕하세요. 고투게더 담당자입니다.안녕하세요. 고투게더 담당자입니다.안녕하세요. 고투게더 담당자입니다.안녕하세요. 고투게더 담당자입니다.안녕하세요. 고투게더 담당자입니다.안녕하세요. 고투게더 담당자입니다.안녕하세요. 고투게더 담당자입니다.안녕하세요. 고투게더 담당자입니다.안녕하세요. 고투게더 담당자입니다.안녕하세요. 고투게더 담당자입니다.안녕하세요. 고투게더 담당자입니다.안녕하세요. 고투게더 담당자입니다.안녕하세요. 고투게더 담당자입니다.안녕하세요. 고투게더 담당자입니다.안녕하세요. 고투게더 담당자입니다.안녕하세요. 고투게더 담당자입니다.안녕하세요. 고투게더 담당자입니다.'
-  const purchasedProductName = null //'[실속 골프패키지] 사이판 3박4일 골프 여행'
+
   return (
     <ContainerStyle>
       <TitleBoxStyle>
@@ -62,7 +70,11 @@ const OneOnOneCard = () => {
       </FooterStyle>
       {isInquiryOpen ? (
         <InquiryBoxStyle>
-          <OneOnOneAnswerCard answer={answer} setIsInquiryOpen={setIsInquiryOpen} />
+          <OneOnOneAnswerCard
+            answer={answer}
+            replyDate={replyDate}
+            setIsInquiryOpen={setIsInquiryOpen}
+          />
         </InquiryBoxStyle>
       ) : null}
     </ContainerStyle>
