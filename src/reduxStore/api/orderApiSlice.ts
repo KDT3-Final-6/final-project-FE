@@ -21,9 +21,11 @@ const baseQuery = fetchBaseQuery({
 export const orderApi = createApi({
   reducerPath: 'orderApi',
   baseQuery,
+  tagTypes: ['Order'],
   endpoints: (builder) => ({
     getOrderList: builder.query<IOrders, number | void>({
       query: (page = 1) => `${API_URL.order}?page=${page}`,
+      providesTags: [{ type: 'Order', id: 'Order-LIST' }],
     }),
     postOrder: builder.mutation<void, IOrderContent>({
       query: (order) => ({
@@ -31,15 +33,14 @@ export const orderApi = createApi({
         method: 'POST',
         body: order,
       }),
+      invalidatesTags: [{ type: 'Order', id: 'Order-LIST' }],
     }),
-    // postOrder: builder.query<IOrderContent, number | void>({
-    //   query: (page = 1) => `posts?page=${page}`,
-    // }),
     deleteOrder: builder.mutation<void, number>({
       query: (orderId) => ({
         url: `${API_URL.order}/${orderId}`,
         method: 'DELETE',
       }),
+      invalidatesTags: [{ type: 'Order', id: 'Order-LIST' }],
     }),
   }),
 })
