@@ -5,32 +5,43 @@ import Button from '@components/common/Button'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import Select from '../common/Select'
+import QnASelectBtn from '@components/MyPage/QnASelectBtn'
 import SelectItemModal from './SelectItemModal'
+import { usePostQnAMutation } from '@src/reduxStore/api/qnaApiSlice'
+import { unwrapResult } from '@reduxjs/toolkit'
 
+type Option = {
+  id: number
+  name: string
+}
 interface IQuestionCard {
   isOpen: boolean
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 interface IOneOnOneForm {
-  title?: string
-  content?: string
+  title: string
+  content: string
 }
 
 const schema = yup.object().shape({
   title: yup.string().required('제목을 입력해주세요.'),
-  content: yup.string().required('문의내용을 입력해 주세요.'),
+  content: yup
+    .string()
+    .required('문의내용을 입력해 주세요.')
+    .max(450, '450글자 이하로 입력해주세요.'),
 })
 
 const QuestionCard = ({ isOpen, setIsOpen }: IQuestionCard) => {
+  const [postQuestion, { isLoading, error, isSuccess }] = usePostQnAMutation()
   const [errorsMessage, setErrorsMessage] = useState<string>('')
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
-  const [selcetedProduct, setSelcetedProduct] = useState<string | null>(null)
+  const [isChecked, setIsChecked] = useState<boolean>(false)
+  const [selectedOption, setSelectedOption] = useState<Option | null>(null)
+  const [productId, setProductId] = useState<number | null>(null)
 
   const selectOptions: string[] = ['문의유형', '주문/결제', '환불문의', '상품문의', '회원정보']
   const [currentValue, setCurrentValue] = useState<string>(selectOptions[0])
-  console.log('isModalOpen', isModalOpen)
 
   const {
     register,
@@ -43,18 +54,36 @@ const QuestionCard = ({ isOpen, setIsOpen }: IQuestionCard) => {
     resolver: yupResolver(schema),
   })
 
-  const onValid: SubmitHandler<IOneOnOneForm> = ({ title, content }, event: any) => {
+  const onValid: SubmitHandler<IOneOnOneForm> = async ({ title, content }, event: any) => {
     event.preventDefault()
     if (currentValue === '문의유형' || currentValue === '') {
       alert('문의유형을 선택해 주세요.')
       return
     }
-    console.log(title, currentValue, content, selcetedProduct)
-    setIsOpen(false)
-    setValue('title', '')
-    setValue('content', '')
-    setSelcetedProduct(null)
-    setCurrentValue(selectOptions[0])
+
+    const result = await postQuestion({
+      title,
+      content,
+      inquiryType: currentValue,
+      purchasedProductId: productId,
+    })
+
+    if ('data' in result && result.data === null) {
+      alert('문의글이 등록되었습니다.')
+      setIsOpen(false)
+      setValue('title', '')
+      setValue('content', '')
+      setSelectedOption(null)
+      setProductId(null)
+      setCurrentValue(selectOptions[0])
+      console.log('result', result)
+    } else if ('error' in result) {
+      console.log('result', result.error)
+      alert('문의글 등록에 실패했습니다.')
+    } else {
+      alert('문의글 등록에 실패했습니다.')
+      console.log('Unexpected result:', result)
+    }
   }
 
   const onInvalid = (errors: any) => {
@@ -67,7 +96,7 @@ const QuestionCard = ({ isOpen, setIsOpen }: IQuestionCard) => {
     setValue('title', '')
     setValue('content', '')
     setCurrentValue('문의유형')
-    setSelcetedProduct(null)
+    setSelectedOption(null)
     setIsOpen(false)
   }
 
@@ -76,11 +105,12 @@ const QuestionCard = ({ isOpen, setIsOpen }: IQuestionCard) => {
       <form onSubmit={handleSubmit(onValid, onInvalid)}>
         <HeaderStyle>
           <TitleInputStyle placeholder="제목을 입력해주세요." {...register('title')} />
-          <Select
+          <QnASelectBtn
             currentValue={currentValue}
             setCurrentValue={setCurrentValue}
             setIsModalOpen={setIsModalOpen}
-            setSelcetedProduct={setSelcetedProduct}
+            setSelectedOption={setSelectedOption}
+            setProductId={setProductId}
             initial={selectOptions[0]}
             width="127px"
             height="32px"
@@ -90,11 +120,11 @@ const QuestionCard = ({ isOpen, setIsOpen }: IQuestionCard) => {
           />
         </HeaderStyle>
 
-        {selcetedProduct && currentValue === '상품문의' && (
+        {currentValue === '상품문의' && productId && (
           <QnATypeSectionStyle>
             <span>상품</span>
             <span>:</span>
-            <span>{selcetedProduct}</span>
+            <span>{selectedOption?.name}</span>
             <Button
               width="65px"
               height="32px"
@@ -126,8 +156,10 @@ const QuestionCard = ({ isOpen, setIsOpen }: IQuestionCard) => {
         <SelectItemModal
           setIsModalOpen={setIsModalOpen}
           setCurrentValue={setCurrentValue}
-          selcetedProduct={selcetedProduct}
-          setSelcetedProduct={setSelcetedProduct}
+          selectedOption={selectedOption}
+          setSelectedOption={setSelectedOption}
+          setIsChecked={setIsChecked}
+          setProductId={setProductId}
         />
       )}
     </FormStyle>

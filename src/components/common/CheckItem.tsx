@@ -8,10 +8,12 @@ interface TInputValues {
   paymentMethod?: string
 }
 
+type OnchangeProps = { id: string; name: string }
+
 interface ICheckItem {
   checkType?: string
   type?: string
-  id?: string
+  id: number | string
   name?: string // Path<TInputValues>;
   labelName: string
   width?: string
@@ -62,7 +64,7 @@ const CheckItem = ({
         onClick={onClick}
         {...register}
       />
-      <label htmlFor={id}>{labelName}</label>
+      <label htmlFor={id.toString()}>{labelName}</label>
     </ItemStyle>
   )
 }
