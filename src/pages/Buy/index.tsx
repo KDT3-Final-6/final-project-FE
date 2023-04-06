@@ -20,12 +20,64 @@ const index = () => {
 
   const image =
     'https://upload.wikimedia.org/wikipedia/commons/9/96/Castellammare_del_Golfo_Harbour%2C_Sicily.jpg' // 패칭해올 데이터
-  const title = '[실속 골프패키지] 사이판 GOLFTEL3박 4일 골프여행'
   const price = 1190000
-  const travelDay = '출발 : 2023.04.02(일) / 도착 : 2023.04.05(수)'
   const name = '고투게더'
   const phoneNumber = '01012345678'
   const email = 'gotogether@gmail.com'
+
+  /**상품 상세페이지에서 오는 데이터*/
+
+  /**장바구니에서 오는 데이터 */
+  const productData = [
+    {
+      cartId: 3,
+      productId: 1,
+      periodOptionId: 1,
+      cartPrice: 20000,
+      productName: 'test_b885c960e76ctest_test_b885c960e76ctest_',
+      periodOptionName: 'test_2fe16ce6f6cd',
+      productThumbnail: 'test_cfb89269cde7',
+      productContent: 'test_f085b73fb468',
+      cartQuantity: 2,
+    },
+    {
+      cartId: 4,
+      productId: 1,
+      periodOptionId: 1,
+      cartPrice: 10000,
+      productName: 'test_b885c960e76c',
+      periodOptionName: 'test_2fe16ce6f6cd',
+      productThumbnail: 'test_cfb89269cde7',
+      productContent: 'test_f085b73fb468',
+      cartQuantity: 1,
+    },
+    {
+      cartId: 5,
+      productId: 1,
+      periodOptionId: 1,
+      cartPrice: 40000,
+      productName: 'test_b885c960e76c',
+      periodOptionName: 'test_2fe16ce6f6cd',
+      productThumbnail: 'test_cfb89269cde7',
+      productContent: 'test_f085b73fb468',
+      cartQuantity: 4,
+    },
+  ]
+  const filterData = productData.map((item) => {
+    return {
+      name: item.productName,
+      productPrice: item.cartPrice,
+      thumbnail: item.productThumbnail, //
+      periodOptionName: item.periodOptionName,
+      productId: item.productId,
+      periodOptionId: item.periodOptionId,
+      quantity: item.cartQuantity, // 'cartQuantity'를 'quantity'로 변경
+    }
+  })
+
+  const totalProductPrice = filterData.reduce((acc, curr) => {
+    return acc + curr.productPrice
+  }, 0)
 
   const paymentMethodTabs = [
     {
@@ -72,8 +124,6 @@ const index = () => {
   }
 
   const onInvalid = (errors: any) => {
-    console.log(errors)
-
     const errorMessage = Object.values(errors).map((error: any) => error.message)[0]
     setErrorsMessage(errorMessage)
     alert(errorMessage)
@@ -87,29 +137,38 @@ const index = () => {
       <BoxStyle>
         <LeftBoxStyle>
           <ProductInfoStyle>
-            <Title
-              margin="35px 24px 20px 24px"
-              fontSize={FONTSIZE.fz26}
-              fontWeight={FONTWEGHT.fw500}
-            >
-              예약 상품 정보
-            </Title>
-            <ImageBoxStyle>
-              <div>
-                <Image width="167px" height="129px" imgBorderRadius="5px" bgImage={image} />
-                <div>
-                  <span>{title}</span>
-                  <span>{price.toLocaleString()}원</span>
-                </div>
+            {filterData.map((item) => (
+              <div key={item.productId}>
+                <Title
+                  margin="35px 24px 20px 24px"
+                  fontSize={FONTSIZE.fz26}
+                  fontWeight={FONTWEGHT.fw500}
+                >
+                  예약 상품 정보
+                </Title>
+                <ImageBoxStyle>
+                  <Image width="167px" height="129px" imgBorderRadius="5px" bgImage={image} />
+                  <ImageInfoStyle>
+                    <span>{item.name}</span>
+                    <div>
+                      <div>
+                        <span>수량</span>
+                        <span>:</span>
+                        <span>1개</span>
+                      </div>
+                      <div>{item.productPrice.toLocaleString()}원</div>
+                    </div>
+                  </ImageInfoStyle>
+                </ImageBoxStyle>
+                <TravelDayStyle>
+                  <span>여행일</span>
+                  <span>{item.periodOptionName}</span>
+                </TravelDayStyle>
               </div>
-            </ImageBoxStyle>
-            <TravelDayStyle>
-              <span>여행일</span>
-              <span>{travelDay}</span>
-            </TravelDayStyle>
+            ))}
             <SumOfPriceStyle>
               <span>합계</span>
-              <span>{price.toLocaleString()}원</span>
+              <span>{totalProductPrice.toLocaleString()}원</span>
             </SumOfPriceStyle>
           </ProductInfoStyle>
           <UserInfoStyle>
@@ -244,6 +303,7 @@ const ContainerStyle = styled.div`
   align-items: center;
   background-color: ${COLORS.cF5F5F5};
   padding-bottom: 573px;
+  height: 100%;
 `
 
 const BoxStyle = styled.div`
@@ -254,7 +314,7 @@ const BoxStyle = styled.div`
 // 왼쪽 컨테이너 - 예약 상품 정보 영역
 
 const ProductInfoStyle = styled.section`
-  height: 396px;
+  min-height: 396px;
 `
 
 const UserInfoStyle = styled.section`
@@ -275,28 +335,46 @@ const LeftBoxStyle = styled.div`
   }
 `
 
-const ImageBoxStyle = styled.div`
+const ImageInfoStyle = styled.div`
   display: flex;
-  padding: 10px 24px 30px 24px;
+  flex-direction: column;
+  align-items: end;
+
+  span {
+    height: 100%;
+    width: 421px;
+    word-wrap: break-word;
+    text-align: end;
+
+    :first-child {
+      line-height: 31px;
+      font-weight: ${FONTWEGHT.fw500};
+    }
+  }
   & > div {
     display: flex;
-    gap: 19px;
-    font-size: ${FONTSIZE.fz24};
-    div {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      span {
-        :first-child {
-          line-height: 31px;
-          font-weight: ${FONTWEGHT.fw500};
-        }
-        :last-child {
-          text-align: right;
-          font-weight: ${FONTWEGHT.fw700};
-        }
-      }
+    div:first-child {
     }
+    div:last-child {
+      /* display: flex; */
+      /* align-items: flex-end; */
+      /* justify-content: end; */
+      font-weight: ${FONTWEGHT.fw700};
+    }
+  }
+`
+
+const ImageBoxStyle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 19px;
+  padding: 10px 24px 30px 24px;
+  font-size: ${FONTSIZE.fz24};
+  div:first {
+    width: 30%;
+  }
+  ${ImageInfoStyle} {
+    width: 70%;
   }
 `
 
@@ -402,7 +480,7 @@ const PriceBoxStyle = styled.div`
 const RightBoxStyle = styled.form`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   gap: 30px;
   width: 494px;
@@ -426,7 +504,7 @@ const WrapStyle = styled.div`
 
 const CheckBoxSectionStyle = styled.article`
   width: 495px;
-  height: 333px;
+  min-height: 333px;
   border-top: 1px solid ${COLORS.cE0E0E0};
   padding: 32px 20px 0 20px;
   div {
