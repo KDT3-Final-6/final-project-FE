@@ -19,6 +19,8 @@ interface IInput {
   children?: React.ReactNode
   register?: object
   ariaInvalid?: boolean
+  minLength?: number
+  maxLength?: number
 }
 
 const Input = ({
@@ -34,6 +36,8 @@ const Input = ({
   children,
   register,
   ariaInvalid,
+  minLength,
+  maxLength,
 }: IInput) => {
   return (
     <InputStyle
@@ -50,6 +54,8 @@ const Input = ({
         disabled={isDisabled}
         {...register}
         aria-invalid={ariaInvalid}
+        minLength={minLength}
+        maxLength={maxLength}
       />
       {inputType === 'searchInput' && (
         <Button buttonType="transparent" width="50px" height="100%">
