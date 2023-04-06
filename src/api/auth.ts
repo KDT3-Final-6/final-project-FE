@@ -1,22 +1,21 @@
-import API_URL from "@src/constants/apiUrlConst";
-import { axiosInstance } from './instance';
+import API_URL from '@src/constants/apiUrlConst'
+import { axiosInstance } from './instance'
 
-interface ILogin{
+interface ILogin {
   data: {
     accessToken: string
     grantType: string
     refreshToken: string
-    refreshTokenExpirationTime:number
+    refreshTokenExpirationTime: number
   }
 }
-
 
 /** 회원가입 API */
 export const signup = (data: object) => axiosInstance.post(API_URL.members, data)
 
 /** 로그인 API */
-export const login = async (data:object) => {
-  const response:ILogin = await axiosInstance.post(API_URL.login, data)
+export const login = async (data: object) => {
+  const response: ILogin = await axiosInstance.post(API_URL.login, data)
   return response
 }
 
@@ -30,4 +29,8 @@ export const userInfo = () => axiosInstance.get(API_URL.members)
 export const userInfoEdit = () => axiosInstance.patch(API_URL.members)
 
 /** 회원탈퇴 API */
-export const userWithDrawal = () => axiosInstance.delete(API_URL.members)
+export const userWithDrawal = () => axiosInstance.post(API_URL.members)
+
+/** 회원 비밀번호 확인 API */
+export const checkpassword = (data: object) =>
+  axiosInstance.post(API_URL.members + '/password-check', data)

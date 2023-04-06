@@ -8,18 +8,43 @@ import { COLORS } from '@src/styles/root'
 import React, { useState } from 'react'
 import { CheckStyle, FormAreaStyle, RadiosStyle } from '../SignUp'
 import { Helmet } from 'react-helmet'
+import { userWithDrawal } from '@src/api/auth'
+import { useDispatch } from 'react-redux'
+import { setModal } from '@src/reduxStore/modalSlice'
+import { useNavigate } from 'react-router-dom'
+import MESSAGES from '@src/constants/messages'
+import PATH from '@src/constants/pathConst'
 
 const InfoEdit = () => {
   const [userGender, setUserGender] = useState('Male')
   const [annualValue, setAnnualValue] = useState<any>(1960)
   const [monthValue, setMonthValue] = useState<any>(5)
   const [dateValue, setDateValue] = useState<any>(21)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const withdrawalHandler = async () => {
+    dispatch(
+      setModal({
+        isOpen: true,
+        text: MESSAGES.WITHDRAWAL.normal,
+        onClickOK: async () => {
+          await userWithDrawal()
+          dispatch(setModal({ isOpen: false, route: navigate(PATH.LOGIN) }))
+        },
+        onClickCancel: () => {
+          dispatch(setModal({ isOpen: false }))
+        },
+      })
+    )
+  }
 
   return (
     <>
       <Helmet>
         <title>회원 정보 수정</title>
       </Helmet>
+      {}
       <Inner width="400px" padding="100px 0 190px">
         <FormAreaStyle>
           <InputItem
@@ -116,6 +141,15 @@ const InfoEdit = () => {
             확인
           </Button>
         </FormAreaStyle>
+        <Button
+          buttonType="skyBlue"
+          borderRadius="0"
+          width="100%"
+          margin="20px 0"
+          onClick={withdrawalHandler}
+        >
+          회원 탈퇴
+        </Button>
       </Inner>
     </>
   )

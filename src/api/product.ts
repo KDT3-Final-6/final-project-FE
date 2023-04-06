@@ -6,6 +6,7 @@ import {
   IProductContent,
   IProductDetail,
   IproductCategories,
+  ICartResponse,
 } from '@src/interfaces/product'
 import { IReview } from '@src/interfaces/review'
 
@@ -46,7 +47,7 @@ export const getRelatedProducts = async (id: number) => {
 }
 
 export const postCartProduct = async (optionId: string, quantity: number) => {
-  const response = await axiosInstance.post(API_URL.cart, {
+  await axiosInstance.post(API_URL.cart, {
     productIds: [
       {
         periodOptionId: +optionId,
@@ -56,8 +57,7 @@ export const postCartProduct = async (optionId: string, quantity: number) => {
   })
 }
 
-// 관리자 api
-
+/** 관리자 api */
 export const getAdminProducts = async (page: number = 1) => {
   const data: IProduct = await axiosInstance.get(API_URL.admin_products + `?page=${page}`)
   return data

@@ -1,14 +1,14 @@
 import CartTable from '@src/components/MyPage/CartTable'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet'
 import styled from 'styled-components'
 import Button from '@src/components/common/Button'
 import { MdKeyboardArrowDown } from 'react-icons/md'
 import { COLORS } from '@src/styles/root'
+import { ICartList } from '@src/interfaces/product'
+// import { useGetCartListQuery } from '@src/reduxStore/cartSlice'
 
-type Props = {}
-
-const Cart = (props: Props) => {
+const Cart = () => {
   return (
     <>
       <Helmet>
@@ -69,7 +69,6 @@ const Cart = (props: Props) => {
         </tbody>
       </ResultStyle>
       <PaymentBoxStyle>
-        <Button buttonType="cartSkyBlue" children="주문 수정하기"></Button>
         <Button buttonType="cartSkyBlue" children="결제하기"></Button>
       </PaymentBoxStyle>
     </>

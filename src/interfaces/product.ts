@@ -82,3 +82,23 @@ export interface ICurrentProduct {
   productPrice: number
   productThumbnail: string
 }
+
+export interface ICartResponse {
+  content: ICartList[]
+  totalPages: number
+  totalElements: number
+  pageNumber: number
+  size: number
+}
+
+export interface ICartList {
+  cartId: number
+  productId: number
+  periodOptionId: number
+  cartPrice: number
+  productName: string
+  periodOptionName: string
+  productThumbnail: string
+  productContent: string
+  cartQuantity: number
+}
