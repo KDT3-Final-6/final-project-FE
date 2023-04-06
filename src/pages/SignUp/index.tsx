@@ -19,6 +19,7 @@ import Modal from 'react-modal'
 import { setModal } from '@src/reduxStore/modalSlice'
 import { useNavigate } from 'react-router-dom'
 import PATH from '@src/constants/pathConst'
+import { Helmet } from 'react-helmet'
 
 const SignUp = () => {
   const dispatch = useDispatch()
@@ -78,13 +79,10 @@ const SignUp = () => {
 
   const [selectedAgree, setSelectedAgree] = useState<boolean>(false)
   const handleAgreeChange = (checked: boolean) => setSelectedAgree(checked)
-
-  console.log(selectedAgree)
-
   const onSubmit = async (data: IUser) => {
     try {
       dispatch(showLoading())
-      const res: object | any = await signup({
+      const response = await signup({
         memberEmail: data.memberEmail,
         memberPassword: data.memberPassword,
         memberName: data.memberName,
@@ -97,22 +95,21 @@ const SignUp = () => {
         memberEmailAgree: data.memberEmailAgree,
       })
 
-      if (res.status === 200) {
+      if (response.data.includes('성공')) {
         dispatch(
           setModal({
             isOpen: true,
             text: MESSAGES.SIGNUP.complete,
             onClickOK: () => {
-              dispatch(setModal({ route: navigate(PATH.LOGIN) }))
+              dispatch(setModal({ isOpen: false, route: navigate(PATH.LOGIN) }))
             },
           })
         )
-      }
-      if (res.data) {
+      } else {
         dispatch(
           setModal({
             isOpen: true,
-            text: res.data,
+            text: response.data,
             onClickOK: () => {
               dispatch(setModal({ isOpen: false }))
             },
@@ -125,7 +122,7 @@ const SignUp = () => {
           isOpen: true,
           text: MESSAGES.SIGNUP.error,
           onClickOK: () => {
-            dispatch(setModal({ isOpen: false }))
+            dispatch(setModal({ isOpen: false, route: navigate(PATH.LOGIN) }))
           },
         })
       )
@@ -136,6 +133,9 @@ const SignUp = () => {
 
   return (
     <>
+      <Helmet>
+        <title>고투게더 회원가입</title>
+      </Helmet>
       <Title titleType="h1" title="회원가입" textAlign="center" margin="102px 0 40px" />
       <Image
         src="/images/signUpUser.png"
@@ -178,6 +178,7 @@ const SignUp = () => {
             title="비밀번호"
             placeholder="비밀번호를 입력하세요."
             ariaInvalid={!isDirty ? undefined : errors.memberPassword ? true : false}
+            maxLength={16}
             register={{
               ...register('memberPassword', {
                 required: '비밀번호는 필수 입력값입니다.',
@@ -196,6 +197,7 @@ const SignUp = () => {
             title="비밀번호 확인"
             placeholder="비밀번호를 확인 입력하세요."
             ariaInvalid={!isDirty ? undefined : errors.memberPasswordConfirm ? true : false}
+            maxLength={16}
             register={{
               ...register('memberPasswordConfirm', {
                 required: true,
@@ -223,6 +225,7 @@ const SignUp = () => {
             title="닉네임"
             placeholder="닉네임을 입력하세요."
             ariaInvalid={!isDirty ? undefined : errors.memberNickname ? true : false}
+            maxLength={10}
             register={{
               ...register('memberNickname', {
                 required: '닉네임을 적어주세요.',
@@ -236,16 +239,13 @@ const SignUp = () => {
             title="연락처"
             placeholder='연락처를 입력하세요. ( " - " 없이 입력해주세요.)'
             ariaInvalid={!isDirty ? undefined : errors.memberPhone ? true : false}
+            maxLength={11}
             register={{
               ...register('memberPhone', {
                 required: '휴대폰 번호를 작성해주세요.',
                 pattern: {
-                  value: /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/,
+                  value: /^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}$/,
                   message: '" - " 없이 입력해주세요.',
-                },
-                maxLength: {
-                  value: 11,
-                  message: '휴대폰 번호를 다시 한번 확인해주세요.',
                 },
               }),
             }}
@@ -308,7 +308,6 @@ const SignUp = () => {
                 labelName="여성"
                 name="gender"
                 register={{ ...register('memberGender') }}
-                isChecked={selectedGender === 'Female'}
               />
               <CheckItem
                 checkType="radio"
@@ -317,7 +316,6 @@ const SignUp = () => {
                 labelName="남성"
                 name="gender"
                 register={{ ...register('memberGender') }}
-                isChecked={selectedGender === 'Male'}
               />
             </RadiosStyle>
           </InputBox>

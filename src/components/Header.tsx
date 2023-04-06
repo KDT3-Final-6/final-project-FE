@@ -3,13 +3,52 @@ import PATH from '@src/constants/pathConst'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { AiOutlineHeart, AiOutlineUser, AiOutlineShoppingCart } from 'react-icons/ai'
-import { FiLogIn } from 'react-icons/fi'
+import { FiLogIn, FiLogOut } from 'react-icons/fi'
+import { FaRegUserCircle } from 'react-icons/fa'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import Input from './common/Input'
 import Inner from '@src/layout/Inner'
 import Image from './common/Image'
+import { useCookies } from 'react-cookie'
+import { useDispatch } from 'react-redux'
+import { hideLoading, showLoading } from '@src/reduxStore/loadingSlice'
+import { logout } from '@src/api/auth'
+import { setModal } from '@src/reduxStore/modalSlice'
+import MESSAGES from '@src/constants/messages'
+import { getCookie } from '@src/utils/cookie'
 
 const Header = () => {
+  const dispatch = useDispatch()
+  const [cookies, setCookies, removeCookies] = useCookies()
+  console.log(cookies)
+
+  const handleLogout = async () => {
+    try {
+      dispatch(showLoading())
+      await logout()
+      removeCookies('accessToken')
+      dispatch(
+        setModal({
+          isOpen: true,
+          text: MESSAGES.LOGOUT.complete,
+          onClickOK: () => {
+            dispatch(setModal({ isOpem: false, route: PATH.HOME }))
+          },
+        })
+      )
+    } catch (error) {
+      dispatch(
+        setModal({
+          isOpen: true,
+          text: MESSAGES.LOGOUT.error,
+          onClickOK: () => dispatch(setModal({ isOpen: false })),
+        })
+      )
+    } finally {
+      dispatch(hideLoading())
+    }
+  }
+
   return (
     <header>
       <GnbStyle>
@@ -18,22 +57,37 @@ const Header = () => {
             <Image src="/images/Logo_Gotogether.png" alt="고투게더 로고 홈으로 이동" />
           </Link>
           <ButtonsStyle>
-            <Link to={PATH.WISHLIST}>
-              <AiOutlineHeart />
-              <span>찜상품</span>
-            </Link>
-            <Link to={PATH.CART}>
-              <AiOutlineShoppingCart />
-              <span>장바구니</span>
-            </Link>
-            <Link to={PATH.LOGIN}>
-              <FiLogIn />
-              <span>로그인</span>
-            </Link>
-            <Link to={PATH.SIGNUP}>
-              <AiOutlineUser />
-              <span>회원가입</span>
-            </Link>
+            {cookies.accessToken ? (
+              <>
+                <Link to={PATH.WISHLIST}>
+                  <AiOutlineHeart />
+                  <span>찜상품</span>
+                </Link>
+                <Link to={PATH.CART}>
+                  <AiOutlineShoppingCart />
+                  <span>장바구니</span>
+                </Link>
+                <Link to={PATH.HOME} onClick={handleLogout}>
+                  <FiLogOut />
+                  <span>로그아웃</span>
+                </Link>
+                <Link to={PATH.MYPAGE}>
+                  <FaRegUserCircle />
+                  <span>마이페이지</span>
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link to={PATH.LOGIN}>
+                  <FiLogIn />
+                  <span>로그인</span>
+                </Link>
+                <Link to={PATH.SIGNUP}>
+                  <AiOutlineUser />
+                  <span>회원가입</span>
+                </Link>
+              </>
+            )}
           </ButtonsStyle>
         </Inner>
       </GnbStyle>

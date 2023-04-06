@@ -15,7 +15,7 @@ function Home() {
   return (
     <>
       <Helmet>
-        <title>고투게더</title>
+        <title>고투게더 홈</title>
       </Helmet>
       <SlideBanner />
       <Curation />
