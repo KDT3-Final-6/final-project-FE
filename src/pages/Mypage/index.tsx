@@ -35,10 +35,12 @@ const MyPage = () => {
           imgBorderRadius="200px"
           border={`5px solid ${COLORS.white}`}
         />
-        <span style={{ fontSize: FONTSIZE.fz24, fontWeight: FONTWEGHT.fw700 }}>김고투</span>
+        <span style={{ fontSize: FONTSIZE.fz24, fontWeight: FONTWEGHT.fw700 }}>
+          {userInfoData.memberName}
+        </span>
         <Title
           titleType="h3"
-          title="KimGoto@gmail.com"
+          title={userInfoData.memberEmail}
           fontSize={FONTSIZE.fz15}
           fontWeight={FONTWEGHT.fw400}
           margin="-10px 0 0"
