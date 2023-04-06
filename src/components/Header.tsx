@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PATH from '@src/constants/pathConst'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
@@ -19,8 +19,36 @@ import { getCookie } from '@src/utils/cookie'
 
 const Header = () => {
   const dispatch = useDispatch()
-  const [cookies, setCookies, removeCookies] = useCookies()
-  console.log(cookies)
+  const [cookies, , removeCookies] = useCookies()
+
+  // useEffect(() => {
+  //   ;(async () => {
+  //     try {
+  //       dispatch(showLoading())
+  //       await logout()
+  //       removeCookies('accessToken')
+  //       dispatch(
+  //         setModal({
+  //           isOpen: true,
+  //           text: MESSAGES.LOGOUT.complete,
+  //           onClickOK: () => {
+  //             dispatch(setModal({ isOpem: false, route: PATH.HOME }))
+  //           },
+  //         })
+  //       )
+  //     } catch (error) {
+  //       dispatch(
+  //         setModal({
+  //           isOpen: true,
+  //           text: MESSAGES.LOGOUT.error,
+  //           onClickOK: () => dispatch(setModal({ isOpen: false })),
+  //         })
+  //       )
+  //     } finally {
+  //       dispatch(hideLoading())
+  //     }
+  //   })()
+  // }, [cookies])
 
   const handleLogout = async () => {
     try {
@@ -102,21 +130,21 @@ const Header = () => {
             borderColor="none"
           />
           <LnbListStyle>
-            <Link to={PATH.SURVEY}>
-              <li>여행 큐레이션</li>
-            </Link>
-            <Link to={PATH.PRODUCT_RECOMMEND}>
-              <li>추천 여행</li>
-            </Link>
-            <Link to={PATH.PRODUCT_GROUP}>
-              <li>그룹별 여행</li>
-            </Link>
-            <Link to={PATH.PRODUCT_DISTRICT}>
-              <li>지역별 여행</li>
-            </Link>
-            <Link to={PATH.PRODUCT_THEME}>
-              <li>테마별 여행</li>
-            </Link>
+            <li>
+              <Link to={PATH.SURVEY}>여행 큐레이션</Link>
+            </li>
+            <li>
+              <Link to={PATH.PRODUCT_RECOMMEND}>추천 여행</Link>
+            </li>
+            <li>
+              <Link to={PATH.PRODUCT_GROUP}>그룹별 여행</Link>
+            </li>
+            <li>
+              <Link to={PATH.PRODUCT_DISTRICT}>지역별 여행</Link>
+            </li>
+            <li>
+              <Link to={PATH.PRODUCT_THEME}>테마별 여행</Link>
+            </li>
             <BarStyle />
             <li>커뮤니티</li>
           </LnbListStyle>

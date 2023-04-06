@@ -5,7 +5,7 @@ import Title, { HighlightSpanStyle } from '@src/components/common/Title'
 import PATH from '@src/constants/pathConst'
 import Inner from '@src/layout/Inner'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import SocialButtons from '@src/components/common/SocialButtons'
@@ -37,21 +37,8 @@ const Login = () => {
         memberEmail: data.memberEmail,
         memberPassword: data.memberPassword,
       })
-      setCookies('accessToken', response.data.accessToken, {
-        maxAge: 3600,
-        httpOnly: true,
-      })
-
-      dispatch(
-        setModal({
-          isOpen: true,
-          text: MESSAGES.LOGIN.complete,
-          onClickOK: () =>
-            dispatch(
-              setModal({ isOpen: false, route: navigate(PATH.HOME, { state: PATH.LOGIN }) })
-            ),
-        })
-      )
+      setCookies('accessToken', response.data.accessToken, { maxAge: 10 })
+      navigate(PATH.HOME, { state: PATH.LOGIN })
     } catch (error: any) {
       if (error.response && error.response.status === 401) {
         dispatch(
