@@ -54,7 +54,7 @@ const MenuTab = ({ setActiveMenu, activeMenu }: Props) => {
     } else if (index === 4) {
       return navigate('/mypage/oneonone')
     } else if (index === 5) {
-      return navigate('/mypage/infoedit')
+      return navigate('/mypage/checkpassword')
     }
   }
 

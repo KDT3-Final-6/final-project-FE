@@ -34,6 +34,7 @@ import AddProduct from '@pages/AddProduct'
 import Consult from '@pages/Consult'
 import EditProduct from '@pages/EditProduct'
 import District from './pages/Product/District'
+import CheckPassword from './pages/Mypage/CheckPassword'
 
 const router = createBrowserRouter([
   {
@@ -78,6 +79,7 @@ const router = createBrowserRouter([
           { path: PATH.ONE_ON_ONE, element: <OneOnOne /> },
           { path: PATH.INFO_EDIT, element: <InfoEdit /> },
           { path: PATH.MY_REVIEW, element: <MyReview /> },
+          { path: PATH.CHECKPASSWORD, element: <CheckPassword /> },
         ],
       },
       {

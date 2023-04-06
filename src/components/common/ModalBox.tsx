@@ -53,7 +53,7 @@ const ModalBox = () => {
           {modalState.onClickCancel && (
             <Button
               buttonType="transparent"
-              bgColor={COLORS.primary}
+              bgColor={COLORS.cbcbcbc}
               onClick={modalState.onClickCancel}
             >
               취소
@@ -79,6 +79,8 @@ const ModalTxtStyle = styled.p`
 const ModalFormStyle = styled.form``
 
 const ButtonsStyle = styled.div`
+  display: flex;
+  gap: 10px;
   button {
     border-radius: 7px;
     padding: 10px 30px;

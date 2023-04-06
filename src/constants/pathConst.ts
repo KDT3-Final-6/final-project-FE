@@ -16,6 +16,7 @@ const PATH = {
   CONSULT: '/consult',
   ORDER_LIST: 'orderlist',
   WISHLIST: '/mypage/wishlist',
+  CHECKPASSWORD: '/mypage/checkpassword',
   MY_REVIEW: 'myreview',
   ONE_ON_ONE: 'oneonone',
   INFO_EDIT: 'infoedit',
