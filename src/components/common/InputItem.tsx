@@ -15,6 +15,8 @@ interface IInputItem {
   register?: object
   ariaInvalid?: boolean
   errorMessage?: string
+  minLength?: number
+  maxLength?: number
 }
 
 const InputItem = ({
@@ -28,6 +30,8 @@ const InputItem = ({
   register,
   ariaInvalid = false,
   errorMessage = '',
+  minLength,
+  maxLength,
 }: IInputItem) => {
   return (
     <Input
@@ -37,6 +41,8 @@ const InputItem = ({
       isDisabled={isDisabled}
       register={register}
       ariaInvalid={ariaInvalid}
+      minLength={minLength}
+      maxLength={maxLength}
     >
       <PAlignStyle>
         {title}{' '}
