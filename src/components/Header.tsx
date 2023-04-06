@@ -20,7 +20,6 @@ import { getCookie } from '@src/utils/cookie'
 const Header = () => {
   const dispatch = useDispatch()
   const [cookies, setCookies, removeCookies] = useCookies()
-  console.log(cookies)
 
   const handleLogout = async () => {
     try {

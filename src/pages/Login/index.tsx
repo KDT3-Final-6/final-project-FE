@@ -39,19 +39,8 @@ const Login = () => {
       })
       setCookies('accessToken', response.data.accessToken, {
         maxAge: 3600,
-        httpOnly: true,
       })
-
-      dispatch(
-        setModal({
-          isOpen: true,
-          text: MESSAGES.LOGIN.complete,
-          onClickOK: () =>
-            dispatch(
-              setModal({ isOpen: false, route: navigate(PATH.HOME, { state: PATH.LOGIN }) })
-            ),
-        })
-      )
+      navigate(PATH.HOME, { state: PATH.LOGIN })
     } catch (error: any) {
       if (error.response && error.response.status === 401) {
         dispatch(
