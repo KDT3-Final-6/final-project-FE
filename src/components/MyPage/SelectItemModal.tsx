@@ -5,24 +5,37 @@ import Button from '@components/common/Button'
 import styled, { css, keyframes } from 'styled-components'
 import { COLORS } from '@src/styles/root'
 import { useForm, SubmitHandler } from 'react-hook-form'
+import RadioItem from '@src/components/MyPage/RadioItem'
+
+type Option = {
+  id: number
+  name: string
+}
 
 interface ISelectItemModal {
   setCurrentValue: any
   setIsModalOpen: any
-  selcetedProduct: string | null
-  setSelcetedProduct: any
+  selectedOption?: Option | null
+  setSelectedOption?: any
+  setIsChecked: React.Dispatch<React.SetStateAction<boolean>>
+  setProductId: React.Dispatch<React.SetStateAction<number | null>>
 }
 
 const SelectItemModal = ({
   setIsModalOpen,
   setCurrentValue,
-  selcetedProduct,
-  setSelcetedProduct,
+  selectedOption,
+  setSelectedOption,
+  setIsChecked,
+  setProductId,
 }: ISelectItemModal) => {
   const [errorsMessage, setErrorsMessage] = useState<string>('')
+  const handleOptionChange = (name: string, id: null | number) => {
+    setSelectedOption({ name, id })
+  }
 
   const handleCloseModal = () => {
-    if (!selcetedProduct) {
+    if (!selectedOption) {
       setCurrentValue('문의유형')
       setIsModalOpen(false)
     } else {
@@ -30,22 +43,13 @@ const SelectItemModal = ({
     }
   }
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm({})
-
-  const onValid: SubmitHandler<any> = (data) => {
-    setSelcetedProduct(data.orderList)
-    setIsModalOpen(false)
-  }
-
-  const onInvalid = (errors: any) => {
-    const errorMessage = Object.values(errors).map((error: any) => error.message)[0]
-    setErrorsMessage(errorMessage)
-    alert(errorMessage)
+  const handleClick = () => {
+    if (!selectedOption) alert('상품문의는 문의상품 선택이 필수입니다.')
+    else {
+      setProductId(selectedOption.id)
+      setIsModalOpen(false)
+      setIsChecked(false)
+    }
   }
 
   const getOrderList = [
@@ -111,18 +115,10 @@ const SelectItemModal = ({
   const orderList = getOrderList.map((item) => item.orderList).flat()
 
   return (
-    <ModalStyle onSubmit={handleSubmit(onValid, onInvalid)}>
+    <ModalStyle>
       <header>
         <div>
           <p>문의 상품 선택</p>
-          <CheckItem
-            type="radio"
-            id="문의 상품 선택 안함"
-            labelName="주문 상품 선택 안함"
-            name="orderList"
-            checkType="rectType"
-            register={{ ...register('orderList', { required: '문의할 상품을 선택해주세요' }) }}
-          />
         </div>
         <Button onClick={handleCloseModal} width="24px" height="24px" borderRadius="50%">
           <AiFillCloseCircle />
@@ -130,19 +126,23 @@ const SelectItemModal = ({
       </header>
       <article>
         {orderList.map((item) => (
-          <CheckItem
+          <RadioItem
             key={item.productId}
-            type="radio"
-            id={item.productName}
-            labelName={item.productName}
-            name="orderList"
-            checkType="rectType"
-            register={{ ...register('orderList', { required: '문의할 상품을 선택해주세요' }) }}
+            id={item.productId}
+            name={item.productName}
+            isChecked={selectedOption?.id === item.productId}
+            onChange={handleOptionChange}
           />
         ))}
       </article>
       <footer>
-        <Button type="submit" width="204px" height="45px" buttonType="borderGray">
+        <Button
+          type="submit"
+          width="204px"
+          height="45px"
+          buttonType="borderGray"
+          onClick={handleClick}
+        >
           선택하기
         </Button>
       </footer>
@@ -152,7 +152,7 @@ const SelectItemModal = ({
 
 export default SelectItemModal
 
-const ModalStyle = styled.form`
+const ModalStyle = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
@@ -189,8 +189,6 @@ const ModalStyle = styled.form`
     margin-bottom: 30px;
     min-height: 144px;
     div {
-      padding: 13px;
-      border-bottom: 1px solid #bebebe;
       :last-child {
         border-bottom: none;
       }

@@ -1,13 +1,13 @@
-import { RootState } from '@src/reduxStore/store'
 import React, { useState } from 'react'
 import Modal from 'react-modal'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import Button from './Button'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
+import { ReducerType } from '@src/reduxStore/rootReducer'
 
 const ModalBox = () => {
-  const modalState = useSelector((state: RootState) => state.modal)
+  const modalState = useSelector((state: ReducerType) => state.modal)
   const [isDisabled, setIsDisabled] = useState(false)
 
   const handleClick = () => {
@@ -53,7 +53,7 @@ const ModalBox = () => {
           {modalState.onClickCancel && (
             <Button
               buttonType="transparent"
-              bgColor={COLORS.primary}
+              bgColor={COLORS.cbcbcbc}
               onClick={modalState.onClickCancel}
             >
               취소
@@ -79,6 +79,8 @@ const ModalTxtStyle = styled.p`
 const ModalFormStyle = styled.form``
 
 const ButtonsStyle = styled.div`
+  display: flex;
+  gap: 10px;
   button {
     border-radius: 7px;
     padding: 10px 30px;

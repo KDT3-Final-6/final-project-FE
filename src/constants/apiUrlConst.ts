@@ -8,6 +8,7 @@ const API_URL = {
   products: '/products',
   recommend: '/recommends',
   review: '/reviews',
+  qna: '/qna',
   survey: '/survey',
   category: '/search/category',
   relation: '/products/relation',

@@ -8,20 +8,33 @@ import DistrictCheckTab from '@src/components/ProductPage/District/DistrictCheck
 import CategoryList from '@src/components/ProductPage/CategoryList'
 import districtTab from '@src/constants/districtTab'
 import { getCategoryProducts } from '@src/api/product'
+import { IProductContent } from '@src/interfaces/product'
 
 type Props = {}
 
 const District = (props: Props) => {
   const [checkTab, setCheckTab] = useState<string[]>([])
+  const [products, setProducts] = useState<Array<IProductContent[]>>([])
+
+  const getSelected = (checkTab: string[]) => {
+    return districtTab
+      .filter((tab) => checkTab.includes(String(tab.categoryId)))
+      .map((tab) => tab.district)
+  }
 
   useEffect(() => {
     const fetchData = async () => {
-      for (const check of checkTab) {
-        const data = await getCategoryProducts(check)
+      const items = []
+      for (let tab of getSelected(checkTab)) {
+        tab = tab.replace('&', '%26')
+        const data = await getCategoryProducts(tab)
+        items.push(data.content)
       }
+      setProducts(items)
     }
-    console.log(checkTab)
+    fetchData()
   }, [checkTab])
+
   return (
     <div style={{ margin: '32px 0' }}>
       <Inner>
@@ -41,7 +54,17 @@ const District = (props: Props) => {
           <h2>지역 선택하기</h2>
         </Title>
         <DistrictCheckTab setCheckTab={setCheckTab} />
-        {checkTab.length === 0 && <NullDistrict>선택된 지역이 없습니다.</NullDistrict>}
+        {checkTab.length > 0 ? (
+          products.map((product, index) => (
+            <CategoryList
+              title={getSelected(checkTab)[index]}
+              products={product}
+              key={getSelected(checkTab)[index]}
+            />
+          ))
+        ) : (
+          <NullDistrictStyle>원하는 지역을 선택해 주세요.</NullDistrictStyle>
+        )}
       </Inner>
     </div>
   )
@@ -65,11 +88,14 @@ const BannerStyle = styled.div`
   }
 `
 
-const NullDistrict = styled.div`
+const NullDistrictStyle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 50px 0;
+  margin: 100px 0;
+  font-size: ${FONTSIZE.fz20};
+  color: ${COLORS.c090909};
+  font-weight: ${FONTWEGHT.fw500};
 `
 
 export default District

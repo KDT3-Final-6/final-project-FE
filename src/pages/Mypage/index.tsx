@@ -5,12 +5,14 @@ import styled from 'styled-components'
 import Image from '@src/components/common/Image'
 import MenuTab from '@src/components/MyPage/MenuTab'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import Button from '@components/common/Button'
 import Title, { HighlightSpanStyle } from '@src/components/common/Title'
 
 const MyPage = () => {
   const [activeMenu, setActiveMenu] = useState(0)
+  const navigate = useNavigate()
+
   return (
     <>
       <Image bgImage="/images/myPage_banner.png" alt="banner" width="100%" height="190px" />
@@ -43,7 +45,13 @@ const MyPage = () => {
             </HighlightSpanStyle>
           </h2>
         </Title>
-        <Button buttonType="cartSkyBlue" width="140px" height="42px" borderRadius="50px">
+        <Button
+          buttonType="cartSkyBlue"
+          width="140px"
+          height="42px"
+          borderRadius="50px"
+          onClick={() => navigate('/mypage/checkpassword')}
+        >
           <div
             style={{ display: 'flex', gap: '5px', alignItems: 'center', justifyContent: 'center' }}
           >

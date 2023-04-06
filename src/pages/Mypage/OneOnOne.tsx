@@ -1,15 +1,34 @@
+import { getQnAList } from '@src/api/post'
 import Button from '@src/components/common/Button'
 import OneOnOneCard from '@src/components/MyPage/OneOnOneCard'
 import QuestionCard from '@src/components/MyPage/QuestionCard'
+import { useGetQnAListQuery } from '@src/reduxStore/api/qnaApiSlice'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import Paginate from '@src/components/common/Paginate'
 
-type Props = {}
-
-const OneOnOne = (props: Props) => {
+const OneOnOne = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const [page, setPage] = useState<number>(1)
+
+  const { data: qnaList, isLoading, isFetching } = useGetQnAListQuery(page)
+  if (isLoading) <>Loading</>
+
   const handleClick = () => setIsOpen((prev) => !prev)
+
+  const changePageHandler = (event: { selected: number }) => {
+    setPage(event.selected + 1)
+  }
+
+  console.log('qnaList', qnaList)
+
+  // 정렬....
+  // const sortedQnAList = qnaList && {
+  //   ...qnaList,
+  //   content: [...qnaList.content].sort((a, b) => b.postId - a.postId),
+  // }
+
   return (
     <ContainerStyle>
       <BtnBoxStyle>
@@ -18,10 +37,12 @@ const OneOnOne = (props: Props) => {
         </Button>
       </BtnBoxStyle>
       <CardSectionStyle>
-        <QuestionCard isOpen={isOpen} setIsOpen={setIsOpen} />
-        <OneOnOneCard />
-        <OneOnOneCard />
+        {isOpen && <QuestionCard isOpen={isOpen} setIsOpen={setIsOpen} />}
+        {qnaList?.content.map((item) => (
+          <OneOnOneCard key={item.postId} postInfo={item} />
+        ))}
       </CardSectionStyle>
+      <Paginate totalElements={qnaList?.totalPages || 0} changePageHandler={changePageHandler} />
     </ContainerStyle>
   )
 }

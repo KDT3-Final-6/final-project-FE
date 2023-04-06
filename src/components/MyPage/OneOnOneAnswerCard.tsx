@@ -7,10 +7,10 @@ import { IoIosArrowUp } from 'react-icons/io'
 
 interface IOneOnOneAnswerCard {
   answer: string
+  replyDate: string
   setIsInquiryOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
-const OneOnOneAnswerCard = ({ answer, setIsInquiryOpen }: IOneOnOneAnswerCard) => {
-  const createdDate = '2023-03-27' // 글쓴 날짜 제목, 데이터 패칭할 것
+const OneOnOneAnswerCard = ({ replyDate, answer, setIsInquiryOpen }: IOneOnOneAnswerCard) => {
   const time = '16:27' // 글쓴 시간, 데이터 패칭할 것
   return (
     <OneOnOneAnswerCardStyle>
@@ -20,7 +20,7 @@ const OneOnOneAnswerCard = ({ answer, setIsInquiryOpen }: IOneOnOneAnswerCard) =
       <ContentStyle>{answer}</ContentStyle>
       <FooterStyle>
         <DateStyle>
-          <span>{splitDate(createdDate)}</span>
+          <span>{splitDate(replyDate)}</span>
           <span>{time}</span>
         </DateStyle>
         <ButtonBoxStyle>
