@@ -11,10 +11,9 @@ import { IQnAContent } from '@src/interfaces/post'
 interface IOneOnOneCard {
   postInfo: IQnAContent
 }
+
 const OneOnOneCard = ({ postInfo }: IOneOnOneCard) => {
-  const [isInquiryOpen, setIsInquiryOpen] = useState<boolean>(false)
   const {
-    postId,
     postTitle,
     postContent,
     inquiryType,
@@ -24,9 +23,8 @@ const OneOnOneCard = ({ postInfo }: IOneOnOneCard) => {
     createdDate,
     replyDate,
   } = postInfo
-
+  const [isInquiryOpen, setIsInquiryOpen] = useState<boolean>(false)
   const time = '16:27' // 글쓴 시간, 데이터 패칭할 것
-
   return (
     <ContainerStyle>
       <TitleBoxStyle>

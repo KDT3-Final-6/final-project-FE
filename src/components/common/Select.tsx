@@ -22,8 +22,6 @@ interface ISelect {
   register?: any
   selectValue?: string
   currentValue: string
-  setIsModalOpen?: any //React.Dispatch<React.SetStateAction<boolean>>
-  setSelcetedProduct?: any
   setCurrentValue: React.Dispatch<React.SetStateAction<string>>
   onChange?: React.ChangeEventHandler<HTMLLIElement>
   onClick?: React.MouseEventHandler<HTMLLIElement>
@@ -45,9 +43,7 @@ const Select = ({
   type = '',
   register,
   currentValue,
-  setSelcetedProduct,
   setCurrentValue,
-  setIsModalOpen,
   onChange,
   onClick,
 }: ISelect) => {
@@ -58,13 +54,6 @@ const Select = ({
   const handleOnChangeSelectValue = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
     const { innerText } = e.target as HTMLLIElement
     setCurrentValue(innerText)
-    /**selected modal -> 따로 select컴포넌트를 분리하던가 해야할듯*/
-    if (innerText === '상품문의') {
-      setSelcetedProduct(null)
-      setIsModalOpen(true)
-    } else {
-      setIsModalOpen(false)
-    }
   }
 
   return (

@@ -4,9 +4,9 @@ import { BsCheck } from 'react-icons/bs'
 
 interface IRadioItem {
   name: string
-  id: number
+  id: null | number
   isChecked: boolean
-  onChange: (name: string, id: number) => void
+  onChange: (name: string, id: null | number) => void
 }
 
 const RadioItem = ({ name, id, isChecked, onChange }: IRadioItem) => {
@@ -16,7 +16,7 @@ const RadioItem = ({ name, id, isChecked, onChange }: IRadioItem) => {
     }
   }
   return (
-    <ItemStyle>
+    <ItemStyle name={name}>
       <RatioBtnStyle isChecked={isChecked} onClick={handleClick}>
         <BsCheck />
       </RatioBtnStyle>
@@ -27,11 +27,11 @@ const RadioItem = ({ name, id, isChecked, onChange }: IRadioItem) => {
 
 export default RadioItem
 
-const ItemStyle = styled.div`
+const ItemStyle = styled.div<{ name: string }>`
   display: flex;
   align-items: center;
   gap: 20px;
-  border-bottom: 1px solid #bebebe;
+  border-bottom: ${({ name }) => (name === '문의 상품 없음' ? 'none' : '1px solid #bebebe')};
   padding: 12px;
 `
 

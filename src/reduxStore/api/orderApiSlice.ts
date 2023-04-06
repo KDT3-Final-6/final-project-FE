@@ -10,7 +10,7 @@ const baseQuery = fetchBaseQuery({
   baseUrl: API_BASE_URL,
   prepareHeaders: (headers, { getState }) => {
     const token =
-      'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9BRE1JTixST0xFX1VTRVIiLCJleHAiOjE2ODA3ODY4MjZ9.HaxoJDKOwjkEj4tcoqQ59QXoDFuLDhHT8SJpal9wBfc'
+      'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9BRE1JTixST0xFX1VTRVIiLCJleHAiOjE2ODA4NTQ2MTR9.Vphqnq0b9L_CxeLzU0cEYY__Tz0p-OmtJfnTV4oVsbw'
     if (token) {
       headers.set('Authorization', `Bearer ${token}`)
     }
