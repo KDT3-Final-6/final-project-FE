@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import Image from '@src/components/common/Image'
 import MenuTab from '@src/components/MyPage/MenuTab'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
-import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import Button from '@components/common/Button'
 import Title, { HighlightSpanStyle } from '@src/components/common/Title'
 

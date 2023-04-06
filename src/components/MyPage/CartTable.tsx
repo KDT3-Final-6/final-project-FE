@@ -5,7 +5,6 @@ import styled from 'styled-components'
 import { COLORS } from '@src/styles/root'
 import useCounter from '@src/hooks/useCounter'
 import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '@src/reduxStore/store'
 
 interface Props {
   index: string
@@ -13,8 +12,6 @@ interface Props {
 
 const CartTable = ({ index }: Props) => {
   const { quantity, plusQuantity, minusQuantity } = useCounter()
-  const cartList = useSelector((state: RootState) => state.cart)
-  console.log(cartList)
   return (
     <TrStyle>
       <td>
