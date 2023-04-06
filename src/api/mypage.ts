@@ -19,3 +19,7 @@ export const deleteCartProduct = async (cartId: number) =>
 
 /** 내가 쓴 리뷰 */
 export const getReviewsForMe = async () => (await axiosInstance.get(API_URL.review)) as IReview
+
+/** 내가 쓴 리뷰 수정 */
+export const editReview = async (postId: number, data: object) =>
+  await axiosInstance.patch(API_URL.review + `/${postId}`, data)
