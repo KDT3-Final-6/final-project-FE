@@ -5,20 +5,10 @@ import styled from 'styled-components'
 import Button from '@src/components/common/Button'
 import { MdKeyboardArrowDown } from 'react-icons/md'
 import { COLORS } from '@src/styles/root'
-import { getCartProdcts } from '@src/api/product'
 import { ICartList } from '@src/interfaces/product'
+// import { useGetCartListQuery } from '@src/reduxStore/cartSlice'
 
 const Cart = () => {
-  // const [cartList, setCartList] = useState<ICartList[]>([])
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const data = await getCartProdcts()
-  //     setCartList(data.content)
-  //   }
-  //   fetchData()
-  // }, [])
-
   return (
     <>
       <Helmet>

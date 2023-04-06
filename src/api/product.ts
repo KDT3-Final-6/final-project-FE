@@ -46,13 +46,8 @@ export const getRelatedProducts = async (id: number) => {
   return data
 }
 
-export const getCartProdcts = async () => {
-  const response: ICartResponse = await axiosInstance(API_URL.cart)
-  return response
-}
-
 export const postCartProduct = async (optionId: string, quantity: number) => {
-  const response = await axiosInstance.post(API_URL.cart, {
+  await axiosInstance.post(API_URL.cart, {
     productIds: [
       {
         periodOptionId: +optionId,
@@ -60,17 +55,6 @@ export const postCartProduct = async (optionId: string, quantity: number) => {
       },
     ],
   })
-}
-
-export const editCartProduct = async (cartId: number, periodOptionId: number, quantity: number) => {
-  const response = await axiosInstance.patch(`${API_URL.cart}/${cartId}`, {
-    periodOptionId,
-    quantity,
-  })
-}
-
-export const deleteCartProduct = async (cartId: number) => {
-  const response = await axiosInstance.delete(API_URL.cart, {})
 }
 
 /** 관리자 api */

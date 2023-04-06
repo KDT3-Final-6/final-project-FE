@@ -5,39 +5,37 @@ import ProductCard, { ImgAreaStyle, TxtAreaStyle } from '../common/ProductCard'
 import { FaStar } from 'react-icons/fa'
 import Button from '../common/Button'
 import { FONTSIZE, FONTWEGHT, COLORS } from '@src/styles/root'
+import { IReviewContentUnion } from '@src/interfaces/review'
+import StarRateWrapGet from '../common/StarRateWrapGet'
 
-type Props = {}
+interface Props {
+  review: IReviewContentUnion
+}
 
-const ReviewBox = (props: Props) => {
+const ReviewBox = ({ review }: Props) => {
   return (
     <ProductCard cardType="barType" height="230px">
       <ImgAreaStyle>
-        <img src="/images/cart_image (2).jpg" alt="썸네일" />
+        <img src={review.purchasedProductThumbnail} alt="썸네일" />
       </ImgAreaStyle>
       <TxtAreaStyle isBarType={true}>
         <DesStyle>
-          <span>2023.02.01</span>
+          <span>{review.modifiedDate}</span>
           <Title
             titleType="h2"
-            title="[실속 골프 패키지] 사이판 3박4일 골프 여행"
+            title={review.purchasedProductName}
             fontSize={FONTSIZE.fz22}
             fontWeight={FONTWEGHT.fw600}
           />
-          <span>
-            3일은 골프를 하루는 호캉스를 가족들과 함께 즐겨서 정말 행복하고 값진 경험이었어요
-          </span>
+          <span>{review.postContent}</span>
         </DesStyle>
         <StarNButtonStyle>
           <div>
-            <FaStar />
-            <FaStar />
-            <FaStar />
-            <FaStar />
-            <FaStar />
+            <StarRateWrapGet AVR_RATE={20 * review.scope} />
           </div>
           <div>
-            <Button buttonType="borderGray">자세히 보기</Button>
-            <Button buttonType="borderGray">리뷰 수정하기</Button>
+            <Button buttonType="borderGray">수정하기</Button>
+            <Button buttonType="borderGray">삭제하기</Button>
           </div>
         </StarNButtonStyle>
       </TxtAreaStyle>

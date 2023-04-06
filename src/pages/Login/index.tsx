@@ -38,7 +38,7 @@ const Login = () => {
         memberPassword: data.memberPassword,
       })
       setCookies('userName', response.userName)
-      setCookies('accessToken', response.token)
+      setCookies('accessToken', response.accessToken)
       dispatch(
         setModal({
           isOpen: true,

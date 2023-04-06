@@ -1,29 +1,28 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { editCartProduct, getCartProdcts } from '@src/api/product'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query'
 import { ICartResponse, ICartList } from '@src/interfaces/product'
+import API_URL from '@src/constants/apiUrlConst'
+import { getCookie } from '@src/utils/cookie'
 
-/** 장바구니 조회 */
-export const getCartList = createAsyncThunk<ICartResponse>('GET_CARTLIST', async () => {
-  const response = await getCartProdcts()
-  return response
-})
+const API_BASE_URL = import.meta.env.VITE_BASE_URL
 
-/** 장바구니 수정 */
-// export const editCartList = createAsyncThunk('EDIT_CARTLIST', async () => {
-//   const response = await editCartProduct(cartId, periodOptionId, quantity)
-//   return response
-// })
-
-const cart = createSlice({
-  name: 'cart',
-  initialState: <ICartResponse>{},
-  reducers: {},
-  extraReducers: (builder) => {
-    builder.addCase(getCartList.fulfilled, (state, { payload }) => {
-      console.log(payload)
-      return payload
-    })
+const baseQuery = fetchBaseQuery({
+  baseUrl: API_BASE_URL,
+  prepareHeaders: (headers) => {
+    headers.set('content-type', 'application/json')
+    const token = getCookie('accessToken')
+    if (token) headers.set('Authorization', `Bearer ${token}`)
+    return headers
   },
 })
 
-export default cart
+export const cartListAPI = createApi({
+  reducerPath: 'cartListAPI',
+  baseQuery,
+  endpoints: (builder) => ({
+    getCartList: builder.query<ICartResponse, void>({
+      query: () => API_URL.cart,
+    }),
+  }),
+})
+
+// export const { useGetCartListQuery } = cartListAPI

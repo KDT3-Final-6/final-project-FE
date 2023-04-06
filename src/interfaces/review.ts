@@ -1,15 +1,27 @@
+export type IReviewContent = {
+  memberNickname: string
+  postContent: string
+  scope: number
+}
+
+export type IReviewContentForMe = {
+  postId: number
+  productId: number
+  purchasedProductName: string
+  purchasedProductThumbnail: string
+  postContent: string
+  scope: number
+  modifiedDate: string
+}
+
+export type IReviewContentUnion = IReviewContent & IReviewContentForMe
+
 export interface IReview {
-  content: IReviewContent[]
+  content: IReviewContentUnion[]
   pageNumber: number
   size: number
   totalElements: number
   totalPages: number
-}
-
-export interface IReviewContent {
-  memberNickname: string
-  postContent: string
-  scope: number
 }
 
 export const initReview = {
