@@ -4,7 +4,7 @@ import Modal from 'react-modal'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import Button from './Button'
-import { COLORS, FONTWEGHT } from '@src/styles/root'
+import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 
 const ModalBox = () => {
   const modalState = useSelector((state: RootState) => state.modal)
@@ -16,25 +16,24 @@ const ModalBox = () => {
     setTimeout(() => setIsDisabled(false), 1000)
   }
 
-  const customStyle: any = {
+  const customStyle: object = {
     overlay: {
       backgroundColor: 'rgba(0,0,0,0.5)',
+      zIndex: '10',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     content: {
       display: 'flex',
-      justifyContent: 'space-around',
+      inset: 'auto',
+      justifyContent: 'space-between',
       alignItems: 'center',
       flexDirection: 'column',
-      width: '310px',
-      height: '200px',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      padding: '26px 34px',
+      padding: '35px 40px',
       borderRadius: '10px',
       backgroundColor: COLORS.white,
       boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-      zIndex: '10',
     },
   }
 
@@ -72,6 +71,9 @@ const ModalTxtStyle = styled.p`
   font-weight: ${FONTWEGHT.fw700};
   white-space: pre-line;
   text-align: center;
+  margin-bottom: 30px;
+  font-size: ${FONTSIZE.fz14};
+  color: ${COLORS.c1b1b1b};
 `
 
 const ModalFormStyle = styled.form``
@@ -79,7 +81,7 @@ const ModalFormStyle = styled.form``
 const ButtonsStyle = styled.div`
   button {
     border-radius: 7px;
-    padding: 10px 12px;
+    padding: 10px 30px;
     color: ${COLORS.white};
   }
 `

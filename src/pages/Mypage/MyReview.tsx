@@ -19,7 +19,7 @@ const MyReview = () => {
   return (
     <MyReviewStyle>
       {reviews && reviews.length > 0 ? (
-        reviews.map((review) => <ReviewBox review={review} />)
+        reviews.map((review) => <ReviewBox review={review} key={review.postId} />)
       ) : (
         <NullReviewStyle>남긴 리뷰가 없습니다.</NullReviewStyle>
       )}

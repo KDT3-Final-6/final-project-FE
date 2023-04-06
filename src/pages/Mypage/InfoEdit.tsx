@@ -7,6 +7,8 @@ import Inner from '@src/layout/Inner'
 import { COLORS } from '@src/styles/root'
 import React, { useState } from 'react'
 import { CheckStyle, FormAreaStyle, RadiosStyle } from '../SignUp'
+import { Helmet } from 'react-helmet'
+import { userWithDrawal } from '@src/api/auth'
 
 const InfoEdit = () => {
   const [userGender, setUserGender] = useState('Male')
@@ -16,6 +18,9 @@ const InfoEdit = () => {
 
   return (
     <>
+      <Helmet>
+        <title>회원 정보 수정</title>
+      </Helmet>
       <Inner width="400px" padding="100px 0 190px">
         <FormAreaStyle>
           <InputItem
@@ -112,6 +117,15 @@ const InfoEdit = () => {
             확인
           </Button>
         </FormAreaStyle>
+        <Button
+          buttonType="skyBlue"
+          borderRadius="0"
+          width="100%"
+          margin="20px 0"
+          onClick={() => userWithDrawal()}
+        >
+          회원 탈퇴
+        </Button>
       </Inner>
     </>
   )

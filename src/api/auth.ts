@@ -2,8 +2,12 @@ import API_URL from "@src/constants/apiUrlConst";
 import { axiosInstance } from './instance';
 
 interface ILogin{
-  token: string
-  userName: string
+  data: {
+    accessToken: string
+    grantType: string
+    refreshToken: string
+    refreshTokenExpirationTime:number
+  }
 }
 
 

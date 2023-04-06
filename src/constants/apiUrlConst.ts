@@ -1,6 +1,6 @@
 const API_URL = {
   login: '/login',
-  logout: '/logout',
+  logout: '/members/logout',
   members: '/members',
   cart: '/carts',
   order: '/orders',

@@ -18,6 +18,7 @@ import { login } from '@src/api/auth'
 import { setModal } from '@src/reduxStore/modalSlice'
 import MESSAGES from '@src/constants/messages'
 import { ErrorMessage } from '@src/components/common/InputItem'
+import { Helmet } from 'react-helmet'
 
 const Login = () => {
   const dispatch = useDispatch()
@@ -26,25 +27,29 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { isSubmitting, errors, isDirty },
   } = useForm<ILogin>()
 
   const onSubmit = async (data: ILogin) => {
     try {
       dispatch(showLoading())
-      const response: object | any = await login({
+      const response = await login({
         memberEmail: data.memberEmail,
         memberPassword: data.memberPassword,
       })
-      setCookies('userName', response.userName)
-      setCookies('accessToken', response.accessToken)
+      setCookies('accessToken', response.data.accessToken, {
+        maxAge: 3600,
+        httpOnly: true,
+      })
+
       dispatch(
         setModal({
           isOpen: true,
           text: MESSAGES.LOGIN.complete,
           onClickOK: () =>
-            dispatch(setModal({ route: navigate(PATH.HOME, { state: PATH.LOGIN }) })),
+            dispatch(
+              setModal({ isOpen: false, route: navigate(PATH.HOME, { state: PATH.LOGIN }) })
+            ),
         })
       )
     } catch (error: any) {
@@ -61,9 +66,7 @@ const Login = () => {
           setModal({
             isOpen: true,
             text: MESSAGES.LOGIN.error,
-            onClickOK: () => {
-              dispatch(setModal({ isOpen: false }))
-            },
+            onClickOK: () => dispatch(setModal({ isOpen: false })),
           })
         )
       }
@@ -74,6 +77,9 @@ const Login = () => {
 
   return (
     <>
+      <Helmet>
+        <title>고투게더 로그인</title>
+      </Helmet>
       <Title titleType="h1" title="로그인" textAlign="center" margin="102px 0 20px" />
       <Title textAlign="center" fontSize={FONTSIZE.fz18} fontWeight={FONTWEGHT.fw400}>
         <h2>

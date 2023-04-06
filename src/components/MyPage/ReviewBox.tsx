@@ -30,9 +30,7 @@ const ReviewBox = ({ review }: Props) => {
           <span>{review.postContent}</span>
         </DesStyle>
         <StarNButtonStyle>
-          <div>
-            <StarRateWrapGet AVR_RATE={20 * review.scope} />
-          </div>
+          <StarRateWrapGet AVR_RATE={review.scope} />
           <div>
             <Button buttonType="borderGray">수정하기</Button>
             <Button buttonType="borderGray">삭제하기</Button>
@@ -64,7 +62,8 @@ const StarNButtonStyle = styled.div`
   position: absolute;
   bottom: 0;
   svg {
-    font-size: 36px;
+    width: 36px;
+    height: 36px;
   }
   div:first-child {
     color: ${COLORS.primary};
