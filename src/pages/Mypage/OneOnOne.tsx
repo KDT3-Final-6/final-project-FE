@@ -2,15 +2,13 @@ import { getQnAList } from '@src/api/post'
 import Button from '@src/components/common/Button'
 import OneOnOneCard from '@src/components/MyPage/OneOnOneCard'
 import QuestionCard from '@src/components/MyPage/QuestionCard'
-import { qnaApi, useGetQnAListQuery } from '@src/reduxStore/api/qnaApiSlice'
+import { useGetQnAListQuery } from '@src/reduxStore/api/qnaApiSlice'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Paginate from '@src/components/common/Paginate'
 
-type Props = {}
-
-const OneOnOne = (props: Props) => {
+const OneOnOne = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [page, setPage] = useState<number>(1)
 
@@ -22,8 +20,14 @@ const OneOnOne = (props: Props) => {
   const changePageHandler = (event: { selected: number }) => {
     setPage(event.selected + 1)
   }
-  const sortedQnAContents = qnaList && qnaList.content.sort((a, b) => b.postId - a.postId)
-  // console.log('sortedQnAContents', sortedQnAContents)
+
+  console.log('qnaList', qnaList)
+
+  // 정렬....
+  // const sortedQnAList = qnaList && {
+  //   ...qnaList,
+  //   content: [...qnaList.content].sort((a, b) => b.postId - a.postId),
+  // }
 
   return (
     <ContainerStyle>

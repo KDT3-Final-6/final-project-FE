@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 // import { axiosInstance } from '@src/api/instance'
 import API_URL from '@src/constants/apiUrlConst'
-import { IOrders, IPostOrder } from '@src/interfaces/order'
+import { IOrders, IOrderContent } from '@src/interfaces/order'
 
 const API_BASE_URL: string = import.meta.env.VITE_BASE_URL
 
@@ -22,16 +22,19 @@ export const orderApi = createApi({
   reducerPath: 'orderApi',
   baseQuery,
   endpoints: (builder) => ({
-    getOrderList: builder.query<IOrders[], number | void>({
+    getOrderList: builder.query<IOrders, number | void>({
       query: (page = 1) => `${API_URL.order}?page=${page}`,
     }),
-    postOrder: builder.mutation<void, IPostOrder>({
+    postOrder: builder.mutation<void, IOrderContent>({
       query: (order) => ({
         url: API_URL.order,
         method: 'POST',
         body: order,
       }),
     }),
+    // postOrder: builder.query<IOrderContent, number | void>({
+    //   query: (page = 1) => `posts?page=${page}`,
+    // }),
     deleteOrder: builder.mutation<void, number>({
       query: (orderId) => ({
         url: `${API_URL.order}/${orderId}`,
