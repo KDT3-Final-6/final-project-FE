@@ -8,7 +8,6 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import QnASelectBtn from '@components/MyPage/QnASelectBtn'
 import SelectItemModal from './SelectItemModal'
 import { usePostQnAMutation } from '@src/reduxStore/api/qnaApiSlice'
-import { unwrapResult } from '@reduxjs/toolkit'
 
 type Option = {
   id: number

@@ -2,11 +2,11 @@ import { combineReducers } from 'redux'
 import { qnaApi } from './api/qnaApiSlice'
 import { orderApi } from './api/orderApiSlice'
 import loadingSlice from '@src/reduxStore/loadingSlice'
-import modal from '@src/reduxStore/modalSlice'
+import modalSlice from '@src/reduxStore/modalSlice'
 
 const rootReducer = combineReducers({
   loading: loadingSlice.reducer,
-  modal: modal.reducer,
+  modal: modalSlice.reducer,
   [qnaApi.reducerPath]: qnaApi.reducer,
   [orderApi.reducerPath]: orderApi.reducer,
 })
