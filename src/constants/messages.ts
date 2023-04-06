@@ -6,7 +6,7 @@ const MESSAGES = {
   },
   LOGOUT: {
     error: '비정상적인 로그아웃입니다.',
-    complete: '로그아웃',
+    complete: '로그아웃 되었습니다',
   },
   SIGNUP: {
     error: '회원가입중 오류가 발생했습니다.',
