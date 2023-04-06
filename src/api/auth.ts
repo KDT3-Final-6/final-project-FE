@@ -1,5 +1,6 @@
 import API_URL from '@src/constants/apiUrlConst'
 import { axiosInstance } from './instance'
+import { IUserInfo } from '@src/interfaces/user'
 
 interface ILogin {
   data: {
@@ -23,7 +24,7 @@ export const login = async (data: object) => {
 export const logout = () => axiosInstance.post(API_URL.logout)
 
 /** 회원정보 API */
-export const userInfo = () => axiosInstance.get(API_URL.members)
+export const userInfo = async () => (await axiosInstance.get(API_URL.members)) as IUserInfo
 
 /** 회원정보수정 API */
 export const userInfoEdit = () => axiosInstance.patch(API_URL.members)
