@@ -79,12 +79,10 @@ const SignUp = () => {
 
   const [selectedAgree, setSelectedAgree] = useState<boolean>(false)
   const handleAgreeChange = (checked: boolean) => setSelectedAgree(checked)
-
-  let response
   const onSubmit = async (data: IUser) => {
     try {
       dispatch(showLoading())
-      response = await signup({
+      const response = await signup({
         memberEmail: data.memberEmail,
         memberPassword: data.memberPassword,
         memberName: data.memberName,
