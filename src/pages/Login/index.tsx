@@ -37,7 +37,7 @@ const Login = () => {
         memberEmail: data.memberEmail,
         memberPassword: data.memberPassword,
       })
-      setCookies('accessToken', response.data.accessToken, { maxAge: 10 })
+      setCookies('accessToken', response.data.accessToken, { maxAge: 3600000 })
       navigate(PATH.HOME, { state: PATH.LOGIN })
     } catch (error: any) {
       if (error.response && error.response.status === 401) {
