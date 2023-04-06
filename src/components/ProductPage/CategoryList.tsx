@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import Title from '../common/Title'
 import styled from 'styled-components'
 import CardTypeItem from '../common/CardTypeItem'
-import { COLORS, FONTSIZE } from '@src/styles/root'
+import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import { IProduct, IProductContent } from '@src/interfaces/product'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import useSwiperSetting from '@src/hooks/useSwiperSetting'
@@ -20,11 +20,11 @@ const CategoryList = ({ title, products }: Props) => {
   return (
     <>
       <Title margin="80px 0 50px 0" fontSize={FONTSIZE.fz32} title={title} titleType="h2" />
-      <div style={{ position: 'relative' }}>
-        <SlideButtons direction="left" ref={prevRef} />
-        <Swiper {...settings}>
-          {products.length > 0 &&
-            products.map((product) => (
+      {products && products.length > 0 ? (
+        <div style={{ position: 'relative' }}>
+          <SlideButtons direction="left" ref={prevRef} />
+          <Swiper {...settings}>
+            {products.map((product) => (
               <SwiperSlide key={product.productId}>
                 <CardTypeItem
                   item={product}
@@ -36,47 +36,19 @@ const CategoryList = ({ title, products }: Props) => {
                 />
               </SwiperSlide>
             ))}
-        </Swiper>
-        <SlideButtons ref={nextRef} direction="right" />
-      </div>
+          </Swiper>
+          <SlideButtons ref={nextRef} direction="right" />{' '}
+        </div>
+      ) : (
+        <NullProductStyle>{title} 여행은 준비 중입니다.</NullProductStyle>
+      )}
     </>
   )
 }
 
-const SlidePrevStyle = styled.button`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: -40px;
-  z-index: 9;
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  font-size: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid ${COLORS.cF5F5F5};
-  color: ${COLORS.c4b4a4a};
-  background-color: rgba(255, 255, 255, 0.8);
-`
-
-const SlideNextStyle = styled.button`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: -40px;
-  z-index: 9;
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  font-size: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid ${COLORS.cF5F5F5};
-  color: ${COLORS.c4b4a4a};
-  background-color: rgba(255, 255, 255, 0.8);
+const NullProductStyle = styled.div`
+  font-size: ${FONTSIZE.fz24};
+  margin: 50px 0;
 `
 
 export default CategoryList

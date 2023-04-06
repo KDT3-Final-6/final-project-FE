@@ -3,12 +3,18 @@ import Image from '../common/Image'
 import { MdKeyboardArrowDown } from 'react-icons/md'
 import styled from 'styled-components'
 import { COLORS } from '@src/styles/root'
+import useCounter from '@src/hooks/useCounter'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '@src/reduxStore/store'
 
 interface Props {
   index: string
 }
 
 const CartTable = ({ index }: Props) => {
+  const { quantity, plusQuantity, minusQuantity } = useCounter()
+  const cartList = useSelector((state: RootState) => state.cart)
+  console.log(cartList)
   return (
     <TrStyle>
       <td>
@@ -30,9 +36,9 @@ const CartTable = ({ index }: Props) => {
       </td>
       <OptionBoxStyle>
         <div>
-          <OptionButtonStyle>+</OptionButtonStyle>
-          <span>1</span>
-          <OptionButtonStyle>-</OptionButtonStyle>
+          <OptionButtonStyle onClick={plusQuantity}>+</OptionButtonStyle>
+          <span>{quantity}</span>
+          <OptionButtonStyle onClick={minusQuantity}>-</OptionButtonStyle>
         </div>
       </OptionBoxStyle>
       <td

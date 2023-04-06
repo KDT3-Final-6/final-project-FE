@@ -9,17 +9,16 @@ import { getCartProdcts } from '@src/api/product'
 import { ICartList } from '@src/interfaces/product'
 
 const Cart = () => {
-  const [cartList, setCartList] = useState<ICartList[]>([])
+  // const [cartList, setCartList] = useState<ICartList[]>([])
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getCartProdcts()
-      setCartList(data.content)
-    }
-    fetchData()
-  }, [])
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const data = await getCartProdcts()
+  //     setCartList(data.content)
+  //   }
+  //   fetchData()
+  // }, [])
 
-  console.log(cartList)
   return (
     <>
       <Helmet>
