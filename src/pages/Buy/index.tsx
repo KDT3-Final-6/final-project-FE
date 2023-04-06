@@ -7,9 +7,11 @@ import { useNavigate } from 'react-router-dom'
 import CheckItem from '@src/components/common/CheckItem'
 import { useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
+import { usePostOrderMutation } from '@src/reduxStore/api/orderApiSlice'
 
 interface IBuy {
   checkbox?: boolean
+  paymentMethod: string
 }
 
 const index = () => {
@@ -18,9 +20,10 @@ const index = () => {
   const [isChecked, setIsChecked] = useState([false, false])
   const [errorsMessage, setErrorsMessage] = useState<string>('')
 
+  const [postQuestion, { isLoading, error, isSuccess }] = usePostOrderMutation()
+
   const image =
     'https://upload.wikimedia.org/wikipedia/commons/9/96/Castellammare_del_Golfo_Harbour%2C_Sicily.jpg' // 패칭해올 데이터
-  const price = 1190000
   const name = '고투게더'
   const phoneNumber = '01012345678'
   const email = 'gotogether@gmail.com'
@@ -33,8 +36,8 @@ const index = () => {
       cartId: 3,
       productId: 1,
       periodOptionId: 1,
-      cartPrice: 20000,
-      productName: '하와이 실속 만점 골프',
+      cartPrice: 500000,
+      productName: '호주&뉴질랜드 예시',
       periodOptionName: '출발 : 2023.03.07(화) / 도착 : 2023.03.07(화)',
       productThumbnail: 'https://final-project-travel.s3.ap-northeast-2.amazonaws.com/',
       productContent: 'test_f085b73fb468',
@@ -42,20 +45,20 @@ const index = () => {
     },
     {
       cartId: 4,
-      productId: 1,
-      periodOptionId: 1,
-      cartPrice: 10000,
-      productName: 'test_b885c960e76ctest_b885c960e76ctest_b885c960e76ctest_b885c960e76c',
+      productId: 2,
+      periodOptionId: 3,
+      cartPrice: 2590000,
+      productName: '미얀마 9일',
       periodOptionName: '출발 : 2023.03.07(화) / 도착 : 2023.03.07(화)',
       productThumbnail: 'https://final-project-travel.s3.ap-northeast-2.amazonaws.com/',
       productContent: 'test_f085b73fb468',
       cartQuantity: 1,
     },
     {
-      cartId: 5,
-      productId: 1,
-      periodOptionId: 1,
-      cartPrice: 40000,
+      cartId: 13,
+      productId: 3,
+      periodOptionId: 5,
+      cartPrice: 5390000,
       productName: '슈퍼마리오 영화 기대중',
       periodOptionName: '출발 : 2023.03.07(화) / 도착 : 2023.03.07(화)',
       productThumbnail: 'https://final-project-travel.s3.ap-northeast-2.amazonaws.com/',
@@ -63,9 +66,11 @@ const index = () => {
       cartQuantity: 4,
     },
   ]
+  /**상품정보 map돌릴 데이터 */
   const filterData = productData.map((item) => {
     return {
       name: item.productName,
+      productThumbnail: item.productThumbnail,
       productPrice: item.cartPrice,
       thumbnail: item.productThumbnail, //
       periodOptionName: item.periodOptionName,
@@ -75,8 +80,14 @@ const index = () => {
     }
   })
 
+  /**post보낼 데이터 */
+  const postProductData = productData.map((product) => ({
+    periodOptionId: product.periodOptionId,
+    quantity: product.cartQuantity,
+  }))
+
   const totalProductPrice = filterData.reduce((acc, curr) => {
-    return acc + curr.productPrice
+    return acc + curr.productPrice * curr.quantity
   }, 0)
 
   const paymentMethodTabs = [
@@ -116,11 +127,26 @@ const index = () => {
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm({})
+  } = useForm<IBuy>({})
 
-  const onValid: SubmitHandler<IBuy> = (data) => {
-    alert(JSON.stringify(data))
-    navigate('/mypage/orderlist')
+  const onValid: SubmitHandler<IBuy> = async ({ paymentMethod, checkbox }) => {
+    console.log(paymentMethod)
+    const result = await postQuestion({
+      productIds: postProductData,
+      paymentMethod,
+    })
+    console.log('result', result)
+    if ('data' in result && result.data === null) {
+      alert('계좌번호 : 신한 110-310-112211로 입금부탁드립니다')
+      navigate('/mypage/orderlist')
+      console.log('result', result)
+    } else if ('error' in result) {
+      console.log('result.error', result.error)
+      alert('결제에 실패했습니다.')
+    } else {
+      alert('결제에 실패했습니다.')
+      console.log('Unexpected result:', result)
+    }
   }
 
   const onInvalid = (errors: any) => {
@@ -130,7 +156,7 @@ const index = () => {
   }
 
   return (
-    <ContainerStyle>
+    <ContainerStyle onSubmit={handleSubmit(onValid, onInvalid)}>
       <Title margin="102px 0 80px 0" fontSize={FONTSIZE.fz32}>
         결제하기
       </Title>
@@ -150,14 +176,14 @@ const index = () => {
                   <Image width="167px" height="129px" imgBorderRadius="5px" bgImage={image} />
                   <ImageInfoStyle>
                     <span>{item.name}</span>
-                    <div>
+                    <PriceInfoStyle>
                       <div>
                         <span>수량</span>
                         <span>:</span>
-                        <span>1개</span>
+                        <span>{item.quantity ? item.quantity : 1}개</span>
                       </div>
-                      <div>{item.productPrice.toLocaleString()}원</div>
-                    </div>
+                      <div>{(item.productPrice * item.quantity).toLocaleString()}원</div>
+                    </PriceInfoStyle>
                   </ImageInfoStyle>
                 </ImageBoxStyle>
                 <TravelDayStyle>
@@ -202,7 +228,7 @@ const index = () => {
             </InfoStyle>
           </UserInfoStyle>
         </LeftBoxStyle>
-        <RightBoxStyle onSubmit={handleSubmit(onValid, onInvalid)}>
+        <RightBoxStyle>
           <PaymentMethodStyle>
             <Title
               fontSize={FONTSIZE.fz26}
@@ -239,11 +265,11 @@ const index = () => {
             </Title>
             <PriceFirstBoxStyle>
               <span>상품가격</span>
-              <span>{price.toLocaleString()}원</span>
+              <span>{totalProductPrice.toLocaleString()}원</span>
             </PriceFirstBoxStyle>
             <PriceSecondBoxStyle>
               <span>총 결제 금액</span>
-              <span>{price.toLocaleString()}원</span>
+              <span>{totalProductPrice.toLocaleString()}원</span>
             </PriceSecondBoxStyle>
             <CheckBoxSectionStyle>
               <div>
@@ -296,7 +322,7 @@ const index = () => {
 
 export default index
 
-const ContainerStyle = styled.div`
+const ContainerStyle = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -344,23 +370,29 @@ const ImageInfoStyle = styled.div`
     height: 100%;
     width: 421px;
     word-wrap: break-word;
-    text-align: end;
+    text-align: start;
 
     :first-child {
       line-height: 31px;
       font-weight: ${FONTWEGHT.fw500};
     }
   }
-  & > div {
-    display: flex;
-    div:first-child {
-    }
-    div:last-child {
-      /* display: flex; */
-      /* align-items: flex-end; */
-      /* justify-content: end; */
-      font-weight: ${FONTWEGHT.fw700};
-    }
+`
+
+const PriceInfoStyle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  div:first-child {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 31px;
+  }
+  div:last-child {
+    font-weight: ${FONTWEGHT.fw700};
+    font-size: 24px;
+    line-height: 29px;
   }
 `
 
@@ -391,11 +423,14 @@ const SumOfPriceStyle = styled.div`
   display: flex;
   padding: 25px 24px;
   justify-content: space-between;
+  align-items: center;
   font-size: ${FONTSIZE.fz20};
   span {
     :last-child {
       text-align: right;
       font-weight: ${FONTWEGHT.fw700};
+      font-size: 24px;
+      line-height: 29px;
     }
   }
 `
@@ -477,7 +512,7 @@ const PriceBoxStyle = styled.div`
   }
 `
 
-const RightBoxStyle = styled.form`
+const RightBoxStyle = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: start;
