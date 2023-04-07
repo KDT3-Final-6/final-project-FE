@@ -14,7 +14,7 @@ const CurrentProduct = ({ currentList }: Props) => {
   const prevRef = useRef(null)
   const nextRef = useRef(null)
   const settings = useSwiperSetting({ prevRef, nextRef })
-  console.log(currentList)
+
   return (
     <div style={{ position: 'relative' }}>
       <SlideButtons direction="left" ref={prevRef} />

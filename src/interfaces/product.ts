@@ -54,7 +54,7 @@ export const initProductOption = {
   endDetail: '',
   maximumQunatity: 0,
   minimumQunatity: 0,
-  optionName: '',
+  periodOptionName: '',
   period: 0,
   periodOptionId: 0,
   periodOptionStatus: '',
