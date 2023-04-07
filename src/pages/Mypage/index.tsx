@@ -10,6 +10,7 @@ import Button from '@components/common/Button'
 import Title, { HighlightSpanStyle } from '@src/components/common/Title'
 import { IUserInfo } from '@src/interfaces/user'
 import { userInfo } from '@src/api/auth'
+import { useCookies } from 'react-cookie'
 
 const MyPage = () => {
   const [activeMenu, setActiveMenu] = useState(0)
@@ -53,7 +54,7 @@ const MyPage = () => {
               fontWeight={FONTWEGHT.fw600}
               spanMargin="0 0 20px"
             >
-              일반회원
+              {userInfoData.roles.includes('ROLE_ADMIN') ? '관리자' : '일반회원'}
             </HighlightSpanStyle>
           </h2>
         </Title>

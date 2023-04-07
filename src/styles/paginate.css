@@ -1,9 +1,14 @@
 .pagination-ul {
   display: flex;
   color: #767676;
-  gap: 40px;
+  gap: 20px;
   margin: 90px 0;
   justify-content: center;
+  align-items: center;
+}
+
+.pagination-ul li a {
+  padding: 10px;
   cursor: pointer;
 }
 

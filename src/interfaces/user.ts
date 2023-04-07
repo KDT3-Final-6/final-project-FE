@@ -21,11 +21,12 @@ export interface IUserInfo {
   memberEmail: string
   memberName: string
   memberNickName: string
-  memberPhon: string
+  memberPhone: string
   memberBirthDate: string
   memberHobby: string[]
   memberSmsAgree: boolean
   memberEmailAgree: boolean
   memberGrade: string
   memberImage: string
+  roles: string[]
 }
