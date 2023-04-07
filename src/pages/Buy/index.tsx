@@ -7,11 +7,17 @@ import { useNavigate } from 'react-router-dom'
 import CheckItem from '@src/components/common/CheckItem'
 import { useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { usePostOrderMutation } from '@src/reduxStore/api/orderApiSlice'
+import {
+  usePostOrderMutation,
+  usePostNonUserOrderMutation,
+} from '@src/reduxStore/api/orderApiSlice'
+import { getCookie } from '@src/utils/cookie'
 
 interface IBuy {
   checkbox?: boolean
   paymentMethod: string
+  memberEmail: string
+  memberName: string
 }
 
 const index = () => {
@@ -20,7 +26,10 @@ const index = () => {
   const [isChecked, setIsChecked] = useState([false, false])
   const [errorsMessage, setErrorsMessage] = useState<string>('')
 
-  const [postQuestion, { isLoading, error, isSuccess }] = usePostOrderMutation()
+  const [postOrder] = usePostOrderMutation()
+  const [postNonMember] = usePostNonUserOrderMutation()
+
+  const token = getCookie('accessToken')
 
   const image =
     'https://upload.wikimedia.org/wikipedia/commons/9/96/Castellammare_del_Golfo_Harbour%2C_Sicily.jpg' // 패칭해올 데이터
@@ -129,23 +138,47 @@ const index = () => {
     formState: { errors },
   } = useForm<IBuy>({})
 
-  const onValid: SubmitHandler<IBuy> = async ({ paymentMethod, checkbox }) => {
-    console.log(paymentMethod)
-    const result = await postQuestion({
-      productIds: postProductData,
-      paymentMethod,
-    })
-    console.log('result', result)
-    if ('data' in result && result.data === null) {
-      alert('계좌번호 : 신한 110-310-112211로 입금부탁드립니다')
-      navigate('/mypage/orderlist')
-      console.log('result', result)
-    } else if ('error' in result) {
-      console.log('result.error', result.error)
-      alert('결제에 실패했습니다.')
+  const onValid: SubmitHandler<IBuy> = async (data) => {
+    if (token) {
+      // 회원일 경우
+      const { paymentMethod } = data
+      const result = await postOrder({
+        productIds: postProductData,
+        paymentMethod,
+      })
+
+      if ('data' in result && result.data === null) {
+        if (paymentMethod === '계좌이체') alert('결제에 성공하셨습니다. 메일을 확인해주세요')
+        else alert('결제에 성공하셨습니다.')
+        navigate('/mypage/orderlist', { replace: true })
+        console.log('result', result)
+      } else if ('error' in result) {
+        console.log('result.error', result.error)
+        alert('결제에 실패했습니다.')
+      } else {
+        alert('결제에 실패했습니다.')
+        console.log('Unexpected result:', result)
+      }
     } else {
-      alert('결제에 실패했습니다.')
-      console.log('Unexpected result:', result)
+      // 비회원일 경우
+      const { paymentMethod, memberEmail, memberName } = data
+      const result = await postNonMember({
+        productIds: postProductData,
+        paymentMethod,
+        memberEmail,
+        memberName,
+      })
+      if ('data' in result && result.data === null) {
+        alert('결제에 성공하셨습니다. 메일을 확인해주세요')
+        navigate('/mypage/orderlist', { replace: true })
+        console.log('result', result)
+      } else if ('error' in result) {
+        console.log('result.error', result.error)
+        alert('결제에 실패했습니다.')
+      } else {
+        alert('결제에 실패했습니다.')
+        console.log('Unexpected result:', result)
+      }
     }
   }
 
@@ -215,15 +248,41 @@ const index = () => {
             <InfoStyle>
               <InfoCardStyle>
                 <span>예약자 이름</span>
-                <div>{name}</div>
+                {token ? (
+                  <p>{name}</p>
+                ) : (
+                  <input
+                    type="text"
+                    placeholder="한글로 2글자 이상 작성해주세요"
+                    {...register('memberName', {
+                      pattern: {
+                        value: /^[가-힣]{2,4}$/,
+                        message: '이름을 한글로 올바르게 작성해주세요.',
+                      },
+                    })}
+                  />
+                )}
               </InfoCardStyle>
-              <InfoCardStyle>
-                <span>연락처('-'포함x)</span>
-                <div>{phoneNumber}</div>
-              </InfoCardStyle>
+              {token ? (
+                <InfoCardStyle>
+                  <span>연락처('-'포함x)</span>
+                  <p>{phoneNumber}</p>
+                </InfoCardStyle>
+              ) : null}
               <InfoCardStyle>
                 <span>이메일</span>
-                <div>{email}</div>
+                {token ? (
+                  <p>{email}</p>
+                ) : (
+                  <input
+                    type="text"
+                    placeholder="gotogether@shinytravels.com"
+                    {...register('memberEmail', {
+                      required: '이메일을 입력하세요.',
+                      pattern: { value: /\S+@\S+\.\S+/, message: '이메일 형식에 맞지 않습니다.' },
+                    })}
+                  />
+                )}
               </InfoCardStyle>
             </InfoStyle>
           </UserInfoStyle>
@@ -344,7 +403,8 @@ const ProductInfoStyle = styled.section`
 `
 
 const UserInfoStyle = styled.section`
-  height: 455px;
+  min-height: 350px;
+  max-height: 455px;
 `
 
 const LeftBoxStyle = styled.div`
@@ -449,6 +509,7 @@ const InfoStyle = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 24px;
 `
 const InfoCardStyle = styled.div`
   display: flex;
@@ -459,7 +520,17 @@ const InfoCardStyle = styled.div`
     font-size: ${FONTSIZE.fz20};
     line-height: 150%;
   }
-  div {
+  p {
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    width: 607px;
+    height: 48px;
+    color: ${COLORS.c767676};
+    background-color: ${COLORS.cededed};
+    border: 1px solid ${COLORS.cddd};
+  }
+  input {
     display: flex;
     align-items: center;
     padding: 0 15px;

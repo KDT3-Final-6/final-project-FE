@@ -1,20 +1,24 @@
 import { FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
+import { HashLink } from 'react-router-hash-link'
 
-const MoveTab = () => {
+interface Props {
+  reviews: number
+}
+
+const MoveTab = ({ reviews }: Props) => {
   return (
     <MoveTabStyle>
-      <Link to="#detail">
+      <HashLink smooth to="#detail">
         <Tab>상품 상세</Tab>
-      </Link>
-      <Link to="#review">
-        <Tab>상품 후기(83)</Tab>
-      </Link>
-      <Link to="#related">
+      </HashLink>
+      <HashLink smooth to="#review">
+        <Tab>상품 후기({reviews})</Tab>
+      </HashLink>
+      <HashLink smooth to="#related">
         <Tab>연관 상품</Tab>
-      </Link>
+      </HashLink>
     </MoveTabStyle>
   )
 }

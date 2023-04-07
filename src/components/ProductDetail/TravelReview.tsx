@@ -26,7 +26,7 @@ const TravelReview = ({ productId }: Props) => {
       <Inner>
         <Title fontSize={FONTSIZE.fz26} fontWeight={FONTWEGHT.fw500} margin="50px 0">
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <h3 id="review">상품 후기(83)</h3>
+            <h3 id="review">상품 후기({reviews.length})</h3>
             <span
               style={{
                 color: COLORS.primary,

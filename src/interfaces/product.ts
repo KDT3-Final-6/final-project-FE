@@ -38,7 +38,7 @@ export interface IProductOption {
   endDetail: string
   maximumQunatity: number
   minimumQunatity: number
-  optionName: string
+  periodOptionName: string
   period: number
   periodOptionId: number
   periodOptionStatus: string
@@ -54,7 +54,7 @@ export const initProductOption = {
   endDetail: '',
   maximumQunatity: 0,
   minimumQunatity: 0,
-  optionName: '',
+  periodOptionName: '',
   period: 0,
   periodOptionId: 0,
   periodOptionStatus: '',
@@ -93,12 +93,14 @@ export interface ICartResponse {
 
 export interface ICartList {
   cartId: number
-  productId: number
-  periodOptionId: number
-  cartPrice: number
-  productName: string
-  periodOptionName: string
-  productThumbnail: string
-  productContent: string
   cartQuantity: number
+  periodOptionId: number
+  periodOptionName: string
+  periodOptionStatus: string
+  productContent: string
+  productId: number
+  productName: string
+  productPrice: number
+  productStatus: string
+  productThumbnail: string
 }

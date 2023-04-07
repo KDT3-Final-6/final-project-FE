@@ -42,6 +42,13 @@ export interface IPostOrder {
   paymentMethod: string
 }
 
+export interface INonMemberOrder {
+  productIds: IProductIds[]
+  paymentMethod: string
+  memberName: string
+  memberEmail: string
+}
+
 export interface IProductIds {
   periodOptionId: number
   quantity: number

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
-function useCounter() {
-  const [quantity, setQuantity] = useState(1)
+function useCounter(initQuantity: number) {
+  const [quantity, setQuantity] = useState(initQuantity)
   const minusQuantity = () => {
     quantity > 1 ? setQuantity((prev) => prev - 1) : 1
   }

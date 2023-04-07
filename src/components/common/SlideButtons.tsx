@@ -12,11 +12,11 @@ const SlideButtons = React.forwardRef(
     return (
       <>
         {direction === 'left' ? (
-          <SlidePrevStyle ref={ref}>
+          <SlidePrevStyle ref={ref} className="left">
             <TfiArrowLeft />
           </SlidePrevStyle>
         ) : (
-          <SlideNextStyle ref={ref}>
+          <SlideNextStyle ref={ref} className="right">
             <TfiArrowRight />
           </SlideNextStyle>
         )}
