@@ -37,7 +37,8 @@ const Login = () => {
         memberEmail: data.memberEmail,
         memberPassword: data.memberPassword,
       })
-      setCookies('accessToken', response.data.accessToken, { maxAge: 80000 })
+      setCookies('accessToken', response.data.accessToken, { maxAge: 3600 })
+      setCookies('role', response.data.roles, { maxAge: 3600 })
 
       dispatch(
         setModal({

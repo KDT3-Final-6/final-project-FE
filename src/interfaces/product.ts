@@ -93,12 +93,14 @@ export interface ICartResponse {
 
 export interface ICartList {
   cartId: number
-  productId: number
-  periodOptionId: number
-  cartPrice: number
-  productName: string
-  periodOptionName: string
-  productThumbnail: string
-  productContent: string
   cartQuantity: number
+  periodOptionId: number
+  periodOptionName: string
+  periodOptionStatus: string
+  productContent: string
+  productId: number
+  productName: string
+  productPrice: number
+  productStatus: string
+  productThumbnail: string
 }

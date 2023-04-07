@@ -3,7 +3,7 @@ import PATH from '@src/constants/pathConst'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { AiOutlineHeart, AiOutlineUser, AiOutlineShoppingCart } from 'react-icons/ai'
-import { FiLogIn, FiLogOut } from 'react-icons/fi'
+import { FiLogIn, FiLogOut, FiSettings } from 'react-icons/fi'
 import { FaRegUserCircle } from 'react-icons/fa'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import Input from './common/Input'
@@ -103,6 +103,12 @@ const Header = () => {
                   <FaRegUserCircle />
                   <span>마이페이지</span>
                 </Link>
+                {cookies.role.includes('ROLE_ADMIN') && (
+                  <Link to={PATH.ADMIN}>
+                    <FiSettings />
+                    <span>관리자</span>
+                  </Link>
+                )}
               </>
             ) : (
               <>

@@ -4,30 +4,37 @@ import { MdKeyboardArrowDown } from 'react-icons/md'
 import styled from 'styled-components'
 import { COLORS } from '@src/styles/root'
 import useCounter from '@src/hooks/useCounter'
-import { useDispatch, useSelector } from 'react-redux'
+import { ICartList } from '@src/interfaces/product'
 
 interface Props {
-  index: string
+  item: ICartList
+  hadleSingleCheck: (checked: boolean, id: number) => void
+  checkbox: number[]
 }
 
-const CartTable = ({ index }: Props) => {
-  const { quantity, plusQuantity, minusQuantity } = useCounter()
+const CartTable = ({ item, hadleSingleCheck, checkbox }: Props) => {
+  let { quantity, plusQuantity, minusQuantity } = useCounter(item?.cartQuantity)
+
   return (
     <TrStyle>
       <td>
-        {/* 나중에 id 값 상품 번호로 변경 */}
-        <input type="checkbox" id={index} />
-        <label htmlFor={index}>
+        <input
+          type="checkbox"
+          id={String(item?.cartId)}
+          onChange={(e) => hadleSingleCheck(e.target.checked, item?.cartId)}
+          checked={checkbox.includes(item.cartId) ? true : false}
+        />
+        <label htmlFor={String(item?.cartId)}>
           <MdKeyboardArrowDown />
         </label>
       </td>
       <td>
         <DescStyle>
-          <Image src="/images/cart_image (1).jpg" alt="썸네일" />
+          <Image src={item?.productThumbnail} alt="썸네일" />
           <DescInnerStyle>
-            <span>[실속 골프 패키지] 사이판 3박4일 골프여행</span>
-            <span>3일은 골프를 하루는 호캉스를 즐길 수 있는 3월 특가 실속 골프 패키지</span>
-            <span>출발: 2023.04.02(일) / 도착: 2023.04.05(수)</span>
+            <span>{item?.productName}</span>
+            <span>{item?.productContent}</span>
+            <span>{item?.periodOptionName}</span>
           </DescInnerStyle>
         </DescStyle>
       </td>
@@ -46,7 +53,7 @@ const CartTable = ({ index }: Props) => {
           fontWeight: 700,
         }}
       >
-        4,572,000원
+        {(quantity * item?.productPrice).toLocaleString()}원
       </td>
       <td style={{ verticalAlign: 'middle', textAlign: 'center' }}>-</td>
     </TrStyle>

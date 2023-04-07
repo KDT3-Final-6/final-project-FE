@@ -29,7 +29,7 @@ interface schemaType {
 
 const ProductInfo = ({ productDetail, pathname, setOptionIndex, reviews }: Props) => {
   const onCopy = useCopyClipBoard()
-  const { quantity, plusQuantity, minusQuantity } = useCounter()
+  const { quantity, plusQuantity, minusQuantity } = useCounter(1)
   const navigate = useNavigate()
 
   const optionIdChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {

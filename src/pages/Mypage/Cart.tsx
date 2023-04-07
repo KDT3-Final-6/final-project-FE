@@ -6,9 +6,30 @@ import Button from '@src/components/common/Button'
 import { MdKeyboardArrowDown } from 'react-icons/md'
 import { COLORS } from '@src/styles/root'
 import { ICartList } from '@src/interfaces/product'
-// import { useGetCartListQuery } from '@src/reduxStore/cartSlice'
+import { useGetCartListQuery } from '@src/reduxStore/api/cartApiSlice'
 
 const Cart = () => {
+  const { data, isLoading, isFetching } = useGetCartListQuery()
+  const cartList: ICartList[] = data?.content
+  const [checkbox, setCheckbox] = useState<number[]>([])
+
+  const hadleSingleCheck = (checked: boolean, id: number) => {
+    if (checked) {
+      setCheckbox((prev) => [...prev, id])
+    } else {
+      setCheckbox(checkbox.filter((el) => el !== id))
+    }
+  }
+
+  const handleAllCheck = (checked: boolean) => {
+    if (checked) {
+      const idArray: number[] = []
+      cartList.forEach((el) => idArray.push(el.cartId))
+      setCheckbox(idArray)
+    } else {
+      setCheckbox([])
+    }
+  }
   return (
     <>
       <Helmet>
@@ -26,7 +47,12 @@ const Cart = () => {
         <TableHeaderStyle>
           <tr>
             <th>
-              <input type="checkbox" id="all" />
+              <input
+                type="checkbox"
+                id="all"
+                onChange={(e) => handleAllCheck(e.target.checked)}
+                checked={checkbox.length === cartList?.length ? true : false}
+              />
               <label htmlFor="all">
                 <MdKeyboardArrowDown />
               </label>
@@ -38,8 +64,15 @@ const Cart = () => {
           </tr>
         </TableHeaderStyle>
         <tbody>
-          <CartTable index={'1'} />
-          <CartTable index={'2'} />
+          {cartList &&
+            cartList?.map((item) => (
+              <CartTable
+                key={item.cartId}
+                item={item}
+                hadleSingleCheck={hadleSingleCheck}
+                checkbox={checkbox}
+              />
+            ))}
         </tbody>
       </CartStyle>
       <ControlBoxStyle>
