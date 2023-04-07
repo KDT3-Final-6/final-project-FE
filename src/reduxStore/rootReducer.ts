@@ -1,3 +1,4 @@
+import { userInfoSlice } from './features/userInfoSlice'
 import { combineReducers } from 'redux'
 import { qnaApi } from './api/qnaApiSlice'
 import { orderApi } from './api/orderApiSlice'
@@ -7,6 +8,7 @@ import modalSlice from '@src/reduxStore/modalSlice'
 const rootReducer = combineReducers({
   loading: loadingSlice.reducer,
   modal: modalSlice.reducer,
+  userInfo: userInfoSlice.reducer,
   [qnaApi.reducerPath]: qnaApi.reducer,
   [orderApi.reducerPath]: orderApi.reducer,
 })
