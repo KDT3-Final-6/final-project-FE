@@ -1,16 +1,16 @@
-import React, { SetStateAction, useState } from 'react'
+import React, { SetStateAction, useState, useEffect } from 'react'
 import { SlArrowRight } from 'react-icons/sl'
 import styled from 'styled-components'
 import { AiOutlineShareAlt, AiOutlineShoppingCart } from 'react-icons/ai'
 import Button from '../common/Button'
 import Title from '../common/Title'
-import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
+import { FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import StarRateWrapGet from '@src/components/common/StarRateWrapGet'
 import { IProductDetail } from '@src/interfaces/product'
 import Image from '../common/Image'
 import { useNavigate } from 'react-router-dom'
 import useCopyClipBoard from '@src/utils/copyURL'
-import { postCartProduct } from '@src/api/product'
+import { getReviewsForProduct, postCartProduct } from '@src/api/product'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
@@ -20,16 +20,18 @@ interface Props {
   productDetail: IProductDetail
   pathname: string
   setOptionIndex: React.Dispatch<SetStateAction<number>>
+  reviews: number
 }
 
 interface schemaType {
   optionId: string
 }
 
-const ProductInfo = ({ productDetail, pathname, setOptionIndex }: Props) => {
+const ProductInfo = ({ productDetail, pathname, setOptionIndex, reviews }: Props) => {
   const onCopy = useCopyClipBoard()
-  const { quantity, plusQuantity, minusQuantity } = useCounter()
+  const { quantity, plusQuantity, minusQuantity } = useCounter(1)
   const navigate = useNavigate()
+
   const optionIdChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setOptionIndex(event.target.selectedIndex)
   }
@@ -60,7 +62,7 @@ const ProductInfo = ({ productDetail, pathname, setOptionIndex }: Props) => {
           <RateStyle>
             <StarRateWrapGet AVR_RATE={80} />
             <span className="rate-number">4.0</span>
-            <span className="review-number">(83)</span>
+            <span className="review-number">({reviews})</span>
             <SlArrowRight style={{ margin: 0 }} />
           </RateStyle>
         </TitleDescStyle>
@@ -80,7 +82,7 @@ const ProductInfo = ({ productDetail, pathname, setOptionIndex }: Props) => {
             {productDetail?.periodOptions &&
               productDetail?.periodOptions.map((option) => (
                 <option key={option.periodOptionId} value={option.periodOptionId}>
-                  {option.optionName}
+                  {option.periodOptionName}
                 </option>
               ))}
           </select>

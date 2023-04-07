@@ -10,7 +10,8 @@ import { getCategoryProducts } from '@src/api/product'
 import CardTypeItem from '../common/CardTypeItem'
 import { IProductContent } from '@src/interfaces/product'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import SwiperCore, { Navigation } from 'swiper'
+import useSwiperSetting from '@src/hooks/useSwiperSetting'
+import SlideButtons from '../common/SlideButtons'
 
 const ThemeTravel = () => {
   const [products, setProducts] = useState<IProductContent[]>([])
@@ -39,30 +40,9 @@ const ThemeTravel = () => {
     fetchData()
   }, [activeTab])
 
-  SwiperCore.use([Navigation])
   const prevRef = useRef(null)
   const nextRef = useRef(null)
-  const [swiperSetting, setSwiperSetting] = useState<any>(null)
-  const settings = {
-    navigation: { prevEl: prevRef.current, nextEl: nextRef.current },
-    onInit: (swiper: SwiperCore) => {
-      if (typeof swiper.params.navigation !== 'boolean') {
-        if (swiper.params.navigation) {
-          swiper.params.navigation.prevEl = prevRef.current
-          swiper.params.navigation.nextEl = nextRef.current
-        }
-      }
-      swiper.navigation.update()
-    },
-    slidesPerView: 4,
-    spaceBetween: 20,
-  }
-
-  useEffect(() => {
-    if (!swiperSetting) {
-      setSwiperSetting(settings)
-    }
-  }, [swiperSetting])
+  const settings = useSwiperSetting({ prevRef, nextRef })
 
   return (
     <Section overflow="hidden">
@@ -128,7 +108,7 @@ const ThemeTravel = () => {
                 ))}
               </ContentTabsStyle>
               <ProductListStyle>
-                {swiperSetting && (
+                <SlideStyle style={{ position: 'relative' }}>
                   <Swiper {...settings}>
                     {products.map((product) => (
                       <SwiperSlide key={product.productId}>
@@ -143,7 +123,8 @@ const ThemeTravel = () => {
                       </SwiperSlide>
                     ))}
                   </Swiper>
-                )}
+                  <SlideButtons ref={nextRef} direction="right" />{' '}
+                </SlideStyle>
               </ProductListStyle>
             </ContentStyle>
           </ThemeContentStyle>
@@ -317,4 +298,11 @@ const ContentTabStyle = styled.li<{
 
 const ProductListStyle = styled.ul`
   width: 970px;
+`
+
+const SlideStyle = styled.div`
+  position: relative;
+  .right {
+    right: 200px;
+  }
 `

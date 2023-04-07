@@ -15,7 +15,6 @@ const MyReview = () => {
     fetchData()
   }, [])
 
-  console.log(reviews)
   return (
     <MyReviewStyle>
       {reviews && reviews.length > 0 ? (

@@ -235,7 +235,8 @@ const index = (props: Props) => {
                       {productDetail?.periodOptions.length > 0 &&
                         productDetail?.periodOptions.map((option) => (
                           <div key={option.periodOptionId}>
-                            <span>{option.optionName}</span> <span>출발일: {option.startDate}</span>
+                            <span>{option.periodOptionName}</span>{' '}
+                            <span>출발일: {option.startDate}</span>
                           </div>
                         ))}
                     </OptionBoxStyle>

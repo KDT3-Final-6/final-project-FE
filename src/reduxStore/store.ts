@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query/react'
 import { orderApi } from './api/orderApiSlice'
 import { qnaApi } from './api/qnaApiSlice'
+import { cartApi } from './api/cartApiSlice'
 import rootReducer from './rootReducer'
 
 export const store = configureStore({
@@ -10,6 +11,7 @@ export const store = configureStore({
     getDefaultMiddleware({ serializableCheck: false }).concat([
       qnaApi.middleware,
       orderApi.middleware,
+      cartApi.middleware,
     ]),
 })
 
