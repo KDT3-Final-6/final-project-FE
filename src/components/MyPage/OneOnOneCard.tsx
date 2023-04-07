@@ -7,6 +7,7 @@ import { IoIosArrowDown } from 'react-icons/io'
 import { IoIosArrowUp } from 'react-icons/io'
 import OneOnOneAnswerCard from './OneOnOneAnswerCard'
 import { IQnAContent } from '@src/interfaces/post'
+import extractDateTime from '@src/utils/extractDateTime'
 
 interface IOneOnOneCard {
   postInfo: IQnAContent
@@ -24,7 +25,8 @@ const OneOnOneCard = ({ postInfo }: IOneOnOneCard) => {
     replyDate,
   } = postInfo
   const [isInquiryOpen, setIsInquiryOpen] = useState<boolean>(false)
-  const time = '16:27' // 글쓴 시간, 데이터 패칭할 것
+  const { date, time } = extractDateTime(createdDate)
+
   return (
     <ContainerStyle>
       <TitleBoxStyle>
@@ -48,7 +50,7 @@ const OneOnOneCard = ({ postInfo }: IOneOnOneCard) => {
       <ContentStyle>{postContent}</ContentStyle>
       <FooterStyle>
         <DateStyle>
-          <span>{splitDate(createdDate)}</span>
+          <span>{date}</span>
           <span>{time}</span>
         </DateStyle>
         {qnAStatus === '답변완료' && !isInquiryOpen ? (

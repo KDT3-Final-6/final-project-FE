@@ -6,6 +6,7 @@ import styled, { css, keyframes } from 'styled-components'
 import { COLORS } from '@src/styles/root'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import RadioItem from '@src/components/MyPage/RadioItem'
+import { useGetOrderListQuery } from '@src/reduxStore/api/orderApiSlice'
 
 type Option = {
   id: number
@@ -30,6 +31,12 @@ const SelectItemModal = ({
   setProductId,
 }: ISelectItemModal) => {
   const [errorsMessage, setErrorsMessage] = useState<string>('')
+  const [page, setPage] = useState<number>(1)
+  const { data, isLoading, isFetching } = useGetOrderListQuery(page)
+
+  if (isLoading) <>Loading</>
+  console.log('data', data)
+
   const handleOptionChange = (name: string, id: null | number) => {
     setSelectedOption({ name, id })
   }
