@@ -3,7 +3,7 @@ import Image from '@src/components/common/Image'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import styled from 'styled-components'
 import Button, { ButtonStyle } from '@src/components/common/Button'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import CheckItem from '@src/components/common/CheckItem'
 import { useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
@@ -12,12 +12,23 @@ import {
   usePostNonUserOrderMutation,
 } from '@src/reduxStore/api/orderApiSlice'
 import { getCookie } from '@src/utils/cookie'
+import { IPostOrder, IProductIds } from '@src/interfaces/order'
 
 interface IBuy {
   checkbox?: boolean
   paymentMethod: string
   memberEmail: string
   memberName: string
+}
+
+export interface productData {
+  name: string
+  periodOptionId: number
+  periodOptionName: string
+  productId: number
+  productPrice: number
+  productThumbnail: string
+  quantity: number
 }
 
 const index = () => {
@@ -29,75 +40,32 @@ const index = () => {
   const [postOrder] = usePostOrderMutation()
   const [postNonMember] = usePostNonUserOrderMutation()
 
+  /**장바구니에서 오는 데이터 */
+  const { state: productData }: { state: productData[] } = useLocation()
+  console.log('productData', productData)
+
   const token = getCookie('accessToken')
 
-  const image =
-    'https://upload.wikimedia.org/wikipedia/commons/9/96/Castellammare_del_Golfo_Harbour%2C_Sicily.jpg' // 패칭해올 데이터
   const name = '고투게더'
   const phoneNumber = '01012345678'
   const email = 'gotogether@gmail.com'
 
   /**상품 상세페이지에서 오는 데이터*/
 
-  /**장바구니에서 오는 데이터 */
-  const productData = [
-    {
-      cartId: 3,
-      productId: 1,
-      periodOptionId: 1,
-      cartPrice: 500000,
-      productName: '호주&뉴질랜드 예시',
-      periodOptionName: '출발 : 2023.03.07(화) / 도착 : 2023.03.07(화)',
-      productThumbnail: 'https://final-project-travel.s3.ap-northeast-2.amazonaws.com/',
-      productContent: 'test_f085b73fb468',
-      cartQuantity: 2,
-    },
-    {
-      cartId: 4,
-      productId: 2,
-      periodOptionId: 3,
-      cartPrice: 2590000,
-      productName: '미얀마 9일',
-      periodOptionName: '출발 : 2023.03.07(화) / 도착 : 2023.03.07(화)',
-      productThumbnail: 'https://final-project-travel.s3.ap-northeast-2.amazonaws.com/',
-      productContent: 'test_f085b73fb468',
-      cartQuantity: 1,
-    },
-    {
-      cartId: 13,
-      productId: 3,
-      periodOptionId: 5,
-      cartPrice: 5390000,
-      productName: '슈퍼마리오 영화 기대중',
-      periodOptionName: '출발 : 2023.03.07(화) / 도착 : 2023.03.07(화)',
-      productThumbnail: 'https://final-project-travel.s3.ap-northeast-2.amazonaws.com/',
-      productContent: 'test_f085b73fb468',
-      cartQuantity: 4,
-    },
-  ]
   /**상품정보 map돌릴 데이터 */
-  const filterData = productData.map((item) => {
-    return {
-      name: item.productName,
-      productThumbnail: item.productThumbnail,
-      productPrice: item.cartPrice,
-      thumbnail: item.productThumbnail, //
-      periodOptionName: item.periodOptionName,
-      productId: item.productId,
-      periodOptionId: item.periodOptionId,
-      quantity: item.cartQuantity, // 'cartQuantity'를 'quantity'로 변경
-    }
-  })
 
   /**post보낼 데이터 */
-  const postProductData = productData.map((product) => ({
+  const postProductData = productData.map((product: IProductIds) => ({
     periodOptionId: product.periodOptionId,
-    quantity: product.cartQuantity,
+    quantity: product.quantity,
   }))
 
-  const totalProductPrice = filterData.reduce((acc, curr) => {
-    return acc + curr.productPrice * curr.quantity
-  }, 0)
+  const totalProductPrice = productData.reduce(
+    (acc: number, curr: { productPrice: number; quantity: number }) => {
+      return acc + curr.productPrice * curr.quantity
+    },
+    0
+  )
 
   const paymentMethodTabs = [
     {
@@ -196,7 +164,7 @@ const index = () => {
       <BoxStyle>
         <LeftBoxStyle>
           <ProductInfoStyle>
-            {filterData.map((item) => (
+            {productData.map((item) => (
               <div key={item.productId}>
                 <Title
                   margin="35px 24px 20px 24px"
@@ -206,7 +174,12 @@ const index = () => {
                   예약 상품 정보
                 </Title>
                 <ImageBoxStyle>
-                  <Image width="167px" height="129px" imgBorderRadius="5px" bgImage={image} />
+                  <Image
+                    width="167px"
+                    height="129px"
+                    imgBorderRadius="5px"
+                    bgImage={item.productThumbnail}
+                  />
                   <ImageInfoStyle>
                     <span>{item.name}</span>
                     <PriceInfoStyle>
