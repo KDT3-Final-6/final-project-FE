@@ -43,7 +43,6 @@ export interface IPostOrder {
 }
 
 export interface IProductIds {
-  productId: number
   periodOptionId: number
   quantity: number
 }
