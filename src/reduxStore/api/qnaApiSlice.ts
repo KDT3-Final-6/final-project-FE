@@ -3,24 +3,13 @@ import API_URL from '@src/constants/apiUrlConst'
 import { IQnA, IPostQnA } from '@src/interfaces/post'
 
 const API_BASE_URL: string = import.meta.env.VITE_BASE_URL
-interface Post {
-  id: number
-  name: string
-}
-interface ListResponse<T> {
-  page: number
-  per_page: number
-  total: number
-  total_pages: number
-  data: T[]
-}
 
 // // API 엔드포인트의 각 함수를 추출
 const baseQuery = fetchBaseQuery({
   baseUrl: API_BASE_URL,
   prepareHeaders: (headers, { getState }) => {
     const token =
-      'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9BRE1JTixST0xFX1VTRVIiLCJleHAiOjE2ODA4ODkyMjh9.QPD7gjbhNJbo6zTVK7mj6xjNquqZ8ujNzalk9ieuINg'
+      'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9BRE1JTixST0xFX1VTRVIiLCJleHAiOjE2ODA5Mzg2Njl9.mK866jKX-N2eszYWGsJIabV3LFa6rwlkkm4Aw6bSEbc'
     if (token) {
       headers.set('Authorization', `Bearer ${token}`)
     }

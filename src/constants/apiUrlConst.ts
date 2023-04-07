@@ -4,6 +4,7 @@ const API_URL = {
   members: '/members',
   cart: '/carts',
   order: '/orders',
+  nonmember: '/non-members',
   search: '/search',
   products: '/products',
   recommend: '/recommends',
