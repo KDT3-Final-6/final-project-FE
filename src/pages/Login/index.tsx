@@ -37,8 +37,16 @@ const Login = () => {
         memberEmail: data.memberEmail,
         memberPassword: data.memberPassword,
       })
-      setCookies('accessToken', response.data.accessToken, { maxAge: 3600000 })
-      navigate(PATH.HOME, { state: PATH.LOGIN })
+      setCookies('accessToken', response.data.accessToken, { maxAge: 3600 })
+
+      dispatch(
+        setModal({
+          isOpen: true,
+          text: `${response.data.memberName}님, ${MESSAGES.LOGIN.complete}`,
+          onClickOK: () =>
+            dispatch(setModal({ route: navigate(PATH.HOME, { state: PATH.LOGIN }) })),
+        })
+      )
     } catch (error: any) {
       if (error.response && error.response.status === 401) {
         dispatch(
