@@ -40,19 +40,13 @@ const index = () => {
   const [postOrder] = usePostOrderMutation()
   const [postNonMember] = usePostNonUserOrderMutation()
 
-  /**장바구니에서 오는 데이터 */
   const { state: productData }: { state: productData[] } = useLocation()
-  console.log('productData', productData)
 
   const token = getCookie('accessToken')
 
   const name = '고투게더'
   const phoneNumber = '01012345678'
   const email = 'gotogether@gmail.com'
-
-  /**상품 상세페이지에서 오는 데이터*/
-
-  /**상품정보 map돌릴 데이터 */
 
   /**post보낼 데이터 */
   const postProductData = productData.map((product: IProductIds) => ({
