@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { COLORS } from '@src/styles/root'
 import useCounter from '@src/hooks/useCounter'
 import { ICartList } from '@src/interfaces/product'
+import { useEditCartListMutation } from '@src/reduxStore/api/cartApiSlice'
 
 interface Props {
   item: ICartList
@@ -14,6 +15,17 @@ interface Props {
 
 const CartTable = ({ item, hadleSingleCheck, checkbox }: Props) => {
   let { quantity, plusQuantity, minusQuantity } = useCounter(item?.cartQuantity)
+  const [editCartList] = useEditCartListMutation()
+
+  const editCartHandler = async (type: string) => {
+    await editCartList({
+      cartId: item?.cartId,
+      data: {
+        periodOptionId: item?.periodOptionId,
+        quantity: type === 'increase' ? quantity + 1 : quantity - 1,
+      },
+    })
+  }
 
   return (
     <TrStyle>
@@ -40,9 +52,21 @@ const CartTable = ({ item, hadleSingleCheck, checkbox }: Props) => {
       </td>
       <OptionBoxStyle>
         <div>
-          <OptionButtonStyle onClick={plusQuantity}>+</OptionButtonStyle>
+          <OptionButtonStyle
+            onClick={() => {
+              plusQuantity(), editCartHandler('increase')
+            }}
+          >
+            +
+          </OptionButtonStyle>
           <span>{quantity}</span>
-          <OptionButtonStyle onClick={minusQuantity}>-</OptionButtonStyle>
+          <OptionButtonStyle
+            onClick={() => {
+              minusQuantity(), editCartHandler('decrease')
+            }}
+          >
+            -
+          </OptionButtonStyle>
         </div>
       </OptionBoxStyle>
       <td
@@ -55,7 +79,7 @@ const CartTable = ({ item, hadleSingleCheck, checkbox }: Props) => {
       >
         {(quantity * item?.productPrice).toLocaleString()}원
       </td>
-      <td style={{ verticalAlign: 'middle', textAlign: 'center' }}>-</td>
+      <td style={{ verticalAlign: 'middle', textAlign: 'center' }}>{item?.productStatus}</td>
     </TrStyle>
   )
 }
