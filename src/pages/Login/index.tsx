@@ -38,15 +38,10 @@ const Login = () => {
         memberEmail: data.memberEmail,
         memberPassword: data.memberPassword,
       })
-<<<<<<< HEAD
 
       const maxAge = response.data.refreshTokenExpirationTime
       setCookies('accessToken', response.data.accessToken, { maxAge: maxAge })
       setCookies('role', response.data.roles, { maxAge: maxAge })
-=======
-      setCookies('accessToken', response.data.accessToken, { maxAge: 15000 })
-      setCookies('role', response.data.roles, { maxAge: 15000 })
->>>>>>> 4271f1d (Fix: 마이페이지 - 1:1문의페이지 문의상품 선택 모달창 수정)
 
       dispatch(
         setModal({
