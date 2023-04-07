@@ -39,6 +39,7 @@ const RatioBtnStyle = styled.div<{ isChecked: boolean }>`
   position: relative;
   width: 24px;
   height: 24px;
+  border-radius: 2px;
   border: 1px solid #4b4a4a;
   svg {
     display: ${({ isChecked }) => (isChecked ? 'block' : 'none')};
