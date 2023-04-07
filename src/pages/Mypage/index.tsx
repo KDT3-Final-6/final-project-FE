@@ -16,6 +16,8 @@ const MyPage = () => {
   const [activeMenu, setActiveMenu] = useState(0)
   const [userInfoData, setUserInfoData] = useState<IUserInfo>()
   const navigate = useNavigate()
+  const [cookies] = useCookies()
+
   useEffect(() => {
     const fetchData = async () => {
       const data = await userInfo()
@@ -54,7 +56,7 @@ const MyPage = () => {
               fontWeight={FONTWEGHT.fw600}
               spanMargin="0 0 20px"
             >
-              {userInfoData.roles.includes('ROLE_ADMIN') ? '관리자' : '일반회원'}
+              {cookies.role.includes('ROLE_ADMIN') ? '관리자' : '일반회원'}
             </HighlightSpanStyle>
           </h2>
         </Title>
