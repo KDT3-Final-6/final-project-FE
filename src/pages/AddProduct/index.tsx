@@ -249,9 +249,18 @@ const AddProduct = () => {
                         type="radio"
                         id="soldout"
                         {...register('productStatus')}
-                        value="판매중단"
+                        value="숨김"
                       />
-                      <label htmlFor="soldout">판매 중지</label>
+                      <label htmlFor="soldout">숨김</label>
+                    </StatusStyle>
+                    <StatusStyle>
+                      <input
+                        type="radio"
+                        id="soldout"
+                        {...register('productStatus')}
+                        value="품절"
+                      />
+                      <label htmlFor="soldout">품절</label>
                     </StatusStyle>
                   </StatusBoxStyle>
                 </td>
