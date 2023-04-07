@@ -38,7 +38,7 @@ export interface IProductOption {
   endDetail: string
   maximumQunatity: number
   minimumQunatity: number
-  optionName: string
+  periodOptionName: string
   period: number
   periodOptionId: number
   periodOptionStatus: string

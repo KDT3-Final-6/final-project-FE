@@ -80,7 +80,7 @@ const ProductInfo = ({ productDetail, pathname, setOptionIndex }: Props) => {
             {productDetail?.periodOptions &&
               productDetail?.periodOptions.map((option) => (
                 <option key={option.periodOptionId} value={option.periodOptionId}>
-                  {option.optionName}
+                  {option.periodOptionName}
                 </option>
               ))}
           </select>
