@@ -6,8 +6,10 @@ interface ILogin {
   data: {
     accessToken: string
     grantType: string
+    memberName:string
     refreshToken: string
     refreshTokenExpirationTime: number
+    roles: string[]
   }
 }
 
