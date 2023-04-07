@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Image from '../common/Image'
 import Button from '../common/Button'
 import { FONTSIZE, COLORS } from '@src/styles/root'
 import styled from 'styled-components'
+import { FieldValues } from 'react-hook-form'
+import { ErrorMessage } from '../common/InputItem'
 
 interface Props {
   question: {
@@ -14,10 +16,35 @@ interface Props {
   title: string
   setSurvey: React.Dispatch<React.SetStateAction<number>>
   survey: number
+  register: any
+  handleSubmit: (onSubmit: (data: FieldValues) => void) => void
+  onSubmit: (data: FieldValues) => void
+  type: string
 }
 
-const Item = ({ question, title, setSurvey, survey }: Props) => {
-  const navigate = useNavigate()
+const Item = ({
+  question,
+  title,
+  setSurvey,
+  survey,
+  register,
+  handleSubmit,
+  onSubmit,
+  type,
+}: Props) => {
+  const [checkIndex, setCheckIndex] = useState('')
+  const [errorMessage, setErrorMessage] = useState(false)
+
+  /** 체크 유효성 검사 */
+  const radioCheck = () => {
+    if (!checkIndex) {
+      setErrorMessage((prev) => !prev)
+      return
+    } else {
+      setSurvey((prev) => prev + 1)
+    }
+  }
+
   return (
     <TestAreaStyle>
       <span style={{ fontSize: FONTSIZE.fz26 }}>{title}</span>
@@ -31,7 +58,13 @@ const Item = ({ question, title, setSurvey, survey }: Props) => {
             isCenter={true}
             key={item.id}
           >
-            <input type="radio" name="survey" id={item.name} />
+            <input
+              type="radio"
+              name="survey"
+              id={item.name}
+              {...register(type, (onchange = () => setCheckIndex(item.name)))}
+              value={item.name}
+            />
             <label htmlFor={item.name}>
               <span
                 style={{
@@ -44,13 +77,16 @@ const Item = ({ question, title, setSurvey, survey }: Props) => {
             </label>
           </Image>
         ))}
+        {errorMessage && <ErrorMessage>항목을 선택해 주세요!</ErrorMessage>}
       </ImageAreaStyle>
+
       <Button
         width="80px"
         height="45px"
         bgColor={COLORS.primary}
         color={COLORS.white}
-        onClick={() => (survey < 5 ? setSurvey((prev) => prev + 1) : navigate('/result'))}
+        type={survey < 5 ? 'button' : 'submit'}
+        onClick={() => (survey < 5 ? radioCheck() : handleSubmit(onSubmit))}
       >
         {survey < 5 ? '다음' : '결과 보기'}
       </Button>

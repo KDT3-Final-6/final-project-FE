@@ -1,14 +1,24 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Banner from '@src/components/Survey/Banner'
 import Title from '@src/components/common/Title'
 import CategoryList from '@src/components/ProductPage/CategoryList'
 import Inner from '@src/layout/Inner'
 import EventBanner from '@components/Home/Banner'
 import { FONTSIZE } from '@src/styles/root'
+import { getSurvey } from '@src/api/survey'
+import { ISurvey } from '@src/interfaces/survey'
 
-type Props = {}
+const Result = () => {
+  const [result, setResult] = useState<ISurvey>()
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getSurvey()
+      setResult(data)
+    }
+    fetchData()
+  }, [])
 
-const Result = (props: Props) => {
+  console.log(result)
   return (
     <div>
       <Banner />
