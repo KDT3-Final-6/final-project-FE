@@ -1,20 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import API_URL from '@src/constants/apiUrlConst'
-import { ICartList, ICartResponse } from '@src/interfaces/product'
-import { getCookie } from '@src/utils/cookie'
-
-const API_BASE_URL = import.meta.env.VITE_BASE_URL
-
-const baseQuery = fetchBaseQuery({
-  baseUrl: API_BASE_URL,
-  prepareHeaders: (headers, { getState }) => {
-    const token = getCookie('accessToken')
-    if (token) {
-      headers.set('Authorization', `Bearer ${token}`)
-    }
-    return headers
-  },
-})
+import { ICartResponse } from '@src/interfaces/product'
+import baseQuery from '../const/baseQuery'
 
 interface IEditCart {
   periodOptionId: number
