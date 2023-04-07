@@ -14,11 +14,12 @@ import { useCookies } from 'react-cookie'
 import { useForm } from 'react-hook-form'
 import { ILogin } from '@src/interfaces/user'
 import { hideLoading, showLoading } from '@src/reduxStore/loadingSlice'
-import { login } from '@src/api/auth'
+import { login, userInfo } from '@src/api/auth'
 import { setModal } from '@src/reduxStore/modalSlice'
 import MESSAGES from '@src/constants/messages'
 import { ErrorMessage } from '@src/components/common/InputItem'
 import { Helmet } from 'react-helmet'
+import { SET_USERINFO } from '@src/reduxStore/features/userInfoSlice'
 
 const Login = () => {
   const dispatch = useDispatch()
@@ -37,15 +38,19 @@ const Login = () => {
         memberEmail: data.memberEmail,
         memberPassword: data.memberPassword,
       })
-      setCookies('accessToken', response.data.accessToken, { maxAge: 3600 })
-      setCookies('role', response.data.roles, { maxAge: 3600 })
+
+      const maxAge = response.data.refreshTokenExpirationTime
+      setCookies('accessToken', response.data.accessToken, { maxAge: maxAge })
+      setCookies('role', response.data.roles, { maxAge: maxAge })
 
       dispatch(
         setModal({
           isOpen: true,
           text: `${response.data.memberName}님, ${MESSAGES.LOGIN.complete}`,
-          onClickOK: () =>
-            dispatch(setModal({ route: navigate(PATH.HOME, { state: PATH.LOGIN }) })),
+          onClickOK: async () => {
+            dispatch(setModal({ route: navigate(PATH.HOME) }))
+            dispatch(SET_USERINFO(await userInfo()))
+          },
         })
       )
     } catch (error: any) {
@@ -54,7 +59,9 @@ const Login = () => {
           setModal({
             isOpen: true,
             text: MESSAGES.LOGIN.inCorrect,
-            onClickOK: () => dispatch(setModal({ isOpen: false })),
+            onClickOK: async () => {
+              dispatch(setModal({ isOpen: false, route: navigate(PATH.HOME) }))
+            },
           })
         )
       } else {
