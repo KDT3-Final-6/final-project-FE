@@ -15,7 +15,6 @@ import { hideLoading, showLoading } from '@src/reduxStore/loadingSlice'
 import { logout } from '@src/api/auth'
 import { setModal } from '@src/reduxStore/modalSlice'
 import MESSAGES from '@src/constants/messages'
-import { getCookie } from '@src/utils/cookie'
 
 const Header = () => {
   const dispatch = useDispatch()
