@@ -11,7 +11,11 @@ import { useForm, FieldValues } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { ErrorMessage } from '../common/InputItem'
-import { editReview } from '@src/api/mypage'
+import { deleteReview, editReview } from '@src/api/mypage'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import MESSAGES from '@src/constants/messages'
+import { setModal } from '@src/reduxStore/modalSlice'
 
 interface Props {
   review: IReviewContentUnion
@@ -46,9 +50,31 @@ const ReviewBox = ({ review }: Props) => {
     window.location.reload()
   }
 
+  const dispatch = useDispatch()
+
+  const deleteReviewHandler = async () => {
+    dispatch(
+      setModal({
+        isOpen: true,
+        text: MESSAGES.REVIEW.normal,
+        onClickOK: async () => {
+          await deleteReview(review.postId)
+          dispatch(setModal({ isOpen: false, route: navigate('/mypage/myreview') }))
+        },
+        onClickCancel: () => {
+          dispatch(setModal({ isOpen: false }))
+        },
+      })
+    )
+  }
+
+  const navigate = useNavigate()
   return (
     <ProductCard cardType="barType" height="230px">
-      <ImgAreaStyle>
+      <ImgAreaStyle
+        onClick={() => navigate(`/product/${review.productId}`)}
+        style={{ cursor: 'pointer' }}
+      >
         <img src={review.purchasedProductThumbnail} alt="썸네일" />
       </ImgAreaStyle>
       <TxtAreaStyle isBarType={true}>
@@ -101,12 +127,14 @@ const ReviewBox = ({ review }: Props) => {
         </DesStyle>
         {isEditting ? null : (
           <StarNButtonStyle>
-            <StarRateWrapGet AVR_RATE={review.scope} />
+            <StarRateWrapGet AVR_RATE={review.scope * 20} />
             <div>
               <Button buttonType="borderGray" onClick={() => setIsEditting((prev) => !prev)}>
                 수정하기
               </Button>
-              <Button buttonType="borderGray">삭제하기</Button>
+              <Button buttonType="borderGray" onClick={deleteReviewHandler}>
+                삭제하기
+              </Button>
             </div>
           </StarNButtonStyle>
         )}

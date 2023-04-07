@@ -23,3 +23,7 @@ export const getReviewsForMe = async () => (await axiosInstance.get(API_URL.revi
 /** 내가 쓴 리뷰 수정 */
 export const editReview = async (postId: number, data: object) =>
   await axiosInstance.patch(API_URL.review + `/${postId}`, data)
+
+/** 리뷰 삭제 */
+export const deleteReview = async (postId: number) =>
+  await axiosInstance.delete(API_URL.review + `/${postId}`)

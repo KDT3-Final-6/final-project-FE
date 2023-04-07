@@ -20,6 +20,11 @@ const MESSAGES = {
   CHECKPASSWORD: {
     error: '비밀번호를 다시 확인해 주세요.',
   },
+  REVIEW: {
+    complete: '삭제되었습니다.',
+    normal: '삭제하겠습니까?',
+    error: '삭제할 수 없습니다.',
+  },
 }
 
 export default MESSAGES
