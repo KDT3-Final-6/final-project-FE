@@ -25,6 +25,12 @@ const MESSAGES = {
     normal: '삭제하겠습니까?',
     error: '삭제할 수 없습니다.',
   },
+  MYPAGE: {
+    USEREDIT: {
+      complete: '회원 정보 수정이 완료되었습니다.',
+      error: '수정 내용을 다시 확인해주세요.'
+    }
+  }
 }
 
 export default MESSAGES
