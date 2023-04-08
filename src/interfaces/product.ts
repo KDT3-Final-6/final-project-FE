@@ -16,6 +16,8 @@ export interface IProductContent {
 
 export interface IProductDetail {
   contentDetail: string
+  isWished: boolean
+  wishlistCount: number
   periodOptions: IProductOption[]
   productCategories: IproductCategories[]
   productContent: string
@@ -74,6 +76,8 @@ export const initProductDetail = {
   productPrice: 0,
   productStatus: '',
   productThumbnail: '',
+  isWished: false,
+  wishlistCount: 0,
 }
 
 export interface ICurrentProduct {
