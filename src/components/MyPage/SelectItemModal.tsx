@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { AiFillCloseCircle } from 'react-icons/ai'
 import Button from '@components/common/Button'
 import styled, { css, keyframes } from 'styled-components'
 import { COLORS } from '@src/styles/root'
 import RadioItem from '@src/components/MyPage/RadioItem'
-import { useGetOrderListQuery } from '@src/reduxStore/api/orderApiSlice'
+import { useGetOrderItemListQuery, useGetOrderListQuery } from '@src/reduxStore/api/orderApiSlice'
 import Paginate from '../common/Paginate'
+import useOnClickOutside from '@src/hooks/useOnClickOutside'
 
 type Option = {
   id: number
@@ -31,10 +32,11 @@ const SelectItemModal = ({
 }: ISelectItemModal) => {
   const [errorsMessage, setErrorsMessage] = useState<string>('')
   const [page, setPage] = useState<number>(1)
-  const { data, isLoading, isFetching } = useGetOrderListQuery(page)
+  const { data: orderItemList, isLoading } = useGetOrderItemListQuery(page)
+  const ref = useRef(null)
+  useOnClickOutside(ref, () => setIsModalOpen(false))
 
   if (isLoading) <>Loading</>
-  console.log('data', data)
 
   const handleOptionChange = (name: string, id: null | number) => {
     setSelectedOption({ name, id })
@@ -44,8 +46,10 @@ const SelectItemModal = ({
     if (!selectedOption) {
       setCurrentValue('문의유형')
       setIsModalOpen(false)
+      document.body.style.overflowY = 'auto'
     } else {
       setIsModalOpen(false)
+      document.body.style.overflowY = 'auto'
     }
   }
 
@@ -62,47 +66,59 @@ const SelectItemModal = ({
     setPage(event.selected + 1)
   }
 
-  const filterData =
-    (data && data?.content?.flatMap((orderContent) => orderContent.orderList)) ?? []
-
   return (
-    <ModalStyle>
-      <header>
-        <div>
-          <p>문의 상품 선택</p>
-        </div>
-        <Button onClick={handleCloseModal} width="24px" height="24px" borderRadius="50%">
-          <AiFillCloseCircle />
-        </Button>
-      </header>
-      <article>
-        {filterData.map((item) => (
-          <RadioItem
-            key={item.orderId}
-            id={item.productId}
-            name={item.productName}
-            isChecked={selectedOption?.id === item.productId}
-            onChange={handleOptionChange}
-          />
-        ))}
-      </article>
-      <Paginate totalElements={data?.totalPages || 0} changePageHandler={changePageHandler} />
-      <footer>
-        <Button
-          type="submit"
-          width="204px"
-          height="45px"
-          buttonType="borderGray"
-          onClick={handleClick}
-        >
-          선택하기
-        </Button>
-      </footer>
-    </ModalStyle>
+    <ModalBackDrop>
+      <ModalStyle ref={ref}>
+        <header>
+          <div>
+            <p>문의 상품 선택</p>
+          </div>
+          <Button onClick={handleCloseModal} width="24px" height="24px" borderRadius="50%">
+            <AiFillCloseCircle />
+          </Button>
+        </header>
+        <article>
+          {orderItemList?.content.map((item, index) => (
+            <RadioItem
+              key={item.purchasedProductId}
+              id={item.purchasedProductId}
+              name={item.productName}
+              isChecked={selectedOption?.id === item.purchasedProductId}
+              onChange={handleOptionChange}
+            />
+          ))}
+        </article>
+        <Paginate
+          totalElements={orderItemList?.totalPages || 0}
+          changePageHandler={changePageHandler}
+        />
+        <footer>
+          <Button
+            type="submit"
+            width="204px"
+            height="45px"
+            buttonType="borderGray"
+            onClick={handleClick}
+          >
+            선택하기
+          </Button>
+        </footer>
+      </ModalStyle>
+    </ModalBackDrop>
   )
 }
 
 export default SelectItemModal
+
+const ModalBackDrop = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1040;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+`
 
 const ModalStyle = styled.div`
   position: absolute;
@@ -111,7 +127,7 @@ const ModalStyle = styled.div`
   transform: translate(-50%, -50%);
   width: 800px;
   min-height: 307px;
-  max-height: 715px; // ????
+  max-height: 900px; //715px;
   padding: 25px;
   background-color: #f3f3f3;
   border-radius: 12px;
@@ -146,6 +162,10 @@ const ModalStyle = styled.div`
         border-bottom: none;
       }
     }
+  }
+  ul {
+    margin-top: 0;
+    margin-bottom: 25px;
   }
   footer {
     display: flex;

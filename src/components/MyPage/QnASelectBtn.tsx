@@ -64,6 +64,8 @@ const QnASelectBtn = ({
       setSelectedOption(null)
       setProductId(null)
       setIsModalOpen(true)
+      //
+      document.body.style.overflowY = 'hidden'
     } else {
       setIsModalOpen(false)
     }

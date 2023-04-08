@@ -100,57 +100,59 @@ const QuestionCard = ({ isOpen, setIsOpen }: IQuestionCard) => {
   }
 
   return (
-    <FormStyle isOpen={isOpen}>
-      <form onSubmit={handleSubmit(onValid, onInvalid)}>
-        <HeaderStyle>
-          <TitleInputStyle placeholder="제목을 입력해주세요." {...register('title')} />
-          <QnASelectBtn
-            currentValue={currentValue}
-            setCurrentValue={setCurrentValue}
-            setIsModalOpen={setIsModalOpen}
-            setSelectedOption={setSelectedOption}
-            setProductId={setProductId}
-            initial={selectOptions[0]}
-            width="127px"
-            height="32px"
-            options={selectOptions}
-            borderRadius="0"
-            register={register}
-          />
-        </HeaderStyle>
-
-        {currentValue === '상품문의' && productId && (
-          <QnATypeSectionStyle>
-            <span>상품</span>
-            <span>:</span>
-            <span>{selectedOption?.name}</span>
-            <Button
-              width="65px"
+    <>
+      <FormStyle isOpen={isOpen}>
+        <form onSubmit={handleSubmit(onValid, onInvalid)}>
+          <HeaderStyle>
+            <TitleInputStyle placeholder="제목을 입력해주세요." {...register('title')} />
+            <QnASelectBtn
+              currentValue={currentValue}
+              setCurrentValue={setCurrentValue}
+              setIsModalOpen={setIsModalOpen}
+              setSelectedOption={setSelectedOption}
+              setProductId={setProductId}
+              initial={selectOptions[0]}
+              width="127px"
               height="32px"
-              borderRadius="24px"
-              bgColor="#404040"
-              color={`${COLORS.white}`}
-              onClick={() => setIsModalOpen((prev) => !prev)}
-            >
-              변경
-            </Button>
-          </QnATypeSectionStyle>
-        )}
-        <TextareaStyle
-          placeholder="문의할 내용을 작성해 주세요"
-          {...register('content')}
-        ></TextareaStyle>
-        <FooterStyle>
-          <ButtonBoxStyle>
-            <Button type="submit" buttonType="borderGray">
-              저장하기
-            </Button>
-            <Button buttonType="borderGray" onClick={handleCancelBtn}>
-              취소하기
-            </Button>
-          </ButtonBoxStyle>
-        </FooterStyle>
-      </form>
+              options={selectOptions}
+              borderRadius="0"
+              register={register}
+            />
+          </HeaderStyle>
+
+          {currentValue === '상품문의' && productId && (
+            <QnATypeSectionStyle>
+              <span>상품</span>
+              <span>:</span>
+              <span>{selectedOption?.name}</span>
+              <Button
+                width="65px"
+                height="32px"
+                borderRadius="24px"
+                bgColor="#404040"
+                color={`${COLORS.white}`}
+                onClick={() => setIsModalOpen((prev) => !prev)}
+              >
+                변경
+              </Button>
+            </QnATypeSectionStyle>
+          )}
+          <TextareaStyle
+            placeholder="문의할 내용을 작성해 주세요"
+            {...register('content')}
+          ></TextareaStyle>
+          <FooterStyle>
+            <ButtonBoxStyle>
+              <Button type="submit" buttonType="borderGray">
+                저장하기
+              </Button>
+              <Button buttonType="borderGray" onClick={handleCancelBtn}>
+                취소하기
+              </Button>
+            </ButtonBoxStyle>
+          </FooterStyle>
+        </form>
+      </FormStyle>
       {currentValue === '상품문의' && isModalOpen && (
         <SelectItemModal
           setIsModalOpen={setIsModalOpen}
@@ -161,7 +163,7 @@ const QuestionCard = ({ isOpen, setIsOpen }: IQuestionCard) => {
           setProductId={setProductId}
         />
       )}
-    </FormStyle>
+    </>
   )
 }
 

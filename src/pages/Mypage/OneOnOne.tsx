@@ -7,6 +7,7 @@ import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Paginate from '@src/components/common/Paginate'
+import { useSelector } from 'react-redux'
 
 const OneOnOne = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -20,14 +21,6 @@ const OneOnOne = () => {
   const changePageHandler = (event: { selected: number }) => {
     setPage(event.selected + 1)
   }
-
-  console.log('qnaList', qnaList)
-
-  // 정렬....
-  // const sortedQnAList = qnaList && {
-  //   ...qnaList,
-  //   content: [...qnaList.content].sort((a, b) => b.postId - a.postId),
-  // }
 
   return (
     <ContainerStyle>

@@ -7,6 +7,7 @@ export default function useOnClickOutside<T extends HTMLElement>(
   useEffect(() => {
     const listener = (event: MouseEvent | TouchEvent) => {
       if (ref.current && !ref.current.contains(event.target as Node)) {
+        document.body.style.overflowY = 'auto'
         handler(event)
       }
     }
