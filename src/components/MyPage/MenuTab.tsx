@@ -15,7 +15,7 @@ const MenuTab = ({ setActiveMenu, activeMenu }: Props) => {
   const location = useLocation()
   const pathName = location.pathname
   const pathCheck = (pathName: string) => {
-    if (pathName.includes(PATH.ORDER_LIST)) {
+    if (pathName === PATH.MYPAGE || pathName.includes(PATH.ORDER_LIST)) {
       return setActiveMenu(0)
     } else if (pathName.includes(PATH.CART)) {
       return setActiveMenu(1)
