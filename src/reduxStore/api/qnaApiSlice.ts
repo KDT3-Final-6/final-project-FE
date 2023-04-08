@@ -1,12 +1,9 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi } from '@reduxjs/toolkit/query/react'
 import API_URL from '@src/constants/apiUrlConst'
 import { IQnA, IPostQnA } from '@src/interfaces/post'
 import baseQuery from '../const/baseQuery'
 
-const API_BASE_URL: string = import.meta.env.VITE_BASE_URL
-
 // // API 엔드포인트의 각 함수를 추출
-
 export const qnaApi = createApi({
   reducerPath: 'qnaApi',
   baseQuery,
@@ -35,7 +32,7 @@ export const qnaApi = createApi({
         url: `${API_URL.qna}/${postId}`,
         method: 'DELETE',
       }),
-      invalidatesTags: (result, error, postId) => [{ type: 'QnA', id: postId }],
+      invalidatesTags: [{ type: 'QnA', id: 'PARTIAL-LIST' }],
     }),
   }),
 })
