@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { MouseEvent, useEffect } from 'react'
 import PATH from '@src/constants/pathConst'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import { AiOutlineHeart, AiOutlineUser, AiOutlineShoppingCart } from 'react-icons/ai'
 import { FiLogIn, FiLogOut, FiSettings } from 'react-icons/fi'
@@ -21,6 +21,7 @@ import { SET_USERINFO } from '@src/reduxStore/features/userInfoSlice'
 const Header = () => {
   const dispatch = useDispatch()
   const [cookies, , removeCookies] = useCookies()
+  const location = useLocation()
 
   useEffect(() => {
     const userInfoFetch = async () => dispatch(SET_USERINFO(await userInfo()))
@@ -67,21 +68,25 @@ const Header = () => {
           <ButtonsStyle>
             {cookies.accessToken ? (
               <>
-                <Link to={PATH.WISHLIST}>
-                  <AiOutlineHeart />
-                  <span>찜상품</span>
-                </Link>
-                <Link to={PATH.CART}>
-                  <AiOutlineShoppingCart />
-                  <span>장바구니</span>
-                </Link>
+                {!location.pathname.includes(PATH.ADMIN) && (
+                  <>
+                    <Link to={PATH.WISHLIST}>
+                      <AiOutlineHeart />
+                      <span>찜상품</span>
+                    </Link>
+                    <Link to={PATH.CART}>
+                      <AiOutlineShoppingCart />
+                      <span>장바구니</span>
+                    </Link>
+                    <Link to={PATH.MYPAGE}>
+                      <FaRegUserCircle />
+                      <span>마이페이지</span>
+                    </Link>
+                  </>
+                )}
                 <Link to={PATH.HOME} onClick={handleLogout}>
                   <FiLogOut />
                   <span>로그아웃</span>
-                </Link>
-                <Link to={PATH.MYPAGE}>
-                  <FaRegUserCircle />
-                  <span>마이페이지</span>
                 </Link>
                 {cookies.role.includes('ROLE_ADMIN') && (
                   <Link to={PATH.ADMIN}>
@@ -114,29 +119,52 @@ const Header = () => {
                 type="text"
                 width="350px"
                 height="50px"
-                placeholder="여행 그룹이나 상품을 검색해보세요."
+                placeholder={
+                  location.pathname.includes(PATH.ADMIN)
+                    ? '게시물 검색'
+                    : '여행 그룹이나 상품을 검색해보세요.'
+                }
                 borderColor="none"
               />
             )}
           </div>
           <LnbListStyle>
-            <li>
-              <Link to={PATH.SURVEY}>여행 큐레이션</Link>
-            </li>
-            <li>
-              <Link to={PATH.PRODUCT_RECOMMEND}>추천 여행</Link>
-            </li>
-            <li>
-              <Link to={PATH.PRODUCT_GROUP}>그룹별 여행</Link>
-            </li>
-            <li>
-              <Link to={PATH.PRODUCT_DISTRICT}>지역별 여행</Link>
-            </li>
-            <li>
-              <Link to={PATH.PRODUCT_THEME}>테마별 여행</Link>
-            </li>
-            <BarStyle />
-            <li>커뮤니티</li>
+            {!location.pathname.includes(PATH.ADMIN) ? (
+              <>
+                <li>
+                  <Link to={PATH.SURVEY}>여행 큐레이션</Link>
+                </li>
+                <li>
+                  <Link to={PATH.PRODUCT_RECOMMEND}>추천 여행</Link>
+                </li>
+                <li>
+                  <Link to={PATH.PRODUCT_GROUP}>그룹별 여행</Link>
+                </li>
+                <li>
+                  <Link to={PATH.PRODUCT_DISTRICT}>지역별 여행</Link>
+                </li>
+                <li>
+                  <Link to={PATH.PRODUCT_THEME}>테마별 여행</Link>
+                </li>
+                <BarStyle />
+                <li>커뮤니티</li>
+              </>
+            ) : (
+              <>
+                <li className={isCurPath(PATH.ADD_PRODUCT) ? 'active' : ''}>
+                  <Link to={PATH.ADD_PRODUCT}>상품 관리</Link>
+                </li>
+                <li className={isCurPath(PATH.TRANSACTION_LIST) ? 'active' : ''}>
+                  <Link to={PATH.TRANSACTION_LIST}>거래 내역</Link>
+                </li>
+                <li className={isCurPath(PATH.USER_LIST) ? 'active' : ''}>
+                  <Link to={PATH.USER_LIST}>회원 관리</Link>
+                </li>
+                <li className={isCurPath(PATH.POST_LIST) ? 'active' : ''}>
+                  <Link to={PATH.POST_LIST}>게시글 관리</Link>
+                </li>
+              </>
+            )}
           </LnbListStyle>
         </Inner>
       </LnbStyle>
@@ -160,6 +188,12 @@ const LnbListStyle = styled.ul`
   gap: 30px;
   color: ${COLORS.c1b1b1b};
   font-weight: ${FONTWEGHT.fw600};
+
+  li {
+    &.active {
+      color: ${COLORS.primary};
+    }
+  }
 `
 
 const BarStyle = styled.span`
