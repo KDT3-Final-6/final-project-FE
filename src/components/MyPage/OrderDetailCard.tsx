@@ -8,8 +8,9 @@ import { FiShare2 } from 'react-icons/fi'
 import PATH from '@src/constants/pathConst'
 import { useNavigate } from 'react-router-dom'
 import { IOrder, IOrderList } from '@src/interfaces/order'
-import { color } from 'framer-motion'
 import Image from '@components/common/Image'
+import { setReviewModal } from '@src/reduxStore/reviewModalSlice'
+import { useDispatch } from 'react-redux'
 
 interface IBarTypeItem {
   item: IOrderList
@@ -34,6 +35,17 @@ function OrderDetailCard({ item, cardType, height = '220px', priceColor }: IBarT
     purchasedProductId,
     purchasedProductQuantity,
   } = item
+
+  const dispatch = useDispatch()
+
+  /** 리뷰 모달 핸들러 */
+  // const reviewModalHandler = () => {
+  //   dispatch(
+  //     setReviewModal({
+  //       isOpen: true,
+  //     })
+  //   )
+  // }
 
   return (
     <ProductCard key={productId} cardType={cardType} height={height}>

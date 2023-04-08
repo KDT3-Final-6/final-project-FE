@@ -1,12 +1,8 @@
 import React, { useState } from 'react'
 import { Helmet } from 'react-helmet'
 import styled from 'styled-components'
-import Pagination from '@src/components/common/Pagination'
-import { IOrder } from '@src/interfaces/order'
-import BarTypeItem from '@src/components/common/BarTypeItem'
-import { COLORS } from '@src/styles/root'
 import { useGetOrderListQuery } from '@src/reduxStore/api/orderApiSlice'
-import OrderBox from './OrderBox'
+import OrderBox from '@components/MyPage/OrderBox'
 import Paginate from '@src/components/common/Paginate'
 
 const OrderList = () => {
@@ -14,7 +10,6 @@ const OrderList = () => {
   const { data: orders, isLoading, isFetching } = useGetOrderListQuery(page)
   if (isLoading) <>Loading</>
 
-  console.log('orders', orders)
   const changePageHandler = () => {}
   return (
     <>

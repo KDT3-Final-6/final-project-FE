@@ -16,7 +16,34 @@ export const reviewApi = createApi({
       query: (productId: number) => `${API_URL.review}/${productId}`,
       providesTags: [{ type: 'Review', id: 'REVIEW_LIST' }],
     }),
+    editReview: builder.mutation({
+      query: ({ postId, data }) => ({
+        url: `${API_URL.review}/${postId}`,
+        method: 'PATCH',
+        body: data,
+      }),
+      invalidatesTags: [{ type: 'Review', id: 'REVIEW-LIST' }],
+    }),
+    deleteReview: builder.mutation({
+      query: (postId) => ({
+        url: `${API_URL.review}/${postId}`,
+        method: 'DELETE',
+      }),
+    }),
+    postReview: builder.mutation({
+      query: (data) => ({
+        url: API_URL.review,
+        method: 'POST',
+        body: data,
+      }),
+    }),
   }),
 })
 
-export const { useGetReviewForProductQuery, useGetReviewForMeQuery } = reviewApi
+export const {
+  useGetReviewForProductQuery,
+  useGetReviewForMeQuery,
+  useEditReviewMutation,
+  useDeleteReviewMutation,
+  usePostReviewMutation,
+} = reviewApi
