@@ -6,6 +6,7 @@ import { IProductOption } from '@src/interfaces/product'
 
 interface ISelect {
   options?: Array<string | number>
+  initial?: string | number
   value?: string | number
   unit?: any
   width?: string
