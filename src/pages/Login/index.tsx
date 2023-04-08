@@ -41,7 +41,6 @@ const Login = () => {
       const maxAge = response.data.refreshTokenExpirationTime
       setCookies('accessToken', response.data.accessToken, { maxAge: maxAge })
       setCookies('role', response.data.roles, { maxAge: maxAge })
-      dispatch(SET_USERINFO(await userInfo()))
       dispatch(
         setModal({
           isOpen: true,
