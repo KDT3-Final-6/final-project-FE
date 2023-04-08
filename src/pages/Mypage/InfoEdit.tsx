@@ -23,6 +23,9 @@ const InfoEdit = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  const userInfo = useSelector((state: IRootReducer) => state.userInfo)
+  console.log(userInfo)
+
   const withdrawalHandler = async () => {
     dispatch(
       setModal({
