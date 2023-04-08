@@ -12,10 +12,7 @@ import {
   usePostNonUserOrderMutation,
 } from '@src/reduxStore/api/orderApiSlice'
 import { getCookie } from '@src/utils/cookie'
-import { IPostOrder, IProductIds } from '@src/interfaces/order'
-import { useSelector } from 'react-redux'
-import { IUserInfo } from '@src/reduxStore/features/userInfoSlice'
-import { RootState } from '@reduxjs/toolkit/dist/query/core/apiState'
+import { IProductIds } from '@src/interfaces/order'
 
 interface IBuy {
   checkbox?: boolean
