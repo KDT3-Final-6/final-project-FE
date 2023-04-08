@@ -38,18 +38,16 @@ const Login = () => {
         memberEmail: data.memberEmail,
         memberPassword: data.memberPassword,
       })
-
       const maxAge = response.data.refreshTokenExpirationTime
       setCookies('accessToken', response.data.accessToken, { maxAge: maxAge })
       setCookies('role', response.data.roles, { maxAge: maxAge })
-
+      dispatch(SET_USERINFO(await userInfo()))
       dispatch(
         setModal({
           isOpen: true,
           text: `${response.data.memberName}님, ${MESSAGES.LOGIN.complete}`,
           onClickOK: async () => {
             dispatch(setModal({ route: navigate(PATH.HOME) }))
-            dispatch(SET_USERINFO(await userInfo()))
           },
         })
       )
@@ -60,7 +58,7 @@ const Login = () => {
             isOpen: true,
             text: MESSAGES.LOGIN.inCorrect,
             onClickOK: async () => {
-              dispatch(setModal({ isOpen: false, route: navigate(PATH.HOME) }))
+              dispatch(setModal({ isOpen: false }))
             },
           })
         )
