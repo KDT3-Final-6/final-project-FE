@@ -16,7 +16,7 @@ import {
 } from '@src/api/survey'
 import { ISurvey } from '@src/interfaces/survey'
 import { IProductContent } from '@src/interfaces/product'
-import Button, { ButtonStyle } from '@src/components/common/Button'
+import Button from '@src/components/common/Button'
 import { MdEditCalendar } from 'react-icons/md'
 import { COLORS } from '@src/styles/root'
 import styled from 'styled-components'
@@ -58,7 +58,7 @@ const Result = () => {
       <Banner />
       <Inner padding="0 0 200px 0">
         <Title margin="80px 0 0 0" fontSize={FONTSIZE.fz30}>
-          <h1>김고투 님을 위해서 선별해 봤어요.</h1>
+          <h1>강백호 님을 위해서 선별해 봤어요.</h1>
         </Title>
         {age && age.length > 0 && <CategoryList title="또래들이 많이 찾는 여행" products={age} />}
         {companion && companion.length > 0 && (

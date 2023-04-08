@@ -6,6 +6,7 @@ import { GlobalStyle } from './styles/GlobalStyle'
 import ScrollTop from './utils/scrollTop'
 import ModalBox from './components/common/ModalBox'
 import Loading from './components/common/Loading'
+import { useSelector } from 'react-redux'
 
 const App = () => {
   return (
