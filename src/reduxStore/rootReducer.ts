@@ -5,6 +5,7 @@ import { orderApi } from './api/orderApiSlice'
 import loadingSlice from '@src/reduxStore/loadingSlice'
 import modalSlice from '@src/reduxStore/modalSlice'
 import { cartApi } from './api/cartApiSlice'
+import { reviewApi } from './api/reviewApiSlice'
 
 const rootReducer = combineReducers({
   loading: loadingSlice.reducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   [qnaApi.reducerPath]: qnaApi.reducer,
   [orderApi.reducerPath]: orderApi.reducer,
   [cartApi.reducerPath]: cartApi.reducer,
+  [reviewApi.reducerPath]: reviewApi.reducer,
 })
 
 export type ReducerType = ReturnType<typeof rootReducer>

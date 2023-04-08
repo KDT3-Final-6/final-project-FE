@@ -1,6 +1,5 @@
 import API_URL from '@src/constants/apiUrlConst'
 import { axiosInstance } from './instance'
-import { ICartResponse } from '@src/interfaces/product'
 import { IReview } from '@src/interfaces/review'
 
 /** 장바구니  목록*/
