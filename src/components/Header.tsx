@@ -21,40 +21,12 @@ const Header = () => {
   const dispatch = useDispatch()
   const [cookies, , removeCookies] = useCookies()
 
-  // useEffect(() => {
-  //   ;(async () => {
-  //     try {
-  //       dispatch(showLoading())
-  //       await logout()
-  //       removeCookies('accessToken')
-  //       dispatch(
-  //         setModal({
-  //           isOpen: true,
-  //           text: MESSAGES.LOGOUT.complete,
-  //           onClickOK: () => {
-  //             dispatch(setModal({ isOpem: false, route: PATH.HOME }))
-  //           },
-  //         })
-  //       )
-  //     } catch (error) {
-  //       dispatch(
-  //         setModal({
-  //           isOpen: true,
-  //           text: MESSAGES.LOGOUT.error,
-  //           onClickOK: () => dispatch(setModal({ isOpen: false })),
-  //         })
-  //       )
-  //     } finally {
-  //       dispatch(hideLoading())
-  //     }
-  //   })()
-  // }, [cookies])
-
   const handleLogout = async () => {
     try {
       dispatch(showLoading())
       await logout()
       removeCookies('accessToken')
+      removeCookies('role')
       dispatch(
         setModal({
           isOpen: true,
