@@ -91,11 +91,9 @@ const DatePriceStyle = styled.div`
   justify-content: space-between;
   color: ${COLORS.primary};
   margin-top: 10px;
-
   ${PriceStyle} {
     display: flex;
     align-items: center;
-
     span {
       font-weight: ${FONTWEGHT.fw400};
       font-size: ${FONTSIZE.fz20};

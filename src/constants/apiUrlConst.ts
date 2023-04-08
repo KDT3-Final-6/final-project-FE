@@ -15,6 +15,12 @@ const API_URL = {
   relation: '/products/relation',
   admin_products: '/admins/products',
   admin_categories: '/admins/categories',
+  curation_companion: '/curation/detail/companion',
+  curation_gender: '/curation/detail/gender',
+  curation_age: '/curation/detail/age-group',
+  curation_hobby: '/curation/detail/hobby',
+  curation_religion: '/curation/detail/religion',
+  curation_season: '/curation/detail/season',
 }
 
 export default API_URL

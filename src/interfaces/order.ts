@@ -35,6 +35,7 @@ export interface IOrderList {
   productProductQuantity: number
   orderStatus: string
   hasReview: boolean
+  purchasedProductQuantity: number
 }
 
 export interface IPostOrder {

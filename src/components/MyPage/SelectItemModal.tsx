@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import { AiFillCloseCircle } from 'react-icons/ai'
-import CheckItem from '@components/common/CheckItem'
 import Button from '@components/common/Button'
 import styled, { css, keyframes } from 'styled-components'
 import { COLORS } from '@src/styles/root'
-import { useForm, SubmitHandler } from 'react-hook-form'
 import RadioItem from '@src/components/MyPage/RadioItem'
 import { useGetOrderListQuery } from '@src/reduxStore/api/orderApiSlice'
+import Paginate from '../common/Paginate'
 
 type Option = {
   id: number
@@ -59,67 +58,12 @@ const SelectItemModal = ({
     }
   }
 
-  const getOrderList = [
-    {
-      orderDate: '',
-      orderList: [
-        {
-          orderId: 325,
-          productId: 1,
-          purchasedProductId: 366,
-          productName: 'test_000',
-          productThumbnail: 'test_cfb89269cde7',
-          productPrice: 30000,
-          orderDate: '2023-03-28T14:06:18.300519',
-          optionName: '2022-03-05 ~ 2202-03-18',
-          productProductQuantity: 3,
-          orderStatus: '결제완료',
-          hasReview: true,
-        },
-      ],
-      paymentMethod: '카드',
-    },
-    {
-      orderDate: '',
-      orderList: [
-        {
-          orderId: 326,
-          productId: 2,
-          purchasedProductId: 366,
-          productName: 'test_111',
-          productThumbnail: 'test_cfb89269cde7',
-          productPrice: 30000,
-          orderDate: '2023-03-28T14:06:18.300519',
-          optionName: '2022-03-05 ~ 2202-03-18',
-          productProductQuantity: 3,
-          orderStatus: '결제완료',
-          hasReview: true,
-        },
-      ],
-      paymentMethod: '카드',
-    },
-    {
-      orderDate: '',
-      orderList: [
-        {
-          orderId: 327,
-          productId: 3,
-          purchasedProductId: 366,
-          productName: 'test_222',
-          productThumbnail: 'test_cfb89269cde7',
-          productPrice: 30000,
-          orderDate: '2023-03-28T14:06:18.300519',
-          optionName: '2022-03-05 ~ 2202-03-18',
-          productProductQuantity: 3,
-          orderStatus: '결제완료',
-          hasReview: true,
-        },
-      ],
-      paymentMethod: '카드',
-    },
-  ]
+  const changePageHandler = (event: { selected: number }) => {
+    setPage(event.selected + 1)
+  }
 
-  const orderList = getOrderList.map((item) => item.orderList).flat()
+  const filterData =
+    (data && data?.content?.flatMap((orderContent) => orderContent.orderList)) ?? []
 
   return (
     <ModalStyle>
@@ -132,9 +76,9 @@ const SelectItemModal = ({
         </Button>
       </header>
       <article>
-        {orderList.map((item) => (
+        {filterData.map((item) => (
           <RadioItem
-            key={item.productId}
+            key={item.orderId}
             id={item.productId}
             name={item.productName}
             isChecked={selectedOption?.id === item.productId}
@@ -142,6 +86,7 @@ const SelectItemModal = ({
           />
         ))}
       </article>
+      <Paginate totalElements={data?.totalPages || 0} changePageHandler={changePageHandler} />
       <footer>
         <Button
           type="submit"
@@ -166,6 +111,7 @@ const ModalStyle = styled.div`
   transform: translate(-50%, -50%);
   width: 800px;
   min-height: 307px;
+  max-height: 715px; // ????
   padding: 25px;
   background-color: #f3f3f3;
   border-radius: 12px;

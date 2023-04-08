@@ -89,6 +89,8 @@ const ButtonsStyle = styled.div`
     border-radius: 50px;
     padding: 14px 24px;
     height: auto;
+    display: flex;
+    align-items: center;
     svg {
       font-size: 20px;
       margin-left: 8px;

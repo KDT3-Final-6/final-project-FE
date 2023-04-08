@@ -4,6 +4,7 @@ import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import splitDate from '@src/utils/splitDate'
 import Button from '@components/common/Button'
 import { IoIosArrowUp } from 'react-icons/io'
+import extractDateTime from '@src/utils/extractDateTime'
 
 interface IOneOnOneAnswerCard {
   answer: string
@@ -11,7 +12,7 @@ interface IOneOnOneAnswerCard {
   setIsInquiryOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 const OneOnOneAnswerCard = ({ replyDate, answer, setIsInquiryOpen }: IOneOnOneAnswerCard) => {
-  const time = '16:27' // 글쓴 시간, 데이터 패칭할 것
+  const { date, time } = extractDateTime(replyDate)
   return (
     <OneOnOneAnswerCardStyle>
       <TitleBoxStyle>
@@ -20,7 +21,7 @@ const OneOnOneAnswerCard = ({ replyDate, answer, setIsInquiryOpen }: IOneOnOneAn
       <ContentStyle>{answer}</ContentStyle>
       <FooterStyle>
         <DateStyle>
-          <span>{splitDate(replyDate)}</span>
+          <span>{date}</span>
           <span>{time}</span>
         </DateStyle>
         <ButtonBoxStyle>

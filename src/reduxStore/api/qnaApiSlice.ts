@@ -1,22 +1,9 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi } from '@reduxjs/toolkit/query/react'
 import API_URL from '@src/constants/apiUrlConst'
 import { IQnA, IPostQnA } from '@src/interfaces/post'
-
-const API_BASE_URL: string = import.meta.env.VITE_BASE_URL
+import baseQuery from '../const/baseQuery'
 
 // // API 엔드포인트의 각 함수를 추출
-const baseQuery = fetchBaseQuery({
-  baseUrl: API_BASE_URL,
-  prepareHeaders: (headers, { getState }) => {
-    const token =
-      'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9BRE1JTixST0xFX1VTRVIiLCJleHAiOjE2ODA5Mzg2Njl9.mK866jKX-N2eszYWGsJIabV3LFa6rwlkkm4Aw6bSEbc'
-    if (token) {
-      headers.set('Authorization', `Bearer ${token}`)
-    }
-    return headers
-  },
-})
-
 export const qnaApi = createApi({
   reducerPath: 'qnaApi',
   baseQuery,
@@ -45,7 +32,7 @@ export const qnaApi = createApi({
         url: `${API_URL.qna}/${postId}`,
         method: 'DELETE',
       }),
-      invalidatesTags: (result, error, postId) => [{ type: 'QnA', id: postId }],
+      invalidatesTags: [{ type: 'QnA', id: 'PARTIAL-LIST' }],
     }),
   }),
 })

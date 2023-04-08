@@ -6,7 +6,7 @@ import Button from '../common/Button'
 import Title from '../common/Title'
 import { FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import StarRateWrapGet from '@src/components/common/StarRateWrapGet'
-import { IProductDetail } from '@src/interfaces/product'
+import { IProductDetail, IProductOption } from '@src/interfaces/product'
 import Image from '../common/Image'
 import { useNavigate } from 'react-router-dom'
 import useCopyClipBoard from '@src/utils/copyURL'
@@ -15,6 +15,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import useCounter from '@src/hooks/useCounter'
+import { productData } from '@src/pages/Buy'
 
 interface Props {
   productDetail: IProductDetail
@@ -49,6 +50,26 @@ const ProductInfo = ({ productDetail, pathname, setOptionIndex, reviews }: Props
       console.log(error)
     }
   }
+
+  /**구매하기 페이지에 넘길 데이터 */
+  // function filterProductData(productDetail: IProductDetail): productData[] {
+  //   const result: productData[] = []
+
+  //   productDetail.periodOptions.forEach((option) => {
+  //     const data: productData = {
+  //       name: productDetail.productName,
+  //       periodOptionId: option.periodOptionId,
+  //       periodOptionName: option.periodOptionName,
+  //       productId: option.periodOptionId, // periodOptionId를 productId로 사용
+  //       productPrice: productDetail.productPrice,
+  //       productThumbnail: productDetail.productThumbnail,
+  //       quantity: 1,
+  //     }
+  //     result.push(data)
+  //   })
+  //   return result
+  // }
+  // const filterData = filterProductData(productDetail)
 
   return (
     <InfoStyle>
@@ -129,7 +150,12 @@ const ProductInfo = ({ productDetail, pathname, setOptionIndex, reviews }: Props
               장바구니
             </div>
           </Button>
-          <Button width="180px" height="50px" buttonType="detail" onClick={() => navigate('/buy')}>
+          <Button
+            width="180px"
+            height="50px"
+            buttonType="detail"
+            onClick={() => navigate('/buy', { state: [productDetail] })}
+          >
             구매하기
           </Button>
         </div>

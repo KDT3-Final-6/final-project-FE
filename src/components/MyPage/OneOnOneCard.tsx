@@ -8,13 +8,14 @@ import { IoIosArrowUp } from 'react-icons/io'
 import OneOnOneAnswerCard from './OneOnOneAnswerCard'
 import { IQnAContent } from '@src/interfaces/post'
 import extractDateTime from '@src/utils/extractDateTime'
-
+import { useDeleteQnAMutation } from '@src/reduxStore/api/qnaApiSlice'
 interface IOneOnOneCard {
   postInfo: IQnAContent
 }
 
 const OneOnOneCard = ({ postInfo }: IOneOnOneCard) => {
   const {
+    postId,
     postTitle,
     postContent,
     inquiryType,
@@ -26,7 +27,12 @@ const OneOnOneCard = ({ postInfo }: IOneOnOneCard) => {
   } = postInfo
   const [isInquiryOpen, setIsInquiryOpen] = useState<boolean>(false)
   const { date, time } = extractDateTime(createdDate)
+  const [deleteQuestion, { isLoading, error, isSuccess }] = useDeleteQnAMutation()
 
+  const hanldeDeleteClick = async () => {
+    const result = deleteQuestion(postId)
+    console.log('result', result)
+  }
   return (
     <ContainerStyle>
       <TitleBoxStyle>
@@ -53,8 +59,8 @@ const OneOnOneCard = ({ postInfo }: IOneOnOneCard) => {
           <span>{date}</span>
           <span>{time}</span>
         </DateStyle>
-        {qnAStatus === '답변완료' && !isInquiryOpen ? (
-          <ButtonBoxStyle>
+        <ButtonBoxStyle qnAStatus={qnAStatus}>
+          {qnAStatus === '답변완료' ? (
             <Button
               onClick={() => setIsInquiryOpen((prev) => !prev)}
               width="112px"
@@ -65,10 +71,20 @@ const OneOnOneCard = ({ postInfo }: IOneOnOneCard) => {
               <span>답변 보기</span>
               <IoIosArrowDown />
             </Button>
-          </ButtonBoxStyle>
-        ) : null}
+          ) : (
+            <Button
+              onClick={hanldeDeleteClick}
+              width="204px"
+              height="45px"
+              borderRadius="0"
+              color={`${COLORS.black}`}
+            >
+              <span>삭제하기</span>
+            </Button>
+          )}
+        </ButtonBoxStyle>
       </FooterStyle>
-      {isInquiryOpen ? (
+      {isInquiryOpen && replyDate ? (
         <InquiryBoxStyle>
           <OneOnOneAnswerCard
             answer={answer}
@@ -163,7 +179,7 @@ const DateStyle = styled.div`
   padding-top: 10px;
 `
 
-const ButtonBoxStyle = styled.div`
+const ButtonBoxStyle = styled.div<{ qnAStatus: string }>`
   button {
     display: flex;
     align-items: center;
