@@ -1,10 +1,12 @@
 export interface IProduct {
-  content: IProductContent[]
+  content: IProductContentUnion[]
   totalPages: number
   totalElements: number
   pageNumber: number
   size: number
 }
+
+export type IProductContentUnion = IProductContent & IProductDetail
 
 export interface IProductContent {
   productId: number
@@ -15,6 +17,7 @@ export interface IProductContent {
 }
 
 export interface IProductDetail {
+  productId?: number
   contentDetail: string
   isWished: boolean
   wishlistCount: number
