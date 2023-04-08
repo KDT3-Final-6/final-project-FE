@@ -9,6 +9,7 @@ import {
   ICartResponse,
 } from '@src/interfaces/product'
 import { IReview } from '@src/interfaces/review'
+import { IWishlist } from '@src/interfaces/wishlist'
 
 export const getProducts = async () => {
   const data = await axios.get('/mockData/product.json')
@@ -72,6 +73,9 @@ export const postWishlist = async (productId: number) => {
 export const deleteWishlist = async (productId: number) => {
   await axiosInstance.delete(API_URL.wishlist + `/${productId}`)
 }
+
+export const getWishlist = async (page: number = 1) =>
+  (await axiosInstance.get(API_URL.wishlist + `?page=${page}`)) as IWishlist
 
 /** 관리자 api */
 /** 관리자 전체 상품 불러오기 */

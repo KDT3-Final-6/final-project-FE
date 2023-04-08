@@ -12,43 +12,25 @@ import Image from './common/Image'
 import { useCookies } from 'react-cookie'
 import { useDispatch } from 'react-redux'
 import { hideLoading, showLoading } from '@src/reduxStore/loadingSlice'
-import { logout } from '@src/api/auth'
+import { logout, userInfo } from '@src/api/auth'
 import { setModal } from '@src/reduxStore/modalSlice'
 import MESSAGES from '@src/constants/messages'
 import isCurPath from '@src/utils/isCurlPath'
+import { SET_USERINFO } from '@src/reduxStore/features/userInfoSlice'
 
 const Header = () => {
   const dispatch = useDispatch()
   const [cookies, , removeCookies] = useCookies()
 
-  // useEffect(() => {
-  //   ;(async () => {
-  //     try {
-  //       dispatch(showLoading())
-  //       await logout()
-  //       removeCookies('accessToken')
-  //       dispatch(
-  //         setModal({
-  //           isOpen: true,
-  //           text: MESSAGES.LOGOUT.complete,
-  //           onClickOK: () => {
-  //             dispatch(setModal({ isOpem: false, route: PATH.HOME }))
-  //           },
-  //         })
-  //       )
-  //     } catch (error) {
-  //       dispatch(
-  //         setModal({
-  //           isOpen: true,
-  //           text: MESSAGES.LOGOUT.error,
-  //           onClickOK: () => dispatch(setModal({ isOpen: false })),
-  //         })
-  //       )
-  //     } finally {
-  //       dispatch(hideLoading())
-  //     }
-  //   })()
-  // }, [cookies])
+  useEffect(() => {
+    const userInfoFetch = async () => {
+      const response = await userInfo()
+      dispatch(SET_USERINFO(response))
+    }
+    if (cookies.accessToken) {
+      userInfoFetch()
+    }
+  }, [])
 
   const handleLogout = async () => {
     try {
