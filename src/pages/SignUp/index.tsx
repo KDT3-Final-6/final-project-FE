@@ -11,7 +11,6 @@ import styled from 'styled-components'
 import SocialButtons from '@src/components/common/SocialButtons'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
-import { IUser } from '@src/interfaces/user'
 import { hideLoading, showLoading } from '@src/reduxStore/loadingSlice'
 import { signup } from '@src/api/auth'
 import MESSAGES from '@src/constants/messages'
@@ -20,6 +19,7 @@ import { setModal } from '@src/reduxStore/modalSlice'
 import { useNavigate } from 'react-router-dom'
 import PATH from '@src/constants/pathConst'
 import { Helmet } from 'react-helmet'
+import { ISignup } from '@src/interfaces/user'
 
 const SignUp = () => {
   const dispatch = useDispatch()
@@ -29,7 +29,7 @@ const SignUp = () => {
     handleSubmit,
     watch,
     formState: { isSubmitting, errors, isDirty },
-  } = useForm<IUser>()
+  } = useForm<ISignup>()
   const hobbys = [
     { id: 'GOLF', labelName: '골프' },
     { id: 'WINE', labelName: '와인' },
@@ -79,7 +79,7 @@ const SignUp = () => {
 
   const [selectedAgree, setSelectedAgree] = useState<boolean>(false)
   const handleAgreeChange = (checked: boolean) => setSelectedAgree(checked)
-  const onSubmit = async (data: IUser) => {
+  const onSubmit = async (data: ISignup) => {
     try {
       dispatch(showLoading())
       const response = await signup({
