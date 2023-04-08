@@ -18,15 +18,15 @@ export interface IUser extends ILogin {
 }
 
 export interface IUserInfo {
-  memberEmail: string | null
-  memberName: string | null
-  memberNickName: string | null
-  memberPhone: string | null
-  memberBirthDate: string | null
-  memberHobby: string[] | null
-  memberSmsAgree: boolean | null
-  memberEmailAgree: boolean | null
-  memberGrade: string | null
-  memberImage: string | null
-  roles: string[] | null
+  memberEmail: string
+  memberName: string
+  memberNickName: string
+  memberPhone: string
+  memberBirthDate: string
+  memberHobby: string[]
+  memberSmsAgree: boolean
+  memberEmailAgree: boolean
+  memberGrade: string
+  memberImage: string
+  roles: string[]
 }
