@@ -6,12 +6,12 @@ import Title from '@src/components/common/Title'
 import Image from '@src/components/common/Image'
 import Button from '@src/components/common/Button'
 import { useNavigate } from 'react-router-dom'
-import { IProductContent } from '@src/interfaces/product'
+import { IProductDetail } from '@src/interfaces/product'
 import { getAdminProducts } from '@src/api/product'
 import Paginate from '@src/components/common/Paginate'
 
 const ProductList = () => {
-  const [products, setProducts] = useState<IProductContent[]>([])
+  const [products, setProducts] = useState<IProductDetail[]>([])
   const [page, setPage] = useState<number>(1)
   const [totalElement, setTotalElement] = useState<number>(0)
   const [elementLength, setElementLength] = useState<number>(0)
@@ -73,8 +73,8 @@ const ProductList = () => {
                     ></Image>
                   </td>
                   <td>{product.productName}</td>
-                  <td>{product.productPrice}</td>
-                  <td>{product.isWished ? '품절' : '판매 중'}</td>
+                  <td>{product.productPrice.toLocaleString()}원</td>
+                  <td>{product.productStatus}</td>
                   <td>
                     <div
                       style={{
