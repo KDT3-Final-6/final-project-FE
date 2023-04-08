@@ -1,4 +1,3 @@
-import KVslider from '@src/components/Home/KV/KVslider'
 import Curation from '@src/components/Home/Curation'
 import GroupTravel from '@src/components/Home/GroupTravel'
 import SlideBanner from '@src/components/Home/SlideBanner'
@@ -9,7 +8,6 @@ import React from 'react'
 import { Helmet } from 'react-helmet'
 import Banner from '@src/components/Home/Banner'
 import FloatingNav from '@src/components/Home/FloatingNav'
-import styled from 'styled-components'
 
 function Home() {
   return (

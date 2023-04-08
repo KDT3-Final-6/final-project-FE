@@ -45,9 +45,7 @@ const CheckPassword = () => {
           setModal({
             isOpen: true,
             text: MESSAGES.CHECKPASSWORD.error,
-            onClickOK: () => {
-              dispatch(setModal({ isOpen: false }))
-            },
+            onClickOK: () => dispatch(setModal({ isOpen: false })),
           })
         )
       }

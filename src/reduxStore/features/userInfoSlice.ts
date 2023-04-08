@@ -1,18 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-
-export interface IUserInfo {
-  memberEmail: string | null
-  memberName: string | null
-  memberNickName: string | null
-  memberPhone: string | null
-  memberBirthDate: string | null
-  memberHobby: string[] | null
-  memberSmsAgree: boolean | null
-  memberEmailAgree: boolean | null
-  memberGrade: string | null
-  memberImage: string | null
-  roles: string[] | null
-}
+import { IUserInfo } from "@src/interfaces/user"
 
 const initialState: IUserInfo = {
   memberEmail: null,
