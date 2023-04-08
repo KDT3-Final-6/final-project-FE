@@ -6,3 +6,5 @@ interface IRootReducer {
   orderApi: object,
   cartApi: object,
 }
+
+export default IRootReducer
