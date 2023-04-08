@@ -6,7 +6,7 @@ interface ILogin {
   data: {
     accessToken: string
     grantType: string
-    memberName:string
+    memberName: string
     refreshToken: string
     refreshTokenExpirationTime: number
     roles: string[]
@@ -29,7 +29,7 @@ export const userInfo = async () => (await axiosInstance.get(API_URL.members)) a
 export const userInfoEdit = (data: object) => axiosInstance.patch(API_URL.members, data)
 
 /** 회원탈퇴 API */
-export const userWithDrawal = () => axiosInstance.post(API_URL.members)
+export const userWithDrawal = () => axiosInstance.delete(API_URL.members)
 
 /** 회원 비밀번호 확인 API */
 export const checkpassword = (data: object) =>

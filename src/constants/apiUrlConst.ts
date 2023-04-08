@@ -21,6 +21,7 @@ const API_URL = {
   curation_hobby: '/curation/detail/hobby',
   curation_religion: '/curation/detail/religion',
   curation_season: '/curation/detail/season',
+  wishlist: '/wishlist',
 }
 
 export default API_URL

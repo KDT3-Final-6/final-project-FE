@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import PATH from '@src/constants/pathConst'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
@@ -12,14 +12,22 @@ import Image from './common/Image'
 import { useCookies } from 'react-cookie'
 import { useDispatch } from 'react-redux'
 import { hideLoading, showLoading } from '@src/reduxStore/loadingSlice'
-import { logout } from '@src/api/auth'
+import { logout, userInfo } from '@src/api/auth'
 import { setModal } from '@src/reduxStore/modalSlice'
 import MESSAGES from '@src/constants/messages'
 import isCurPath from '@src/utils/isCurlPath'
+import { SET_USERINFO } from '@src/reduxStore/features/userInfoSlice'
 
 const Header = () => {
   const dispatch = useDispatch()
   const [cookies, , removeCookies] = useCookies()
+
+  useEffect(() => {
+    const userInfoFetch = async () => dispatch(SET_USERINFO(await userInfo()))
+    if (cookies.accessToken) {
+      userInfoFetch()
+    }
+  }, [])
 
   const handleLogout = async () => {
     try {

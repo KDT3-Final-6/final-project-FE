@@ -8,30 +8,20 @@ import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import { Outlet, useNavigate } from 'react-router-dom'
 import Button from '@components/common/Button'
 import Title, { HighlightSpanStyle } from '@src/components/common/Title'
-import { IUserInfo } from '@src/interfaces/user'
-import { userInfo } from '@src/api/auth'
-import { useCookies } from 'react-cookie'
+import { useSelector } from 'react-redux'
+import { RootState } from '@src/reduxStore/store'
 
 const MyPage = () => {
   const [activeMenu, setActiveMenu] = useState(0)
-  const [userInfoData, setUserInfoData] = useState<IUserInfo>()
   const navigate = useNavigate()
-  const [cookies] = useCookies()
+  const userData = useSelector((state: RootState) => state.userInfo)
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await userInfo()
-      setUserInfoData(data)
-    }
-    fetchData()
-  }, [])
-
-  return userInfoData ? (
+  return (
     <>
       <Image bgImage="/images/myPage_banner.png" alt="banner" width="100%" height="190px" />
       <ProfileStyle>
         <Image
-          bgImage={userInfoData.memberImage}
+          bgImage={userData.memberImage}
           alt="프로필"
           width="130px"
           height="130px"
@@ -39,11 +29,11 @@ const MyPage = () => {
           border={`5px solid ${COLORS.white}`}
         />
         <span style={{ fontSize: FONTSIZE.fz24, fontWeight: FONTWEGHT.fw700 }}>
-          {userInfoData.memberName}
+          {userData.memberName}
         </span>
         <Title
           titleType="h3"
-          title={userInfoData.memberEmail}
+          title={userData.memberEmail}
           fontSize={FONTSIZE.fz15}
           fontWeight={FONTWEGHT.fw400}
           margin="-10px 0 0"
@@ -56,7 +46,7 @@ const MyPage = () => {
               fontWeight={FONTWEGHT.fw600}
               spanMargin="0 0 20px"
             >
-              {cookies.role.includes('ROLE_ADMIN') ? '관리자' : '일반회원'}
+              {userData.roles.includes('ROLE_ADMIN') ? '관리자' : '일반회원'}
             </HighlightSpanStyle>
           </h2>
         </Title>
@@ -86,7 +76,7 @@ const MyPage = () => {
         </Inner>
       </InnerWrap>
     </>
-  ) : null
+  )
 }
 
 const ProfileStyle = styled.section`

@@ -76,7 +76,6 @@ const ProductDetail = () => {
         productDetail={productDetail}
         pathname={pathname}
         setOptionIndex={setOptionIndex}
-        reviews={reviews}
         optionIndex={optionIndex}
       />
       <MoveTab reviews={reviews} />
