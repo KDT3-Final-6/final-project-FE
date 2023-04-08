@@ -15,6 +15,7 @@ import { hideLoading, showLoading } from '@src/reduxStore/loadingSlice'
 import { logout } from '@src/api/auth'
 import { setModal } from '@src/reduxStore/modalSlice'
 import MESSAGES from '@src/constants/messages'
+import isCurPath from '@src/utils/isCurlPath'
 
 const Header = () => {
   const dispatch = useDispatch()
@@ -126,14 +127,18 @@ const Header = () => {
       </GnbStyle>
       <LnbStyle>
         <Inner height="90px" display="flex" justifyContent="space-between">
-          <Input
-            inputType="searchInput"
-            type="text"
-            width="350px"
-            height="50px"
-            placeholder="여행 그룹이나 상품을 검색해보세요."
-            borderColor="none"
-          />
+          <div>
+            {!isCurPath(PATH.SEARCH) && (
+              <Input
+                inputType="searchInput"
+                type="text"
+                width="350px"
+                height="50px"
+                placeholder="여행 그룹이나 상품을 검색해보세요."
+                borderColor="none"
+              />
+            )}
+          </div>
           <LnbListStyle>
             <li>
               <Link to={PATH.SURVEY}>여행 큐레이션</Link>

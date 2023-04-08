@@ -32,6 +32,7 @@ const Search = () => {
             width="500px"
             height="56px"
             placeholder="여행 그룹이나 상품을 검색해보세요."
+            borderColor="none"
           />
         </InputContainerStyle>
         <TitleStyle>통합 검색</TitleStyle>
