@@ -13,6 +13,7 @@ interface IImage {
   imgBorderRadius?: string
   children?: React.ReactNode
   border?: string
+  onClick?: () => void
 }
 
 const Image = ({
@@ -27,6 +28,7 @@ const Image = ({
   imgBorderRadius = '',
   children,
   border = '',
+  onClick,
 }: IImage) => {
   return (
     <ImageStyle
@@ -37,6 +39,7 @@ const Image = ({
       bgImage={bgImage}
       imgBorderRadius={imgBorderRadius}
       border={border}
+      onClick={onClick}
     >
       {!bgImage && (
         <ImageImgStyle

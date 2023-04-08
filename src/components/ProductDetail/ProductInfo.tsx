@@ -22,13 +22,14 @@ interface Props {
   pathname: string
   setOptionIndex: React.Dispatch<SetStateAction<number>>
   reviews: number
+  optionIndex: number
 }
 
 interface schemaType {
   optionId: string
 }
 
-const ProductInfo = ({ productDetail, pathname, setOptionIndex, reviews }: Props) => {
+const ProductInfo = ({ productDetail, pathname, setOptionIndex, reviews, optionIndex }: Props) => {
   const onCopy = useCopyClipBoard()
   const { quantity, plusQuantity, minusQuantity } = useCounter(1)
   const navigate = useNavigate()
@@ -51,25 +52,16 @@ const ProductInfo = ({ productDetail, pathname, setOptionIndex, reviews }: Props
     }
   }
 
-  /**구매하기 페이지에 넘길 데이터 */
-  // function filterProductData(productDetail: IProductDetail): productData[] {
-  //   const result: productData[] = []
-
-  //   productDetail.periodOptions.forEach((option) => {
-  //     const data: productData = {
-  //       name: productDetail.productName,
-  //       periodOptionId: option.periodOptionId,
-  //       periodOptionName: option.periodOptionName,
-  //       productId: option.periodOptionId, // periodOptionId를 productId로 사용
-  //       productPrice: productDetail.productPrice,
-  //       productThumbnail: productDetail.productThumbnail,
-  //       quantity: 1,
-  //     }
-  //     result.push(data)
-  //   })
-  //   return result
-  // }
-  // const filterData = filterProductData(productDetail)
+  /** 결제 페이지로 넘길 데이터 */
+  const buyItem = {
+    name: productDetail?.productName,
+    productThumbnail: productDetail?.productThumbnail,
+    productPrice: productDetail?.productPrice,
+    periodOptionName: productDetail?.periodOptions[optionIndex && optionIndex - 1].periodOptionName,
+    productId: Number(pathname.slice(9)),
+    periodOptionid: productDetail?.periodOptions[optionIndex && optionIndex - 1].periodOptionId,
+    quantity: quantity,
+  }
 
   return (
     <InfoStyle>
@@ -154,7 +146,7 @@ const ProductInfo = ({ productDetail, pathname, setOptionIndex, reviews }: Props
             width="180px"
             height="50px"
             buttonType="detail"
-            onClick={() => navigate('/buy', { state: [productDetail] })}
+            onClick={() => navigate('/buy', { state: [buyItem] })}
           >
             구매하기
           </Button>

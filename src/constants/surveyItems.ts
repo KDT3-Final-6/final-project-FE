@@ -31,7 +31,7 @@ const surveyItems = {
     { id: 21, name: '봉사활동', imgSrc: 'volunteer.jpg' },
     { id: 22, name: '트래킹', imgSrc: 'tracking.jpg' },
     { id: 23, name: '골프', imgSrc: 'golf.jpg' },
-    { id: 24, name: '그 외', imgSrc: 'hobby.jpg' },
+    { id: 24, name: '힐링', imgSrc: 'hobby.jpg' },
   ],
   season: [
     { id: 25, name: '봄', imgSrc: 'spring.jpg' },

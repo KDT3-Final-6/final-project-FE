@@ -6,6 +6,7 @@ import { COLORS } from '@src/styles/root'
 import useCounter from '@src/hooks/useCounter'
 import { ICartList } from '@src/interfaces/product'
 import { useEditCartListMutation } from '@src/reduxStore/api/cartApiSlice'
+import { useNavigate } from 'react-router-dom'
 
 interface Props {
   item: ICartList
@@ -27,6 +28,8 @@ const CartTable = ({ item, hadleSingleCheck, checkbox }: Props) => {
     })
   }
 
+  const navigate = useNavigate()
+
   return (
     <TrStyle>
       <td>
@@ -42,9 +45,18 @@ const CartTable = ({ item, hadleSingleCheck, checkbox }: Props) => {
       </td>
       <td>
         <DescStyle>
-          <Image src={item?.productThumbnail} alt="썸네일" />
+          <Image
+            src={item?.productThumbnail}
+            alt="썸네일"
+            onClick={() => navigate(`/product/${item?.productId}`)}
+          />
           <DescInnerStyle>
-            <span>{item?.productName}</span>
+            <span
+              style={{ cursor: 'pointer' }}
+              onClick={() => navigate(`/product/${item?.productId}`)}
+            >
+              {item?.productName}
+            </span>
             <span>{item?.productContent}</span>
             <span>{item?.periodOptionName}</span>
           </DescInnerStyle>

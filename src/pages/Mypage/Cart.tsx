@@ -150,9 +150,9 @@ const Cart = () => {
               />
             ))
           ) : (
-            <tr>
-              <td>장바구니에 담긴 상품이 없습니다.</td>
-            </tr>
+            <NullCartStyle>
+              <td colSpan={5}>장바구니에 담긴 상품이 없습니다.</td>
+            </NullCartStyle>
           )}
         </tbody>
       </CartStyle>
@@ -203,8 +203,8 @@ const Cart = () => {
 }
 
 const CartStyle = styled.table`
-  border-top: 1px solid #e0e0e0;
-  border-bottom: 1px solid #e0e0e0;
+  border-top: 1px solid ${COLORS.cE0E0E0};
+  border-bottom: 1px solid ${COLORS.cE0E0E0};
   width: 100%;
   input[type='checkbox'] {
     display: none;
@@ -215,7 +215,7 @@ const CartStyle = styled.table`
     width: 23px;
     height: 23px;
     border-radius: 4px;
-    border: 2px solid #e0e0e0;
+    border: 2px solid ${COLORS.cE0E0E0};
     font-size: 24px;
     margin: auto;
   }
@@ -223,9 +223,9 @@ const CartStyle = styled.table`
     display: inline-block;
     width: 23px;
     height: 23px;
-    background-color: #0080c6;
+    background-color: ${COLORS.primary};
     border-radius: 4px;
-    color: #fff;
+    color: ${COLORS.white};
     border: none;
   }
 `
@@ -239,9 +239,9 @@ const TableHeaderStyle = styled.thead`
 const CheckBoxStyle = styled.div`
   width: 23px;
   height: 23px;
-  background-color: #0080c6;
+  background-color: ${COLORS.primary};
   border-radius: 4px;
-  color: #fff;
+  color: ${COLORS.white};
   border: none;
   font-size: 24px;
 `
@@ -250,8 +250,8 @@ const ResultStyle = styled.table`
   margin-top: 100px;
   height: 40px;
   width: 100%;
-  border-top: 2px solid #0080c6;
-  border-bottom: 2px solid #0080c6;
+  border-top: 2px solid ${COLORS.primary};
+  border-bottom: 2px solid ${COLORS.primary};
   tr {
     td:first-child {
       div {
@@ -288,6 +288,15 @@ const PaymentBoxStyle = styled.div`
   gap: 15px;
   justify-content: flex-end;
   margin: 20px 0;
+`
+
+const NullCartStyle = styled.tr`
+  text-align: center;
+  td {
+    height: 50px;
+    vertical-align: middle;
+    border-top: 1px solid ${COLORS.cE0E0E0};
+  }
 `
 
 export default Cart

@@ -28,7 +28,7 @@ const ProductDetail = () => {
       setProductDetail(detail)
       setReviews(reviewData.totalElements)
 
-      // 최근 본 상품에 넣을 아이템
+      /** 최근 본 상품에 넣을 아이템  */
       const newCurrentItem = {
         productId,
         productName: detail.productName,
@@ -40,10 +40,10 @@ const ProductDetail = () => {
     fetchData()
   }, [])
 
-  // 최근 본 상품 불러오기
+  /** 최근 본 상품 불러오기 */
   const currentList = JSON.parse(localStorage.getItem('cart')!)
 
-  // 최근 본 상품 중복 확인
+  /** 최근 본 상품 중복 확인 */
   const duplicationItemCheck = () => {
     for (const item of currentList) {
       if (item.productId === productId) {
@@ -52,7 +52,7 @@ const ProductDetail = () => {
     }
   }
 
-  // 최근 본 상품 넣기
+  /** 최근 본 상품 넣기 */
   const setCurrent = (newCurrentItem: Object) => {
     if (currentList && duplicationItemCheck()) {
       localStorage.setItem('cart', JSON.stringify([...currentList]))
@@ -77,6 +77,7 @@ const ProductDetail = () => {
         pathname={pathname}
         setOptionIndex={setOptionIndex}
         reviews={reviews}
+        optionIndex={optionIndex}
       />
       <MoveTab reviews={reviews} />
       <hr />
