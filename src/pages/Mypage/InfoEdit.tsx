@@ -14,6 +14,7 @@ import { setModal } from '@src/reduxStore/modalSlice'
 import { useNavigate } from 'react-router-dom'
 import MESSAGES from '@src/constants/messages'
 import PATH from '@src/constants/pathConst'
+import IRootReducer from '@src/interfaces/rootReducer'
 
 const InfoEdit = () => {
   const [userGender, setUserGender] = useState('Male')
@@ -22,6 +23,9 @@ const InfoEdit = () => {
   const [dateValue, setDateValue] = useState<any>(21)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  const userInfo = useSelector((state: IRootReducer) => state.userInfo)
+  console.log(userInfo)
 
   const withdrawalHandler = async () => {
     dispatch(
