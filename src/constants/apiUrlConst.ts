@@ -15,6 +15,7 @@ const API_URL = {
   relation: '/products/relation',
   admin_products: '/admins/products',
   admin_categories: '/admins/categories',
+  curation: '/curation',
   curation_companion: '/curation/detail/companion',
   curation_gender: '/curation/detail/gender',
   curation_age: '/curation/detail/age-group',

@@ -10,6 +10,8 @@ import Banner from '@src/components/Home/Banner'
 import FloatingNav from '@src/components/Home/FloatingNav'
 import { useSelector } from 'react-redux'
 import IRootReducer from '@src/interfaces/rootReducer'
+import Image from '@src/components/common/Image'
+import Inner from '@src/layout/Inner'
 
 function Home() {
   return (
@@ -19,6 +21,12 @@ function Home() {
       </Helmet>
       <SlideBanner />
       <Curation />
+      <Inner>
+        <Image src="/images/banner/큐레이션배너.png" />
+      </Inner>
+      <Inner>
+        <Image src="/images/banner/event_banner.jpg" />
+      </Inner>
       <Banner image="event_banner2" marginTop="100px" marginBottom="100px" type={1} />
       <GroupTravel />
       <ThemeTravel />
