@@ -106,69 +106,77 @@ const ProductInfo = ({ productDetail, pathname, setOptionIndex, optionIndex }: P
             {productDetail.productPrice.toLocaleString()}원
           </span>
         </div>
-        <OptionSectionStyle>
-          <span>출발일 *</span>
-          <select {...register('optionId', { onChange: optionIdChangeHandler })}>
-            <option defaultValue="0">옵션을 선택해 주세요.</option>
-            {productDetail?.periodOptions &&
-              productDetail?.periodOptions.map((option) => (
-                <option key={option.periodOptionId} value={option.periodOptionId}>
-                  {option.periodOptionName}
-                </option>
-              ))}
-          </select>
-          <span>인원 *</span>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span>{productDetail.productPrice.toLocaleString()}원</span>
-            <div style={{ display: 'flex' }}>
-              <OptionCountStyle onClick={minusQuantity}>-</OptionCountStyle>
-              <OptionCountStyle>{quantity}</OptionCountStyle>
-              <OptionCountStyle onClick={plusQuantity}>+</OptionCountStyle>
+        {productDetail && productDetail?.productStatus !== '판매중' ? (
+          <SoldoutStyle>구매할 수 없는 상품입니다.</SoldoutStyle>
+        ) : (
+          <>
+            <OptionSectionStyle>
+              <span>출발일 *</span>
+              <select {...register('optionId', { onChange: optionIdChangeHandler })}>
+                <option defaultValue="0">옵션을 선택해 주세요.</option>
+                {productDetail?.periodOptions &&
+                  productDetail?.periodOptions.map((option) => (
+                    <option key={option.periodOptionId} value={option.periodOptionId}>
+                      {option.periodOptionName}
+                    </option>
+                  ))}
+              </select>
+              <span>인원 *</span>
+              <div
+                style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+              >
+                <span>{productDetail.productPrice.toLocaleString()}원</span>
+                <div style={{ display: 'flex' }}>
+                  <OptionCountStyle onClick={minusQuantity}>-</OptionCountStyle>
+                  <OptionCountStyle>{quantity}</OptionCountStyle>
+                  <OptionCountStyle onClick={plusQuantity}>+</OptionCountStyle>
+                </div>
+              </div>
+            </OptionSectionStyle>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Button
+                width="180px"
+                height="50px"
+                buttonType="detail"
+                // 추후에 주소 값은 수정 예정
+                onClick={() => onCopy(`http://localhost:5173${pathname}`)}
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    gap: '5px',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <AiOutlineShareAlt style={{ margin: 0 }} />
+                  공유하기
+                </div>
+              </Button>
+              <Button width="180px" height="50px" buttonType="detail" type="submit">
+                <div
+                  style={{
+                    display: 'flex',
+                    gap: '5px',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <AiOutlineShoppingCart style={{ margin: 0 }} />
+                  장바구니
+                </div>
+              </Button>
+              <Button
+                width="180px"
+                height="50px"
+                buttonType="detail"
+                onClick={() => navigate('/buy', { state: [buyItem] })}
+              >
+                구매하기
+              </Button>
             </div>
-          </div>
-        </OptionSectionStyle>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Button
-            width="180px"
-            height="50px"
-            buttonType="detail"
-            // 추후에 주소 값은 수정 예정
-            onClick={() => onCopy(`http://localhost:5173${pathname}`)}
-          >
-            <div
-              style={{
-                display: 'flex',
-                gap: '5px',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <AiOutlineShareAlt style={{ margin: 0 }} />
-              공유하기
-            </div>
-          </Button>
-          <Button width="180px" height="50px" buttonType="detail" type="submit">
-            <div
-              style={{
-                display: 'flex',
-                gap: '5px',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <AiOutlineShoppingCart style={{ margin: 0 }} />
-              장바구니
-            </div>
-          </Button>
-          <Button
-            width="180px"
-            height="50px"
-            buttonType="detail"
-            onClick={() => navigate('/buy', { state: [buyItem] })}
-          >
-            구매하기
-          </Button>
-        </div>
+          </>
+        )}
       </DescStyle>
     </InfoStyle>
   )
@@ -235,5 +243,11 @@ const OptionCountStyle = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+`
+
+const SoldoutStyle = styled.div`
+  display: flex;
+  justify-content: center;
+  font-size: ${FONTSIZE.fz21};
 `
 export default ProductInfo
