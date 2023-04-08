@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { IUserInfo } from "@src/interfaces/user"
+import { IUserInfo } from '@src/interfaces/user'
 
 const initialState: IUserInfo = {
   memberEmail: '',
@@ -12,7 +12,7 @@ const initialState: IUserInfo = {
   memberEmailAgree: false,
   memberGrade: '',
   memberImage: '',
-  roles: []
+  roles: [],
 }
 
 export const userInfoSlice = createSlice({
@@ -32,7 +32,7 @@ export const userInfoSlice = createSlice({
         memberEmailAgree,
         memberGrade,
         memberImage,
-        roles
+        roles,
       } = action.payload
       state.memberEmail = memberEmail
       state.memberName = memberName
@@ -48,17 +48,17 @@ export const userInfoSlice = createSlice({
     },
     DELETE_USERINFO: (state) => {
       // Access Token이 없을 경우(로그아웃 시) 정보 삭제
-      state.memberEmail= '',
-      state.memberName= '',
-      state.memberNickName= '',
-      state.memberPhone= '',
-      state.memberBirthDate= '',
-      state.memberHobby= [],
-      state.memberSmsAgree= false,
-      state.memberEmailAgree= false,
-      state.memberGrade= '',
-      state.memberImage= '',
-      state.roles= []
+      ;(state.memberEmail = ''),
+        (state.memberName = ''),
+        (state.memberNickName = ''),
+        (state.memberPhone = ''),
+        (state.memberBirthDate = ''),
+        (state.memberHobby = []),
+        (state.memberSmsAgree = false),
+        (state.memberEmailAgree = false),
+        (state.memberGrade = ''),
+        (state.memberImage = ''),
+        (state.roles = [])
     },
   },
 })

@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 import API_URL from '@src/constants/apiUrlConst'
-import { IOrders, IPostOrder, INonMemberOrder } from '@src/interfaces/order'
+import { IOrders, IPostOrder, INonMemberOrder, IOrderProducts } from '@src/interfaces/order'
 import baseQuery from '@src/reduxStore/const/baseQuery'
 
 // // API 엔드포인트의 각 함수를 추출
@@ -11,6 +11,10 @@ export const orderApi = createApi({
   endpoints: (builder) => ({
     getOrderList: builder.query<IOrders, number | void>({
       query: (page = 1) => `${API_URL.order}?page=${page}`,
+      providesTags: [{ type: 'Order', id: 'Order-LIST' }],
+    }),
+    getOrderItemList: builder.query<IOrderProducts, number | void>({
+      query: (page = 1) => `${API_URL.order}/qna?page=${page}`,
       providesTags: [{ type: 'Order', id: 'Order-LIST' }],
     }),
     postOrder: builder.mutation<void, IPostOrder>({
@@ -42,6 +46,7 @@ export const orderApi = createApi({
 // API 엔드포인트의 각 함수를 추출
 export const {
   useGetOrderListQuery,
+  useGetOrderItemListQuery,
   usePostOrderMutation,
   usePostNonUserOrderMutation,
   useDeleteOrderMutation,

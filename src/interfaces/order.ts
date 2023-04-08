@@ -54,3 +54,17 @@ export interface IProductIds {
   periodOptionId: number
   quantity: number
 }
+
+export interface IOrderProducts {
+  content: IOrderProductsContent[]
+  totalPages: number
+  totalElements: number
+  pageNumber: number
+  size: number
+}
+
+export interface IOrderProductsContent {
+  orderId: number
+  purchasedProductId: number
+  productName: string
+}
