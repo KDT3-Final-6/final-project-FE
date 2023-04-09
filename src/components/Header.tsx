@@ -37,9 +37,11 @@ const Header = () => {
   const handleLogout = async () => {
     try {
       dispatch(showLoading())
-      await logout()
-      removeCookies('accessToken', { path: '/' })
-      removeCookies('role', { path: '/' })
+      const response = await logout()
+      if (response.data) {
+        removeCookies('accessToken')
+        removeCookies('role')
+      }
       dispatch(
         setModal({
           isOpen: true,

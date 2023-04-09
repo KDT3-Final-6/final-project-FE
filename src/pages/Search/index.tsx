@@ -1,4 +1,3 @@
-import { getProducts } from '@src/api/product'
 import CardTypeItem from '@src/components/common/CardTypeItem'
 import Input from '@src/components/common/Input'
 import Paginate from '@src/components/common/Paginate'
@@ -36,10 +35,13 @@ const Search = () => {
   const { register, handleSubmit, setValue } = useForm<ISearchForm>()
 
   const onValid = (data: FieldValues, event: any) => {
+  const onValid = (data: FieldValues, event: any) => {
     event.preventDefault()
     navigate(`/search?keyword=${data.search}`)
   }
 
+  const onInvalid = (data: FieldErrors) => {
+    alert(data.search?.message)
   const onInvalid = (data: FieldErrors) => {
     alert(data.search?.message)
   }

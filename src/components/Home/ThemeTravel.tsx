@@ -70,19 +70,17 @@ const ThemeTravel = () => {
                 color={COLORS.white}
               />
               <p>
-                다양한 지역에서의{' '}
                 {activeTab === 0
-                  ? '휴양지'
+                  ? '지친 일상을 떠나 자연과 함께하는 여행, 휴양지여행으로 충분한 휴식을 취해보세요.'
                   : activeTab === 1
-                  ? '골프'
+                  ? '다양한 지역에서의 골프 여행으로 아주 특별하고 즐거운 경험을 만들어보세요.'
                   : activeTab === 2
-                  ? '트래킹'
+                  ? '숨이 멎을듯한 아름다운 자연경관 속에서 트레킹을 즐기세요.'
                   : activeTab === 3
-                  ? '성지순례'
+                  ? '물에 비치는 빛나는 달빛처럼, 영적인 여행의 빛나는 순례길을 따라 성지순례여행을 떠나보세요.'
                   : activeTab === 4
-                  ? '문화탐방'
-                  : ''}{' '}
-                여행으로 아주 특별하고 즐거운 경함을 만들어보세요.
+                  ? '지금까지 경험하지 못한 새로운 문화를 만나보세요. 다양한 문화탐방여행 코스로 초대합니다.'
+                  : ''}
               </p>
               <Button
                 buttonType="transparent"
@@ -178,6 +176,8 @@ const PanelStyle = styled.div<{
   button {
     display: flex;
     align-items: center;
+    position: absolute;
+    bottom: 230px;
   }
 `
 

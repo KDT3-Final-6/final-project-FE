@@ -2,6 +2,7 @@ import PostCard from '@src/components/Admin/PostCard'
 import Input from '@src/components/common/Input'
 import Pagination from '@src/components/common/Pagination'
 import Select from '@src/components/common/Select'
+import Inner from '@src/layout/Inner'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import { useState } from 'react'
 import styled from 'styled-components'
@@ -12,7 +13,7 @@ const index = () => {
 
   const count = 100
   return (
-    <ContainerStyle>
+    <Inner width="925px">
       <InputWrapStyle>
         <Select
           options={selectOptions}
@@ -47,19 +48,19 @@ const index = () => {
           <PostCard key={index} />
         ))}
       </PostWrapStyle>
-    </ContainerStyle>
+    </Inner>
   )
 }
 
 export default index
 
-const ContainerStyle = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 925px;
-`
+// const ContainerStyle = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   width: 925px;
+// `
 
 const InputWrapStyle = styled.div`
   display: flex;
