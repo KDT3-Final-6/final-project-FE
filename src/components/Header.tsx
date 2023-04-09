@@ -19,6 +19,7 @@ import isCurPath from '@src/utils/isCurlPath'
 import { SET_USERINFO } from '@src/reduxStore/features/userInfoSlice'
 import { useForm } from 'react-hook-form'
 import { ISearchForm } from '@pages/Search'
+import { DELETE_USERINFO } from '@src/reduxStore/features/userInfoSlice'
 
 const Header = () => {
   const dispatch = useDispatch()
@@ -39,8 +40,8 @@ const Header = () => {
       dispatch(showLoading())
       const response = await logout()
       if (response.data) {
-        removeCookies('accessToken')
-        removeCookies('role')
+        removeCookies('accessToken', { path: '/' })
+        removeCookies('role', { path: '/' })
       }
       dispatch(
         setModal({
@@ -48,6 +49,7 @@ const Header = () => {
           text: MESSAGES.LOGOUT.complete,
           onClickOK: () => {
             dispatch(setModal({ isOpem: false, route: PATH.HOME }))
+            dispatch(DELETE_USERINFO())
           },
         })
       )

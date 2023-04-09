@@ -67,6 +67,7 @@ const Cart = () => {
         productId: item.productId,
         periodOptionId: item.periodOptionId,
         quantity: item.cartQuantity,
+        cartId: item.cartId,
       }
     })
     setCheckItem(buyItem)

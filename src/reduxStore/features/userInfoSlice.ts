@@ -10,6 +10,7 @@ const initialState: IUserInfo = {
   memberHobby: [],
   memberSmsAgree: false,
   memberEmailAgree: false,
+  memberGender:'',
   memberGrade: '',
   memberImage: '',
   roles: [],
@@ -30,6 +31,7 @@ export const userInfoSlice = createSlice({
         memberHobby,
         memberSmsAgree,
         memberEmailAgree,
+        memberGender,
         memberGrade,
         memberImage,
         roles,
@@ -42,6 +44,7 @@ export const userInfoSlice = createSlice({
       state.memberHobby = memberHobby
       state.memberSmsAgree = memberSmsAgree
       state.memberEmailAgree = memberEmailAgree
+      state.memberGender = memberGender
       state.memberGrade = memberGrade
       state.memberImage = memberImage
       state.roles = roles
