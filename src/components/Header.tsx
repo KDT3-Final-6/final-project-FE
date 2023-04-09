@@ -1,6 +1,6 @@
 import React, { MouseEvent, useEffect } from 'react'
 import PATH from '@src/constants/pathConst'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import { AiOutlineHeart, AiOutlineUser, AiOutlineShoppingCart } from 'react-icons/ai'
 import { FiLogIn, FiLogOut, FiSettings } from 'react-icons/fi'
@@ -17,9 +17,13 @@ import { setModal } from '@src/reduxStore/modalSlice'
 import MESSAGES from '@src/constants/messages'
 import isCurPath from '@src/utils/isCurlPath'
 import { SET_USERINFO } from '@src/reduxStore/features/userInfoSlice'
+import { useForm } from 'react-hook-form'
+import { ISearchForm } from '@pages/Search'
 
 const Header = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+
   const [cookies, , removeCookies] = useCookies()
   const location = useLocation()
 
@@ -56,6 +60,16 @@ const Header = () => {
     } finally {
       dispatch(hideLoading())
     }
+  }
+
+  const { register, handleSubmit, setValue } = useForm<ISearchForm>()
+
+  const onValid = (data: any) => {
+    console.log('data', data)
+    navigate(`/search?keyword=${data.search}`)
+  }
+  const onInvalid = (data: any) => {
+    alert(data.search.message)
   }
 
   return (
@@ -112,7 +126,7 @@ const Header = () => {
       </GnbStyle>
       <LnbStyle>
         <Inner height="90px" display="flex" justifyContent="space-between">
-          <div>
+          <form onSubmit={handleSubmit(onValid, onInvalid)}>
             {!isCurPath(PATH.SEARCH) && (
               <Input
                 inputType="searchInput"
@@ -125,9 +139,12 @@ const Header = () => {
                     : '여행 그룹이나 상품을 검색해보세요.'
                 }
                 borderColor="none"
+                register={register('search', {
+                  required: '검색어를 입력해주세요.',
+                })}
               />
             )}
-          </div>
+          </form>
           <LnbListStyle>
             {!location.pathname.includes(PATH.ADMIN) ? (
               <>
