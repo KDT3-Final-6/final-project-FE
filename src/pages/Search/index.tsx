@@ -5,8 +5,8 @@ import Select from '@src/components/common/Select'
 import Inner from '@src/layout/Inner'
 import { useGetSearchListQuery } from '@src/reduxStore/api/searchApiSlice'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
-import { useState } from 'react'
-import { FieldErrors, FieldValues, SubmitErrorHandler, useForm } from 'react-hook-form'
+import React, { useState } from 'react'
+import { FieldErrors, SubmitErrorHandler, useForm, FieldValues } from 'react-hook-form'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -35,7 +35,6 @@ const Search = () => {
   const { register, handleSubmit, setValue } = useForm<ISearchForm>()
 
   const onValid = (data: FieldValues, event: any) => {
-    event.preventDefault()
     navigate(`/search?keyword=${data.search}`)
   }
 
@@ -100,8 +99,6 @@ const Search = () => {
   )
 }
 
-export default Search
-
 const InputContainerStyle = styled.form`
   width: 100%;
   height: 293px;
@@ -150,3 +147,5 @@ const ResultMsgContainerStyle = styled.div`
   padding-top: 130px;
   padding-bottom: 178px;
 `
+
+export default Search
