@@ -28,8 +28,8 @@ const Recommend = () => {
       </Inner>
       <ThemeTravel />
       <Inner>
-        <Banner image="event_banner" marginTop="50px" marginBottom="26px" type={2} />
-        <Banner image="event_banner2" marginBottom="100px" type={1} />
+        <Banner image="/images/banner/event_banner-4.png" marginTop="-210px" marginBottom="26px" />
+        <Banner image="/images/banner/event_banner-5.png" marginBottom="100px" />
       </Inner>
     </div>
   )
