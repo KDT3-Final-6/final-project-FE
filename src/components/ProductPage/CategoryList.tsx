@@ -11,6 +11,9 @@ import {
   useDeleteWishlistMutation,
   usePostWishlistMutation,
 } from '@src/reduxStore/api/wishlistApislice'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '@src/reduxStore/store'
+import { setModal } from '@src/reduxStore/modalSlice'
 
 interface Props {
   title: string
@@ -21,6 +24,26 @@ const CategoryList = ({ title, products }: Props) => {
   const prevRef = useRef(null)
   const nextRef = useRef(null)
   const settings = useSwiperSetting({ prevRef, nextRef })
+  const userInfo = useSelector((state: RootState) => state.userInfo)
+  const [deleteWishlist] = useDeleteWishlistMutation()
+  const [postWishlist] = usePostWishlistMutation()
+  const dispatch = useDispatch()
+
+  const heartCheck = async (heart: boolean, productId: number) => {
+    if (userInfo.memberName && heart) {
+      await deleteWishlist(productId)
+    } else if (!heart && userInfo.memberName) {
+      await postWishlist(productId)
+    } else {
+      dispatch(
+        setModal({
+          isOpen: true,
+          text: '로그인이 필요한 서비스입니다.',
+          onClickOK: () => dispatch(setModal({ isOpen: false })),
+        })
+      )
+    }
+  }
   return (
     <>
       <Title margin="80px 0 50px 0" fontSize={FONTSIZE.fz32} title={title} titleType="h2" />
@@ -38,6 +61,7 @@ const CategoryList = ({ title, products }: Props) => {
                   priceBottom="30px"
                   priceColor={COLORS.c1b1b1b}
                   isHeart={product.isWished}
+                  heartClick={() => heartCheck(product.isWished, product.productId!)}
                 />
               </SwiperSlide>
             ))}
