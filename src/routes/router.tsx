@@ -33,6 +33,7 @@ import InfoEdit from '@src/pages/Mypage/InfoEdit'
 import MyReview from '@src/pages/Mypage/MyReview'
 import CheckPassword from '@src/pages/Mypage/CheckPassword'
 import PrivateRoute from './PrivateRoute'
+import AdminRoute from './AdminRoute'
 
 const router = createBrowserRouter([
   {
@@ -106,9 +107,9 @@ const router = createBrowserRouter([
       {
         path: PATH.ADMIN,
         element: (
-          <PrivateRoute>
+          <AdminRoute>
             <Admin />
-          </PrivateRoute>
+          </AdminRoute>
         ),
         children: [
           { path: PATH.ADMIN, element: <ProductList /> },

@@ -1,4 +1,3 @@
-import React from 'react'
 import styled from 'styled-components'
 import { FONTSIZE, COLORS } from '@src/styles/root'
 import StarRateWrapGet from './StarRateWrapGet'
