@@ -9,8 +9,10 @@ import Banner from '@src/components/Home/Banner'
 import FloatingNav from '@src/components/Home/FloatingNav'
 import Image from '@src/components/common/Image'
 import Inner from '@src/layout/Inner'
+import { useNavigate } from 'react-router-dom'
 
 function Home() {
+  const navigate = useNavigate()
   return (
     <>
       <Helmet>
@@ -19,20 +21,12 @@ function Home() {
       <SlideBanner />
       <Curation />
       <Inner>
-        <Image src="/images/banner/큐레이션배너.png" />
+        <Image src="images/banner/curation_banner.png" onClick={() => navigate('/survey')} />
       </Inner>
-      <Banner
-        image="https://cdn.discordapp.com/attachments/1089409142520811601/1094450202523476030/event_banner.png"
-        marginTop="100px"
-        marginBottom="100px"
-      />
+      <Banner image="/images/banner/event_banner.png" marginTop="100px" marginBottom="100px" />
       <GroupTravel />
       <ThemeTravel />
-      <Banner
-        image="https://cdn.discordapp.com/attachments/1089409142520811601/1094450202120831036/event_banner.png"
-        marginTop="94px"
-        marginBottom="100px"
-      />
+      <Banner image="/images/banner/event_banner7.png" marginTop="94px" marginBottom="100px" />
       <TravelReview />
       <TravelEvent />
       <FloatingNav />

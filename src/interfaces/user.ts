@@ -33,11 +33,11 @@ export interface IUserInfo {
 }
 
 export interface IUserInfoEdit {
-  memberPassword: string,
-  memberPasswordConfirm:string,
-  memberNickname: string,
-  memberPhone: string,
-  memberHobby: string[],
-  memberSmsAgree: boolean,
+  memberPassword: string
+  memberPasswordConfirm: string
+  memberNickname: string
+  memberPhone: string
+  memberHobby: string[]
+  memberSmsAgree: boolean
   memberEmailAgree: boolean
 }
