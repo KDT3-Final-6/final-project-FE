@@ -32,7 +32,7 @@ const Header = () => {
     if (cookies.accessToken) {
       userInfoFetch()
     }
-  }, [])
+  }, [cookies.accessToken])
 
   const handleLogout = async () => {
     try {
