@@ -32,14 +32,14 @@ const Header = () => {
     if (cookies.accessToken) {
       userInfoFetch()
     }
-  }, [])
+  }, [cookies.accessToken])
 
   const handleLogout = async () => {
     try {
       dispatch(showLoading())
       await logout()
-      removeCookies('accessToken')
-      removeCookies('role')
+      removeCookies('accessToken', { path: '/' })
+      removeCookies('role', { path: '/' })
       dispatch(
         setModal({
           isOpen: true,

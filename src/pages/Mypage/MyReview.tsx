@@ -1,19 +1,13 @@
 import ReviewBox from '@src/components/MyPage/ReviewBox'
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { getReviewsForMe } from '@src/api/mypage'
 import { IReviewContentUnion } from '@src/interfaces/review'
 import { FONTSIZE } from '@src/styles/root'
+import { useGetReviewForMeQuery } from '@src/reduxStore/api/reviewApiSlice'
 
 const MyReview = () => {
-  const [reviews, setReviews] = useState<IReviewContentUnion[]>([])
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getReviewsForMe()
-      setReviews(data.content)
-    }
-    fetchData()
-  }, [])
+  const { data } = useGetReviewForMeQuery()
+  const reviews: IReviewContentUnion[] = data ? data.content : []
 
   return (
     <MyReviewStyle>

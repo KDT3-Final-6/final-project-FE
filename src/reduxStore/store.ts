@@ -4,6 +4,7 @@ import { orderApi } from './api/orderApiSlice'
 import { qnaApi } from './api/qnaApiSlice'
 import { cartApi } from './api/cartApiSlice'
 import rootReducer from './rootReducer'
+import { reviewApi } from './api/reviewApiSlice'
 import { searchApi } from './api/searchApiSlice'
 import { curationApi } from './api/curationApiSlice'
 
@@ -14,6 +15,7 @@ export const store = configureStore({
       qnaApi.middleware,
       orderApi.middleware,
       cartApi.middleware,
+      reviewApi.middleware,
       searchApi.middleware,
       curationApi.middleware,
     ]),

@@ -11,11 +11,12 @@ import { useForm, FieldValues } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { ErrorMessage } from '../common/InputItem'
-import { deleteReview, editReview } from '@src/api/mypage'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import MESSAGES from '@src/constants/messages'
 import { setModal } from '@src/reduxStore/modalSlice'
+import { useDeleteReviewMutation } from '@src/reduxStore/api/reviewApiSlice'
+import { setReviewModal } from '@src/reduxStore/reviewModalSlice'
 
 interface Props {
   review: IReviewContentUnion
@@ -27,8 +28,7 @@ interface EditType {
 }
 
 const ReviewBox = ({ review }: Props) => {
-  const [isEditting, setIsEditting] = useState<boolean>(false)
-
+  const [deleteReview] = useDeleteReviewMutation()
   const schema = yup.object().shape({
     content: yup.string().min(5, '5글자 이상 작성해 주세요.').required('내용을 작성해 주세요.'),
     scope: yup
@@ -38,17 +38,17 @@ const ReviewBox = ({ review }: Props) => {
       .required('점수를 작성해 주세요.'),
   })
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<EditType>({ resolver: yupResolver(schema) })
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { errors },
+  // } = useForm<EditType>({ resolver: yupResolver(schema) })
 
-  const onSubmit = async (data: FieldValues) => {
-    await editReview(review.postId, data)
-    setIsEditting((prev) => !prev)
-    window.location.reload()
-  }
+  // const onSubmit = async (data: FieldValues) => {
+  //   await editReview(review.postId, data)
+  //   setIsEditting((prev) => !prev)
+  //   window.location.reload()
+  // }
 
   const dispatch = useDispatch()
 
@@ -63,6 +63,20 @@ const ReviewBox = ({ review }: Props) => {
         },
         onClickCancel: () => {
           dispatch(setModal({ isOpen: false }))
+        },
+      })
+    )
+  }
+
+  const editReviewHandler = async () => {
+    dispatch(
+      setReviewModal({
+        isOpen: true,
+        onClickOK: async () => {
+          dispatch(setReviewModal({ isOpen: false }))
+        },
+        onClickCancel: () => {
+          dispatch(setReviewModal({ isOpen: false }))
         },
       })
     )
@@ -86,58 +100,19 @@ const ReviewBox = ({ review }: Props) => {
             fontSize={FONTSIZE.fz22}
             fontWeight={FONTWEGHT.fw600}
           />
-          {isEditting ? (
-            <FormStyle onSubmit={handleSubmit(onSubmit)}>
-              <EditStyle>
-                <span>내용</span>
-                <div className="input-style">
-                  <Input
-                    inputType="textInput"
-                    placeholder={review.postContent}
-                    register={register('content')}
-                    width="50%"
-                  />
-                  {errors.content && <ErrorMessage>{errors.content.message}</ErrorMessage>}
-                </div>
-              </EditStyle>
-              <EditStyle>
-                <span>평점</span>
-                <div className="input-style">
-                  <Input
-                    inputType="textInput"
-                    placeholder={String(review.scope)}
-                    register={register('scope')}
-                    width="50%"
-                  />
-                  {errors.scope && <ErrorMessage>{errors.scope.message}</ErrorMessage>}
-                </div>
-              </EditStyle>
-              <EditButtonStyle>
-                <Button buttonType="borderGray" type="submit">
-                  수정하기
-                </Button>
-                <Button buttonType="borderGray" onClick={() => setIsEditting((prev) => !prev)}>
-                  취소하기
-                </Button>
-              </EditButtonStyle>
-            </FormStyle>
-          ) : (
-            <span>{review.postContent}</span>
-          )}
+          <span>{review.postContent}</span>
         </DesStyle>
-        {isEditting ? null : (
-          <StarNButtonStyle>
-            <StarRateWrapGet AVR_RATE={review.scope * 20} />
-            <div>
-              <Button buttonType="borderGray" onClick={() => setIsEditting((prev) => !prev)}>
-                수정하기
-              </Button>
-              <Button buttonType="borderGray" onClick={deleteReviewHandler}>
-                삭제하기
-              </Button>
-            </div>
-          </StarNButtonStyle>
-        )}
+        <StarNButtonStyle>
+          <StarRateWrapGet AVR_RATE={review.scope * 20} />
+          <div>
+            <Button buttonType="borderGray" onClick={editReviewHandler}>
+              수정하기
+            </Button>
+            <Button buttonType="borderGray" onClick={deleteReviewHandler}>
+              삭제하기
+            </Button>
+          </div>
+        </StarNButtonStyle>
       </TxtAreaStyle>
     </ProductCard>
   )

@@ -1,25 +1,18 @@
 import Inner from '@src/layout/Inner'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
-import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import Review from '../common/Review'
 import Title from '../common/Title'
-import { getReviewsForProduct } from '@src/api/product'
-import { initReview, IReviewContent } from '@src/interfaces/review'
+import { IReviewContent } from '@src/interfaces/review'
+import { useGetReviewForProductQuery } from '@src/reduxStore/api/reviewApiSlice'
 
 interface Props {
   productId: number
 }
 
 const TravelReview = ({ productId }: Props) => {
-  const [reviews, setReviews] = useState<IReviewContent[]>([initReview])
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getReviewsForProduct(productId)
-      setReviews(data.content)
-    }
-    fetchData()
-  }, [])
+  const { data } = useGetReviewForProductQuery(productId)
+  const reviews: IReviewContent[] = data ? data.content : []
 
   return (
     <section>

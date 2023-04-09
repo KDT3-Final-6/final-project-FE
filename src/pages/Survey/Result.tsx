@@ -21,6 +21,8 @@ import { MdEditCalendar } from 'react-icons/md'
 import { COLORS } from '@src/styles/root'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { RootState } from '@src/reduxStore/store'
 
 const Result = () => {
   const [result, setResult] = useState<ISurvey>()
@@ -30,6 +32,7 @@ const Result = () => {
   const [hobby, setHobby] = useState<IProductContent[]>([])
   const [religion, setReligion] = useState<IProductContent[]>([])
   const [season, setSeason] = useState<IProductContent[]>([])
+  const userInfo = useSelector((state: RootState) => state.userInfo)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,7 +61,7 @@ const Result = () => {
       <Banner />
       <Inner padding="0 0 200px 0">
         <Title margin="80px 0 0 0" fontSize={FONTSIZE.fz30}>
-          <h1>강백호 님을 위해서 선별해 봤어요.</h1>
+          <h1>{userInfo.memberName} 님을 위해서 선별해 봤어요.</h1>
         </Title>
         {age && age.length > 0 && <CategoryList title="또래들이 많이 찾는 여행" products={age} />}
         {companion && companion.length > 0 && (
