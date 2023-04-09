@@ -1,7 +1,7 @@
 import Inner from '@src/layout/Inner'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
-import React from 'react'
 import styled from 'styled-components'
+import Image from '../common/Image'
 import MoreBtn from './MoreBtn'
 
 interface IBanner {
@@ -15,7 +15,8 @@ const Banner = ({ type, image, marginTop, marginBottom }: IBanner) => {
   return (
     <Inner>
       <BannerStyle image={image} marginTop={marginTop} marginBottom={marginBottom}>
-        {type === 1 && (
+        <Image src="https://cdn.discordapp.com/attachments/1089409142520811601/1094450202523476030/event_banner.png" />
+        {/* {type === 1 && (
           <ExclusiveBannerStyle>
             <p>알래스카항공 국제선 단독 특가</p>
             <p>캐나다, 미국 도착 3~4월 특가 상품</p>
@@ -32,7 +33,8 @@ const Banner = ({ type, image, marginTop, marginBottom }: IBanner) => {
             </TagGroupStyle>
             <MoreBtn color={COLORS.white} bgColor={COLORS.c394128} bottom="23px" right="22px" />
           </SpringBannerStyle>
-        )}
+        )} */}
+        <MoreBtn color={COLORS.black} bgColor={COLORS.white} bottom="23px" right="22px" />
       </BannerStyle>
     </Inner>
   )
@@ -44,14 +46,18 @@ const BannerStyle = styled.div<IBanner>`
   position: relative;
   width: 100%;
   height: 249px;
-  background-image: ${({ image }) => `url(/images/${image}.png)`};
-  background-repeat: no-repeat;
-  background-position: center center;
+  /* background-image: ${({ image }) => `url(${image}`}; */
+  /* background-repeat: no-repeat; */
+  /* background-position: center center; */
   margin-bottom: ${({ marginBottom }) => marginBottom};
   margin-top: ${({ marginTop }) => marginTop};
-  p {
+  /* p {
     position: absolute;
     font-weight: ${FONTWEGHT.fw600};
+  } */
+  img {
+    width: 100%;
+    height: 100%;
   }
 `
 
