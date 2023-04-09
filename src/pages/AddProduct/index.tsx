@@ -16,6 +16,17 @@ import { useNavigate } from 'react-router-dom'
 import { setModal } from '@src/reduxStore/modalSlice'
 import { useDispatch } from 'react-redux'
 
+interface IFormType {
+  productName: string
+  productPrice: number
+  productStatus: string
+  productContent: string
+  contentDetail: string
+  categories: number[]
+  images: IterableIterator<File>[]
+  thumbnail: IterableIterator<File>
+}
+
 const AddProduct = () => {
   const [attachment, setAttachment] = useState('')
   const [detailAttachment, setDetailAttachment] = useState<string[]>([])
@@ -100,7 +111,7 @@ const AddProduct = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(schema) })
+  } = useForm<IFormType>({ resolver: yupResolver(schema) })
   const formData = new FormData()
   const imageArray = (files: any) => {
     for (let i = 0; i < files.length; i += 1) {
