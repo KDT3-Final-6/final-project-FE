@@ -74,7 +74,7 @@ const CurationSelectBtn = ({
         </ImageBoxStyle>
 
         <ArrowStyle>
-          {currentValue.arrow && <img src={currentValue.arrow} alt="arrow" />}
+          <img src="/images/icons/bottom-arrow.png" alt="arrow" />
         </ArrowStyle>
       </LabelStyle>
       <SelectOptionsStyle

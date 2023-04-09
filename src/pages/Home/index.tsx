@@ -9,8 +9,10 @@ import Banner from '@src/components/Home/Banner'
 import FloatingNav from '@src/components/Home/FloatingNav'
 import Image from '@src/components/common/Image'
 import Inner from '@src/layout/Inner'
+import { useNavigate } from 'react-router-dom'
 
 function Home() {
+  const navigate = useNavigate()
   return (
     <>
       <Helmet>
@@ -19,7 +21,7 @@ function Home() {
       <SlideBanner />
       <Curation />
       <Inner>
-        <Image src="images/banner/curation_banner.png" />
+        <Image src="images/banner/curation_banner.png" onClick={() => navigate('/survey')} />
       </Inner>
       <Banner image="/images/banner/event_banner.png" marginTop="100px" marginBottom="100px" />
       <GroupTravel />

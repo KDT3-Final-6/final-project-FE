@@ -70,7 +70,7 @@ const countryOptions = [
 const themeOptions = [
   {
     id: 1,
-    icon: '/images/icons/문화탐방.png',
+    icon: '/images/icons/wine.png',
     value: '와인',
     arrow: '/images/icons/bottom-arrow.png',
   },
@@ -107,16 +107,16 @@ const themeOptions = [
 ]
 
 const Curation = () => {
-  const [products, setProducts] = useState<IProductContent[]>([])
   const [page, setPage] = useState<number>(1)
   const [seasonValue, setSeasonValue] = useState(seasonOptions[0])
   const [countryValue, setCountryValue] = useState(countryOptions[0])
   const [themeValue, setThemeValue] = useState(themeOptions[0])
+  const [isShow, setIsShow] = useState(false)
 
   const [curationValue, setCurationValue] = useState<CurationValue>({
-    season: null,
-    district: null,
-    theme: null,
+    season: seasonValue.value,
+    district: countryValue.value,
+    theme: themeValue.value,
   })
   const { season, district, theme } = curationValue
 
@@ -128,7 +128,20 @@ const Curation = () => {
   if (isLoading) <>Loading</>
   const curations = curationList && curationList.content
   const hasProducts = curations && curations.length > 0
-  console.log('curationList', curationList)
+
+  const handleRefresh = () => {
+    setIsShow(false)
+    setCurationValue({ season: null, district: null, theme: null })
+  }
+
+  const handleCurationRequest = () => {
+    setIsShow(true)
+    setCurationValue({
+      season: seasonValue.value,
+      district: countryValue.value,
+      theme: themeValue.value,
+    })
+  }
 
   return (
     <Section>
@@ -170,7 +183,7 @@ const Curation = () => {
           </CurationBoxStyle>
 
           <ButtonsStyle>
-            <Button buttonType="borderGray" color={COLORS.c1b1b1b}>
+            <Button buttonType="borderGray" color={COLORS.c1b1b1b} onClick={handleRefresh}>
               다른 여행 찾기
               <HiOutlineRefresh />
             </Button>
@@ -178,48 +191,34 @@ const Curation = () => {
               buttonType="transparent"
               bgColor={COLORS.primary}
               color={COLORS.white}
-              onClick={() =>
-                setCurationValue({
-                  season: seasonValue.value,
-                  district: countryValue.value,
-                  theme: themeValue.value,
-                })
-              }
+              onClick={handleCurationRequest}
             >
               여행 큐레이션 받기
               <MdEditCalendar />
             </Button>
           </ButtonsStyle>
-          <ProductListStyle>
-            {hasProducts ? (
-              <>
-                {curations.map((product) => (
-                  <CardTypeItem
-                    key={product.productId}
-                    item={product}
-                    cardType="cardType"
-                    imgWidth="100%"
-                    priceBottom="30px"
-                    priceColor={COLORS.c1b1b1b}
-                  />
-                ))}
-              </>
-            ) : (
-              <></>
-            )}
-          </ProductListStyle>
+          {isShow && (
+            <ProductListStyle>
+              {hasProducts ? (
+                <>
+                  {curations.map((product) => (
+                    <CardTypeItem
+                      key={product.productId}
+                      item={product}
+                      cardType="cardType"
+                      imgWidth="100%"
+                      priceBottom="30px"
+                      priceColor={COLORS.c1b1b1b}
+                    />
+                  ))}
+                </>
+              ) : (
+                <NoItemsStyle>상품이 존재하지 않습니다.</NoItemsStyle>
+              )}
+            </ProductListStyle>
+          )}
         </Inner>
       </SelectBoxStyle>
-      {/* <PreferBannerStyle>
-          <Title
-            titleType="h2"
-            title="내 취향에 맞는 여행을 더 자세히 알아보고 싶다면?"
-            fontSize="26px"
-          />
-          <Button buttonType="transparent" onClick={() => navigate('/survey')}>
-            자세한 여행 큐레이션 받기
-          </Button>
-        </PreferBannerStyle> */}
     </Section>
   )
 }
@@ -286,22 +285,13 @@ const ButtonsStyle = styled.div`
       font-size: 20px;
       margin-left: 8px;
     }
+    :hover {
+      box-shadow: ${COLORS.boxShowdow};
+    }
   }
 `
 
-const PreferBannerStyle = styled.div`
-  border: 1px solid ${COLORS.c1b1b1b};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 42px 0;
-
-  button {
-    border-radius: 50px;
-    background-color: ${COLORS.primary};
-    padding: 14px 24px;
-    color: ${COLORS.white};
-    height: auto;
-    margin-left: 30px;
-  }
+const NoItemsStyle = styled.div`
+  grid-column: 2/3;
+  justify-self: center;
 `
