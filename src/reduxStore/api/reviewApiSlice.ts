@@ -16,7 +16,10 @@ export const reviewApi = createApi({
       query: (productId: number) => `${API_URL.review}/${productId}`,
       providesTags: [{ type: 'Review', id: 'REVIEW_LIST' }],
     }),
-    editReview: builder.mutation({
+    editReview: builder.mutation<
+      void,
+      { postId: number; data: { content: string; scope: number } }
+    >({
       query: ({ postId, data }) => ({
         url: `${API_URL.review}/${postId}`,
         method: 'PATCH',

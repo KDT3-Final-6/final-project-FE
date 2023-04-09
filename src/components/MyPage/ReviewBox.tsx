@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import MESSAGES from '@src/constants/messages'
 import { setModal } from '@src/reduxStore/modalSlice'
-import { useDeleteReviewMutation } from '@src/reduxStore/api/reviewApiSlice'
+import { useDeleteReviewMutation, useEditReviewMutation } from '@src/reduxStore/api/reviewApiSlice'
 import { setReviewModal } from '@src/reduxStore/reviewModalSlice'
 
 interface Props {
@@ -29,6 +29,7 @@ interface EditType {
 
 const ReviewBox = ({ review }: Props) => {
   const [deleteReview] = useDeleteReviewMutation()
+
   const schema = yup.object().shape({
     content: yup.string().min(5, '5글자 이상 작성해 주세요.').required('내용을 작성해 주세요.'),
     scope: yup
@@ -72,6 +73,10 @@ const ReviewBox = ({ review }: Props) => {
     dispatch(
       setReviewModal({
         isOpen: true,
+        scope: review.scope,
+        content: review.postContent,
+        reviewId: review.postId,
+        reviewState: '수정',
         onClickOK: async () => {
           dispatch(setReviewModal({ isOpen: false }))
         },
