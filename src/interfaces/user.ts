@@ -26,6 +26,7 @@ export interface IUserInfo {
   memberHobby: string[]
   memberSmsAgree: boolean
   memberEmailAgree: boolean
+  memberGender: string
   memberGrade: string
   memberImage: string
   roles: string[]

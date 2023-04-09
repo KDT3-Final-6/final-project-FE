@@ -49,8 +49,18 @@ const CheckPassword = () => {
           })
         )
       }
-    } catch (error) {
-      console.log(error)
+    } catch (error: any) {
+      if (error.response && error.response.status === 401) {
+        dispatch(
+          setModal({
+            isOpen: true,
+            text: MESSAGES.CHECKPASSWORD.InvalidPw,
+            onClickOK: async () => {
+              dispatch(setModal({ isOpen: false }))
+            },
+          })
+        )
+      }
     }
   }
 

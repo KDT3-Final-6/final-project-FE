@@ -17,7 +17,7 @@ interface ILogin {
 export const signup = (data: object) => axiosInstance.post(API_URL.members, data)
 
 /** 로그인 API */
-export const login = async (data: object) => await axiosInstance.post(API_URL.login, data)
+export const login = (data: object) => axiosInstance.post(API_URL.login, data)
 
 /** 로그아웃 API */
 export const logout = () => axiosInstance.post(API_URL.logout)

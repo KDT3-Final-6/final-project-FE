@@ -17,12 +17,14 @@ import PATH from '@src/constants/pathConst'
 import { useForm } from 'react-hook-form'
 import { hideLoading, showLoading } from '@src/reduxStore/loadingSlice'
 import { IUserInfo, IUserInfoEdit } from '@src/interfaces/user'
+import { useCookies } from 'react-cookie'
 
 const InfoEdit = () => {
-  const [userInfoData, setuserInfoData] = useState<IUserInfo>()
-  const [userGender, setUserGender] = useState('')
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const [userInfoData, setuserInfoData] = useState<IUserInfo>()
+  const [userGender, setUserGender] = useState<string>('Female')
+  const [, , removeCookies] = useCookies()
 
   const {
     register,
@@ -32,7 +34,11 @@ const InfoEdit = () => {
   } = useForm<IUserInfoEdit>()
 
   useEffect(() => {
-    ;(async () => setuserInfoData(await userInfo()))()
+    ;(async () => {
+      const response = await userInfo()
+      setuserInfoData(response)
+      setUserGender(response.memberGender)
+    })()
   }, [])
 
   const hobbys = [
@@ -56,7 +62,17 @@ const InfoEdit = () => {
         text: MESSAGES.WITHDRAWAL.normal,
         onClickOK: async () => {
           await userWithDrawal()
-          dispatch(setModal({ isOpen: false, route: navigate(PATH.LOGIN) }))
+          dispatch(
+            setModal({
+              isOpen: true,
+              text: MESSAGES.WITHDRAWAL.complete,
+              onClickOK: () => {
+                dispatch(setModal({ isOpen: false, route: navigate(PATH.LOGIN) }))
+                removeCookies('accessToken', { path: '/' })
+                removeCookies('role', { path: '/' })
+              },
+            })
+          )
         },
         onClickCancel: () => {
           dispatch(setModal({ isOpen: false }))
