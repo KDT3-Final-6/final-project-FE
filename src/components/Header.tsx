@@ -36,8 +36,8 @@ const Header = () => {
     try {
       dispatch(showLoading())
       await logout()
-      removeCookies('accessToken')
-      removeCookies('role')
+      removeCookies('accessToken', {path: '/'})
+      removeCookies('role', {path: '/'})
       dispatch(
         setModal({
           isOpen: true,
