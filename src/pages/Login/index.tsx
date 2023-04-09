@@ -5,7 +5,7 @@ import Title, { HighlightSpanStyle } from '@src/components/common/Title'
 import PATH from '@src/constants/pathConst'
 import Inner from '@src/layout/Inner'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import SocialButtons from '@src/components/common/SocialButtons'
@@ -19,7 +19,6 @@ import { setModal } from '@src/reduxStore/modalSlice'
 import MESSAGES from '@src/constants/messages'
 import { ErrorMessage } from '@src/components/common/InputItem'
 import { Helmet } from 'react-helmet'
-import { SET_USERINFO } from '@src/reduxStore/features/userInfoSlice'
 
 const Login = () => {
   const dispatch = useDispatch()
