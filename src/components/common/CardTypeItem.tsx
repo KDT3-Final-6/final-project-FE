@@ -1,17 +1,11 @@
 import PATH from '@src/constants/pathConst'
 import { ICurrentProduct, IProductContent } from '@src/interfaces/product'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
-import React, { useState, useCallback } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import HeartButton from './HeartButton'
 import Image from './Image'
-import ProductCard, {
-  HashsStyle,
-  HashStyle,
-  ImgAreaStyle,
-  PriceStyle,
-  TxtAreaStyle,
-} from './ProductCard'
+import ProductCard, { ImgAreaStyle, PriceStyle, TxtAreaStyle } from './ProductCard'
 import Title from './Title'
 import { useSelector } from 'react-redux'
 import { RootState } from '@src/reduxStore/store'
@@ -30,6 +24,8 @@ interface ICardTypeItem {
   priceBottom?: string
   priceColor?: string
   minHeight?: string
+  isHeart?: boolean
+  heartClick?: () => void
 }
 
 const CardTypeItem = ({
@@ -46,8 +42,16 @@ const CardTypeItem = ({
   priceBottom,
   priceColor,
   minHeight,
+  isHeart,
+  heartClick,
 }: ICardTypeItem) => {
   const [heart, setHeart] = useState(false)
+  const { pathname } = useLocation()
+  const userInfo = useSelector((state: RootState) => state.userInfo)
+  useEffect(() => {
+    isHeart && setHeart((prev) => !prev)
+    if (userInfo && pathname.includes('mypage')) setHeart((prev) => !prev)
+  }, [])
 
   return (
     <ProductCard
@@ -66,6 +70,7 @@ const CardTypeItem = ({
         right="18px"
         isHeart={heart}
         setHeart={setHeart}
+        onClick={heartClick}
       />
       <Link to={`/product/${item?.productId}`} target="_blank">
         {cardType === 'cardType' && (
