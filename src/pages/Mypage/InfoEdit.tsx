@@ -5,11 +5,11 @@ import InputItem from '@src/components/common/InputItem'
 import Select from '@src/components/common/Select'
 import Inner from '@src/layout/Inner'
 import { COLORS } from '@src/styles/root'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { CheckStyle, FormAreaStyle, RadiosStyle } from '../SignUp'
 import { Helmet } from 'react-helmet'
-import { userInfoEdit, userWithDrawal } from '@src/api/auth'
-import { useDispatch, useSelector } from 'react-redux'
+import { userInfo, userInfoEdit, userWithDrawal } from '@src/api/auth'
+import { useDispatch } from 'react-redux'
 import { setModal } from '@src/reduxStore/modalSlice'
 import { useNavigate } from 'react-router-dom'
 import MESSAGES from '@src/constants/messages'
@@ -17,14 +17,12 @@ import PATH from '@src/constants/pathConst'
 import { useForm } from 'react-hook-form'
 import { hideLoading, showLoading } from '@src/reduxStore/loadingSlice'
 import { IUserInfo, IUserInfoEdit } from '@src/interfaces/user'
-import { RootState } from '@src/reduxStore/store'
 
 const InfoEdit = () => {
+  const [userInfoData, setuserInfoData] = useState<IUserInfo>()
   const [userGender, setUserGender] = useState('')
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const userInfo = useSelector((state: RootState) => state.userInfo)
-  console.log(userInfo)
 
   const {
     register,
@@ -32,6 +30,10 @@ const InfoEdit = () => {
     watch,
     formState: { isSubmitting, errors, isDirty },
   } = useForm<IUserInfoEdit>()
+
+  useEffect(() => {
+    ;(async () => setuserInfoData(await userInfo()))()
+  }, [])
 
   const hobbys = [
     { id: 'GOLF', labelName: '골프' },
@@ -46,8 +48,6 @@ const InfoEdit = () => {
 
   const passwordRef = useRef<string | null>(null)
   passwordRef.current = watch('memberPassword')
-
-  const birth = userInfo.memberBirthDate.split('-')
 
   const withdrawalHandler = async () => {
     dispatch(
@@ -118,7 +118,7 @@ const InfoEdit = () => {
           <InputItem
             inputType="disabledInput"
             title="이메일"
-            placeholder={userInfo?.memberEmail}
+            placeholder={userInfoData?.memberEmail}
             isDisabled={true}
           />
           <InputItem
@@ -154,11 +154,11 @@ const InfoEdit = () => {
             }}
             errorMessage={errors.memberPasswordConfirm && '비밀번호가 일치하지 않습니다.'}
           />
-          <InputItem title="이름" placeholder={userInfo?.memberName} isDisabled={true} />
+          <InputItem title="이름" placeholder={userInfoData?.memberName} isDisabled={true} />
           <InputItem
             title="닉네임"
             highlight=""
-            placeholder={userInfo.memberNickName}
+            placeholder={userInfoData?.memberNickName}
             ariaInvalid={!isDirty ? undefined : errors.memberNickname ? true : false}
             maxLength={10}
             register={{ ...register('memberNickname') }}
@@ -166,7 +166,7 @@ const InfoEdit = () => {
           />
           <InputItem
             title="연락처"
-            placeholder={userInfo.memberPhone}
+            placeholder={userInfoData?.memberPhone}
             ariaInvalid={!isDirty ? undefined : errors.memberPhone ? true : false}
             maxLength={11}
             highlight=""
@@ -182,7 +182,7 @@ const InfoEdit = () => {
           />
           <InputBox inputCount={3} title="생년월일">
             <Select
-              currentValue={birth[0]}
+              currentValue={userInfoData?.memberBirthDate.split('-')[0]}
               unit="년"
               borderColor={COLORS.cddd}
               borderRadius="0"
@@ -190,7 +190,7 @@ const InfoEdit = () => {
               isDisabled={true}
             />
             <Select
-              currentValue={birth[1]}
+              currentValue={userInfoData?.memberBirthDate.split('-')[1]}
               unit="월"
               borderColor={COLORS.cddd}
               borderRadius="0"
@@ -198,7 +198,7 @@ const InfoEdit = () => {
               isDisabled={true}
             />
             <Select
-              currentValue={birth[2]}
+              currentValue={userInfoData?.memberBirthDate.split('-')[2]}
               unit="일"
               borderColor={COLORS.cddd}
               borderRadius="0"
