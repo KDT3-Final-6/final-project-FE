@@ -59,7 +59,7 @@ const Input = ({
         maxLength={maxLength}
       />
       {inputType === 'searchInput' && (
-        <Button buttonType="transparent" width="50px" height="100%">
+        <Button type="submit" buttonType="transparent" width="50px" height="100%">
           <FiSearch />
         </Button>
       )}
