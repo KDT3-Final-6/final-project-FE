@@ -1,31 +1,57 @@
 import { getProducts } from '@src/api/product'
 import CardTypeItem from '@src/components/common/CardTypeItem'
 import Input from '@src/components/common/Input'
-import Pagination from '@src/components/common/Pagination'
+import Paginate from '@src/components/common/Paginate'
 import Select from '@src/components/common/Select'
-import { IProductContent } from '@src/interfaces/product'
 import Inner from '@src/layout/Inner'
+import { useGetSearchListQuery } from '@src/reduxStore/api/searchApiSlice'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
+import { FieldError, SubmitErrorHandler, useForm } from 'react-hook-form'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
 
+export interface ISearchForm {
+  search: FieldError
+}
+
 const Search = () => {
-  const [products, setProducts] = useState<IProductContent[]>([])
+  const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const title = searchParams.get('keyword')
 
-  useEffect(() => {
-    ;(async () => {
-      setProducts(await getProducts())
-    })()
-  }, [])
-
-  const hasProducts = products && products.length > 0
   const selectOptions = ['인기순', '가격높은순', '가격낮은순']
   const [currentValue, setCurrentValue] = useState<string>(selectOptions[0])
+  const [page, setPage] = useState<number>(1)
+
+  const { data: searchList, isLoading } = useGetSearchListQuery(
+    { keyword: title, sortTarget: currentValue, page },
+    { refetchOnMountOrArgChange: true }
+  )
+  if (isLoading) <>Loading</>
+
+  const products = searchList && searchList.content
+  const hasProducts = products && products.length > 0
+
+  const { register, handleSubmit, setValue } = useForm<ISearchForm>()
+
+  const onValid = (data: ISearchForm, event: any) => {
+    event.preventDefault()
+    navigate(`/search?keyword=${data.search}`)
+  }
+
+  const onInvalid = (data: ISearchForm) => {
+    alert(data.search.message)
+  }
+
+  const changePageHandler = (event: { selected: number }) => {
+    setPage(event.selected + 1)
+  }
 
   return (
     <section>
       <Inner>
-        <InputContainerStyle>
+        <InputContainerStyle onSubmit={handleSubmit(onValid, onInvalid)}>
           <Input
             inputType="searchInput"
             type="text"
@@ -33,6 +59,9 @@ const Search = () => {
             height="56px"
             placeholder="여행 그룹이나 상품을 검색해보세요."
             borderColor="none"
+            register={register('search', {
+              required: '검색어를 입력해주세요.',
+            })}
           />
         </InputContainerStyle>
         <TitleStyle>통합 검색</TitleStyle>
@@ -60,7 +89,7 @@ const Search = () => {
                 />
               ))}
             </ProductListStyle>
-            <Pagination />
+            <Paginate totalElements={searchList.totalPages} changePageHandler={changePageHandler} />
           </ResultContainerStyle>
         ) : (
           <ResultMsgContainerStyle>
@@ -74,7 +103,7 @@ const Search = () => {
 
 export default Search
 
-const InputContainerStyle = styled.div`
+const InputContainerStyle = styled.form`
   width: 100%;
   height: 293px;
   display: flex;
