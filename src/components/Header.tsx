@@ -37,8 +37,8 @@ const Header = () => {
   const handleLogout = async () => {
     try {
       dispatch(showLoading())
-      await logout()
-      if (cookies.accessToken) {
+      const response = await logout()
+      if (response.data) {
         removeCookies('accessToken')
         removeCookies('role')
       }
