@@ -30,5 +30,6 @@ const NotFoundStyle = styled.div`
   div {
     width: 600px;
     text-align: center;
+    color: ${COLORS.primary};
   }
 `
