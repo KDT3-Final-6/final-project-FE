@@ -20,11 +20,11 @@ const index = () => {
           borderColor={`${COLORS.c999}`}
         />
       </InputWrapStyle>
-      <CountUserStyle>
+      <CountStyle>
         <span>전체사용자</span>
         <span>{countUser}</span>
         <span>명</span>
-      </CountUserStyle>
+      </CountStyle>
       <UserListStyle>
         <header>
           <span>이름</span>
@@ -53,7 +53,7 @@ const ContainerStyle = styled.div`
   align-items: center;
 `
 
-const InputWrapStyle = styled.div`
+export const InputWrapStyle = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -62,7 +62,7 @@ const InputWrapStyle = styled.div`
   padding-bottom: 80px;
 `
 
-const CountUserStyle = styled.div`
+export const CountStyle = styled.div`
   width: 1180px;
   display: flex;
   align-items: center;
