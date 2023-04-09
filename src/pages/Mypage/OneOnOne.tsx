@@ -35,7 +35,9 @@ const OneOnOne = () => {
           <OneOnOneCard key={item.postId} postInfo={item} />
         ))}
       </CardSectionStyle>
-      <Paginate totalElements={qnaList?.totalPages || 0} changePageHandler={changePageHandler} />
+      {qnaList && qnaList.content.length > 0 && (
+        <Paginate totalElements={qnaList?.totalPages || 0} changePageHandler={changePageHandler} />
+      )}
     </ContainerStyle>
   )
 }

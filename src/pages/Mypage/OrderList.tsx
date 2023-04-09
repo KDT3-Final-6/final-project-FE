@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { useGetOrderListQuery } from '@src/reduxStore/api/orderApiSlice'
 import OrderBox from '@components/MyPage/OrderBox'
 import Paginate from '@src/components/common/Paginate'
+import { FONTSIZE } from '@src/styles/root'
 
 const OrderList = () => {
   const [page, setPage] = useState(1)
@@ -17,21 +18,26 @@ const OrderList = () => {
         <title>마이페이지 구매내역</title>
       </Helmet>
       <>
-        {orders &&
+        {orders && orders.content.length > 0 ? (
           orders.content.map((orderContent) => (
             <OrderBox key={orderContent.orderList[0].orderId} order={orderContent} />
-          ))}
+          ))
+        ) : (
+          <NullOrderlistStyle>구매 내역이 없습니다.</NullOrderlistStyle>
+        )}
       </>
-      <Paginate totalElements={orders?.totalPages || 0} changePageHandler={changePageHandler} />
+      {orders && orders.content.length > 0 && (
+        <Paginate totalElements={orders?.totalPages || 0} changePageHandler={changePageHandler} />
+      )}
     </>
   )
 }
 
 export default OrderList
 
-const OrderListStyle = styled.ul`
+const NullOrderlistStyle = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 18px;
-  margin-bottom: 66px;
+  justify-content: center;
+  font-size: ${FONTSIZE.fz24};
+  margin: 50px;
 `
