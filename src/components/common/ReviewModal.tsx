@@ -12,31 +12,39 @@ import { useForm, FieldValues } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { useDispatch } from 'react-redux'
-import { useEditReviewMutation } from '@src/reduxStore/api/reviewApiSlice'
+import { useEditReviewMutation, usePostReviewMutation } from '@src/reduxStore/api/reviewApiSlice'
+import { ErrorMessage } from './InputItem'
 
-interface Props {}
-
-const ReviewModal = (props: Props) => {
+const ReviewModal = () => {
   const modalState = useSelector((state: RootState) => state.reviewModal)
   const [rating, setRating] = useState(0)
   const [hover, setHover] = useState(0)
   const [editReview] = useEditReviewMutation()
-  const dispatch = useDispatch()
+  const [postReview] = usePostReviewMutation()
   const reviewId = modalState.reviewId
+  const reviewState = modalState.reviewState
 
   const handleClick = async (data: FieldValues) => {
-    const { content, star } = data
-    if (modalState.reviewState === '수정') {
-      await editReview({ postId: reviewId, data: { content, scope: +star } })
+    const { content, scope } = data
+    if (reviewState === '수정') {
+      await editReview({ postId: reviewId, data: { content, scope: +scope } })
+      modalState.onClickOK()
+    } else if (reviewState === '작성') {
+      await postReview({ content, scope: +scope, purchasedProductId: reviewId })
+      modalState.onClickOK()
     }
-    modalState.onClickOK()
   }
 
   const schema = yup.object().shape({
-    star: yup.string(),
-    content: yup.string(),
+    scope: yup.string().required('점수를 입력하세요.'),
+    content: yup.string().min(5, '다섯 글자 이상 작성해 주세요.'),
   })
-  const { register, handleSubmit } = useForm({ resolver: yupResolver(schema) })
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) })
   const onSubmit = async (data: FieldValues) => {
     console.log(data)
     handleClick(data)
@@ -54,7 +62,6 @@ const ReviewModal = (props: Props) => {
       display: 'flex',
       justifyContent: 'space-between',
       fontFamily: 'Pretendard Variable',
-      // alignItems: 'center',
       flexDirection: 'column',
       padding: '35px 40px',
       borderRadius: '10px',
@@ -65,6 +72,7 @@ const ReviewModal = (props: Props) => {
       position: 'relative',
     },
   }
+
   return (
     <Modal isOpen={modalState.isOpen} style={customStyle}>
       <Title fontWeight="500">후기 작성하기</Title>
@@ -84,11 +92,11 @@ const ReviewModal = (props: Props) => {
                     type="radio"
                     value={ratingValue}
                     onClick={() => setRating(ratingValue)}
-                    {...register('star')}
+                    {...register('scope')}
                   />
                   <FaStar
                     className="star"
-                    color={ratingValue <= (hover || rating) ? '#fcbe32' : '#e4e5e9'}
+                    color={ratingValue <= (hover || rating) ? COLORS.cffcc43 : COLORS.cE0E0E0}
                     size={40}
                     onMouseEnter={() => setHover(ratingValue)}
                     onMouseLeave={() => setHover(0)}
@@ -96,6 +104,7 @@ const ReviewModal = (props: Props) => {
                 </label>
               )
             })}
+            {/* {errors.scope && <ErrorMessage>{errors.scope.message}</ErrorMessage>} */}
           </div>
         </ScopeStyle>
         <ContentStyle>
@@ -105,15 +114,10 @@ const ReviewModal = (props: Props) => {
             {...register('content')}
             placeholder={modalState.content}
           ></textarea>
+          {/* {errors.content && <ErrorMessage>{errors.content.message}</ErrorMessage>} */}
         </ContentStyle>
         <div>
-          <Button
-            type="submit"
-            // onClick={handleClick}
-            buttonType="cartSkyBlue"
-            width="106px"
-            borderRadius="10px"
-          >
+          <Button type="submit" buttonType="cartSkyBlue" width="106px" borderRadius="10px">
             후기 작성하기
           </Button>
         </div>

@@ -37,15 +37,21 @@ function OrderDetailCard({ item, cardType, height = '220px', priceColor }: IBarT
   } = item
 
   const dispatch = useDispatch()
-
-  /** 리뷰 모달 핸들러 */
-  // const reviewModalHandler = () => {
-  //   dispatch(
-  //     setReviewModal({
-  //       isOpen: true,
-  //     })
-  //   )
-  // }
+  const postReviewHandler = async () => {
+    dispatch(
+      setReviewModal({
+        isOpen: true,
+        reviewId: purchasedProductId,
+        reviewState: '작성',
+        onClickOk: () => {
+          dispatch(setReviewModal({ isOpen: false }))
+        },
+        onClickCancel: () => {
+          dispatch(setReviewModal({ isOpen: false }))
+        },
+      })
+    )
+  }
 
   return (
     <ProductCard key={productId} cardType={cardType} height={height}>
@@ -82,7 +88,11 @@ function OrderDetailCard({ item, cardType, height = '220px', priceColor }: IBarT
           >
             자세히 보기
           </Button>
-          <Button buttonType={hasReview ? 'disable' : 'borderGray'} height="45px">
+          <Button
+            buttonType={hasReview ? 'disable' : 'borderGray'}
+            height="45px"
+            onClick={postReviewHandler}
+          >
             {hasReview ? '리뷰작성완료' : '리뷰작성하기'}
           </Button>
         </ButtonGropStyle>

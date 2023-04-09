@@ -6,11 +6,6 @@ import Button from '../common/Button'
 import { FONTSIZE, FONTWEGHT, COLORS } from '@src/styles/root'
 import { IReviewContentUnion } from '@src/interfaces/review'
 import StarRateWrapGet from '../common/StarRateWrapGet'
-import Input from '../common/Input'
-import { useForm, FieldValues } from 'react-hook-form'
-import * as yup from 'yup'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { ErrorMessage } from '../common/InputItem'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import MESSAGES from '@src/constants/messages'
@@ -22,34 +17,8 @@ interface Props {
   review: IReviewContentUnion
 }
 
-interface EditType {
-  content: string
-  scope: number
-}
-
 const ReviewBox = ({ review }: Props) => {
   const [deleteReview] = useDeleteReviewMutation()
-
-  const schema = yup.object().shape({
-    content: yup.string().min(5, '5글자 이상 작성해 주세요.').required('내용을 작성해 주세요.'),
-    scope: yup
-      .number()
-      .typeError('숫자만 입력해 주세요.')
-      .max(5, '5점까지 줄 수 있습니다.')
-      .required('점수를 작성해 주세요.'),
-  })
-
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors },
-  // } = useForm<EditType>({ resolver: yupResolver(schema) })
-
-  // const onSubmit = async (data: FieldValues) => {
-  //   await editReview(review.postId, data)
-  //   setIsEditting((prev) => !prev)
-  //   window.location.reload()
-  // }
 
   const dispatch = useDispatch()
 
@@ -60,7 +29,7 @@ const ReviewBox = ({ review }: Props) => {
         text: MESSAGES.REVIEW.normal,
         onClickOK: async () => {
           await deleteReview(review.postId)
-          dispatch(setModal({ isOpen: false, route: navigate('/mypage/myreview') }))
+          dispatch(setModal({ isOpen: false }))
         },
         onClickCancel: () => {
           dispatch(setModal({ isOpen: false }))
@@ -77,8 +46,8 @@ const ReviewBox = ({ review }: Props) => {
         content: review.postContent,
         reviewId: review.postId,
         reviewState: '수정',
-        onClickOK: async () => {
-          dispatch(setReviewModal({ isOpen: false }))
+        onClickOK: () => {
+          dispatch(setReviewModal({ isOpen: false, scope: '', content: '' }))
         },
         onClickCancel: () => {
           dispatch(setReviewModal({ isOpen: false }))
@@ -154,33 +123,6 @@ const StarNButtonStyle = styled.div`
     display: flex;
     gap: 10px;
   }
-`
-
-const FormStyle = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-`
-
-const EditStyle = styled.div`
-  display: flex;
-  width: 100%;
-  align-items: center;
-  span:first-child {
-    width: 50px;
-  }
-  .input-style {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    width: 100%;
-  }
-`
-
-const EditButtonStyle = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
 `
 
 export default ReviewBox

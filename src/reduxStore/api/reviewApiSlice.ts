@@ -6,11 +6,11 @@ import { IReview } from '@src/interfaces/review'
 export const reviewApi = createApi({
   reducerPath: 'reviewApi',
   baseQuery,
-  tagTypes: ['Review'],
+  tagTypes: ['Review', 'ReviewForMe'],
   endpoints: (builder) => ({
     getReviewForMe: builder.query<IReview, void>({
       query: () => API_URL.review,
-      providesTags: [{ type: 'Review', id: 'REVIEW_LIST' }],
+      providesTags: [{ type: 'ReviewForMe', id: 'REVIEW_LIST' }],
     }),
     getReviewForProduct: builder.query<IReview, number>({
       query: (productId: number) => `${API_URL.review}/${productId}`,
@@ -25,13 +25,14 @@ export const reviewApi = createApi({
         method: 'PATCH',
         body: data,
       }),
-      invalidatesTags: [{ type: 'Review', id: 'REVIEW-LIST' }],
+      invalidatesTags: [{ type: 'ReviewForMe', id: 'REVIEW-LIST' }],
     }),
     deleteReview: builder.mutation({
       query: (postId: number) => ({
         url: `${API_URL.review}/${postId}`,
         method: 'DELETE',
       }),
+      invalidatesTags: [{ type: 'ReviewForMe', id: 'REVIEW-LIST' }],
     }),
     postReview: builder.mutation({
       query: (data) => ({
@@ -39,6 +40,7 @@ export const reviewApi = createApi({
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: [{ type: 'Review', id: 'REVIEW-LIST' }],
     }),
   }),
 })

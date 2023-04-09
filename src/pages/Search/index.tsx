@@ -35,13 +35,9 @@ const Search = () => {
   const { register, handleSubmit, setValue } = useForm<ISearchForm>()
 
   const onValid = (data: FieldValues, event: any) => {
-  const onValid = (data: FieldValues, event: any) => {
-    event.preventDefault()
     navigate(`/search?keyword=${data.search}`)
   }
 
-  const onInvalid = (data: FieldErrors) => {
-    alert(data.search?.message)
   const onInvalid = (data: FieldErrors) => {
     alert(data.search?.message)
   }
@@ -103,8 +99,6 @@ const Search = () => {
   )
 }
 
-export default Search
-
 const InputContainerStyle = styled.form`
   width: 100%;
   height: 293px;
@@ -153,3 +147,5 @@ const ResultMsgContainerStyle = styled.div`
   padding-top: 130px;
   padding-bottom: 178px;
 `
+
+export default Search
