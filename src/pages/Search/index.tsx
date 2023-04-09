@@ -1,4 +1,3 @@
-import { getProducts } from '@src/api/product'
 import CardTypeItem from '@src/components/common/CardTypeItem'
 import Input from '@src/components/common/Input'
 import Paginate from '@src/components/common/Paginate'
