@@ -59,11 +59,24 @@ const ProductInfo = ({ productDetail, pathname, setOptionIndex, optionIndex }: P
 
   const { register, handleSubmit } = useForm<schemaType>({ resolver: yupResolver(schema) })
   const onSubmit = async (data: schemaType) => {
-    try {
+    if (userInfo.memberName) {
       await postCartProduct(data.optionId, quantity)
-      window.confirm('장바구니로 이동하시겠습니까?') && navigate('/mypage/cart')
-    } catch (error) {
-      console.log(error)
+      dispatch(
+        setModal({
+          isOpen: true,
+          text: '장바구니로 이동하겠습니까?',
+          onClickOK: () => dispatch(setModal({ isOpen: false, route: navigate('/mypage/cart') })),
+          onClickCancel: () => dispatch(setModal({ isOpen: false })),
+        })
+      )
+    } else {
+      dispatch(
+        setModal({
+          isOpen: true,
+          text: '로그인이 필요한 서비스입니다.',
+          onClickOK: () => dispatch(setModal({ isOpen: false })),
+        })
+      )
     }
   }
 
