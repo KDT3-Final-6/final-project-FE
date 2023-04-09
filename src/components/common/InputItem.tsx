@@ -8,7 +8,7 @@ interface IInputItem {
   inputType?: string
   type?: string
   title: string
-  placeholder: string
+  placeholder?: string
   color?: string
   highlight?: string
   isDisabled?: boolean
