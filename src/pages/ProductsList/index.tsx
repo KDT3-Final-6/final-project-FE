@@ -7,7 +7,6 @@ import Image from '@src/components/common/Image'
 import Button from '@src/components/common/Button'
 import { useNavigate } from 'react-router-dom'
 import { IProductDetail } from '@src/interfaces/product'
-import { getAdminProducts } from '@src/api/product'
 import Paginate from '@src/components/common/Paginate'
 import {
   useDeleteAdminProductMutation,

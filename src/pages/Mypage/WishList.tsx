@@ -1,28 +1,31 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import CardTypeItem from '@src/components/common/CardTypeItem'
-import { getWishlist } from '@src/api/product'
 import { IWishlistContent } from '@src/interfaces/wishlist'
 import Paginate from '@src/components/common/Paginate'
 import { FONTSIZE } from '@src/styles/root'
+import {
+  useDeleteWishlistMutation,
+  useGetWishlistQuery,
+} from '@src/reduxStore/api/wishlistApislice'
 
 const WishList = () => {
-  const [wishlists, setWisthlist] = useState<IWishlistContent[]>([])
-  const [totalElements, setTotalElements] = useState(0)
-  const [page, setPage] = useState(0)
+  const [page, setPage] = useState(1)
+  const { data } = useGetWishlistQuery(page)
+  const wishlists: IWishlistContent[] = data ? data.content : []
+  const [totalElements, setTotalElements] = useState(1)
+  const [deleteWishlist] = useDeleteWishlistMutation()
 
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await getWishlist()
-      setWisthlist(data.content)
-      setTotalElements(data.totalPages)
-    }
-    fetchData()
+    setTotalElements(data?.totalPages)
   }, [])
-  console.log(wishlists)
 
   const changePageHandler = (event: { selected: number }) => {
     setPage(event.selected + 1)
+  }
+
+  const deleteWishlistHandler = async (productId: number) => {
+    await deleteWishlist(productId)
   }
 
   return (
@@ -38,6 +41,7 @@ const WishList = () => {
               priceRight="18px"
               priceBottom="20px"
               height="400px"
+              heartClick={() => deleteWishlistHandler(product.productId)}
             />
           ))
         ) : (

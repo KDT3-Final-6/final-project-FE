@@ -5,9 +5,12 @@ import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Title from '../common/Title'
 import Review from '../common/Review'
-import { initReview } from '@src/interfaces/review'
+import { IReviewContent, initReview } from '@src/interfaces/review'
+import { useGetReviewAllQuery } from '@src/reduxStore/api/reviewApiSlice'
 
 const TravelReview = () => {
+  const { data } = useGetReviewAllQuery()
+  const reviews: IReviewContent[] = data ? data.content.slice(0, 3) : []
   return (
     <Section>
       <Inner>
@@ -18,9 +21,11 @@ const TravelReview = () => {
           margin="0 0 50px"
         />
         <ContainerStyle>
-          <Review review={initReview} />
-          <Review review={initReview} />
-          <Review review={initReview} />
+          {reviews.length > 0 ? (
+            reviews.map((review) => <Review review={review} />)
+          ) : (
+            <div>여행 후기를 남겨 보세요!</div>
+          )}
         </ContainerStyle>
       </Inner>
     </Section>
@@ -32,11 +37,4 @@ export default TravelReview
 const ContainerStyle = styled.div`
   display: flex;
   gap: 20px;
-`
-
-const StarRateWrap = styled.div`
-  span {
-    display: inline-block;
-    margin-left: 2px;
-  }
 `

@@ -21,10 +21,6 @@ const Review = ({ review }: Props) => {
       </HeaderStyle>
       <ContentStyle>
         <p>{review.postContent}</p>
-        <BtnStyle>
-          <span>자세히 보기</span>
-          <HiChevronRight />
-        </BtnStyle>
       </ContentStyle>
     </ReviewCardStyle>
   )
