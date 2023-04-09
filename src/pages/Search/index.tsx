@@ -6,13 +6,13 @@ import Select from '@src/components/common/Select'
 import Inner from '@src/layout/Inner'
 import { useGetSearchListQuery } from '@src/reduxStore/api/searchApiSlice'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
-import React, { useState } from 'react'
-import { FieldError, SubmitErrorHandler, useForm } from 'react-hook-form'
+import { useState } from 'react'
+import { FieldErrors, FieldValues, SubmitErrorHandler, useForm } from 'react-hook-form'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
 
 export interface ISearchForm {
-  search: FieldError
+  search: string
 }
 
 const Search = () => {
@@ -35,13 +35,13 @@ const Search = () => {
 
   const { register, handleSubmit, setValue } = useForm<ISearchForm>()
 
-  const onValid = (data: ISearchForm, event: any) => {
+  const onValid = (data: FieldValues, event: any) => {
     event.preventDefault()
     navigate(`/search?keyword=${data.search}`)
   }
 
-  const onInvalid = (data: ISearchForm) => {
-    alert(data.search.message)
+  const onInvalid = (data: FieldErrors) => {
+    alert(data.search?.message)
   }
 
   const changePageHandler = (event: { selected: number }) => {
