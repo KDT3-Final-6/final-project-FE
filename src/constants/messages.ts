@@ -30,7 +30,8 @@ const MESSAGES = {
       complete: '회원 정보 수정이 완료되었습니다.',
       error: '수정 내용을 다시 확인해주세요.'
     }
-  }
+  },
+  INVALID_AUTH: '로그인이 필요한 서비스입니다.'
 }
 
 export default MESSAGES
