@@ -10,11 +10,15 @@ export const reviewApi = createApi({
   endpoints: (builder) => ({
     getReviewForMe: builder.query<IReview, void>({
       query: () => API_URL.review,
-      providesTags: [{ type: 'ReviewForMe', id: 'REVIEW_LIST' }],
+      providesTags: [{ type: 'ReviewForMe', id: 'REVIEW-LIST' }],
     }),
     getReviewForProduct: builder.query<IReview, number>({
       query: (productId: number) => `${API_URL.review}/${productId}`,
-      providesTags: [{ type: 'Review', id: 'REVIEW_LIST' }],
+      providesTags: [{ type: 'Review', id: 'REVIEW-LIST' }],
+    }),
+    getReviewAll: builder.query<IReview, void>({
+      query: () => API_URL.review + '/posts',
+      providesTags: [{ type: 'Review', id: 'REVIEW-LIST' }],
     }),
     editReview: builder.mutation<
       void,
@@ -51,4 +55,5 @@ export const {
   useEditReviewMutation,
   useDeleteReviewMutation,
   usePostReviewMutation,
+  useGetReviewAllQuery,
 } = reviewApi
