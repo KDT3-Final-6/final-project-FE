@@ -54,6 +54,14 @@ const index = () => {
 
 export default index
 
+// const ContainerStyle = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   width: 925px;
+// `
+
 const InputWrapStyle = styled.div`
   display: flex;
   justify-content: center;
