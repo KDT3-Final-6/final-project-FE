@@ -26,6 +26,7 @@ const MonthProductList = ({ products }: Props) => {
               height="460px"
               priceBottom="30px"
               priceColor={COLORS.c1b1b1b}
+              isHeart={product.isWished}
             />
           ))}
         </ProductListStyle>

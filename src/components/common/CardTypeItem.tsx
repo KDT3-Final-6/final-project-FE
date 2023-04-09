@@ -50,7 +50,7 @@ const CardTypeItem = ({
   const userInfo = useSelector((state: RootState) => state.userInfo)
   useEffect(() => {
     isHeart && setHeart((prev) => !prev)
-    if (userInfo && pathname.includes('mypage')) setHeart((prev) => !prev)
+    if (userInfo.memberName && pathname.includes('mypage')) setHeart((prev) => !prev)
   }, [])
 
   return (

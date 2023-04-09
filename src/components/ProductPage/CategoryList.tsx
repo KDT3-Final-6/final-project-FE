@@ -7,6 +7,10 @@ import { IProduct, IProductContent } from '@src/interfaces/product'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import useSwiperSetting from '@src/hooks/useSwiperSetting'
 import SlideButtons from '../common/SlideButtons'
+import {
+  useDeleteWishlistMutation,
+  usePostWishlistMutation,
+} from '@src/reduxStore/api/wishlistApislice'
 
 interface Props {
   title: string
@@ -33,6 +37,7 @@ const CategoryList = ({ title, products }: Props) => {
                   height="460px"
                   priceBottom="30px"
                   priceColor={COLORS.c1b1b1b}
+                  isHeart={product.isWished}
                 />
               </SwiperSlide>
             ))}

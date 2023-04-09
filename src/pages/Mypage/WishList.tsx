@@ -19,7 +19,6 @@ const WishList = () => {
   useEffect(() => {
     setTotalElements(data?.totalPages)
   }, [])
-  console.log(wishlists)
 
   const changePageHandler = (event: { selected: number }) => {
     setPage(event.selected + 1)

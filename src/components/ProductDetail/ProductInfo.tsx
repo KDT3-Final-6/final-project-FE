@@ -9,14 +9,20 @@ import { IProductDetail, IProductOption } from '@src/interfaces/product'
 import Image from '../common/Image'
 import { useNavigate } from 'react-router-dom'
 import useCopyClipBoard from '@src/utils/copyURL'
-import { deleteWishlist, postCartProduct } from '@src/api/product'
+import { postCartProduct } from '@src/api/product'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import useCounter from '@src/hooks/useCounter'
 import HeartButton from '../common/HeartButton'
 import { BsFillSuitHeartFill } from 'react-icons/bs'
-import { postWishlist } from '@src/api/product'
+import {
+  useDeleteWishlistMutation,
+  usePostWishlistMutation,
+} from '@src/reduxStore/api/wishlistApislice'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '@src/reduxStore/store'
+import { setModal } from '@src/reduxStore/modalSlice'
 
 interface Props {
   productDetail: IProductDetail
@@ -34,6 +40,10 @@ const ProductInfo = ({ productDetail, pathname, setOptionIndex, optionIndex }: P
   const { quantity, plusQuantity, minusQuantity } = useCounter(1)
   const navigate = useNavigate()
   const [heart, setHeart] = useState(false)
+  const [deleteWishlist] = useDeleteWishlistMutation()
+  const [postWishlist] = usePostWishlistMutation()
+  const userInfo = useSelector((state: RootState) => state.userInfo)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     setHeart(productDetail.isWished)
@@ -71,12 +81,20 @@ const ProductInfo = ({ productDetail, pathname, setOptionIndex, optionIndex }: P
 
   /** 찜하기 */
   const heartCheck = async () => {
-    if (heart) {
+    if (heart && userInfo.memberName) {
       await deleteWishlist(Number(pathname.slice(9)))
       setHeart((prev) => !prev)
-    } else {
+    } else if (!heart && userInfo.memberName) {
       await postWishlist(Number(pathname.slice(9)))
       setHeart((prev) => !prev)
+    } else {
+      dispatch(
+        setModal({
+          isOpen: true,
+          text: '로그인이 필요한 서비스입니다.',
+          onClickOK: () => dispatch(setModal({ isOpen: false })),
+        })
+      )
     }
   }
 
