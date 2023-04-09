@@ -18,15 +18,12 @@ import App from '@src/App'
 import NotFound from '@src/pages/NotFound'
 import PATH from '@src/constants/pathConst'
 import Home from '@src/pages/Home'
-import Contact from '@src/pages/Contact'
 import Product from '@src/pages/Product'
 import District from '@src/pages/Product/District'
-import Review from '@src/pages/Review'
 import Search from '@src/pages/Search'
 import Login from '@src/pages/Login'
 import SignUp from '@src/pages/SignUp'
 import Survey from '@src/pages/Survey'
-import User from '@src/pages/User'
 import ProductDetail from '@src/pages/Product/ProductDetail'
 import MyPage from '@src/pages/Mypage'
 import OrderList from '@src/pages/Mypage/OrderList'
@@ -58,19 +55,43 @@ const router = createBrowserRouter([
           { path: PATH.PRODUCT_DISTRICT, element: <District /> },
         ],
       },
-      { path: PATH.REVIEW, element: <Review /> },
       { path: PATH.SEARCH, element: <Search /> },
       { path: PATH.LOGIN, element: <Login /> },
       { path: PATH.SIGNUP, element: <SignUp /> },
-      { path: PATH.SURVEY, element: <Survey /> },
-      { path: PATH.SURVEY_RESULT, element: <Result /> },
-      { path: PATH.USER, element: <User /> },
+      {
+        path: PATH.SURVEY,
+        element: (
+          <PrivateRoute>
+            <Survey />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: PATH.SURVEY_RESULT,
+        element: (
+          <PrivateRoute>
+            <Result />
+          </PrivateRoute>
+        ),
+      },
       { path: PATH.PRODUCT_DETAIL, element: <ProductDetail /> },
-      { path: PATH.BUY, element: <Buy /> },
+      {
+        path: PATH.BUY,
+        element: (
+          <PrivateRoute>
+            {' '}
+            <Buy />
+          </PrivateRoute>
+        ),
+      },
       { path: PATH.CONSULT, element: <Consult /> },
       {
         path: PATH.MYPAGE,
-        element: <MyPage />,
+        element: (
+          <PrivateRoute>
+            <MyPage />
+          </PrivateRoute>
+        ),
         children: [
           { path: PATH.MYPAGE, element: <OrderList /> },
           { path: PATH.ORDER_LIST, element: <OrderList /> },
@@ -84,7 +105,11 @@ const router = createBrowserRouter([
       },
       {
         path: PATH.ADMIN,
-        element: <Admin />,
+        element: (
+          <PrivateRoute>
+            <Admin />
+          </PrivateRoute>
+        ),
         children: [
           { path: PATH.ADMIN, element: <ProductList /> },
           { index: true, path: PATH.PRODUCTS_LIST, element: <ProductList /> },

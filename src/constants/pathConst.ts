@@ -8,7 +8,6 @@ const PATH = {
   SIGNUP: '/signup',
   SURVEY: '/survey',
   SURVEY_RESULT: '/result',
-  USER: '/user',
   PRODUCT_DETAIL: '/product/:productId',
   MYPAGE: '/mypage',
   CART: '/mypage/cart',
