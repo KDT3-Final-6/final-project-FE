@@ -22,7 +22,7 @@ const TravelReview = () => {
         />
         <ContainerStyle>
           {reviews.length > 0 ? (
-            reviews.map((review) => <Review review={review} />)
+            reviews.map((review, index) => <Review review={review} key={index} />)
           ) : (
             <div>여행 후기를 남겨 보세요!</div>
           )}

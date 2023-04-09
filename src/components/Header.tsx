@@ -48,7 +48,7 @@ const Header = () => {
           isOpen: true,
           text: MESSAGES.LOGOUT.complete,
           onClickOK: () => {
-            dispatch(setModal({ isOpem: false, route: PATH.HOME }))
+            dispatch(setModal({ isOpem: false, route: navigate(PATH.HOME) }))
             dispatch(DELETE_USERINFO())
           },
         })
@@ -168,7 +168,9 @@ const Header = () => {
                   <Link to={PATH.PRODUCT_THEME}>테마별 여행</Link>
                 </li>
                 <BarStyle />
-                <li>커뮤니티</li>
+                <li>
+                  <Link to={PATH.CONSULT}>상담서비스</Link>
+                </li>
               </>
             ) : (
               <>
