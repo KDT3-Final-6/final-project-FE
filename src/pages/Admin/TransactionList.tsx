@@ -80,10 +80,7 @@ const TransactionList = () => {
           </Thead>
           <Tbody>
             {transactions?.content.map((transactions) => (
-              <tr
-                key={transactions.orderList.map((li) => li.orderId)}
-                id={transactions.orderList.map((li) => li.orderId)}
-              >
+              <tr>
                 <td></td>
                 <td></td>
                 <td></td>
