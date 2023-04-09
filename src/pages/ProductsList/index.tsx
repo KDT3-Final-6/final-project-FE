@@ -107,7 +107,7 @@ const ProductList = () => {
                       >
                         수정하기
                       </Button>
-                      <Button width="83px" onClick={() => deletePrductHandler(product.productId)}>
+                      <Button width="83px" onClick={() => deletePrductHandler(product.productId!)}>
                         삭제하기
                       </Button>
                     </div>

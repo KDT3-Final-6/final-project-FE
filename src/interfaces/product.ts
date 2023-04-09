@@ -9,7 +9,7 @@ export interface IProduct {
 export type IProductContentUnion = IProductContent & IProductDetail
 
 export interface IProductContent {
-  productId: number
+  productId?: number
   productName: string
   productThumbnail: string
   productPrice: number
@@ -20,7 +20,7 @@ export interface IProductContent {
 }
 
 export interface IProductDetail {
-  productId: number
+  productId?: number
   contentDetail: string
   isWished: boolean
   wishlistCount: number
