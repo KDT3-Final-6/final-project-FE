@@ -62,9 +62,10 @@ const ProductInfo = ({ productDetail, pathname, setOptionIndex, optionIndex }: P
     name: productDetail?.productName,
     productThumbnail: productDetail?.productThumbnail,
     productPrice: productDetail?.productPrice,
-    periodOptionName: productDetail?.periodOptions[optionIndex && optionIndex - 1].periodOptionName,
+    periodOptionName:
+      productDetail?.periodOptions[optionIndex && optionIndex - 1]?.periodOptionName,
     productId: Number(pathname.slice(9)),
-    periodOptionId: productDetail?.periodOptions[optionIndex && optionIndex - 1].periodOptionId,
+    periodOptionid: productDetail?.periodOptions[optionIndex && optionIndex - 1]?.periodOptionId,
     quantity: quantity,
   }
 

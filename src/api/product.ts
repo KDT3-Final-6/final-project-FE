@@ -92,7 +92,7 @@ export const getAdminProductDetail = async (id: number) => {
 
 /** 관리자 상품 추가 */
 export const postAddProduct = async (productData: any) => {
-  const response = await axiosFormDataInstance.post(API_URL.admin_products, { data: productData })
+  const response = await axiosFormDataInstance.post(API_URL.admin_products, productData)
   return response
 }
 

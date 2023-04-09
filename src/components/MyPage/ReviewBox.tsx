@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import MESSAGES from '@src/constants/messages'
 import { setModal } from '@src/reduxStore/modalSlice'
-import { useDeleteReviewMutation, useEditReviewMutation } from '@src/reduxStore/api/reviewApiSlice'
+import { useDeleteReviewMutation } from '@src/reduxStore/api/reviewApiSlice'
 import { setReviewModal } from '@src/reduxStore/reviewModalSlice'
 
 interface Props {

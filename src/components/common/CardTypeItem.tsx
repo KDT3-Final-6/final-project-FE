@@ -1,7 +1,7 @@
 import PATH from '@src/constants/pathConst'
 import { ICurrentProduct, IProductContent } from '@src/interfaces/product'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import HeartButton from './HeartButton'
 import Image from './Image'
@@ -13,6 +13,8 @@ import ProductCard, {
   TxtAreaStyle,
 } from './ProductCard'
 import Title from './Title'
+import { useSelector } from 'react-redux'
+import { RootState } from '@src/reduxStore/store'
 
 interface ICardTypeItem {
   item: IProductContent | ICurrentProduct
