@@ -10,7 +10,7 @@ const axiosApi = (url: string, forData: boolean) => {
       'Content-Type': forData ? 'multipart/form-data' : 'application/json',
     },
   })
-  instance.defaults.timeout = 3000
+  instance.defaults.timeout = 5000
 
   instance.interceptors.response.use(
     (response) => {

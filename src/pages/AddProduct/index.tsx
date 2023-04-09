@@ -6,16 +6,23 @@ import styled from 'styled-components'
 import { IoIosCloseCircle } from 'react-icons/io'
 import Image from '@src/components/common/Image'
 import Button from '@src/components/common/Button'
-import { useForm } from 'react-hook-form'
+import { useForm, FieldValues } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { getCategory } from '@src/api/product'
+import { getCategory, postAddProduct } from '@src/api/product'
 import { IproductCategories } from '@src/interfaces/product'
+import { ErrorMessage } from '@src/components/common/InputItem'
+import { useNavigate } from 'react-router-dom'
+import { setModal } from '@src/reduxStore/modalSlice'
+import { useDispatch } from 'react-redux'
 
 const AddProduct = () => {
   const [attachment, setAttachment] = useState('')
   const [detailAttachment, setDetailAttachment] = useState<string[]>([])
   const [categories, setCategories] = useState<IproductCategories[]>([])
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
   const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { files },
@@ -32,6 +39,7 @@ const AddProduct = () => {
   }
 
   const multifilePreview = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDetailAttachment([])
     const {
       target: { files },
     } = event
@@ -57,14 +65,35 @@ const AddProduct = () => {
   }, [])
 
   const schema = yup.object().shape({
-    productName: yup.string().min(3, '세 글자 이상 작성해 주세요.'),
-    productPrice: yup.number(),
-    productState: yup.string(),
-    productContent: yup.string().min(5, '다섯 글자 이상 작성해 주세요.'),
-    contentDetail: yup.string().min(5, '다섯 글자 이상 작성해 주세요.'),
-    categories: yup.array(),
-    images: yup.mixed(),
-    thumbnail: yup.mixed(),
+    productName: yup
+      .string()
+      .min(3, '세 글자 이상 작성해 주세요.')
+      .required('상품 이름을 입력하세요.'),
+    productPrice: yup
+      .number()
+      .typeError('숫자만 입력해 주세요.')
+      .required('상품 가격을 입력하세요.'),
+    productStatus: yup.string().required('상품 상태를 선택해 주세요.'),
+    productContent: yup
+      .string()
+      .min(5, '다섯 글자 이상 작성해 주세요.')
+      .required('상품 내용을 작성해 주세요.'),
+    contentDetail: yup
+      .string()
+      .min(5, '다섯 글자 이상 작성해 주세요.')
+      .required('상품 상세 정보를 입력해 주세요.'),
+    categories: yup
+      .array()
+      .transform((value) => {
+        if (Array.isArray(value) && value.length > 0 && typeof value[0] === 'string') {
+          return value.map((v) => parseInt(v, 10))
+        }
+        return value
+      })
+      .of(yup.number())
+      .required('상품 카테고리를 선택해 주세요.'),
+    images: yup.mixed().required('상품 이미지를  첨부해 주세요.'),
+    thumbnail: yup.mixed().required('상품 썸네일을 첨부해 주세요.'),
   })
 
   const {
@@ -72,9 +101,50 @@ const AddProduct = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) })
+  const formData = new FormData()
+  const imageArray = (files: any) => {
+    for (let i = 0; i < files.length; i += 1) {
+      formData.append('images', files[i])
+    }
+  }
 
-  const onSubmit = async (data: any) => {
-    console.log(data)
+  const onSubmit = async (data: FieldValues) => {
+    const {
+      productName,
+      productPrice,
+      productStatus,
+      productContent,
+      contentDetail,
+      categories,
+      images,
+      thumbnail,
+    } = data
+    const productPostRequestDTO = {
+      productName,
+      productPrice,
+      productStatus,
+      productContent,
+      contentDetail,
+      categories,
+    }
+    formData.append(
+      'productPostRequestDTO',
+      new Blob([JSON.stringify(productPostRequestDTO)], {
+        type: 'application/json',
+      })
+    )
+    formData.append('thumbnail', thumbnail[0])
+    imageArray(images)
+    postAddProduct(formData)
+    dispatch(
+      setModal({
+        isOpen: true,
+        text: '상품을 추가하였습니다.',
+        onClickOK: () => {
+          dispatch(setModal({ isOpen: false, router: navigate('/admin') }))
+        },
+      })
+    )
   }
   return (
     <ContainerStyle>
@@ -96,6 +166,7 @@ const AddProduct = () => {
                     placeholder="상품명을 입력해 주세요."
                     {...register('productName')}
                   />
+                  {errors.productName && <ErrorMessage>{errors.productName.message}</ErrorMessage>}
                 </td>
               </tr>
               <tr>
@@ -109,6 +180,7 @@ const AddProduct = () => {
                       {...register('thumbnail', { onChange: onFileChange })}
                     />
                     <label htmlFor="thumbnail">+</label>
+                    {errors.thumbnail && <ErrorMessage>{errors.thumbnail.message}</ErrorMessage>}
                     {attachment && (
                       <Image bgImage={attachment} width="251px" height="199px">
                         <button onClick={() => setAttachment('')}>
@@ -131,21 +203,11 @@ const AddProduct = () => {
                       {...register('images', { onChange: multifilePreview })}
                     />
                     <label htmlFor="images">+</label>
+                    {errors.images && <ErrorMessage>{errors.images.message}</ErrorMessage>}
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
                       {detailAttachment &&
                         detailAttachment.map((imageUrl, index) => (
-                          <Image bgImage={imageUrl} width="150px" height="199px" key={index}>
-                            <button
-                              onClick={() =>
-                                setDetailAttachment((prev) => {
-                                  prev.splice(prev.indexOf(imageUrl), 1)
-                                  return [...prev]
-                                })
-                              }
-                            >
-                              <IoIosCloseCircle size="30" color="gray" />
-                            </button>
-                          </Image>
+                          <Image bgImage={imageUrl} width="150px" height="199px" key={index} />
                         ))}
                     </div>
                   </ThumbnailStyle>
@@ -233,6 +295,9 @@ const AddProduct = () => {
                       {...register('productPrice')}
                     />{' '}
                     원
+                    {errors.productPrice && (
+                      <ErrorMessage>{errors.productPrice.message}</ErrorMessage>
+                    )}
                   </div>
                 </td>
               </tr>
@@ -261,6 +326,9 @@ const AddProduct = () => {
                         value="품절"
                       />
                       <label htmlFor="soldout">품절</label>
+                      {errors.productStatus && (
+                        <ErrorMessage>{errors.productStatus.message}</ErrorMessage>
+                      )}
                     </StatusStyle>
                   </StatusBoxStyle>
                 </td>
@@ -269,12 +337,18 @@ const AddProduct = () => {
                 <th>간략 설명</th>
                 <td colSpan={6}>
                   <input type="text" {...register('productContent')} />
+                  {errors.productContent && (
+                    <ErrorMessage>{errors.productContent.message}</ErrorMessage>
+                  )}
                 </td>
               </tr>
               <tr>
                 <th>상세 설명</th>
                 <td colSpan={6}>
                   <input type="text" {...register('contentDetail')} />
+                  {errors.contentDetail && (
+                    <ErrorMessage>{errors.contentDetail.message}</ErrorMessage>
+                  )}
                 </td>
               </tr>
             </tbody>

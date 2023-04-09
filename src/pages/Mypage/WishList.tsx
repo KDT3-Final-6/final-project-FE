@@ -15,7 +15,7 @@ const WishList = () => {
     const fetchData = async () => {
       const data = await getWishlist()
       setWisthlist(data.content)
-      setTotalElements(data.totalElements)
+      setTotalElements(data.totalPages)
     }
     fetchData()
   }, [])
