@@ -9,6 +9,7 @@ import { searchApi } from './api/searchApiSlice'
 import { curationApi } from './api/curationApiSlice'
 import { reviewApi } from './api/reviewApiSlice'
 import reviewModalSlice from './reviewModalSlice'
+import { adminProductApi } from './api/adminProductApiSlice'
 
 const rootReducer = combineReducers({
   loading: loadingSlice.reducer,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   [searchApi.reducerPath]: searchApi.reducer,
   [curationApi.reducerPath]: curationApi.reducer,
   [reviewApi.reducerPath]: reviewApi.reducer,
+  [adminProductApi.reducerPath]: adminProductApi.reducer,
 })
 
 export type ReducerType = ReturnType<typeof rootReducer>

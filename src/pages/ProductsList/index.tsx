@@ -9,25 +9,42 @@ import { useNavigate } from 'react-router-dom'
 import { IProductDetail } from '@src/interfaces/product'
 import { getAdminProducts } from '@src/api/product'
 import Paginate from '@src/components/common/Paginate'
+import {
+  useDeleteAdminProductMutation,
+  useGetAdminProductListQuery,
+} from '@src/reduxStore/api/adminProductApiSlice'
+import { useDispatch } from 'react-redux'
+import { setModal } from '@src/reduxStore/modalSlice'
 
 const ProductList = () => {
-  const [products, setProducts] = useState<IProductDetail[]>([])
   const [page, setPage] = useState<number>(1)
-  const [totalElement, setTotalElement] = useState<number>(0)
-  const [elementLength, setElementLength] = useState<number>(0)
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getAdminProducts(page)
-      setProducts(data.content)
-      setTotalElement(data.totalPages)
-      setElementLength(data.content.length)
-    }
-    fetchData()
-  }, [page])
+  const { data } = useGetAdminProductListQuery(page)
+  const products: IProductDetail[] = data ? data.content : []
+  const totalPages: number = data ? data.totalPages : 0
+
+  const totalElement = totalPages
+  const elementLength = products.length
+
+  const [deleteAdminProduct] = useDeleteAdminProductMutation()
+
+  const dispatch = useDispatch()
 
   const changePageHandler = (event: { selected: number }) => {
     setPage(event.selected + 1)
+  }
+
+  const deletePrductHandler = (productId: number) => {
+    dispatch(
+      setModal({
+        isOpen: true,
+        text: '상품을 삭제하시겠습니까?',
+        onClickOK: async () => {
+          await deleteAdminProduct(productId)
+          dispatch(setModal({ isOpen: false }))
+        },
+      })
+    )
   }
   const navigate = useNavigate()
   return (
@@ -90,7 +107,9 @@ const ProductList = () => {
                       >
                         수정하기
                       </Button>
-                      <Button width="83px">삭제하기</Button>
+                      <Button width="83px" onClick={() => deletePrductHandler(product.productId!)}>
+                        삭제하기
+                      </Button>
                     </div>
                   </td>
                 </tr>
