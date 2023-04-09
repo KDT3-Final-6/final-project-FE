@@ -5,11 +5,11 @@ import InputItem from '@src/components/common/InputItem'
 import Select from '@src/components/common/Select'
 import Inner from '@src/layout/Inner'
 import { COLORS } from '@src/styles/root'
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { CheckStyle, FormAreaStyle, RadiosStyle } from '../SignUp'
 import { Helmet } from 'react-helmet'
 import { userInfo, userInfoEdit, userWithDrawal } from '@src/api/auth'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setModal } from '@src/reduxStore/modalSlice'
 import { useNavigate } from 'react-router-dom'
 import MESSAGES from '@src/constants/messages'
@@ -17,19 +17,23 @@ import PATH from '@src/constants/pathConst'
 import { useForm } from 'react-hook-form'
 import { hideLoading, showLoading } from '@src/reduxStore/loadingSlice'
 import { IUserInfo, IUserInfoEdit } from '@src/interfaces/user'
-import IRootReducer from '@src/interfaces/rootReducer'
 
 const InfoEdit = () => {
-  const [userInfoData, setUserInfoData] = useState<IUserInfo>()
-  const [userGender, setUserGender] = useState('Male')
+  const [userInfoData, setuserInfoData] = useState<IUserInfo>()
+  const [userGender, setUserGender] = useState('')
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { isSubmitting, errors, isDirty },
   } = useForm<IUserInfoEdit>()
+
+  useEffect(() => {
+    ;(async () => setuserInfoData(await userInfo()))()
+  }, [])
 
   const hobbys = [
     { id: 'GOLF', labelName: '골프' },
@@ -41,15 +45,6 @@ const InfoEdit = () => {
     { id: 'CULTURE', labelName: '문화탐방' },
     { id: 'PILGRIMAGE', labelName: '성지순례' },
   ]
-
-  useEffect(() => {
-    ;(async () => {
-      setUserInfoData(await userInfo())
-    })()
-  }, [])
-
-  // const aaa = useSelector((state: IRootReducer) => state.userInfo)
-  // console.log(aaa)
 
   const passwordRef = useRef<string | null>(null)
   passwordRef.current = watch('memberPassword')
@@ -95,7 +90,7 @@ const InfoEdit = () => {
           isOpen: true,
           text: MESSAGES.MYPAGE.USEREDIT.complete,
           onClickOK: () => {
-            dispatch(setModal({ isOpen: false, route: navigate(PATH.MYPAGE) }))
+            dispatch(setModal({ isOpen: false, route: navigate(PATH.HOME) }))
           },
         })
       )

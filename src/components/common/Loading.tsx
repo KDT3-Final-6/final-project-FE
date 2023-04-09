@@ -1,12 +1,12 @@
 import Lottie from 'lottie-react'
 import loadingLottie from '@src/lotties/loadingLottie.json'
-import { ReducerType } from '@src/reduxStore/rootReducer'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
+import { RootState } from '@src/reduxStore/store'
 
 const Loading = () => {
-  const loading = useSelector((state: ReducerType) => state.loading)
+  const loading = useSelector((state: RootState) => state.loading)
   if (loading === false) return null
 
   return (
