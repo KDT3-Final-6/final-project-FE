@@ -4,10 +4,10 @@ import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import Button from './Button'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
-import { ReducerType } from '@src/reduxStore/rootReducer'
+import { RootState } from '@src/reduxStore/store'
 
 const ModalBox = () => {
-  const modalState = useSelector((state: ReducerType) => state.modal)
+  const modalState = useSelector((state: RootState) => state.modal)
   const [isDisabled, setIsDisabled] = useState(false)
 
   const handleClick = () => {

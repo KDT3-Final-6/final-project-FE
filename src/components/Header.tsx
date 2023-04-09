@@ -38,8 +38,8 @@ const Header = () => {
     try {
       dispatch(showLoading())
       await logout()
-      removeCookies('accessToken', { path: '/' })
-      removeCookies('role', { path: '/' })
+      removeCookies('accessToken')
+      removeCookies('role')
       dispatch(
         setModal({
           isOpen: true,
