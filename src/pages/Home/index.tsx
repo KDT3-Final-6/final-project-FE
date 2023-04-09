@@ -24,9 +24,6 @@ function Home() {
       <Inner>
         <Image src="/images/banner/큐레이션배너.png" />
       </Inner>
-      <Inner>
-        <Image src="/images/banner/event_banner.jpg" />
-      </Inner>
       <Banner image="event_banner2" marginTop="100px" marginBottom="100px" type={1} />
       <GroupTravel />
       <ThemeTravel />
