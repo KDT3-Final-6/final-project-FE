@@ -1,7 +1,5 @@
 interface ITransaction {
   content: {
-    orderDate: string,
-    orderList:{
       orderId: number,
       productId: number,
       memberId: number,
@@ -12,10 +10,10 @@ interface ITransaction {
       productPrice: number,
       orderDate: string,
       periodOptionName: string,
-      purchasedProductQuantity: 1,
-      orderStatus: string
-    }[],
-    paymentMethod: string
+      purchasedProductQuantity: number,
+      purchasedProductId:number,
+      orderStatus: string,
+      paymentMethod: string
   }[]
   totalPages: number,
   totalElements: number,
