@@ -32,7 +32,7 @@ interface ISelect {
 const CurationSelectBtn = ({
   options,
   width = '190px',
-  height = '51px',
+  height = '100%',
   borderRadius = '5px',
   borderColor = COLORS.cb6b6b6,
   isClickDefault = true,
@@ -185,7 +185,7 @@ const SelectOptionsStyle = styled.ul<{
   width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-  max-height: ${({ show }) => (show ? '300px' : '0')};
+  max-height: ${({ show }) => (show ? '1000px' : '0')};
   border-radius: ${({ borderRadius }) => borderRadius};
   background-color: ${COLORS.white};
   z-index: 10;

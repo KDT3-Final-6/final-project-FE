@@ -13,6 +13,9 @@ import {
 } from '@src/reduxStore/api/orderApiSlice'
 import { getCookie } from '@src/utils/cookie'
 import { IProductIds } from '@src/interfaces/order'
+import { useDeleteCartListMutation } from '@src/reduxStore/api/cartApiSlice'
+import { useSelector } from 'react-redux'
+import { RootState } from '@src/reduxStore/store'
 
 interface IBuy {
   checkbox?: boolean
@@ -29,7 +32,23 @@ export interface productData {
   productPrice: number
   productThumbnail: string
   quantity: number
+  cartId?: string
 }
+
+const paymentMethodTabs = [
+  {
+    id: '카드',
+    tabName: '카드',
+  },
+  {
+    id: '계좌이체',
+    tabName: '계좌이체',
+  },
+  {
+    id: '토스페이',
+    tabName: '토스페이',
+  },
+]
 
 const index = () => {
   const navigate = useNavigate()
@@ -44,9 +63,12 @@ const index = () => {
 
   const token = getCookie('accessToken')
 
-  const name = '고투게더'
-  const phoneNumber = '01012345678'
-  const email = 'gotogether@gmail.com'
+  /**유저 정보 */
+  const userData = useSelector((state: RootState) => state.userInfo)
+  const { memberName, memberPhone, memberEmail } = userData
+
+  /**장바구니 구매템들 삭제 */
+  const [deleteQuestion] = useDeleteCartListMutation()
 
   /**post보낼 데이터 */
   const postProductData = productData.map((product: IProductIds) => ({
@@ -54,6 +76,10 @@ const index = () => {
     quantity: product.quantity,
   }))
 
+  /**장바구니 삭제할 아이템의 아이디 */
+  const cartIds = productData.filter((item) => item.cartId).map((item) => Number(item.cartId))
+
+  /**상품 총 금액 */
   const totalProductPrice = productData.reduce(
     (acc: number, curr: { productPrice: number; quantity: number }) => {
       return acc + curr.productPrice * curr.quantity
@@ -61,26 +87,13 @@ const index = () => {
     0
   )
 
-  const paymentMethodTabs = [
-    {
-      id: '카드',
-      tabName: '카드',
-    },
-    {
-      id: '계좌이체',
-      tabName: '계좌이체',
-    },
-    {
-      id: '토스페이',
-      tabName: '토스페이',
-    },
-  ]
-
+  /**약관 전체 선택 */
   const handleAllChecked = () => {
     setAllChecked(!allChecked)
     setIsChecked([!allChecked, !allChecked])
   }
 
+  /**약관 선택 핸들러 */
   const handleChecked = (index: number) => {
     const newIsChecked = [...isChecked]
     newIsChecked[index] = !isChecked[index]
@@ -92,6 +105,9 @@ const index = () => {
       setAllChecked(false)
     }
   }
+  console.log('productData', productData)
+
+  console.log('postProductData', postProductData)
 
   const {
     register,
@@ -112,6 +128,7 @@ const index = () => {
       if ('data' in result && result.data === null) {
         if (paymentMethod === '계좌이체') alert('결제에 성공하셨습니다. 메일을 확인해주세요')
         else alert('결제에 성공하셨습니다.')
+        await deleteQuestion(cartIds)
         navigate('/mypage/orderlist', { replace: true })
         console.log('result', result)
       } else if ('error' in result) {
@@ -202,21 +219,25 @@ const index = () => {
               <Title fontSize={FONTSIZE.fz26} fontWeight={FONTWEGHT.fw500}>
                 예약자 정보
               </Title>
-              <Button
-                width="60px"
-                height="43px"
-                borderRadius="9999px"
-                buttonType="black"
-                onClick={() => navigate('/mypage/infoedit')}
-              >
-                수정
-              </Button>
+              {token ? (
+                <Button
+                  width="60px"
+                  height="43px"
+                  borderRadius="9999px"
+                  buttonType="black"
+                  onClick={() => navigate('/mypage/infoedit')}
+                >
+                  수정
+                </Button>
+              ) : (
+                <></>
+              )}
             </UserInfoHeaderStyle>
             <InfoStyle>
               <InfoCardStyle>
                 <span>예약자 이름</span>
                 {token ? (
-                  <p>{name}</p>
+                  <p>{memberName}</p>
                 ) : (
                   <input
                     type="text"
@@ -233,13 +254,15 @@ const index = () => {
               {token ? (
                 <InfoCardStyle>
                   <span>연락처('-'포함x)</span>
-                  <p>{phoneNumber}</p>
+                  <p>{memberPhone}</p>
                 </InfoCardStyle>
-              ) : null}
+              ) : (
+                <></>
+              )}
               <InfoCardStyle>
                 <span>이메일</span>
                 {token ? (
-                  <p>{email}</p>
+                  <p>{memberEmail}</p>
                 ) : (
                   <input
                     type="text"
@@ -377,7 +400,7 @@ const UserInfoStyle = styled.section`
 const LeftBoxStyle = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   gap: 30px;
   width: 656px;

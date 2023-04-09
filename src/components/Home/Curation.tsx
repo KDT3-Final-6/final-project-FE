@@ -170,6 +170,7 @@ const Curation = () => {
               setCurrentValue={setCountryValue}
               fontSize="30px"
               borderRadius="5px"
+              height="100%"
             />
             <SecondSpan>에서</SecondSpan>
             <CurationSelectBtn
@@ -213,7 +214,7 @@ const Curation = () => {
                   ))}
                 </>
               ) : (
-                <NoItemsStyle>상품이 존재하지 않습니다.</NoItemsStyle>
+                <NoItemsStyle>해당 상품이 존재하지 않습니다.</NoItemsStyle>
               )}
             </ProductListStyle>
           )}
