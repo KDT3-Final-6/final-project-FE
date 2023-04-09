@@ -7,6 +7,7 @@ import rootReducer from './rootReducer'
 import { reviewApi } from './api/reviewApiSlice'
 import { searchApi } from './api/searchApiSlice'
 import { curationApi } from './api/curationApiSlice'
+import { adminProductApi } from './api/adminProductApiSlice'
 
 export const store = configureStore({
   reducer: rootReducer,
@@ -18,6 +19,7 @@ export const store = configureStore({
       reviewApi.middleware,
       searchApi.middleware,
       curationApi.middleware,
+      adminProductApi.middleware,
     ]),
 })
 

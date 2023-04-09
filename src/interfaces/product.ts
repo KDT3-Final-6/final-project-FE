@@ -14,10 +14,13 @@ export interface IProductContent {
   productThumbnail: string
   productPrice: number
   isWished: boolean
+  productStatus?: string
+  productContent?: string
+  contentDetail?: string
 }
 
 export interface IProductDetail {
-  productId?: number
+  productId: number
   contentDetail: string
   isWished: boolean
   wishlistCount: number
