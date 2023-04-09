@@ -3,7 +3,7 @@ export interface ILogin {
   memberPassword: string
 }
 
-export interface IUser extends ILogin {
+export interface ISignup extends ILogin {
   memberPasswordConfirm: string
   memberName: string
   memberNickname: string
@@ -29,4 +29,14 @@ export interface IUserInfo {
   memberGrade: string
   memberImage: string
   roles: string[]
+}
+
+export interface IUserInfoEdit {
+  memberPassword: string,
+  memberPasswordConfirm:string,
+  memberNickname: string,
+  memberPhone: string,
+  memberHobby: string[],
+  memberSmsAgree: boolean,
+  memberEmailAgree: boolean
 }

@@ -8,6 +8,8 @@ import React from 'react'
 import { Helmet } from 'react-helmet'
 import Banner from '@src/components/Home/Banner'
 import FloatingNav from '@src/components/Home/FloatingNav'
+import { useSelector } from 'react-redux'
+import IRootReducer from '@src/interfaces/rootReducer'
 
 function Home() {
   return (

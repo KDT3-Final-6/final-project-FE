@@ -21,8 +21,8 @@ interface ISelect {
   type?: string
   register?: any
   selectValue?: string
-  currentValue: string
-  setCurrentValue: React.Dispatch<React.SetStateAction<string>>
+  currentValue?: string
+  setCurrentValue?: React.Dispatch<React.SetStateAction<string>> | any
   onChange?: React.ChangeEventHandler<HTMLLIElement>
   onClick?: React.MouseEventHandler<HTMLLIElement>
 }
@@ -149,7 +149,8 @@ const LabelStyle = styled.label<{
   isDisabled: boolean
 }>`
   font-size: ${({ fontSize }) => fontSize};
-  color: ${({ isDisabled }) => isDisabled && COLORS.caeaeae};
+  color: ${({ isDisabled }) => isDisabled && COLORS.c909090};
+  font-weight: ${({ isDisabled }) => isDisabled && 'bold'};
   cursor: ${({ isDisabled }) => !isDisabled && 'pointer'};
 `
 

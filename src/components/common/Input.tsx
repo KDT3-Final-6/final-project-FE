@@ -47,6 +47,7 @@ const Input = ({
       borderRadius={borderRadius}
       bgColor={bgColor}
       borderColor={borderColor}
+      isDisabled={isDisabled}
     >
       <input
         type={type}
@@ -76,6 +77,7 @@ const InputStyle = styled.div<{
   borderRadius: string
   bgColor: string
   borderColor: string
+  isDisabled: boolean
 }>`
   ${({ inputType, borderRadius, bgColor, borderColor }) =>
     handleInputType(inputType, borderRadius, bgColor, borderColor)}
@@ -85,6 +87,11 @@ const InputStyle = styled.div<{
 
   input {
     font-size: ${FONTSIZE.fz16};
+  }
+
+  input::placeholder {
+    color: ${({ isDisabled }) => isDisabled && COLORS.c909090};
+    font-weight: ${({ isDisabled }) => isDisabled && 'bold'};
   }
 
   p {
