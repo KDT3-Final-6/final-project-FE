@@ -37,7 +37,7 @@ const Theme = () => {
       </Inner>
       <ThemeTravel />
       <Inner>
-        <Banner image="event_banner2" marginTop="100px" marginBottom="20px" type={1} />
+        <Banner image="/images/banner/event_banner-3.png" marginTop="-180px" marginBottom="100px" />
         <ContainerStyle>
           <EventCardStyle>
             <ImageBoxStyle url="모로코_10일_썸네일">

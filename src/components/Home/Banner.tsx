@@ -14,26 +14,8 @@ interface IBanner {
 const Banner = ({ type, image, marginTop, marginBottom }: IBanner) => {
   return (
     <Inner>
-      <BannerStyle image={image} marginTop={marginTop} marginBottom={marginBottom}>
-        <Image src="https://cdn.discordapp.com/attachments/1089409142520811601/1094450202523476030/event_banner.png" />
-        {/* {type === 1 && (
-          <ExclusiveBannerStyle>
-            <p>알래스카항공 국제선 단독 특가</p>
-            <p>캐나다, 미국 도착 3~4월 특가 상품</p>
-            <MoreBtn color={COLORS.black} bgColor={COLORS.white} bottom="23px" right="22px" />
-          </ExclusiveBannerStyle>
-        )}
-        {type === 2 && (
-          <SpringBannerStyle>
-            <p>23’ 주목해야할 봄 특가 상품</p>
-            <TagGroupStyle>
-              <div>마스크없이🙋‍♀️</div>
-              <div>가성비💵</div>
-              <div>누구든지⭕️</div>
-            </TagGroupStyle>
-            <MoreBtn color={COLORS.white} bgColor={COLORS.c394128} bottom="23px" right="22px" />
-          </SpringBannerStyle>
-        )} */}
+      <BannerStyle marginTop={marginTop} marginBottom={marginBottom}>
+        <Image src={image} />
         <MoreBtn color={COLORS.black} bgColor={COLORS.white} bottom="23px" right="22px" />
       </BannerStyle>
     </Inner>
@@ -46,15 +28,8 @@ const BannerStyle = styled.div<IBanner>`
   position: relative;
   width: 100%;
   height: 249px;
-  /* background-image: ${({ image }) => `url(${image}`}; */
-  /* background-repeat: no-repeat; */
-  /* background-position: center center; */
   margin-bottom: ${({ marginBottom }) => marginBottom};
   margin-top: ${({ marginTop }) => marginTop};
-  /* p {
-    position: absolute;
-    font-weight: ${FONTWEGHT.fw600};
-  } */
   img {
     width: 100%;
     height: 100%;
