@@ -1,10 +1,10 @@
 import styled from 'styled-components'
 import { FONTSIZE, COLORS } from '@src/styles/root'
 import StarRateWrapGet from './StarRateWrapGet'
-import { IReviewContent } from '@src/interfaces/review'
+import { IReviewValue } from '@src/interfaces/review'
 
 interface Props {
-  review: IReviewContent
+  review: IReviewValue
   id: number
 }
 

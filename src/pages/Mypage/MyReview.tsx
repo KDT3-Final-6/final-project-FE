@@ -1,13 +1,13 @@
 import ReviewBox from '@src/components/MyPage/ReviewBox'
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { IReviewContentUnion } from '@src/interfaces/review'
 import { FONTSIZE } from '@src/styles/root'
 import { useGetReviewForMeQuery } from '@src/reduxStore/api/reviewApiSlice'
+import { IReviewValue } from '@src/interfaces/review'
 
 const MyReview = () => {
   const { data } = useGetReviewForMeQuery()
-  const reviews: IReviewContentUnion[] = data ? data.content : []
+  const reviews: IReviewValue[] = data ? data.content : []
 
   return (
     <MyReviewStyle>

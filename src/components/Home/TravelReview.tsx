@@ -5,13 +5,14 @@ import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Title from '../common/Title'
 import Review from '../common/Review'
-import { IReviewContent, IReviewContentUnion, initReview } from '@src/interfaces/review'
+import { IReviewValue } from '@src/interfaces/review'
 import { useGetReviewAllQuery } from '@src/reduxStore/api/reviewApiSlice'
 
 const TravelReview = () => {
   const { data } = useGetReviewAllQuery()
-  const reviews: IReviewContentUnion[] = data ? data.content.slice(0, 3) : []
-  console.log('reviews', reviews)
+  console.log('data', data)
+
+  const reviews: IReviewValue[] = data ? data.content.slice(0, 3) : []
 
   return (
     <Section>
@@ -24,7 +25,7 @@ const TravelReview = () => {
         />
         <ContainerStyle>
           {reviews.length > 0 ? (
-            reviews.map((review, index) => (
+            reviews.map((review) => (
               <Review review={review} key={review.postId} id={review.postId} />
             ))
           ) : (

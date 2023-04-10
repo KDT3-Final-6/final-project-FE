@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import ProductCard, { ImgAreaStyle, TxtAreaStyle } from '../common/ProductCard'
 import Button from '../common/Button'
 import { FONTSIZE, FONTWEGHT, COLORS } from '@src/styles/root'
-import { IReviewContentUnion } from '@src/interfaces/review'
+import { IReviewValue } from '@src/interfaces/review'
 import StarRateWrapGet from '../common/StarRateWrapGet'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
@@ -15,7 +15,7 @@ import { setReviewModal } from '@src/reduxStore/reviewModalSlice'
 import ReviewModal from './ReviewModal'
 
 interface Props {
-  review: IReviewContentUnion
+  review: IReviewValue
 }
 
 const ReviewBox = ({ review }: Props) => {
