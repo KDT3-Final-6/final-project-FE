@@ -12,13 +12,14 @@ import { setModal } from '@src/reduxStore/modalSlice'
 import MESSAGES from '@src/constants/messages'
 import Select from '@src/components/common/Select'
 import Paginate from '@src/components/common/Paginate'
+import hideName from '@src/utils/hideName'
 
 const TransactionList = () => {
   const dispatch = useDispatch()
   const [transactions, setTransactions] = useState<ITransaction>()
   const [page, setPage] = useState<number>(1)
 
-  const selectOptions = ['전체보기', '결제대기', '결제완료']
+  const selectOptions = ['결제대기', '결제완료']
   const [currentValue, setCurrentValue] = useState<string>(selectOptions[0])
 
   useEffect(() => {
@@ -102,8 +103,8 @@ const TransactionList = () => {
           </Thead>
           <Tbody>
             {transactions?.content
-              .filter((item) => item.orderStatus !== currentValue)
-              .map((transaction) => (
+              .filter((item) => item.orderStatus === currentValue)
+              .map((transaction: any) => (
                 <tr key={transaction.purchasedProductId}>
                   <td>
                     <OrderInfoStyle>
@@ -112,7 +113,7 @@ const TransactionList = () => {
                         0,
                         10
                       )} ${transaction.orderDate.slice(11, 16)}`}</span>
-                      <span>{transaction.memberName}</span>
+                      <span>{hideName(transaction.memberName)}</span>
                     </OrderInfoStyle>
                   </td>
                   <td>
