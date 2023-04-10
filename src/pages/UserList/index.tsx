@@ -88,3 +88,12 @@ const UserListStyle = styled.div`
     }
   }
 `
+
+export const InputWrapStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 101px;
+  padding-bottom: 80px;
+`
