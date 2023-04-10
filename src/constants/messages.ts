@@ -19,7 +19,7 @@ const MESSAGES = {
   },
   CHECKPASSWORD: {
     error: '비밀번호를 다시 확인해 주세요.',
-    InvalidPw: '비밀번호가 일치하지 않습니다.'
+    InvalidPw: '비밀번호가 일치하지 않습니다.',
   },
   REVIEW: {
     complete: '삭제되었습니다.',
@@ -29,15 +29,16 @@ const MESSAGES = {
   MYPAGE: {
     USEREDIT: {
       complete: '회원 정보 수정이 완료되었습니다.',
-      error: '수정 내용을 다시 확인해주세요.'
-    }
+      error: '수정 내용을 다시 확인해주세요.',
+    },
   },
   ADMIN: {
     TRANSACTION: {
-      error: '정보를 가져오는데 실패하였습니다.'
-    }
+      error: '정보를 가져오는데 실패하였습니다.',
+    },
   },
-  INVALID_AUTH: '로그인이 필요한 서비스입니다.'
+  INVALID_AUTH: '로그인이 필요한 서비스입니다.',
+  ERROR: '비정상적인 접근입니다.',
 }
 
 export default MESSAGES

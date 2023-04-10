@@ -1,13 +1,11 @@
-import { getQnAList } from '@src/api/post'
 import Button from '@src/components/common/Button'
 import OneOnOneCard from '@src/components/MyPage/OneOnOneCard'
 import QuestionCard from '@src/components/MyPage/QuestionCard'
 import { useGetQnAListQuery } from '@src/reduxStore/api/qnaApiSlice'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
-import React, { useEffect, useState } from 'react'
+import { useState } from 'react'
 import styled from 'styled-components'
 import Paginate from '@src/components/common/Paginate'
-import { useSelector } from 'react-redux'
 
 const OneOnOne = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -35,7 +33,9 @@ const OneOnOne = () => {
           <OneOnOneCard key={item.postId} postInfo={item} />
         ))}
       </CardSectionStyle>
-      <Paginate totalElements={qnaList?.totalPages || 0} changePageHandler={changePageHandler} />
+      {qnaList && qnaList.content.length > 0 && (
+        <Paginate totalElements={qnaList?.totalPages || 0} changePageHandler={changePageHandler} />
+      )}
     </ContainerStyle>
   )
 }

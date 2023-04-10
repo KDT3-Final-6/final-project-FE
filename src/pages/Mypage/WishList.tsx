@@ -30,7 +30,7 @@ const WishList = () => {
 
   return (
     <>
-      <ProductListStyle>
+      <ProductListStyle wishlists={wishlists}>
         {wishlists && wishlists.length > 0 ? (
           wishlists.map((product) => (
             <CardTypeItem
@@ -48,7 +48,9 @@ const WishList = () => {
           <NullWishlilstStyle>찜한 목록이 없습니다.</NullWishlilstStyle>
         )}
       </ProductListStyle>
-      <Paginate totalElements={totalElements} changePageHandler={changePageHandler} />
+      {wishlists.length > 0 && (
+        <Paginate totalElements={totalElements} changePageHandler={changePageHandler} />
+      )}
     </>
   )
 }
@@ -56,10 +58,14 @@ const WishList = () => {
 export default WishList
 
 const ProductListStyle = styled.ul`
-  display: grid;
+  ${(props: { wishlists: IWishlistContent[] }) =>
+    props.wishlists.length > 0
+      ? `display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 14px;
-  margin: 50px 0;
+  margin: 50px 0;`
+      : `display: flex;
+      justify-content: center;`}
 `
 
 const NullWishlilstStyle = styled.div`

@@ -8,6 +8,13 @@ import { getCategoryProducts } from '@src/api/product'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import useSwiperSetting from '@src/hooks/useSwiperSetting'
 import SlideButtons from '../common/SlideButtons'
+import {
+  useDeleteWishlistMutation,
+  usePostWishlistMutation,
+} from '@src/reduxStore/api/wishlistApislice'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '@src/reduxStore/store'
+import { setModal } from '@src/reduxStore/modalSlice'
 
 interface Props {
   title: string
@@ -18,6 +25,26 @@ const ProductList = ({ title, labelName }: Props) => {
   const [group, setGroup] = useState('age5070')
   const [products, setProducts] = useState<IProductContent[]>([])
 
+  const userInfo = useSelector((state: RootState) => state.userInfo)
+  const dispatch = useDispatch()
+  const [deleteWishlist] = useDeleteWishlistMutation()
+  const [postWishlist] = usePostWishlistMutation()
+
+  const heartCheck = async (heart: boolean, productId: number) => {
+    if (userInfo.memberName && heart) {
+      await deleteWishlist(productId)
+    } else if (!heart && userInfo.memberName) {
+      await postWishlist(productId)
+    } else {
+      dispatch(
+        setModal({
+          isOpen: true,
+          text: '로그인이 필요한 서비스입니다.',
+          onClickOK: () => dispatch(setModal({ isOpen: false })),
+        })
+      )
+    }
+  }
   const groupName = (group: string) => {
     if (group.includes('age5070')) return '5070끼리' as string
     if (group.includes('males')) return '남자끼리' as string
@@ -58,6 +85,7 @@ const ProductList = ({ title, labelName }: Props) => {
                   priceBottom="30px"
                   priceColor={COLORS.c1b1b1b}
                   isHeart={product.isWished}
+                  heartClick={() => heartCheck(product.isWished, product.productId!)}
                 />
               </SwiperSlide>
             ))}

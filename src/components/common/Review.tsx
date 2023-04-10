@@ -1,8 +1,6 @@
-import React from 'react'
 import styled from 'styled-components'
 import { FONTSIZE, COLORS } from '@src/styles/root'
 import StarRateWrapGet from './StarRateWrapGet'
-import { HiChevronRight } from 'react-icons/hi'
 import { IReviewContent } from '@src/interfaces/review'
 
 interface Props {
@@ -15,7 +13,7 @@ const Review = ({ review }: Props) => {
       <HeaderStyle>
         <span>{review.memberNickname}</span>
         <GradeStyle>
-          <StarRateWrapGet AVR_RATE={review.scope} />
+          <StarRateWrapGet AVR_RATE={review?.scope} />
           <span>{review.scope}</span>
         </GradeStyle>
       </HeaderStyle>

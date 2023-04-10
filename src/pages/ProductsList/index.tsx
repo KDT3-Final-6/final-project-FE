@@ -33,7 +33,7 @@ const ProductList = () => {
     setPage(event.selected + 1)
   }
 
-  const deletePrductHandler = (productId: number) => {
+  const deleteProductHandler = (productId: number) => {
     dispatch(
       setModal({
         isOpen: true,
@@ -106,7 +106,7 @@ const ProductList = () => {
                       >
                         수정하기
                       </Button>
-                      <Button width="83px" onClick={() => deletePrductHandler(product.productId!)}>
+                      <Button width="83px" onClick={() => deleteProductHandler(product.productId!)}>
                         삭제하기
                       </Button>
                     </div>
