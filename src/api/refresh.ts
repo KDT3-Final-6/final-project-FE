@@ -23,7 +23,7 @@ const refresh = async (config: AxiosRequestConfig): Promise<AxiosRequestConfig> 
     )
   }
 
-  config.headers["Authorization"] = `Bearer ${token}`
+  // config.headers["Authorization"] = `Bearer ${token}`
 
   return config
 }
