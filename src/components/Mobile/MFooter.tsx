@@ -53,6 +53,7 @@ const FooterWrapStyle = styled.footer`
   flex-direction: column;
   padding: 20px;
   gap: 20px;
+  margin-bottom: 80px;
 `
 
 const FooterTopStyle = styled.div`

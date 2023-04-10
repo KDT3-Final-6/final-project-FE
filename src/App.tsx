@@ -9,6 +9,7 @@ import ReviewModal from './components/common/ReviewModal'
 import { useMediaQuery } from 'react-responsive'
 import MHeader from './components/Mobile/MHeader'
 import MFooter from '@components/Mobile/MFooter'
+import MFloating from './components/Mobile/MFloating'
 
 const App = () => {
   const isPC = useMediaQuery({
@@ -25,6 +26,7 @@ const App = () => {
       {isPC ? <Header /> : <MHeader />}
       <Outlet />
       {isPC ? <Footer /> : <MFooter />}
+      {isMobile && <MFloating />}
       <Loading />
       <ModalBox />
       <ReviewModal />
