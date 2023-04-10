@@ -6,15 +6,27 @@ import ScrollTop from './utils/scrollTop'
 import ModalBox from './components/common/ModalBox'
 import Loading from './components/common/Loading'
 import ReviewModal from './components/common/ReviewModal'
+import { useMediaQuery } from 'react-responsive'
+import MHeader from './components/Mobile/MHeader'
+import MFooter from '@components/Mobile/MFooter'
+import MFloating from './components/Mobile/MFloating'
 
 const App = () => {
+  const isPC = useMediaQuery({
+    query: '(min-width:1024px)',
+  })
+  const isMobile = useMediaQuery({
+    query: '(max-width:767px)',
+  })
+
   return (
     <>
       <ScrollTop />
       <GlobalStyle />
-      <Header />
+      {isPC ? <Header /> : <MHeader />}
       <Outlet />
-      <Footer />
+      {isPC ? <Footer /> : <MFooter />}
+      {isMobile && <MFloating />}
       <Loading />
       <ModalBox />
       <ReviewModal />
