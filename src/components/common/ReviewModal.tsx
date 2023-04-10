@@ -27,7 +27,7 @@ const ReviewModal = () => {
   const handleClick = async (data: FieldValues) => {
     const { content, scope } = data
     if (reviewState === '수정') {
-      await editReview({ postId: reviewId, data: { content, scope: +scope } })
+      // await editReview({ postId: reviewId, data: { content, scope: +scope } })
       modalState.onClickOK()
     } else if (reviewState === '작성') {
       await postReview({ content, scope: +scope, purchasedProductId: reviewId })

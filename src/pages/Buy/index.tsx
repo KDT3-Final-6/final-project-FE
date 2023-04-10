@@ -60,6 +60,7 @@ const index = () => {
   const [postNonMember] = usePostNonUserOrderMutation()
 
   const { state: productData }: { state: productData[] } = useLocation()
+  console.log('productData', productData)
 
   const token = getCookie('accessToken')
 
