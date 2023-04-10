@@ -5,6 +5,9 @@ import Review from '../common/Review'
 import Title from '../common/Title'
 import { IReviewValue } from '@src/interfaces/review'
 import { useGetReviewForProductQuery } from '@src/reduxStore/api/reviewApiSlice'
+import { useState } from 'react'
+import ReviewModal from '../MyPage/ReviewModal'
+import { useNavigate } from 'react-router-dom'
 
 interface Props {
   productId: number
@@ -13,7 +16,7 @@ interface Props {
 const TravelReview = ({ productId }: Props) => {
   const { data } = useGetReviewForProductQuery(productId)
   const reviews: IReviewValue[] = data ? data.content : []
-
+  const navigate = useNavigate()
   return (
     <section>
       <Inner>
@@ -21,6 +24,7 @@ const TravelReview = ({ productId }: Props) => {
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <h3 id="review">상품 후기({reviews.length})</h3>
             <span
+              onClick={() => navigate('/mypage/orderlist')}
               style={{
                 color: COLORS.primary,
                 fontSize: FONTSIZE.fz24,
