@@ -5,15 +5,18 @@ import { IReviewContent } from '@src/interfaces/review'
 
 interface Props {
   review: IReviewContent
+  id: number
 }
 
-const Review = ({ review }: Props) => {
+const Review = ({ review, id }: Props) => {
+  console.log('review', review)
+
   return (
     <ReviewCardStyle>
       <HeaderStyle>
         <span>{review.memberNickname}</span>
         <GradeStyle>
-          <StarRateWrapGet AVR_RATE={review?.scope} />
+          <StarRateWrapGet AVR_RATE={review?.scope} id={id} />
           <span>{review.scope}</span>
         </GradeStyle>
       </HeaderStyle>
