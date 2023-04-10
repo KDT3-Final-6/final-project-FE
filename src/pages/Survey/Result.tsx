@@ -73,7 +73,11 @@ const Result = () => {
         {gender && gender.length > 0 && (
           <CategoryList title={`${result?.surveyGender}끼리 떠나기 좋은 여행`} products={gender} />
         )}
-        <EventBanner type={2} image="event_banner" marginTop="65px" marginBottom="100px" />
+        <EventBanner
+          image="/images/banner/event_banner-5.png"
+          marginTop="65px"
+          marginBottom="100px"
+        />
         {hobby && hobby.length > 0 && (
           <CategoryList title={`${result?.surveyHobby}를 좋아하신다면?`} products={hobby} />
         )}

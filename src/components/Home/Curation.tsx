@@ -1,16 +1,13 @@
 import Inner from '@src/layout/Inner'
 import Section from '@src/layout/Section'
 import { COLORS, FONTSIZE } from '@src/styles/root'
-import React, { useEffect, useState } from 'react'
+import { useState } from 'react'
 import styled from 'styled-components'
 import Button from '../common/Button'
 import CardTypeItem from '../common/CardTypeItem'
 import Title from '../common/Title'
 import { HiOutlineRefresh } from 'react-icons/hi'
 import { MdEditCalendar } from 'react-icons/md'
-import { getProducts } from '@src/api/product'
-import { useNavigate } from 'react-router-dom'
-import { IProductContent } from '@src/interfaces/product'
 import CurationSelectBtn from './CurationSelectBtn'
 import { useGetCurationListQuery } from '@src/reduxStore/api/curationApiSlice'
 
@@ -62,7 +59,7 @@ const countryOptions = [
     icon: '/images/icons/아메리카.png',
     value: '아메리카',
   },
-  { id: 4, icon: '/images/icons/아프리카.png', value: '아프리카' },
+  { id: 4, icon: '/images/icons/아프리카.png', value: '태평양' },
   { id: 5, icon: '/images/icons/중동.png', value: '중동' },
   { id: 6, icon: '/images/icons/유럽.png', value: '유럽' },
 ]
