@@ -66,6 +66,9 @@ const GroupTravel = () => {
             ))}
           </Swiper>
           <SlideButtons direction="right" ref={nextRef} />
+          {!(products?.content.length > 0) && (
+            <Title titleType="h3" textAlign="center" title="상품을 준비중입니다." />
+          )}
         </ProductListStyle>
       </Inner>
     </Section>
@@ -76,6 +79,9 @@ export default GroupTravel
 
 const ProductListStyle = styled.ul`
   position: relative;
+  h3 {
+    padding: 50px 0;
+  }
 `
 
 const TabStyle = styled.div`
