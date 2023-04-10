@@ -2,13 +2,16 @@ import { getGroupProducts } from '@src/api/product'
 import Inner from '@src/layout/Inner'
 import Section from '@src/layout/Section'
 import { COLORS, FONTSIZE } from '@src/styles/root'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import CardTypeItem from '../common/CardTypeItem'
 import ConceptTabs from '../common/ConceptTabs'
 import GroupTabs from '../common/GroupTabs'
 import Title from '../common/Title'
 import { IProduct } from '@src/interfaces/product'
+import SlideButtons from '../common/SlideButtons'
+import useSwiperSetting from '@src/hooks/useSwiperSetting'
+import { Swiper, SwiperSlide } from 'swiper/react'
 
 const GroupTravel = () => {
   const [products, setProducts] = useState<IProduct>()
@@ -30,6 +33,9 @@ const GroupTravel = () => {
       ? setConcept((prev) => [...prev, item])
       : setConcept(concept.filter((el) => el !== item))
 
+  const prevRef = useRef(null)
+  const nextRef = useRef(null)
+  const settings = useSwiperSetting({ prevRef, nextRef })
   return (
     <Section>
       <Inner>
@@ -44,17 +50,22 @@ const GroupTravel = () => {
           </div>
         </TabStyle>
         <ProductListStyle>
-          {products?.content.slice(0, 4).map((product) => (
-            <CardTypeItem
-              key={product.productId}
-              item={product}
-              cardType="cardType"
-              imgHeight="100%"
-              height="460px"
-              priceBottom="30px"
-              priceColor={COLORS.c1b1b1b}
-            />
-          ))}
+          <SlideButtons direction="left" ref={prevRef} />
+          <Swiper {...settings}>
+            {products?.content.map((product) => (
+              <SwiperSlide key={product.productId}>
+                <CardTypeItem
+                  item={product}
+                  cardType="cardType"
+                  imgHeight="100%"
+                  height="460px"
+                  priceBottom="30px"
+                  priceColor={COLORS.c1b1b1b}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+          <SlideButtons direction="right" ref={nextRef} />
         </ProductListStyle>
       </Inner>
     </Section>
@@ -64,9 +75,7 @@ const GroupTravel = () => {
 export default GroupTravel
 
 const ProductListStyle = styled.ul`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 13px;
+  position: relative;
 `
 
 const TabStyle = styled.div`
