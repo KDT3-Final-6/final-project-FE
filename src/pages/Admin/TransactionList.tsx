@@ -43,8 +43,6 @@ const TransactionList = () => {
     })()
   }, [page])
 
-  console.log(transactions)
-
   const changePageHandler = (event: { selected: number }) => {
     setPage(event.selected + 1)
   }

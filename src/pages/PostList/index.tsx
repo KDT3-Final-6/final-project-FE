@@ -21,7 +21,6 @@ const index = () => {
   )
 
   if (isLoading) <>Loading</>
-  console.log('searchList', searchList)
 
   const changePageHandler = (event: { selected: number }) => {
     setPage(event.selected + 1)

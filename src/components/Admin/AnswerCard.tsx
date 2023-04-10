@@ -54,8 +54,6 @@ const AnswerCard = ({
   }
 
   const onInvalid = (errors: any) => {
-    console.log(errors)
-
     const errorMessage = Object.values(errors).map((error: any) => error.message)[0]
     setErrorsMessage(errorMessage)
     alert(errorMessage)
