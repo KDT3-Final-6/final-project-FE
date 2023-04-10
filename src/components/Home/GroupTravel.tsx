@@ -15,28 +15,20 @@ const GroupTravel = () => {
   const [group, setGroup] = useState('')
   const [concept, setConcept] = useState<string[]>([])
 
-  const groupName = (group: string) => {
-    if (group.includes('age5070')) return '5070끼리' as string
-    if (group.includes('males')) return '남자끼리' as string
-    if (group.includes('females')) return '여자끼리' as string
-    if (group.includes('family')) return '가족끼리' as string
-    if (group.includes('anyone')) return '누구든지' as string
-    return ''
-  }
-
   useEffect(() => {
     ;(async () => {
-      setProducts(await getGroupProducts(groupName(group), concept))
+      setProducts(await getGroupProducts(group, concept))
     })()
   }, [group, concept])
 
   console.log(products)
 
-  const conceptChangeHandler = (checked: boolean, item: string) => {
+  const groupChangeHandler = (value: string) => setGroup(value)
+
+  const conceptChangeHandler = (checked: boolean, item: string) =>
     checked
       ? setConcept((prev) => [...prev, item])
       : setConcept(concept.filter((el) => el !== item))
-  }
 
   return (
     <Section>
@@ -44,7 +36,7 @@ const GroupTravel = () => {
         <Title titleType="h2" title="그룹별 여행" fontSize={FONTSIZE.fz32} margin="0 0 66px" />
         <TabStyle>
           <div>
-            <GroupTabs title={true} setGroup={setGroup} />
+            <GroupTabs title={true} onChange={(e) => groupChangeHandler(e.target.value)} />
             <ConceptTabs
               title={true}
               onChange={(e) => conceptChangeHandler(e.target.checked, e.target.value)}

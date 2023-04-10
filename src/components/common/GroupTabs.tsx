@@ -6,10 +6,11 @@ import Title, { TitleStyle } from './Title'
 
 interface IGroupTabs {
   title?: boolean
-  setGroup: React.Dispatch<SetStateAction<string>>
+  onChange?: React.ChangeEventHandler<HTMLInputElement>
+  value?: string
 }
 
-const GroupTabs = ({ setGroup, title = false }: IGroupTabs) => {
+const GroupTabs = ({ title = false, onChange, value }: IGroupTabs) => {
   const groupTabs = [
     {
       id: 'age5070',
@@ -33,10 +34,6 @@ const GroupTabs = ({ setGroup, title = false }: IGroupTabs) => {
     },
   ]
 
-  const groupChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setGroup(event.target.id)
-  }
-
   return (
     <GroupStyle>
       {title && <Title titleType="h3" title="그룹" fontSize="26px" fontWeight={FONTWEGHT.fw600} />}
@@ -49,6 +46,7 @@ const GroupTabs = ({ setGroup, title = false }: IGroupTabs) => {
             id={groupTab.id}
             name="group"
             labelName={groupTab.tabName}
+            value={groupTab.tabName}
             width={
               groupTab.tabName.length === 2
                 ? '82px'
@@ -58,7 +56,7 @@ const GroupTabs = ({ setGroup, title = false }: IGroupTabs) => {
                 ? '122px'
                 : '138px'
             }
-            onChange={groupChangeHandler}
+            onChange={onChange}
           />
         ))}
       </WrapStyle>
