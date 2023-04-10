@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import ProductCard, { ImgAreaStyle, TxtAreaStyle } from '../common/ProductCard'
 import Button from '../common/Button'
 import { FONTSIZE, FONTWEGHT, COLORS } from '@src/styles/root'
-import { IReviewContentUnion } from '@src/interfaces/review'
+import { IReviewValue } from '@src/interfaces/review'
 import StarRateWrapGet from '../common/StarRateWrapGet'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
@@ -15,54 +15,24 @@ import { setReviewModal } from '@src/reduxStore/reviewModalSlice'
 import ReviewModal from './ReviewModal'
 
 interface Props {
-  review: IReviewContentUnion
+  review: IReviewValue
 }
 
 const ReviewBox = ({ review }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [deleteReview] = useDeleteReviewMutation()
   const { postId, scope, postContent, productId, modifiedDate } = review
-  const [post, setpost] = useState()
-  const dispatch = useDispatch()
   const [isEdit, setIsEdit] = useState(false)
 
   const deleteReviewHandler = async () => {
-    // dispatch(
-    //   setModal({
-    //     isOpen: true,
-    //     text: MESSAGES.REVIEW.normal,
-    //     onClickOK: async () => {
-    //       await deleteReview(review.postId)
-    //       dispatch(setModal({ isOpen: false }))
-    //     },
-    //     onClickCancel: () => {
-    //       dispatch(setModal({ isOpen: false }))
-    //     },
-    //   })
-    // )
     setIsModalOpen(false)
     await deleteReview(postId)
     alert('리뷰를 삭제했습니다!')
   }
 
-  const editReviewHandler = async () => {
+  const editReviewHandler = () => {
     setIsModalOpen((prev) => !prev)
     setIsEdit((prev) => !prev)
-    // dispatch(
-    //   setReviewModal({
-    //     isOpen: true,
-    //     scope: review.scope,
-    //     content: review.postContent,
-    //     reviewId: review.postId,
-    //     reviewState: '수정',
-    //     onClickOK: () => {
-    //       dispatch(setReviewModal({ isOpen: false, scope: '', content: '' }))
-    //     },
-    //     onClickCancel: () => {
-    //       dispatch(setReviewModal({ isOpen: false }))
-    //     },
-    //   })
-    // )
   }
 
   const navigate = useNavigate()

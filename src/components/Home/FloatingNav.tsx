@@ -3,10 +3,12 @@ import React, { useState, useEffect } from 'react'
 import styled, { css, keyframes } from 'styled-components'
 import { BsChatDotsFill } from 'react-icons/bs'
 import { FaHeadset } from 'react-icons/fa'
+import ChatBot from './ChatBot'
 
 const FloatingNav = () => {
   const [showNavigation, setShowNavigation] = useState(false)
   const [isShowNumber, setIsShowNumber] = useState(false)
+  const [isChatBotOpen, setIsChatBotOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,29 +32,34 @@ const FloatingNav = () => {
 
   const ShowNumber = () => setIsShowNumber((prev) => !prev)
 
+  const handleClickShowChatBot = () => setIsChatBotOpen((prev) => !prev)
+
   return (
-    <FloatingNavStyle showNavigation={showNavigation}>
-      <ChatBoxStyle>
-        <BsChatDotsFill />
-        <span>채팅</span>
-      </ChatBoxStyle>
-      <ConsultBoxStyle isShowNumber={isShowNumber} onClick={ShowNumber}>
-        <ConsultEmojiStyle>
-          <FaHeadset />
-          <span>상담</span>
-        </ConsultEmojiStyle>
-        <ConsultNumberStyle>
-          <p>
-            <span>02</span>
-            <span>·</span>
-            <span>4353</span>
-            <span>·</span>
-            <span>3453</span>
-          </p>
-        </ConsultNumberStyle>
-      </ConsultBoxStyle>
-      <TopBtnStyle onClick={MoveToTop}>맨 위로</TopBtnStyle>
-    </FloatingNavStyle>
+    <>
+      <FloatingNavStyle showNavigation={showNavigation}>
+        <ChatBoxStyle onClick={handleClickShowChatBot}>
+          <BsChatDotsFill />
+          <span>채팅</span>
+        </ChatBoxStyle>
+        <ConsultBoxStyle isShowNumber={isShowNumber} onClick={ShowNumber}>
+          <ConsultEmojiStyle>
+            <FaHeadset />
+            <span>상담</span>
+          </ConsultEmojiStyle>
+          <ConsultNumberStyle>
+            <p>
+              <span>02</span>
+              <span>·</span>
+              <span>4353</span>
+              <span>·</span>
+              <span>3453</span>
+            </p>
+          </ConsultNumberStyle>
+        </ConsultBoxStyle>
+        <TopBtnStyle onClick={MoveToTop}>맨 위로</TopBtnStyle>
+      </FloatingNavStyle>
+      <ChatBot isChatBotOpen={isChatBotOpen} />
+    </>
   )
 }
 

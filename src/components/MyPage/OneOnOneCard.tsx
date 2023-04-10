@@ -30,8 +30,8 @@ const OneOnOneCard = ({ postInfo }: IOneOnOneCard) => {
   const [deleteQuestion, { isLoading, error, isSuccess }] = useDeleteQnAMutation()
 
   const hanldeDeleteClick = async () => {
-    const result = deleteQuestion(postId)
-    console.log('result', result)
+    await deleteQuestion(postId)
+    alert('문의글을 삭제했습니다.')
   }
   return (
     <ContainerStyle>
@@ -60,7 +60,7 @@ const OneOnOneCard = ({ postInfo }: IOneOnOneCard) => {
           <span>{time}</span>
         </DateStyle>
         <ButtonBoxStyle qnAStatus={qnAStatus}>
-          {qnAStatus === '답변완료' ? (
+          {qnAStatus === '답변완료' && !isInquiryOpen ? (
             <Button
               onClick={() => setIsInquiryOpen((prev) => !prev)}
               width="112px"

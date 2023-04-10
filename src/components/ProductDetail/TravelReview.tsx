@@ -3,8 +3,11 @@ import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import styled from 'styled-components'
 import Review from '../common/Review'
 import Title from '../common/Title'
-import { IReviewContent } from '@src/interfaces/review'
+import { IReviewValue } from '@src/interfaces/review'
 import { useGetReviewForProductQuery } from '@src/reduxStore/api/reviewApiSlice'
+import { useState } from 'react'
+import ReviewModal from '../MyPage/ReviewModal'
+import { useNavigate } from 'react-router-dom'
 
 interface Props {
   productId: number
@@ -12,8 +15,8 @@ interface Props {
 
 const TravelReview = ({ productId }: Props) => {
   const { data } = useGetReviewForProductQuery(productId)
-  const reviews: IReviewContent[] = data ? data.content : []
-
+  const reviews: IReviewValue[] = data ? data.content : []
+  const navigate = useNavigate()
   return (
     <section>
       <Inner>
@@ -21,6 +24,7 @@ const TravelReview = ({ productId }: Props) => {
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <h3 id="review">상품 후기({reviews.length})</h3>
             <span
+              onClick={() => navigate('/mypage/orderlist')}
               style={{
                 color: COLORS.primary,
                 fontSize: FONTSIZE.fz24,
@@ -34,7 +38,9 @@ const TravelReview = ({ productId }: Props) => {
         </Title>
         <div style={{ display: 'flex', gap: '20px' }}>
           {reviews.length > 0 ? (
-            reviews.map((review, index) => <Review review={review} key={index} />)
+            reviews.map((review, index) => (
+              <Review review={review} key={index} id={review.postId} />
+            ))
           ) : (
             <NoReviewStyle>리뷰가 없습니다.</NoReviewStyle>
           )}

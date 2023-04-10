@@ -4,9 +4,12 @@ import styled from 'styled-components'
 
 interface IStarRate {
   AVR_RATE: number
+  id?: number
 }
 
-const StarRateWrapGet = ({ AVR_RATE }: IStarRate) => {
+const StarRateWrapGet = ({ AVR_RATE, id }: IStarRate) => {
+  // console.log('AVR_RATE', AVR_RATE)
+
   // const AVR_RATE = 0 // 상품 평균 평점. 실제로는 데이터에서 패치할 것 입니다.
   const STAR_IDX_ARR = ['first', 'second', 'third', 'fourth', 'last'] // 다섯개의 별을 따로 컨트롤하기 위해서는 고유 id를 각각 가지고 있어야 합니다. 이 고유 아이디를 쉽게 생성해 주기 위한 리스트 입니다.
   const [ratesResArr, setRatesResArr] = useState([0, 0, 0, 0, 0]) // 별점 리스트 상태입니다.
@@ -24,13 +27,13 @@ const StarRateWrapGet = ({ AVR_RATE }: IStarRate) => {
     return tempStarRatesArr // 평균이 80이라면 [14, 14, 14, 14, 0] 이 되겠죠?
   }
   useEffect(() => {
-    setRatesResArr(calcStarRates) // 별점 리스트는 첫 렌더링 때 한번만 상태를 설정해줍니다.
-  }, [])
+    setRatesResArr(calcStarRates()) // 별점 리스트는 첫 렌더링 때 한번만 상태를 설정해줍니다.
+  }, [AVR_RATE])
   return (
     <StarRateWrap>
       {STAR_IDX_ARR.map((item, idx) => {
         return (
-          <span className="star_icon" key={`${item}_${idx}`}>
+          <span className="star_icon" key={`${item}_${idx}${id}`}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -39,18 +42,18 @@ const StarRateWrapGet = ({ AVR_RATE }: IStarRate) => {
               fill="#cacaca"
             >
               {/* id는 별 하나하나 마다 다른 값을 가지고 있어야 합니다 */}
-              <clipPath id={`${item}StarClip`}>
+              <clipPath id={`${item}${id}StarClip`}>
                 {/* 새로 생성한 리스트에서 별 길이를 넣어줍니다. */}
                 <rect width={`${ratesResArr[idx]}`} height="39" />
               </clipPath>
               <path
-                id={`${item}Star`}
+                id={`${item}${id}Star`}
                 d="M9,2l2.163,4.279L16,6.969,12.5,10.3l.826,4.7L9,12.779,4.674,15,5.5,10.3,2,6.969l4.837-.69Z"
                 transform="translate(-2 -2)"
               />
               <use
-                clipPath={`url(#${item}StarClip)`}
-                href={`#${item}Star`}
+                clipPath={`url(#${item}${id}StarClip)`}
+                href={`#${item}${id}Star`}
                 fill={`${COLORS.cffcc43}`}
               />
             </svg>
