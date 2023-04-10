@@ -12,7 +12,7 @@ const initialState: IUserInfo = {
   memberEmailAgree: false,
   memberGender:'',
   memberGrade: '',
-  memberImage: '',
+  memberImage: '/images/nonUser.png',
   roles: [],
 }
 

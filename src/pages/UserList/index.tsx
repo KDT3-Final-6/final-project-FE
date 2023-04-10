@@ -1,25 +1,25 @@
 import UserCard from '@src/components/Admin/UserCard'
 import Input from '@src/components/common/Input'
-import Pagination from '@src/components/common/Pagination'
+import Paginate from '@src/components/common/Paginate'
+import { useGetUsersListQuery } from '@src/reduxStore/api/adminUserApiSlice'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
+import { useState } from 'react'
 import styled from 'styled-components'
 
 const index = () => {
-  const countUser = 135 // 유저 수, 패칭해 올 데이터
+  const [page, setPage] = useState<number>(1)
+  /**회원 전체리스트 get */
+  const { data: userList, isLoading } = useGetUsersListQuery(page)
+  if (isLoading) <>Loading</>
+
+  const changePageHandler = (event: { selected: number }) => {
+    setPage(event.selected + 1)
+  }
+
+  const countUser = userList?.totalElements
+
   return (
     <ContainerStyle>
-      <InputWrapStyle>
-        <Input
-          inputType="searchInput"
-          type="text"
-          width="925px"
-          height="56px"
-          placeholder="검색"
-          borderRadius="0"
-          bgColor="transparent"
-          borderColor={`${COLORS.c999}`}
-        />
-      </InputWrapStyle>
       <CountStyle>
         <span>전체사용자</span>
         <span>{countUser}</span>
@@ -33,13 +33,14 @@ const index = () => {
           <span>가입일</span>
           <span>글/구매평/문의</span>
           <span>권한</span>
+          <span>권한변경</span>
           <span>계정삭제</span>
         </header>
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((user, index) => (
-          <UserCard key={index} />
+        {userList?.content.map((user) => (
+          <UserCard key={user.memberId} user={user} />
         ))}
       </UserListStyle>
-      <Pagination />
+      <Paginate totalElements={userList?.totalPages || 0} changePageHandler={changePageHandler} />
     </ContainerStyle>
   )
 }
@@ -53,15 +54,6 @@ const ContainerStyle = styled.div`
   align-items: center;
 `
 
-export const InputWrapStyle = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding-top: 101px;
-  padding-bottom: 80px;
-`
-
 export const CountStyle = styled.div`
   width: 1180px;
   display: flex;
@@ -69,6 +61,7 @@ export const CountStyle = styled.div`
   font-size: ${FONTSIZE.fz16};
   line-height: ${FONTSIZE.fz19};
   padding-bottom: 24px;
+  padding-top: 80px;
   span:nth-child(2) {
     margin-left: 5px;
     color: ${COLORS.primary};
@@ -78,10 +71,9 @@ export const CountStyle = styled.div`
 
 const UserListStyle = styled.div`
   width: 1180px;
-  padding-bottom: 100px;
   header {
     display: grid;
-    grid-template-columns: 89px 242px 180px 222px 137px 200px 110px;
+    grid-template-columns: 89px 152px 180px 202px 137px 110px 200px 110px;
     align-content: center;
     width: 100%;
     height: 60px;
@@ -95,4 +87,13 @@ const UserListStyle = styled.div`
       justify-self: center;
     }
   }
+`
+
+export const InputWrapStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 101px;
+  padding-bottom: 80px;
 `

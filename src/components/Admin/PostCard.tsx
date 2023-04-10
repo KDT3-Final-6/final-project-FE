@@ -5,18 +5,27 @@ import formatDate from '@src/utils/formatDate'
 import Button from '@components/common/Button'
 import AnswerCard from './AnswerCard'
 import { MdArrowDropDown } from 'react-icons/md'
+import { IAdminPostContent } from '@src/interfaces/adminPost'
 
-const PostCard = () => {
+interface IPostCard {
+  post: IAdminPostContent
+}
+
+const PostCard = ({ post }: IPostCard) => {
+  const {
+    postId,
+    postTitle,
+    postContent,
+    inquiryType,
+    qnAStatus,
+    answer,
+    replyDate,
+    purchasedProductName,
+    createdDate,
+    memberName,
+  } = post
   const [isAnswerOpen, setIsAnswerOpen] = useState(false)
   const [type, setType] = useState('')
-  const postTitle = '여행에 배가 고파요'
-  const qnAStatus = '답변대기'
-  const inquiryType = '주문/결제'
-  const name = '김미영'
-  const createdDate = '2023-03-30T15:21:48.723316'
-  const purchasedProductName = '스페인 산티아고 순례길 11일'
-  const answer =
-    '배가 고파요. 어찌해야 하나요?배가 고파요. 어찌해야 하나요?배가 고파요. 어찌해야 하나요?배가 고파요. 어찌해야 하나요?배가 고파요. 어찌해야 하나요?배가 고파요. 어찌해야 하나요?배가 고파요. 어찌해야 하나요?배가 고파요. 어찌해야 하나요?배가 고파요. 어찌해야 하나요?배가 고파요. 어찌해야 하나요?배가 고파요. 어찌해야 하나요?배가 고파요. 어찌해야 하나요?배가 고파요. 어찌해야 하나요?배가 고파요. 어찌해야 하나요?배가 고파요. 어찌해야 하나요?배가 고파요. 어찌해야 하나요?배가 고파요. 어찌해야 하나요?'
 
   const handleAnswerClick = () => {
     setIsAnswerOpen((prev) => !prev)
@@ -35,31 +44,44 @@ const PostCard = () => {
             <span>{qnAStatus}</span>
           </div>
           <div>
-            <Button width="83px" height="32px" buttonType="black" onClick={handleAnswerClick}>
-              답변달기
-            </Button>
+            {qnAStatus === '답변완료' ? (
+              <></>
+            ) : (
+              <Button width="83px" height="32px" buttonType="black" onClick={handleAnswerClick}>
+                답변달기
+              </Button>
+            )}
           </div>
         </header>
         <PostInfoStyle>
           <div>
-            <span>{name}</span>
+            <span>{memberName}</span>
             <span>{formatDate(createdDate)}</span>
           </div>
           <span>{inquiryType}</span>
           <span>{purchasedProductName}</span>
         </PostInfoStyle>
-        <ContentStyle>{answer}</ContentStyle>
-        <AnswerConfirmStyle onClick={handleConfirmClick}>
-          <span>답변 내용 확인하기</span>
-          <MdArrowDropDown />
-        </AnswerConfirmStyle>
+        <ContentStyle>{postContent}</ContentStyle>
+        {qnAStatus === '답변완료' ? (
+          <AnswerConfirmStyle onClick={handleConfirmClick}>
+            <span>답변 내용 확인하기</span>
+            <MdArrowDropDown />
+          </AnswerConfirmStyle>
+        ) : (
+          <></>
+        )}
       </PostCardStyle>
-      <AnswerCard
-        isAnswerOpen={isAnswerOpen}
-        setIsAnswerOpen={setIsAnswerOpen}
-        type={type}
-        setType={setType}
-      />
+      {isAnswerOpen && (
+        <AnswerCard
+          isAnswerOpen={isAnswerOpen}
+          setIsAnswerOpen={setIsAnswerOpen}
+          type={type}
+          setType={setType}
+          replyDate={replyDate}
+          postId={postId}
+          answer={answer}
+        />
+      )}
     </div>
   )
 }
