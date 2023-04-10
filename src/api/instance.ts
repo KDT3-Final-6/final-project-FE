@@ -4,8 +4,9 @@ import { login } from './auth'
 
 const API_BASE_URL: string = import.meta.env.VITE_BASE_URL
 
-const token = getCookie('accessToken')
+// const token = getCookie('accessToken')
 const axiosApi = (url: string, forData: boolean) => {
+  const token = getCookie('accessToken')
   const instance = axios.create({
     baseURL: url,
     headers: {
@@ -32,11 +33,11 @@ const axiosApi = (url: string, forData: boolean) => {
         const refreshToken = getCookie('refreshToken')
 
         try {
-          const { data } = await login({
+          const response = await login({
             token: { accessToken, refreshToken },
           })
-          const newAccessToken = data.token.accessToken
-          const newRefreshToken = data.token.refreshToken
+          const newAccessToken = response.data.accessToken
+          const newRefreshToken = response.data.refreshToken
           originalRequest.headers = {
             'Content-Type': forData ? 'multipart/form-data' : 'application/json',
             Authorization: `Bearer ${newAccessToken}`,
