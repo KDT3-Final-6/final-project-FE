@@ -9,8 +9,6 @@ interface Props {
 }
 
 const Review = ({ review, id }: Props) => {
-  console.log('review', review)
-
   return (
     <ReviewCardStyle>
       <HeaderStyle>

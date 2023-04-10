@@ -30,8 +30,7 @@ const OneOnOneCard = ({ postInfo }: IOneOnOneCard) => {
   const [deleteQuestion, { isLoading, error, isSuccess }] = useDeleteQnAMutation()
 
   const hanldeDeleteClick = async () => {
-    await deleteQuestion(postId)
-    alert('문의글을 삭제했습니다.')
+    const result = await deleteQuestion(postId)
   }
   return (
     <ContainerStyle>

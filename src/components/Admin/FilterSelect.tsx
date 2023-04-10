@@ -61,10 +61,8 @@ const FilterSelect = ({
     const clickedOption = options.find(
       (option: any) => option.id === Number(e.currentTarget.getAttribute('value'))
     )
-    console.log('clickedOption', clickedOption)
 
     const { innerText } = e.target as HTMLLIElement
-    console.log('innerText', innerText)
 
     setCurrentValue(innerText)
   }

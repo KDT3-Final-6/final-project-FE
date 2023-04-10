@@ -60,7 +60,6 @@ const index = () => {
   const [postNonMember] = usePostNonUserOrderMutation()
 
   const { state: productData }: { state: productData[] } = useLocation()
-  console.log('productData', productData)
 
   const token = getCookie('accessToken')
 
@@ -128,13 +127,10 @@ const index = () => {
         else alert('결제에 성공하셨습니다.')
         await deleteQuestion(cartIds)
         navigate('/mypage/orderlist', { replace: true })
-        console.log('result', result)
       } else if ('error' in result) {
-        console.log('result.error', result.error)
         alert('결제에 실패했습니다.')
       } else {
         alert('결제에 실패했습니다.')
-        console.log('Unexpected result:', result)
       }
     } else {
       // 비회원일 경우
@@ -148,13 +144,10 @@ const index = () => {
       if ('data' in result && result.data === null) {
         alert('결제에 성공하셨습니다. 메일을 확인해주세요')
         navigate('/', { replace: true })
-        console.log('result', result)
       } else if ('error' in result) {
-        console.log('result.error', result.error)
         alert('결제에 실패했습니다.')
       } else {
         alert('결제에 실패했습니다.')
-        console.log('Unexpected result:', result)
       }
     }
   }

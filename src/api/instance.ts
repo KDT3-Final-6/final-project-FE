@@ -1,6 +1,6 @@
 import { getCookie } from '@src/utils/cookie'
 import axios from 'axios'
-import { login } from "./auth"
+import { login } from './auth'
 
 const API_BASE_URL: string = import.meta.env.VITE_BASE_URL
 
@@ -11,10 +11,10 @@ const axiosApi = (url: string, forData: boolean) => {
     baseURL: url,
     headers: {
       'Content-Type': forData ? 'multipart/form-data' : 'application/json',
-      'Authorization': `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     },
   })
-  instance.defaults.timeout = 5000
+  // instance.defaults.timeout = 5000
 
   instance.interceptors.response.use(
     (response) => {
@@ -23,7 +23,7 @@ const axiosApi = (url: string, forData: boolean) => {
     async (error) => {
       const {
         config,
-        response: { status }
+        response: { status },
       } = error
 
       const originalRequest = config
@@ -34,13 +34,13 @@ const axiosApi = (url: string, forData: boolean) => {
 
         try {
           const response = await login({
-            
+            token: { accessToken, refreshToken },
           })
           const newAccessToken = response.data.accessToken
           const newRefreshToken = response.data.refreshToken
           originalRequest.headers = {
             'Content-Type': forData ? 'multipart/form-data' : 'application/json',
-            'Authorization': `Bearer ${newAccessToken}`
+            Authorization: `Bearer ${newAccessToken}`,
           }
           localStorage.setItem('accessToken', newAccessToken)
           localStorage.setItem('refreshToken', newRefreshToken)
@@ -49,11 +49,11 @@ const axiosApi = (url: string, forData: boolean) => {
           new Error(error)
         }
       }
-        return Promise.reject(error)
+      return Promise.reject(error)
     }
   )
 
-    instance.interceptors.request.use(
+  instance.interceptors.request.use(
     (config) => {
       const token = getCookie('accessToken')
       if (token) config.headers['Authorization'] = `Bearer ${token}`
