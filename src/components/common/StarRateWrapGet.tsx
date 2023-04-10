@@ -13,8 +13,6 @@ const StarRateWrapGet = ({ AVR_RATE, id }: IStarRate) => {
   // const AVR_RATE = 0 // 상품 평균 평점. 실제로는 데이터에서 패치할 것 입니다.
   const STAR_IDX_ARR = ['first', 'second', 'third', 'fourth', 'last'] // 다섯개의 별을 따로 컨트롤하기 위해서는 고유 id를 각각 가지고 있어야 합니다. 이 고유 아이디를 쉽게 생성해 주기 위한 리스트 입니다.
   const [ratesResArr, setRatesResArr] = useState([0, 0, 0, 0, 0]) // 별점 리스트 상태입니다.
-  console.log('ratesResArr', ratesResArr)
-
   const calcStarRates = () => {
     let tempStarRatesArr = [0, 0, 0, 0, 0] // 임시 리스트.
     let starVerScore = (AVR_RATE * 70) / 5 // 별 한 개 당 width가 14이므로 총 70. 100점 만점인 현재와 비율을 맞춰줍니다.

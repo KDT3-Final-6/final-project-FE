@@ -6,12 +6,13 @@ import ProductCard, { ImgAreaStyle, PriceStyle, TxtAreaStyle } from '@components
 import Title from '@components/common/Title'
 import { FiShare2 } from 'react-icons/fi'
 import PATH from '@src/constants/pathConst'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { IOrderList } from '@src/interfaces/order'
 import Image from '@components/common/Image'
 import { setReviewModal } from '@src/reduxStore/reviewModalSlice'
 import { useDispatch } from 'react-redux'
 import ReviewModal from './ReviewModal'
+import useCopyClipBoard from '@src/utils/copyURL'
 
 interface IBarTypeItem {
   item: IOrderList
@@ -23,6 +24,7 @@ interface IBarTypeItem {
 function OrderDetailCard({ item, cardType, height = '220px', priceColor }: IBarTypeItem) {
   const navigate = useNavigate()
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+  const onCopy = useCopyClipBoard()
 
   const {
     hasReview,
@@ -56,6 +58,10 @@ function OrderDetailCard({ item, cardType, height = '220px', priceColor }: IBarT
   }
 
   const handleReviewClick = () => {
+    if (hasReview) {
+      alert('이미 리뷰 작성이 완료된 상품입니다.')
+      return
+    }
     setIsModalOpen((prev) => !prev)
     document.body.style.overflowY = 'hidden'
   }
@@ -85,14 +91,18 @@ function OrderDetailCard({ item, cardType, height = '220px', priceColor }: IBarT
             </PriceStyle>
           </DatePriceStyle>
           <ButtonGropStyle right="0">
-            <Button buttonType="borderGray" height="45px">
+            <Button
+              buttonType="borderGray"
+              height="45px"
+              onClick={() => onCopy(`https://go-together-6.netlify.app/product/${productId}`)}
+            >
               <FiShare2 />
               <span>공유하기</span>
             </Button>
             <Button
               buttonType="borderGray"
               height="45px"
-              onClick={() => navigate(PATH.PRODUCT_DETAIL)}
+              onClick={() => navigate(`/product/${productId}`)}
             >
               자세히 보기
             </Button>

@@ -5,9 +5,13 @@ import KaKaoMap from '@src/components/Counsult/KaKaoMap'
 import MapTag from '@src/components/Counsult/MapTag'
 import Inner from '@src/layout/Inner'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
+import useCopyClipBoard from '@src/utils/copyURL'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 const index = () => {
+  const onCopy = useCopyClipBoard()
+
   return (
     <ContainerStyle>
       <Title margin="102px 0 80px 0" fontSize={FONTSIZE.fz32}>
@@ -26,7 +30,13 @@ const index = () => {
             </p>
             <p>상담가능시간</p>
             <p>평일 09:00~18:00</p>
-            <Button width="307px" height="53px" buttonType="black" borderRadius="10px">
+            <Button
+              onClick={() => onCopy(`http://pf.kakao.com/_hCxcqb`)}
+              width="307px"
+              height="53px"
+              buttonType="black"
+              borderRadius="10px"
+            >
               카카오톡 문의하기
             </Button>
           </div>
@@ -43,7 +53,13 @@ const index = () => {
             </p>
             <p>상담가능시간</p>
             <p>평일 09:00 ~ 18:00</p>
-            <Button width="307px" height="53px" buttonType="black" borderRadius="10px">
+            <Button
+              onClick={() => onCopy(`02-6105-7711`)}
+              width="307px"
+              height="53px"
+              buttonType="black"
+              borderRadius="10px"
+            >
               카카오톡 문의하기
             </Button>
           </div>
@@ -156,6 +172,7 @@ const ContainerStyle = styled.div`
   align-items: center;
   flex-direction: column;
   background-color: ${COLORS.cF5F5F5};
+  padding-bottom: 50px;
 `
 
 const CounsultSectionStyle = styled.div`
