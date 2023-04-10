@@ -88,7 +88,7 @@ const ProductInfo = ({ productDetail, pathname, setOptionIndex, optionIndex }: P
     periodOptionName:
       productDetail?.periodOptions[optionIndex && optionIndex - 1]?.periodOptionName,
     productId: Number(pathname.slice(9)),
-    periodOptionid: productDetail?.periodOptions[optionIndex && optionIndex - 1]?.periodOptionId,
+    periodOptionId: productDetail?.periodOptions[optionIndex && optionIndex - 1]?.periodOptionId,
     quantity: quantity,
   }
 
