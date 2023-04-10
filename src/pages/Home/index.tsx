@@ -10,10 +10,18 @@ import FloatingNav from '@src/components/Home/FloatingNav'
 import Image from '@src/components/common/Image'
 import Inner from '@src/layout/Inner'
 import { useNavigate } from 'react-router-dom'
+import { useMediaQuery } from 'react-responsive'
+import Event from '@src/components/Mobile/Home/Event'
 
 function Home() {
+  const isPC = useMediaQuery({
+    query: '(min-width:1024px)',
+  })
+  const isMobile = useMediaQuery({
+    query: '(max-width:767px)',
+  })
   const navigate = useNavigate()
-  return (
+  return isPC ? (
     <>
       <Helmet>
         <title>고투게더 홈</title>
@@ -30,6 +38,15 @@ function Home() {
       <TravelReview />
       <TravelEvent />
       <FloatingNav />
+    </>
+  ) : (
+    <>
+      <Helmet>
+        <title>고투게더 홈</title>
+      </Helmet>
+      <Inner padding="0 28px" width="100%">
+        <Event />
+      </Inner>
     </>
   )
 }
