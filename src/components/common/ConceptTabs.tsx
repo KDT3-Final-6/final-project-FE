@@ -7,9 +7,11 @@ import Title, { TitleStyle } from './Title'
 
 interface IConceptTabs {
   title?: boolean
+  onChange?: React.ChangeEventHandler<HTMLInputElement>
+  value?: string
 }
 
-const ConceptTabs = ({ title = false }: IConceptTabs) => {
+const ConceptTabs = ({ title = false, onChange, value }: IConceptTabs) => {
   const conceptTabs = [
     {
       id: 'shopping',
@@ -52,6 +54,7 @@ const ConceptTabs = ({ title = false }: IConceptTabs) => {
             type="checkbox"
             id={conceptTab.id}
             labelName={conceptTab.tabName}
+            value={conceptTab.tabName}
             width={
               conceptTab.tabName.length === 2
                 ? '82px'
@@ -61,6 +64,7 @@ const ConceptTabs = ({ title = false }: IConceptTabs) => {
                 ? '122px'
                 : '138px'
             }
+            onChange={onChange}
           />
         ))}
       </WrapStyle>

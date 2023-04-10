@@ -1,14 +1,15 @@
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
-import React from 'react'
+import React, { SetStateAction } from 'react'
 import styled from 'styled-components'
 import CheckItem from './CheckItem'
 import Title, { TitleStyle } from './Title'
 
 interface IGroupTabs {
   title?: boolean
+  setGroup: React.Dispatch<SetStateAction<string>>
 }
 
-const GroupTabs = ({ title = false }: IGroupTabs) => {
+const GroupTabs = ({ setGroup, title = false }: IGroupTabs) => {
   const groupTabs = [
     {
       id: 'age5070',
@@ -32,6 +33,10 @@ const GroupTabs = ({ title = false }: IGroupTabs) => {
     },
   ]
 
+  const groupChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setGroup(event.target.id)
+  }
+
   return (
     <GroupStyle>
       {title && <Title titleType="h3" title="그룹" fontSize="26px" fontWeight={FONTWEGHT.fw600} />}
@@ -53,6 +58,7 @@ const GroupTabs = ({ title = false }: IGroupTabs) => {
                 ? '122px'
                 : '138px'
             }
+            onChange={groupChangeHandler}
           />
         ))}
       </WrapStyle>

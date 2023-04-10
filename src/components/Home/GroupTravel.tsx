@@ -1,5 +1,4 @@
-import { getProducts } from '@src/api/product'
-import { IProductContent } from '@src/interfaces/product'
+import { getGroupProducts } from '@src/api/product'
 import Inner from '@src/layout/Inner'
 import Section from '@src/layout/Section'
 import { COLORS, FONTSIZE } from '@src/styles/root'
@@ -9,15 +8,35 @@ import CardTypeItem from '../common/CardTypeItem'
 import ConceptTabs from '../common/ConceptTabs'
 import GroupTabs from '../common/GroupTabs'
 import Title from '../common/Title'
+import { IProduct } from '@src/interfaces/product'
 
 const GroupTravel = () => {
-  const [products, setProducts] = useState<IProductContent[]>([])
+  const [products, setProducts] = useState<IProduct>()
+  const [group, setGroup] = useState('')
+  const [concept, setConcept] = useState<string[]>([])
+
+  const groupName = (group: string) => {
+    if (group.includes('age5070')) return '5070끼리' as string
+    if (group.includes('males')) return '남자끼리' as string
+    if (group.includes('females')) return '여자끼리' as string
+    if (group.includes('family')) return '가족끼리' as string
+    if (group.includes('anyone')) return '누구든지' as string
+    return ''
+  }
 
   useEffect(() => {
     ;(async () => {
-      setProducts(await getProducts())
+      setProducts(await getGroupProducts(groupName(group), concept))
     })()
-  }, [])
+  }, [group, concept])
+
+  console.log(products)
+
+  const conceptChangeHandler = (checked: boolean, item: string) => {
+    checked
+      ? setConcept((prev) => [...prev, item])
+      : setConcept(concept.filter((el) => el !== item))
+  }
 
   return (
     <Section>
@@ -25,12 +44,15 @@ const GroupTravel = () => {
         <Title titleType="h2" title="그룹별 여행" fontSize={FONTSIZE.fz32} margin="0 0 66px" />
         <TabStyle>
           <div>
-            <GroupTabs title={true} />
-            <ConceptTabs title={true} />
+            <GroupTabs title={true} setGroup={setGroup} />
+            <ConceptTabs
+              title={true}
+              onChange={(e) => conceptChangeHandler(e.target.checked, e.target.value)}
+            />
           </div>
         </TabStyle>
         <ProductListStyle>
-          {products.slice(0, 4).map((product) => (
+          {products?.content.slice(0, 4).map((product) => (
             <CardTypeItem
               key={product.productId}
               item={product}

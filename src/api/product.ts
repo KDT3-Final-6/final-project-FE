@@ -11,16 +11,11 @@ import {
 import { IReview } from '@src/interfaces/review'
 import { IWishlist } from '@src/interfaces/wishlist'
 
-export const getProducts = async () => {
-  const data = await axios.get('/mockData/product.json')
-  const json: IProductContent[] = data.data
-  return json
+/** 그룹별 여행 */
+export const getGroupProducts = async (group: string, concept: string[]) => {
+  const data: IProduct = await axiosInstance.get(`${API_URL.curation}/group?group=${group}&conceptList=${concept}`)
+  return data
 }
-
-// export const getProducts = async () => {
-//   const data:IProduct = await axiosInstance.get(API_URL.products)
-//   return data
-// }
 
 /** 추천 상품 불러오기 */
 export const getRecommendProducts = async () => {
