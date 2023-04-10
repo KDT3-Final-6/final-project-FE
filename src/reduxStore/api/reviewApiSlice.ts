@@ -1,3 +1,4 @@
+import { IReviewPATCH } from './../../interfaces/review'
 import { createApi } from '@reduxjs/toolkit/query/react'
 import API_URL from '@src/constants/apiUrlConst'
 import baseQuery from '../const/baseQuery'
@@ -20,14 +21,11 @@ export const reviewApi = createApi({
       query: () => API_URL.review + '/posts',
       providesTags: [{ type: 'Review', id: 'REVIEW-LIST' }],
     }),
-    editReview: builder.mutation<
-      void,
-      { postId: number; data: { content: string; scope: number } }
-    >({
-      query: ({ postId, data }) => ({
+    editReview: builder.mutation<void, { postId: number; scope: number; content: string }>({
+      query: ({ scope, content, postId }) => ({
         url: `${API_URL.review}/${postId}`,
         method: 'PATCH',
-        body: data,
+        body: { scope, content },
       }),
       invalidatesTags: [{ type: 'ReviewForMe', id: 'REVIEW-LIST' }],
     }),
@@ -44,7 +42,7 @@ export const reviewApi = createApi({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: [{ type: 'Review', id: 'REVIEW-LIST' }],
+      invalidatesTags: [{ type: 'ReviewForMe', id: 'REVIEW-LIST' }],
     }),
   }),
 })

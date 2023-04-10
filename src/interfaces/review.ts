@@ -29,3 +29,8 @@ export const initReview = {
   postContent: '',
   scope: 0,
 }
+
+export interface IReviewPATCH {
+  postId: number
+  content: string
+}

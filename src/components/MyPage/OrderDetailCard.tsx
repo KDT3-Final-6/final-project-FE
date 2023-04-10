@@ -1,5 +1,5 @@
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import Button from '@components/common/Button'
 import ProductCard, { ImgAreaStyle, PriceStyle, TxtAreaStyle } from '@components/common/ProductCard'
@@ -7,10 +7,11 @@ import Title from '@components/common/Title'
 import { FiShare2 } from 'react-icons/fi'
 import PATH from '@src/constants/pathConst'
 import { useNavigate } from 'react-router-dom'
-import { IOrder, IOrderList } from '@src/interfaces/order'
+import { IOrderList } from '@src/interfaces/order'
 import Image from '@components/common/Image'
 import { setReviewModal } from '@src/reduxStore/reviewModalSlice'
 import { useDispatch } from 'react-redux'
+import ReviewModal from './ReviewModal'
 
 interface IBarTypeItem {
   item: IOrderList
@@ -21,6 +22,7 @@ interface IBarTypeItem {
 
 function OrderDetailCard({ item, cardType, height = '220px', priceColor }: IBarTypeItem) {
   const navigate = useNavigate()
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
   const {
     hasReview,
@@ -53,51 +55,62 @@ function OrderDetailCard({ item, cardType, height = '220px', priceColor }: IBarT
     )
   }
 
+  const handleReviewClick = () => {
+    setIsModalOpen((prev) => !prev)
+    document.body.style.overflowY = 'hidden'
+  }
+
   return (
-    <ProductCard key={productId} cardType={cardType} height={height}>
-      <ImgAreaStyle>
-        <Image src={productThumbnail} alt={productName} />
-      </ImgAreaStyle>
-      <TxtAreaStyle isBarType={true}>
-        <CompleteStyle orderStatus={orderStatus}>{orderStatus}</CompleteStyle>
-        <Title
-          titleType="h3"
-          title={productName}
-          fontWeight={FONTWEGHT.fw600}
-          fontSize={FONTSIZE.fz22}
-          margin="0 0 9px"
-          color={COLORS.c404040}
-        />
-        <DatePriceStyle>
-          <p>{optionName}</p>
-          <PriceStyle fontSize={FONTSIZE.fz30} priceColor={priceColor}>
-            <span>결제금액</span>
-            <span>:</span>
-            <span>{`${productPrice.toLocaleString()}원`}</span>
-          </PriceStyle>
-        </DatePriceStyle>
-        <ButtonGropStyle right="0">
-          <Button buttonType="borderGray" height="45px">
-            <FiShare2 />
-            <span>공유하기</span>
-          </Button>
-          <Button
-            buttonType="borderGray"
-            height="45px"
-            onClick={() => navigate(PATH.PRODUCT_DETAIL)}
-          >
-            자세히 보기
-          </Button>
-          <Button
-            buttonType={hasReview ? 'disable' : 'borderGray'}
-            height="45px"
-            onClick={postReviewHandler}
-          >
-            {hasReview ? '리뷰작성완료' : '리뷰작성하기'}
-          </Button>
-        </ButtonGropStyle>
-      </TxtAreaStyle>
-    </ProductCard>
+    <>
+      <ProductCard key={productId} cardType={cardType} height={height}>
+        <ImgAreaStyle>
+          <Image src={productThumbnail} alt={productName} />
+        </ImgAreaStyle>
+        <TxtAreaStyle isBarType={true}>
+          <CompleteStyle orderStatus={orderStatus}>{orderStatus}</CompleteStyle>
+          <Title
+            titleType="h3"
+            title={productName}
+            fontWeight={FONTWEGHT.fw600}
+            fontSize={FONTSIZE.fz22}
+            margin="0 0 9px"
+            color={COLORS.c404040}
+          />
+          <DatePriceStyle>
+            <p>{optionName}</p>
+            <PriceStyle fontSize={FONTSIZE.fz30} priceColor={priceColor}>
+              <span>결제금액</span>
+              <span>:</span>
+              <span>{`${productPrice.toLocaleString()}원`}</span>
+            </PriceStyle>
+          </DatePriceStyle>
+          <ButtonGropStyle right="0">
+            <Button buttonType="borderGray" height="45px">
+              <FiShare2 />
+              <span>공유하기</span>
+            </Button>
+            <Button
+              buttonType="borderGray"
+              height="45px"
+              onClick={() => navigate(PATH.PRODUCT_DETAIL)}
+            >
+              자세히 보기
+            </Button>
+            <Button
+              buttonType={hasReview ? 'disable' : 'borderGray'}
+              height="45px"
+              // onClick={postReviewHandler}
+              onClick={handleReviewClick}
+            >
+              {hasReview ? '리뷰작성완료' : '리뷰작성하기'}
+            </Button>
+          </ButtonGropStyle>
+        </TxtAreaStyle>
+      </ProductCard>
+      {isModalOpen && (
+        <ReviewModal setIsModalOpen={setIsModalOpen} purchasedProductId={purchasedProductId} />
+      )}
+    </>
   )
 }
 
