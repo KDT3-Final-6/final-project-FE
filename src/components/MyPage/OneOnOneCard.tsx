@@ -31,7 +31,6 @@ const OneOnOneCard = ({ postInfo }: IOneOnOneCard) => {
 
   const hanldeDeleteClick = async () => {
     const result = deleteQuestion(postId)
-    console.log('result', result)
   }
   return (
     <ContainerStyle>

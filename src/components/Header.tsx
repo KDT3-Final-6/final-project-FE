@@ -69,7 +69,6 @@ const Header = () => {
   const { register, handleSubmit, setValue } = useForm<ISearchForm>()
 
   const onValid = (data: any) => {
-    console.log('data', data)
     navigate(`/search?keyword=${data.search}`)
   }
   const onInvalid = (data: any) => {

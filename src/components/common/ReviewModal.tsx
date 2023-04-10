@@ -46,7 +46,6 @@ const ReviewModal = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) })
   const onSubmit = async (data: FieldValues) => {
-    console.log(data)
     handleClick(data)
   }
 

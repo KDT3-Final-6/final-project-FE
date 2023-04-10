@@ -74,14 +74,10 @@ const QuestionCard = ({ isOpen, setIsOpen }: IQuestionCard) => {
       setValue('content', '')
       setSelectedOption(null)
       setProductId(null)
-      setCurrentValue(selectOptions[0])
-      console.log('result', result)
     } else if ('error' in result) {
-      console.log('result', result.error)
       alert('문의글 등록에 실패했습니다.')
     } else {
       alert('문의글 등록에 실패했습니다.')
-      console.log('Unexpected result:', result)
     }
   }
 

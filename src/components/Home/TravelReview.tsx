@@ -10,7 +10,6 @@ import { useGetReviewAllQuery } from '@src/reduxStore/api/reviewApiSlice'
 
 const TravelReview = () => {
   const { data } = useGetReviewAllQuery()
-  console.log('data', data)
 
   const reviews: IReviewValue[] = data ? data.content.slice(0, 3) : []
 
