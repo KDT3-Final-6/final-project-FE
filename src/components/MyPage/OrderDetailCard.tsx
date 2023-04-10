@@ -94,7 +94,7 @@ function OrderDetailCard({ item, cardType, height = '220px', priceColor }: IBarT
             <Button
               buttonType="borderGray"
               height="45px"
-              onClick={() => onCopy(`https://www.jookimryu.store/product/${productId}`)}
+              onClick={() => onCopy(`https://go-together-6.netlify.app/product/${productId}`)}
             >
               <FiShare2 />
               <span>공유하기</span>

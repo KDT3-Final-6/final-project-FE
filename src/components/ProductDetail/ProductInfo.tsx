@@ -170,7 +170,7 @@ const ProductInfo = ({ productDetail, pathname, setOptionIndex, optionIndex }: P
                 width="180px"
                 height="50px"
                 buttonType="detail"
-                onClick={() => onCopy(`https://www.jookimryu.store/${pathname}`)}
+                onClick={() => onCopy(`https://go-together-6.netlify.app/${pathname}`)}
               >
                 <div
                   style={{

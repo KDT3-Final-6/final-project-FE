@@ -31,7 +31,7 @@ const index = () => {
             <p>상담가능시간</p>
             <p>평일 09:00~18:00</p>
             <Button
-              onClick={() => onCopy(`http://pf.kakao.com/_hCxcqbhttp://pf.kakao.com/_hCxcqb`)}
+              onClick={() => onCopy(`http://pf.kakao.com/_hCxcqb`)}
               width="307px"
               height="53px"
               buttonType="black"
