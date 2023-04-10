@@ -66,7 +66,7 @@ const TransactionList = () => {
       <CountStyle>
         <span>신규주문</span>
         <span>{transactions?.totalElements}</span>
-        <span>개</span>
+        <span>개 (수정중)</span>
       </CountStyle>
       <TransactionListStyle>
         <TransactionTable>
