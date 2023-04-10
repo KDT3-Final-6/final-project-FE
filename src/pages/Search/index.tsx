@@ -6,7 +6,7 @@ import Inner from '@src/layout/Inner'
 import { useGetSearchListQuery } from '@src/reduxStore/api/searchApiSlice'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import React, { useState } from 'react'
-import { FieldErrors, SubmitErrorHandler, useForm, FieldValues } from 'react-hook-form'
+import { FieldErrors, useForm, FieldValues } from 'react-hook-form'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
 

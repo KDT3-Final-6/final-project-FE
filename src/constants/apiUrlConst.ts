@@ -24,6 +24,15 @@ const API_URL = {
   curation_religion: '/curation/detail/religion',
   curation_season: '/curation/detail/season',
   wishlist: '/wishlist',
+  admin_users: '/admins/members',
+  admin_upMember: '/admins/upMember',
+  admin_downMember: '/admins/downMember',
+  admin_deleteMember: '/admins/deleteMember',
+  admin_countActiveMember: '/admins/countActiveMember',
+  admin_deleteActiveMember: '/admins/countDeleteMember',
+  admins_qna: '/admins/qna',
+  admins_qnaAnswers: '/admins/qna/answers',
+  admins_qnaSearch: 'admins/qna/search',
 }
 
 export default API_URL

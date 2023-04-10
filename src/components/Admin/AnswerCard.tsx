@@ -1,23 +1,44 @@
 import { COLORS, FONTWEGHT } from '@src/styles/root'
 import styled, { css, keyframes } from 'styled-components'
 import Button from '@components/common/Button'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import formatDate from '@src/utils/formatDate'
+import {
+  usePatchAdminPostMutation,
+  usePostAdminPostMutation,
+} from '@src/reduxStore/api/adminPostApiSlice'
 
 interface IAnswerCard {
   type?: string
   setType?: any
   isAnswerOpen: boolean
+  postId?: number
+  replyDate?: string
+  answer?: string
   setIsAnswerOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 interface IAnswerForm {
   content: string
 }
-const AnswerCard = ({ isAnswerOpen, setIsAnswerOpen, type, setType }: IAnswerCard) => {
+
+const AnswerCard = ({
+  isAnswerOpen,
+  setIsAnswerOpen,
+  type,
+  setType,
+  replyDate,
+  postId,
+  answer,
+}: IAnswerCard) => {
   const [errorsMessage, setErrorsMessage] = useState<string>('')
   const [content, setContent] = useState<string>('')
-  const answer = '답변이에요' // qna답변 패칭
+  const [isEdit, setisEdit] = useState<boolean>(false)
+
+  const [postAnserQuestion] = usePostAdminPostMutation()
+  const [editAnswerQuestion] = usePatchAdminPostMutation()
+
   const {
     register,
     handleSubmit,
@@ -25,8 +46,11 @@ const AnswerCard = ({ isAnswerOpen, setIsAnswerOpen, type, setType }: IAnswerCar
     formState: { errors },
   } = useForm<IAnswerForm>({})
 
-  const onValid: SubmitHandler<IAnswerForm> = (data) => {
-    alert(JSON.stringify(data))
+  const onValid: SubmitHandler<IAnswerForm> = async ({ content }) => {
+    postId && (await postAnserQuestion({ postId, content }))
+    setValue('content', '')
+    alert('답변완료!')
+    setIsAnswerOpen(false)
   }
 
   const onInvalid = (errors: any) => {
@@ -42,9 +66,13 @@ const AnswerCard = ({ isAnswerOpen, setIsAnswerOpen, type, setType }: IAnswerCar
     setIsAnswerOpen((prev) => !prev)
   }
 
-  const handleDelete = () => {
-    // 답변 삭제 기능
-    setIsAnswerOpen((prev) => !prev)
+  /**답변 수정 기능 */
+  const handleUpdate = async () => {
+    setisEdit((prev) => !prev)
+    if (isEdit) {
+      postId && (await editAnswerQuestion({ postId, content }))
+      alert('답변이 수정되었습니다.')
+    }
   }
 
   return (
@@ -52,18 +80,21 @@ const AnswerCard = ({ isAnswerOpen, setIsAnswerOpen, type, setType }: IAnswerCar
       <header>
         <div>
           <span>관리자</span>
+          {type === 'confirm' && replyDate ? <p>{formatDate(replyDate)}</p> : <></>}
         </div>
         <div>
           {type === 'confirm' ? (
-            <Button
-              onClick={handleDelete}
-              width="58px"
-              height="32px"
-              color="white"
-              buttonType="cartSkyBlue"
-            >
-              삭제
-            </Button>
+            <ButtonGroupStyle>
+              <Button
+                onClick={handleUpdate}
+                width="58px"
+                height="32px"
+                color="white"
+                buttonType="cartSkyBlue"
+              >
+                {isEdit ? '완료' : '수정'}
+              </Button>
+            </ButtonGroupStyle>
           ) : (
             <Button type="submit" width="58px" height="32px" buttonType="cartSkyBlue">
               확인
@@ -75,7 +106,11 @@ const AnswerCard = ({ isAnswerOpen, setIsAnswerOpen, type, setType }: IAnswerCar
         </div>
       </header>
       {type === 'confirm' ? (
-        <ReadOnlyTextareaStyle>{answer}</ReadOnlyTextareaStyle>
+        <ReadOnlyTextareaStyle
+          defaultValue={answer}
+          onChange={(e) => setContent(e.target.value)}
+          readOnly={isEdit ? false : true}
+        ></ReadOnlyTextareaStyle>
       ) : (
         <TextareaStyle
           id="qna"
@@ -120,14 +155,20 @@ const AnswerCardStyle = styled.form<{ isAnswerOpen: boolean }>`
     align-items: center;
     justify-content: space-between;
     padding-bottom: 35px;
+    width: 100%;
     div:first-child {
       display: flex;
       align-items: center;
-      gap: 10px;
+      /* flex-direction: column; */
       span {
         font-weight: ${FONTWEGHT.fw600};
         font-size: 16px;
         line-height: 19px;
+        margin-right: 10px;
+      }
+      p {
+        font-weight: ${FONTWEGHT.fw500};
+        color: ${COLORS.c999};
       }
     }
     div:last-child {
@@ -138,6 +179,8 @@ const AnswerCardStyle = styled.form<{ isAnswerOpen: boolean }>`
   }
 `
 
+const ButtonGroupStyle = styled.div``
+
 const TextareaStyle = styled.textarea`
   border: none;
   width: 889px;
@@ -146,9 +189,10 @@ const TextareaStyle = styled.textarea`
   padding: 25px 18px;
   font-size: 15px;
   line-height: 18px;
+  outline: none;
 `
 
-const ReadOnlyTextareaStyle = styled.div`
+const ReadOnlyTextareaStyle = styled.textarea`
   border: none;
   width: 889px;
   min-height: 177px;
@@ -156,4 +200,5 @@ const ReadOnlyTextareaStyle = styled.div`
   padding: 25px 18px;
   font-size: 15px;
   line-height: 18px;
+  outline: none;
 `

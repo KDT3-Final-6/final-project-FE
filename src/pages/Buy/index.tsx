@@ -105,9 +105,6 @@ const index = () => {
       setAllChecked(false)
     }
   }
-  console.log('productData', productData)
-
-  console.log('postProductData', postProductData)
 
   const {
     register,
@@ -149,7 +146,7 @@ const index = () => {
       })
       if ('data' in result && result.data === null) {
         alert('결제에 성공하셨습니다. 메일을 확인해주세요')
-        navigate('/mypage/orderlist', { replace: true })
+        navigate('/', { replace: true })
         console.log('result', result)
       } else if ('error' in result) {
         console.log('result.error', result.error)
