@@ -16,7 +16,7 @@ const AdminRoute = ({ children }: IAdminRoute) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  if (!accessToken || role.includes('ROLE_USER')) {
+  if (!accessToken || !role.includes('ROLE_ADMIN')) {
     dispatch(
       setModal({
         isOpen: true,
