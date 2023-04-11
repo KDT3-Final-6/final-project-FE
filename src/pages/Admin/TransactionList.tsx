@@ -13,7 +13,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 
-const Transaction = () => {
+const TransactionList = () => {
   const dispatch = useDispatch()
   const [page, setPage] = useState<number>(1)
 
@@ -139,7 +139,7 @@ const Transaction = () => {
   )
 }
 
-export default Transaction
+export default TransactionList
 
 const TransactionTable = styled.table`
   width: 100%;
