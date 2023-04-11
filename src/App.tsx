@@ -1,15 +1,36 @@
-import React from 'react'
 import { Outlet } from 'react-router-dom'
+import Footer from './components/Footer'
 import Header from './components/Header'
+import { GlobalStyle } from './styles/GlobalStyle'
+import ScrollTop from './utils/scrollTop'
+import ModalBox from './components/common/ModalBox'
+import Loading from './components/common/Loading'
+import ReviewModal from './components/common/ReviewModal'
+import { useMediaQuery } from 'react-responsive'
+import MHeader from './components/Mobile/MHeader'
+import MFooter from '@components/Mobile/MFooter'
+import MFloating from './components/Mobile/MFloating'
 
-type Props = {}
+const App = () => {
+  const isPC = useMediaQuery({
+    query: '(min-width:1024px)',
+  })
+  const isMobile = useMediaQuery({
+    query: '(max-width:767px)',
+  })
 
-const App = (props: Props) => {
   return (
-    <div>
-      <Header />
+    <>
+      <ScrollTop />
+      <GlobalStyle />
+      {isPC ? <Header /> : <MHeader />}
       <Outlet />
-    </div>
+      {isPC ? <Footer /> : <MFooter />}
+      {isMobile && <MFloating />}
+      <Loading />
+      <ModalBox />
+      <ReviewModal />
+    </>
   )
 }
 

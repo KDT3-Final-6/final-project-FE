@@ -1,0 +1,58 @@
+[
+  {
+    "productId": 1,
+    "productName": "괌 4박 5일",
+    "productThumbnail": "https://cdn.imweb.me/thumbnail/20220721/45b42bf39f392.jpg",
+    "productPrice": 7490000,
+    "isWished": false
+  },
+  {
+    "productId": 2,
+    "productName": "괌 4박 5일",
+    "productThumbnail": "https://cdn.imweb.me/thumbnail/20221013/779ba90e465be.jpg",
+    "productPrice": 7490000,
+    "isWished": false
+  },
+  {
+    "productId": 3,
+    "productName": "괌 4박 5일",
+    "productThumbnail": "https://cdn.imweb.me/thumbnail/20221012/edd6229ea1a1c.png",
+    "productPrice": 7490000,
+    "isWished": false
+  },
+  {
+    "productId": 4,
+    "productName": "괌 4박 5일",
+    "productThumbnail": "https://cdn.imweb.me/thumbnail/20221001/fa15055f63b27.jpg",
+    "productPrice": 7490000,
+    "isWished": false
+  },
+  {
+    "productId": 5,
+    "productName": "괌 4박 5일",
+    "productThumbnail": "https://cdn.imweb.me/thumbnail/20220330/d5af3a4b3b410.png",
+    "productPrice": 7490000,
+    "isWished": false
+  },
+  {
+    "productId": 6,
+    "productName": "괌 4박 5일",
+    "productThumbnail": "https://cdn.imweb.me/thumbnail/20220928/40cf36793899c.jpg",
+    "productPrice": 7490000,
+    "isWished": false
+  },
+  {
+    "productId": 7,
+    "productName": "괌 4박 5일",
+    "productThumbnail": "https://cdn.imweb.me/thumbnail/20220921/a181370d08550.jpg",
+    "productPrice": 7490000,
+    "isWished": false
+  },
+  {
+    "productId": 8,
+    "productName": "괌 4박 5일",
+    "productThumbnail": "https://cdn.imweb.me/thumbnail/20230209/bcba2c0bc25da.jpg",
+    "productPrice": 7490000,
+    "isWished": false
+  }
+]
