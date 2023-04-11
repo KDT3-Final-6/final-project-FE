@@ -87,7 +87,7 @@ const Transaction = () => {
             <col width="" />
             <col width="13%" />
             <col width="5%" />
-            <col width="" />
+            <col width="128px" />
             <col width="20%" />
             <col width="10%" />
           </colgroup>
@@ -134,6 +134,7 @@ export default Transaction
 
 const TransactionTable = styled.table`
   width: 100%;
+  /* table-layout: fixed; */
 `
 
 const Thead = styled.thead`
