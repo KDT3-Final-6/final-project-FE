@@ -107,10 +107,9 @@ const router = createBrowserRouter([
       {
         path: PATH.ADMIN,
         element: (
-          // <AdminRoute>
-          //   <Admin />
-          // </AdminRoute>
-          <Admin />
+          <AdminRoute>
+            <Admin />
+          </AdminRoute>
         ),
         children: [
           { path: PATH.ADMIN, element: <ProductList /> },
