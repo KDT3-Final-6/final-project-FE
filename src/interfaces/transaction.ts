@@ -1,5 +1,12 @@
-interface ITransaction {
-  content: {
+export interface ITransactionList {
+  content: ITransactionContent[]
+  totalPages: number,
+  totalElements: number,
+  pageNumber: number,
+  size: number
+}
+
+export interface ITransactionContent {
     orderId: number,
     productId: number,
     memberId: number,
@@ -14,11 +21,8 @@ interface ITransaction {
     purchasedProductId:number,
     orderStatus: string,
     paymentMethod: string,
-  }[]
-  totalPages: number,
-  totalElements: number,
-  pageNumber: number,
-  size: number
 }
 
-export default ITransaction
+export interface ITransactionApproval {
+  memberId: number
+}
