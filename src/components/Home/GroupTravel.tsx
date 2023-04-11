@@ -14,7 +14,13 @@ import useSwiperSetting from '@src/hooks/useSwiperSetting'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 const GroupTravel = () => {
-  const [products, setProducts] = useState<IProduct>()
+  const [products, setProducts] = useState<IProduct>({
+    content: [],
+    totalPages: 0,
+    totalElements: 0,
+    pageNumber: 0,
+    size: 0,
+  })
   const [group, setGroup] = useState('')
   const [concept, setConcept] = useState<string[]>([])
 
@@ -52,7 +58,7 @@ const GroupTravel = () => {
         <ProductListStyle>
           <SlideButtons direction="left" ref={prevRef} />
           <Swiper {...settings}>
-            {products?.content.map((product) => (
+            {products.content.map((product) => (
               <SwiperSlide key={product.productId}>
                 <CardTypeItem
                   item={product}
@@ -64,11 +70,11 @@ const GroupTravel = () => {
                 />
               </SwiperSlide>
             ))}
+            {!(products.content.length > 0) && (
+              <Title titleType="h3" textAlign="center" title="상품을 준비중입니다." />
+            )}
           </Swiper>
           <SlideButtons direction="right" ref={nextRef} />
-          {!(products?.content.length > 0) && (
-            <Title titleType="h3" textAlign="center" title="상품을 준비중입니다." />
-          )}
         </ProductListStyle>
       </Inner>
     </Section>
@@ -80,7 +86,10 @@ export default GroupTravel
 const ProductListStyle = styled.ul`
   position: relative;
   h3 {
-    padding: 50px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 460px;
   }
 `
 
