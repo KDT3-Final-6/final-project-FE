@@ -71,7 +71,7 @@ const GroupTravel = () => {
               </SwiperSlide>
             ))}
             {!(products.content.length > 0) && (
-              <Title titleType="h3" textAlign="center" title="상품을 준비중입니다." />
+              <Title titleType="h2" textAlign="center" title="상품을 준비중입니다." />
             )}
           </Swiper>
           <SlideButtons direction="right" ref={nextRef} />
@@ -85,11 +85,11 @@ export default GroupTravel
 
 const ProductListStyle = styled.ul`
   position: relative;
-  h3 {
+  h2 {
+    height: 460px;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 460px;
   }
 `
 
