@@ -28,8 +28,6 @@ const GroupTravel = () => {
     ;(async () => setProducts(await getGroupProducts(group, concept)))()
   }, [group, concept])
 
-  console.log(products)
-
   const groupChangeHandler = (value: string) => setGroup(value)
 
   const conceptChangeHandler = (checked: boolean, item: string) =>
