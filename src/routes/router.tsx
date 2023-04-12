@@ -80,7 +80,6 @@ const router = createBrowserRouter([
         path: PATH.BUY,
         element: (
           <PrivateRoute>
-            {' '}
             <Buy />
           </PrivateRoute>
         ),

@@ -15,7 +15,6 @@ import { hideLoading, showLoading } from '@src/reduxStore/loadingSlice'
 import { logout, userInfo } from '@src/api/auth'
 import { setModal } from '@src/reduxStore/modalSlice'
 import MESSAGES from '@src/constants/messages'
-import isCurPath from '@src/utils/isCurlPath'
 import { SET_USERINFO } from '@src/reduxStore/features/userInfoSlice'
 import { useForm } from 'react-hook-form'
 import { ISearchForm } from '@pages/Search'
@@ -27,13 +26,22 @@ const Header = () => {
 
   const [cookies, , removeCookies] = useCookies()
   const location = useLocation()
+  let accessToken = cookies.accessToken
 
-  useEffect(() => {
+  const saveUserInfo = async () => {
     const userInfoFetch = async () => dispatch(SET_USERINFO(await userInfo()))
-    if (cookies.accessToken) {
+    if (accessToken) {
       userInfoFetch()
     }
-  }, [cookies.accessToken])
+  }
+  useEffect(() => {
+    saveUserInfo()
+  }, [accessToken])
+
+  const isCurPath = (path: string) => {
+    if (location.pathname.includes(path)) return true
+    else return false
+  }
 
   const handleLogout = async () => {
     try {
@@ -66,7 +74,7 @@ const Header = () => {
     }
   }
 
-  const { register, handleSubmit, setValue } = useForm<ISearchForm>()
+  const { register, handleSubmit } = useForm<ISearchForm>()
 
   const onValid = (data: any) => {
     navigate(`/search?keyword=${data.search}`)
@@ -85,7 +93,7 @@ const Header = () => {
           <ButtonsStyle>
             {cookies.accessToken ? (
               <>
-                {!location.pathname.includes(PATH.ADMIN) && (
+                {!isCurPath(PATH.ADMIN) && (
                   <>
                     <Link to={PATH.WISHLIST}>
                       <AiOutlineHeart />
@@ -137,9 +145,7 @@ const Header = () => {
                 width="350px"
                 height="50px"
                 placeholder={
-                  location.pathname.includes(PATH.ADMIN)
-                    ? '게시물 검색'
-                    : '여행 그룹이나 상품을 검색해보세요.'
+                  isCurPath(PATH.ADMIN) ? '게시물 검색' : '여행 그룹이나 상품을 검색해보세요.'
                 }
                 borderColor="none"
                 register={register('search', {
@@ -149,7 +155,7 @@ const Header = () => {
             )}
           </form>
           <LnbListStyle>
-            {!location.pathname.includes(PATH.ADMIN) ? (
+            {!isCurPath(PATH.ADMIN) ? (
               <>
                 <li>
                   <Link to={PATH.SURVEY}>여행 큐레이션</Link>
