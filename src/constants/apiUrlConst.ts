@@ -16,6 +16,7 @@ const API_URL = {
   admin_products: '/admins/products',
   admin_categories: '/admins/categories',
   admin_transactions: '/admins/orders',
+  admin_transactions_approval: '/admins/orders/approvals',
   curation: '/curation',
   curation_companion: '/curation/detail/companion',
   curation_gender: '/curation/detail/gender',

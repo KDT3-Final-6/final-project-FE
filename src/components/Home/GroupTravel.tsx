@@ -25,12 +25,8 @@ const GroupTravel = () => {
   const [concept, setConcept] = useState<string[]>([])
 
   useEffect(() => {
-    ;(async () => {
-      setProducts(await getGroupProducts(group, concept))
-    })()
+    ;(async () => setProducts(await getGroupProducts(group, concept)))()
   }, [group, concept])
-
-  console.log(products)
 
   const groupChangeHandler = (value: string) => setGroup(value)
 
