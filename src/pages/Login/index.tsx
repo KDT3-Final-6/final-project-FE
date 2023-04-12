@@ -14,15 +14,16 @@ import { useCookies } from 'react-cookie'
 import { useForm } from 'react-hook-form'
 import { ILogin } from '@src/interfaces/user'
 import { hideLoading, showLoading } from '@src/reduxStore/loadingSlice'
-import { login, userInfo } from '@src/api/auth'
 import { setModal } from '@src/reduxStore/modalSlice'
 import MESSAGES from '@src/constants/messages'
 import { ErrorMessage } from '@src/components/common/InputItem'
 import { Helmet } from 'react-helmet'
+import { useLoginMutation } from '@src/reduxStore/api/userApiSlice'
 
 const Login = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const [login] = useLoginMutation()
   const [cookies, setCookies] = useCookies()
   const {
     register,
@@ -33,10 +34,7 @@ const Login = () => {
   const onSubmit = async (data: ILogin) => {
     try {
       dispatch(showLoading())
-      const response = await login({
-        memberEmail: data.memberEmail,
-        memberPassword: data.memberPassword,
-      })
+      const response = await login(data).unwrap()
 
       setCookies('accessToken', response.data.accessToken, { maxAge: 3600 })
       setCookies('role', response.data.roles, { maxAge: 3600 })

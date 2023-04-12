@@ -1,4 +1,4 @@
-import React, { MouseEvent, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import PATH from '@src/constants/pathConst'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
@@ -12,14 +12,14 @@ import Image from './common/Image'
 import { useCookies } from 'react-cookie'
 import { useDispatch } from 'react-redux'
 import { hideLoading, showLoading } from '@src/reduxStore/loadingSlice'
-import { logout, userInfo } from '@src/api/auth'
 import { setModal } from '@src/reduxStore/modalSlice'
 import MESSAGES from '@src/constants/messages'
-import isCurPath from '@src/utils/isCurlPath'
-import { SET_USERINFO } from '@src/reduxStore/features/userInfoSlice'
+import { SET_USERINFO, initialState } from '@src/reduxStore/features/userInfoSlice'
 import { useForm } from 'react-hook-form'
 import { ISearchForm } from '@pages/Search'
 import { DELETE_USERINFO } from '@src/reduxStore/features/userInfoSlice'
+import { useGetUserInfoQuery, useLogoutMutation } from '@src/reduxStore/api/userApiSlice'
+import { IUserInfo } from '@src/interfaces/user'
 
 const Header = () => {
   const dispatch = useDispatch()
@@ -27,18 +27,34 @@ const Header = () => {
 
   const [cookies, , removeCookies] = useCookies()
   const location = useLocation()
+  let accessToken = cookies.accessToken
+  const { data } = useGetUserInfoQuery(undefined, {
+    skip: !accessToken,
+    refetchOnMountOrArgChange: true,
+  })
+  const userInfo: IUserInfo = data ? data : initialState
 
   useEffect(() => {
-    const userInfoFetch = async () => dispatch(SET_USERINFO(await userInfo()))
-    if (cookies.accessToken) {
-      userInfoFetch()
+    const saveUserInfo = async () => {
+      if (accessToken && userInfo) {
+        dispatch(SET_USERINFO(userInfo))
+      }
     }
-  }, [cookies.accessToken])
+    saveUserInfo()
+  }, [accessToken])
+
+  const isCurPath = (path: string) => {
+    if (location.pathname.includes(path)) return true
+    else return false
+  }
+
+  const [logout] = useLogoutMutation()
 
   const handleLogout = async () => {
     try {
       dispatch(showLoading())
-      const response = await logout()
+      const response = await logout().unwrap()
+
       if (response.data) {
         removeCookies('accessToken', { path: '/' })
         removeCookies('role', { path: '/' })
@@ -66,7 +82,7 @@ const Header = () => {
     }
   }
 
-  const { register, handleSubmit, setValue } = useForm<ISearchForm>()
+  const { register, handleSubmit } = useForm<ISearchForm>()
 
   const onValid = (data: any) => {
     navigate(`/search?keyword=${data.search}`)
@@ -85,7 +101,7 @@ const Header = () => {
           <ButtonsStyle>
             {cookies.accessToken ? (
               <>
-                {!location.pathname.includes(PATH.ADMIN) && (
+                {!isCurPath(PATH.ADMIN) && (
                   <>
                     <Link to={PATH.WISHLIST}>
                       <AiOutlineHeart />
@@ -137,9 +153,7 @@ const Header = () => {
                 width="350px"
                 height="50px"
                 placeholder={
-                  location.pathname.includes(PATH.ADMIN)
-                    ? '게시물 검색'
-                    : '여행 그룹이나 상품을 검색해보세요.'
+                  isCurPath(PATH.ADMIN) ? '게시물 검색' : '여행 그룹이나 상품을 검색해보세요.'
                 }
                 borderColor="none"
                 register={register('search', {
@@ -149,7 +163,7 @@ const Header = () => {
             )}
           </form>
           <LnbListStyle>
-            {!location.pathname.includes(PATH.ADMIN) ? (
+            {!isCurPath(PATH.ADMIN) ? (
               <>
                 <li>
                   <Link to={PATH.SURVEY}>여행 큐레이션</Link>

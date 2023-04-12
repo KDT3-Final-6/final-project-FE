@@ -41,3 +41,14 @@ export interface IUserInfoEdit {
   memberSmsAgree: boolean
   memberEmailAgree: boolean
 }
+
+export interface ILoginResponse {
+  data: {
+    memberName: string
+    roles: string[]
+    grantType: string
+    accessToken: string
+    refreshToken: string
+    refreshTokenExpirationTime: number
+  }
+}

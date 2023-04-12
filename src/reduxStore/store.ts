@@ -11,7 +11,8 @@ import { adminProductApi } from './api/adminProductApiSlice'
 import { wishlistApi } from './api/wishlistApislice'
 import { adminUserApi } from './api/adminUserApiSlice'
 import { adminPostApi } from './api/adminPostApiSlice'
-import { adminTransactionApi } from "./api/adminTransactionApiSlice"
+import { userApi } from './api/userApiSlice'
+import { adminTransactionApi } from './api/adminTransactionApiSlice'
 
 export const store = configureStore({
   reducer: rootReducer,
@@ -27,6 +28,7 @@ export const store = configureStore({
       wishlistApi.middleware,
       adminUserApi.middleware,
       adminPostApi.middleware,
+      userApi.middleware,
       adminTransactionApi.middleware,
     ]),
 })
