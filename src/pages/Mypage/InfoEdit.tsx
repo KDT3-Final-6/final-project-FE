@@ -18,13 +18,15 @@ import { useForm } from 'react-hook-form'
 import { hideLoading, showLoading } from '@src/reduxStore/loadingSlice'
 import { IUserInfo, IUserInfoEdit } from '@src/interfaces/user'
 import { useCookies } from 'react-cookie'
+import { useGetUserInfoQuery } from '@src/reduxStore/api/userApiSlice'
 
 const InfoEdit = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const [userInfoData, setuserInfoData] = useState<IUserInfo>()
-  const [userGender, setUserGender] = useState<string>('Female')
   const [, , removeCookies] = useCookies()
+
+  const { data } = useGetUserInfoQuery()
+  const userInfoData = data
 
   const {
     register,
@@ -32,14 +34,6 @@ const InfoEdit = () => {
     watch,
     formState: { isSubmitting, errors, isDirty },
   } = useForm<IUserInfoEdit>()
-
-  useEffect(() => {
-    ;(async () => {
-      const response = await userInfo()
-      setuserInfoData(response)
-      setUserGender(response.memberGender)
-    })()
-  }, [])
 
   const hobbys = [
     { id: 'GOLF', labelName: '골프' },
@@ -230,7 +224,7 @@ const InfoEdit = () => {
                 id="Female"
                 labelName="여성"
                 name="gender"
-                isChecked={userGender === 'Female'}
+                isChecked={userInfoData?.memberGender === 'Female'}
                 isDisable={true}
               />
               <CheckItem
@@ -239,7 +233,7 @@ const InfoEdit = () => {
                 id="Male"
                 labelName="남성"
                 name="gender"
-                isChecked={userGender === 'Male'}
+                isChecked={userInfoData?.memberGender === 'Male'}
                 isDisable={true}
               />
             </RadiosStyle>

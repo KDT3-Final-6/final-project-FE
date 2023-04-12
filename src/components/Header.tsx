@@ -28,16 +28,18 @@ const Header = () => {
   const [cookies, , removeCookies] = useCookies()
   const location = useLocation()
   let accessToken = cookies.accessToken
+  const { data } = useGetUserInfoQuery(undefined, {
+    skip: !accessToken,
+    refetchOnMountOrArgChange: true,
+  })
+  const userInfo: IUserInfo = data ? data : initialState
 
-  const saveUserInfo = async () => {
-    if (accessToken) {
-      const { data } = useGetUserInfoQuery()
-      const userInfo: IUserInfo = data ? data : initialState
-      const userInfoFetch = async () => dispatch(SET_USERINFO(userInfo))
-      userInfoFetch()
-    }
-  }
   useEffect(() => {
+    const saveUserInfo = async () => {
+      if (accessToken && userInfo) {
+        dispatch(SET_USERINFO(userInfo))
+      }
+    }
     saveUserInfo()
   }, [accessToken])
 
@@ -51,8 +53,9 @@ const Header = () => {
   const handleLogout = async () => {
     try {
       dispatch(showLoading())
-      const response = await logout()
-      if (response) {
+      const response = await logout().unwrap()
+
+      if (response.data) {
         removeCookies('accessToken', { path: '/' })
         removeCookies('role', { path: '/' })
       }

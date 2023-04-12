@@ -8,20 +8,20 @@ import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import { Outlet, useNavigate } from 'react-router-dom'
 import Button from '@components/common/Button'
 import Title, { HighlightSpanStyle } from '@src/components/common/Title'
-import { useSelector } from 'react-redux'
-import { RootState } from '@src/reduxStore/store'
+import { useGetUserInfoQuery } from '@src/reduxStore/api/userApiSlice'
 
 const MyPage = () => {
   const [activeMenu, setActiveMenu] = useState(0)
   const navigate = useNavigate()
-  const userData = useSelector((state: RootState) => state.userInfo)
+  const { data } = useGetUserInfoQuery()
+  const userInfoData = data
 
   return (
     <>
       <Image bgImage="/images/myPage_banner.png" alt="banner" width="100%" height="190px" />
       <ProfileStyle>
         <Image
-          bgImage={userData.memberImage}
+          bgImage={userInfoData?.memberImage}
           alt="프로필"
           width="130px"
           height="130px"
@@ -29,11 +29,11 @@ const MyPage = () => {
           border={`5px solid ${COLORS.white}`}
         />
         <span style={{ fontSize: FONTSIZE.fz24, fontWeight: FONTWEGHT.fw700 }}>
-          {userData.memberName}
+          {userInfoData?.memberName}
         </span>
         <Title
           titleType="h3"
-          title={userData.memberEmail}
+          title={userInfoData?.memberEmail}
           fontSize={FONTSIZE.fz15}
           fontWeight={FONTWEGHT.fw400}
           margin="-10px 0 0"
@@ -46,7 +46,7 @@ const MyPage = () => {
               fontWeight={FONTWEGHT.fw600}
               spanMargin="0 0 20px"
             >
-              {userData.roles.includes('ROLE_ADMIN') ? '관리자' : '일반회원'}
+              {userInfoData?.roles.includes('ROLE_ADMIN') ? '관리자' : '일반회원'}
             </HighlightSpanStyle>
           </h2>
         </Title>
