@@ -3,7 +3,6 @@ import { createBrowserRouter } from 'react-router-dom'
 import Cart from '@pages/Mypage/Cart'
 import Admin from '@pages/Admin'
 import ProductList from '@pages/ProductsList'
-import TransactionList from '@src/pages/Admin/TransactionList'
 import UserList from '@pages/UserList'
 import PostList from '@pages/PostList'
 import Group from '@pages/Product/Group'
@@ -34,6 +33,7 @@ import MyReview from '@src/pages/Mypage/MyReview'
 import CheckPassword from '@src/pages/Mypage/CheckPassword'
 import PrivateRoute from './PrivateRoute'
 import AdminRoute from './AdminRoute'
+import TransactionList from '@src/pages/Admin/TransactionList'
 
 const router = createBrowserRouter([
   {
@@ -41,11 +41,7 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <NotFound />,
     children: [
-      {
-        index: true,
-        path: PATH.HOME,
-        element: <Home />,
-      },
+      { index: true, path: PATH.HOME, element: <Home /> },
       {
         path: PATH.PRODUCT,
         element: <Product />,
