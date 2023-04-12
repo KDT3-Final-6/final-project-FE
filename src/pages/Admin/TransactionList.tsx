@@ -1,8 +1,10 @@
+import { getAdminTransactions } from '@src/api/transaction'
 import TransactionCon from '@src/components/Admin/TransactionCon'
 import Input from '@src/components/common/Input'
 import Paginate from '@src/components/common/Paginate'
 import Select from '@src/components/common/Select'
 import MESSAGES from '@src/constants/messages'
+import { ITransactionList } from '@src/interfaces/transaction'
 import Inner from '@src/layout/Inner'
 import { useGetTransactionsQuery } from '@src/reduxStore/api/adminTransactionApiSlice'
 import { hideLoading, showLoading } from '@src/reduxStore/loadingSlice'
@@ -12,7 +14,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 
-const Transaction = () => {
+const TransactionList = () => {
   const dispatch = useDispatch()
   const [page, setPage] = useState<number>(1)
 
@@ -34,7 +36,7 @@ const Transaction = () => {
   //         setModal({
   //           isOpen: true,
   //           text: MESSAGES.ADMIN.TRANSACTION.error,
-  //           onClickOK: () => dispatch(setModal({ isOpen: false }))
+  //           onClickOK: () => dispatch(setModal({ isOpen: false })),
   //         })
   //       )
   //     } finally {
@@ -44,16 +46,21 @@ const Transaction = () => {
   // }, [page])
 
   const { data: transactions, isLoading, error } = useGetTransactionsQuery(page)
-  isLoading ? dispatch(showLoading()) : dispatch(hideLoading())
-  if (error) {
-    dispatch(
-      setModal({
-        isOpen: true,
-        text: MESSAGES.ADMIN.TRANSACTION.error,
-        onClickOK: () => dispatch(setModal({ isOpen: false })),
-      })
-    )
-  }
+
+  useEffect(() => {
+    isLoading ? dispatch(showLoading()) : dispatch(hideLoading())
+
+    if (error) {
+      dispatch(
+        setModal({
+          isOpen: true,
+          text: MESSAGES.ADMIN.TRANSACTION.error,
+          onClickOK: () => dispatch(setModal({ isOpen: false })),
+        })
+      )
+    }
+  }, [isLoading, error])
+
   const selectOptions = ['결제대기', '결제완료']
   const [currentValue, setCurrentValue] = useState<string>(selectOptions[0])
 
@@ -130,7 +137,7 @@ const Transaction = () => {
   )
 }
 
-export default Transaction
+export default TransactionList
 
 const TransactionTable = styled.table`
   width: 100%;
