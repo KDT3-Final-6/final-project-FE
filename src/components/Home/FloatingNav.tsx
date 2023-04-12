@@ -58,7 +58,7 @@ const FloatingNav = () => {
         </ConsultBoxStyle>
         <TopBtnStyle onClick={MoveToTop}>맨 위로</TopBtnStyle>
       </FloatingNavStyle>
-      <ChatBot isChatBotOpen={isChatBotOpen} />
+      <ChatBot isChatBotOpen={isChatBotOpen} setIsChatBotOpen={setIsChatBotOpen} />
     </>
   )
 }
