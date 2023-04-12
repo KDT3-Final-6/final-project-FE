@@ -1,14 +1,14 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 import API_URL from '@src/constants/apiUrlConst'
 import baseQuery from '../const/baseQuery'
-import { buildQueryLifecycleHandler } from '@reduxjs/toolkit/dist/query/core/buildMiddleware/queryLifecycle'
+import { IUserInfo } from '@src/interfaces/user'
 
 export const userApi = createApi({
   reducerPath: 'userApi',
   baseQuery,
   tagTypes: ['User'],
   endpoints: (builder) => ({
-    getUserInfo: builder.query({
+    getUserInfo: builder.query<IUserInfo, void>({
       query: () => API_URL.members,
       providesTags: [{ type: 'User', id: 'User' }],
     }),
@@ -16,7 +16,7 @@ export const userApi = createApi({
       query: (data) => ({ url: API_URL.login, method: 'POST', body: data }),
       invalidatesTags: [{ type: 'User', id: 'User' }],
     }),
-    logout: builder.mutation({
+    logout: builder.mutation<{ data: boolean }, void>({
       query: () => ({
         url: API_URL.logout,
         method: 'POST',

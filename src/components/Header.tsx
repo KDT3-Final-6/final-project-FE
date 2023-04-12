@@ -1,4 +1,4 @@
-import React, { MouseEvent, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import PATH from '@src/constants/pathConst'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
@@ -12,13 +12,14 @@ import Image from './common/Image'
 import { useCookies } from 'react-cookie'
 import { useDispatch } from 'react-redux'
 import { hideLoading, showLoading } from '@src/reduxStore/loadingSlice'
-import { logout, userInfo } from '@src/api/auth'
 import { setModal } from '@src/reduxStore/modalSlice'
 import MESSAGES from '@src/constants/messages'
-import { SET_USERINFO } from '@src/reduxStore/features/userInfoSlice'
+import { SET_USERINFO, initialState } from '@src/reduxStore/features/userInfoSlice'
 import { useForm } from 'react-hook-form'
 import { ISearchForm } from '@pages/Search'
 import { DELETE_USERINFO } from '@src/reduxStore/features/userInfoSlice'
+import { useGetUserInfoQuery, useLogoutMutation } from '@src/reduxStore/api/userApiSlice'
+import { IUserInfo } from '@src/interfaces/user'
 
 const Header = () => {
   const dispatch = useDispatch()
@@ -29,8 +30,10 @@ const Header = () => {
   let accessToken = cookies.accessToken
 
   const saveUserInfo = async () => {
-    const userInfoFetch = async () => dispatch(SET_USERINFO(await userInfo()))
     if (accessToken) {
+      const { data } = useGetUserInfoQuery()
+      const userInfo: IUserInfo = data ? data : initialState
+      const userInfoFetch = async () => dispatch(SET_USERINFO(userInfo))
       userInfoFetch()
     }
   }
@@ -43,11 +46,13 @@ const Header = () => {
     else return false
   }
 
+  const [logout] = useLogoutMutation()
+
   const handleLogout = async () => {
     try {
       dispatch(showLoading())
       const response = await logout()
-      if (response.data) {
+      if (response) {
         removeCookies('accessToken', { path: '/' })
         removeCookies('role', { path: '/' })
       }
