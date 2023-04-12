@@ -12,6 +12,8 @@ import Inner from '@src/layout/Inner'
 import { useNavigate } from 'react-router-dom'
 import { useMediaQuery } from 'react-responsive'
 import Event from '@src/components/Mobile/Home/Event'
+import MSlideBanner from '@src/components/Home/mobile/MSlideBanner'
+import MCuration from '@src/components/Home/mobile/MCuration'
 
 function Home() {
   const isPC = useMediaQuery({
@@ -44,6 +46,8 @@ function Home() {
       <Helmet>
         <title>고투게더 홈</title>
       </Helmet>
+      <MSlideBanner />
+      <MCuration />
       <Inner padding="0 28px" width="100%">
         <Event />
       </Inner>
