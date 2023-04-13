@@ -8,7 +8,6 @@ import { COLORS } from '@src/styles/root'
 import React, { useEffect, useRef, useState } from 'react'
 import { CheckStyle, FormAreaStyle, RadiosStyle } from '../SignUp'
 import { Helmet } from 'react-helmet'
-import { userInfo, userInfoEdit, userWithDrawal } from '@src/api/auth'
 import { useDispatch } from 'react-redux'
 import { setModal } from '@src/reduxStore/modalSlice'
 import { useNavigate } from 'react-router-dom'
@@ -16,9 +15,13 @@ import MESSAGES from '@src/constants/messages'
 import PATH from '@src/constants/pathConst'
 import { useForm } from 'react-hook-form'
 import { hideLoading, showLoading } from '@src/reduxStore/loadingSlice'
-import { IUserInfo, IUserInfoEdit } from '@src/interfaces/user'
+import { IUserInfoEdit } from '@src/interfaces/user'
 import { useCookies } from 'react-cookie'
-import { useGetUserInfoQuery } from '@src/reduxStore/api/userApiSlice'
+import {
+  useEditUserInfoMutation,
+  useGetUserInfoQuery,
+  useWithdrawUserMutation,
+} from '@src/reduxStore/api/userApiSlice'
 
 const InfoEdit = () => {
   const dispatch = useDispatch()
@@ -27,6 +30,8 @@ const InfoEdit = () => {
 
   const { data } = useGetUserInfoQuery()
   const userInfoData = data
+  const [withdrawUser] = useWithdrawUserMutation()
+  const [editUserInfo] = useEditUserInfoMutation()
 
   const {
     register,
@@ -55,7 +60,7 @@ const InfoEdit = () => {
         isOpen: true,
         text: MESSAGES.WITHDRAWAL.normal,
         onClickOK: async () => {
-          await userWithDrawal()
+          await withdrawUser(undefined)
           dispatch(
             setModal({
               isOpen: true,
@@ -87,14 +92,7 @@ const InfoEdit = () => {
   const onSubmit = async (data: IUserInfoEdit) => {
     try {
       dispatch(showLoading)
-      await userInfoEdit({
-        memberPassword: data.memberPassword,
-        memberNickname: data.memberNickname,
-        memberPhone: data.memberPhone,
-        memberHobby: data.memberHobby,
-        memberSmsAgree: data.memberSmsAgree,
-        memberEmailAgree: data.memberEmailAgree,
-      })
+      await editUserInfo(data)
       dispatch(
         setModal({
           isOpen: true,

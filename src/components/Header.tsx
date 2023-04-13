@@ -25,7 +25,7 @@ const Header = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const [cookies, removeCookies] = useCookies()
+  const [cookies, , removeCookies] = useCookies()
   const location = useLocation()
   let accessToken = cookies.accessToken
   const { data } = useGetUserInfoQuery(undefined, {
@@ -56,8 +56,8 @@ const Header = () => {
       const response = await logout().unwrap()
 
       if (response.data) {
-        removeCookies('accessToken', { path: '/' })
-        removeCookies('role', { path: '/' })
+        removeCookies('accessToken')
+        removeCookies('role')
       }
       dispatch(showLoading())
       dispatch(
