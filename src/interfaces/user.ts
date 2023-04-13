@@ -65,3 +65,18 @@ export interface ILoginResponse {
     refreshTokenExpirationTime: number
   }
 }
+
+export const initUserInfo = {
+  memberEmail: '',
+  memberName: '',
+  memberNickName: '',
+  memberPhone: '',
+  memberBirthDate: '',
+  memberHobby: [],
+  memberSmsAgree: false,
+  memberEmailAgree: false,
+  memberGender: '',
+  memberGrade: '',
+  memberImage: '',
+  roles: [],
+}
