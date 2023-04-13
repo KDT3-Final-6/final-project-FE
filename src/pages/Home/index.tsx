@@ -14,6 +14,7 @@ import { useMediaQuery } from 'react-responsive'
 import Event from '@src/components/Mobile/Home/Event'
 import MSlideBanner from '@src/components/Home/mobile/MSlideBanner'
 import MCuration from '@src/components/Home/mobile/MCuration'
+import MTravelReview from '@src/components/Home/mobile/MTravelReview'
 
 function Home() {
   const isPC = useMediaQuery({
@@ -48,9 +49,10 @@ function Home() {
       </Helmet>
       <MSlideBanner />
       <MCuration />
-      <Inner padding="0 28px" width="100%">
+      {/* <Inner padding="0 28px" width="100%">
         <Event />
-      </Inner>
+      </Inner> */}
+      <MTravelReview />
     </>
   )
 }

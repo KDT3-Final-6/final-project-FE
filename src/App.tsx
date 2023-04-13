@@ -26,10 +26,10 @@ const App = () => {
       {isPC ? <Header /> : <MHeader />}
       <Outlet />
       {isPC ? <Footer /> : <MFooter />}
-      {isMobile && <MFloating />}
       <Loading />
       <ModalBox />
       <ReviewModal />
+      {isMobile && <MFloating />}
     </>
   )
 }
