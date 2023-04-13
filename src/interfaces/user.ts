@@ -17,6 +17,19 @@ export interface ISignup extends ILogin {
   memberEmailAgree: boolean
 }
 
+export interface ISingupData {
+  memberEmail: string
+  memberPassword: string
+  memberName: string
+  memberNickname: string
+  memberPhone: string
+  memberBirthDate: string
+  memberGender: string
+  memberHobby: string[]
+  memberSmsAgree: boolean
+  memberEmailAgree: boolean
+}
+
 export interface IUserInfo {
   memberEmail: string
   memberName: string

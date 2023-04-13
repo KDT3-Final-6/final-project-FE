@@ -1,7 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 import API_URL from '@src/constants/apiUrlConst'
 import baseQuery from '../const/baseQuery'
-import { ILoginResponse, IUserInfo, ILogin } from '@src/interfaces/user'
+import { ILoginResponse, IUserInfo, ILogin, ISingupData } from '@src/interfaces/user'
 
 export const userApi = createApi({
   reducerPath: 'userApi',
@@ -35,7 +35,7 @@ export const userApi = createApi({
       }),
       invalidatesTags: [{ type: 'User', id: 'User' }],
     }),
-    createUser: builder.mutation({
+    createUser: builder.mutation<{ data: string }, ISingupData>({
       query: (data) => ({
         url: API_URL.members,
         method: 'POST',
