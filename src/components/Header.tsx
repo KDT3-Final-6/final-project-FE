@@ -25,7 +25,7 @@ const Header = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const [cookies, , removeCookies] = useCookies()
+  const [cookies, removeCookies] = useCookies()
   const location = useLocation()
   let accessToken = cookies.accessToken
   const { data } = useGetUserInfoQuery(undefined, {
@@ -59,13 +59,15 @@ const Header = () => {
         removeCookies('accessToken', { path: '/' })
         removeCookies('role', { path: '/' })
       }
+      dispatch(showLoading())
       dispatch(
         setModal({
           isOpen: true,
           text: MESSAGES.LOGOUT.complete,
           onClickOK: () => {
-            dispatch(setModal({ isOpem: false, route: navigate(PATH.HOME) }))
+            dispatch(setModal({ isOpen: false }))
             dispatch(DELETE_USERINFO())
+            navigate(PATH.HOME)
           },
         })
       )

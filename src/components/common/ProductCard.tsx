@@ -6,12 +6,14 @@ type IProduct = {
   cardType: string
   width?: string
   height?: string
+  minWidth?: string
   maxHeight?: string
   minHeight?: string
   children?: React.ReactNode
   bgImage?: string
   imgWidth?: string
   imgHeight?: string
+  boxShadow?: string
 }
 
 const ProductCard = ({
@@ -20,10 +22,12 @@ const ProductCard = ({
   height = '',
   maxHeight = '',
   minHeight = '300px',
+  minWidth = '',
   children,
   bgImage = '',
   imgWidth = '',
   imgHeight = '',
+  boxShadow = '',
 }: IProduct) => {
   return (
     <CardStyle
@@ -32,9 +36,11 @@ const ProductCard = ({
       height={height}
       maxHeight={maxHeight}
       minHeight={minHeight}
+      minWidth={minWidth}
       bgImage={bgImage}
       imgWidth={imgWidth}
       imgHeight={imgHeight}
+      boxShadow={boxShadow}
     >
       {children}
     </CardStyle>
@@ -49,12 +55,16 @@ const CardStyle = styled.li<{
   height: string
   maxHeight: string
   minHeight: string
+  minWidth: string
   bgImage: string
   imgWidth: string
   imgHeight: string
+  boxShadow: string
 }>`
   width: ${({ width }) => width};
+  min-width: ${({ minWidth }) => minWidth};
   height: ${({ height }) => height};
+  box-shadow: ${({ boxShadow }) => boxShadow};
 
   img {
     width: ${({ imgWidth }) => imgWidth};

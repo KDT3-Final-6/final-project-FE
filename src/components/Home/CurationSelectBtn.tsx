@@ -18,6 +18,7 @@ interface ISelect {
   height?: string
   borderRadius?: string
   borderColor?: string
+  marginLeft?: string
   fontSize?: string
   isClickDefault?: boolean
   isDisabled?: boolean
@@ -34,6 +35,7 @@ const CurationSelectBtn = ({
   width = '190px',
   height = '100%',
   borderRadius = '5px',
+  marginLeft = '40px',
   borderColor = COLORS.cb6b6b6,
   isClickDefault = true,
   isDisabled = false,
@@ -65,6 +67,7 @@ const CurationSelectBtn = ({
       type={type}
       isClickDefault={isClickDefault}
       isDisabled={isDisabled}
+      marginLeft={marginLeft}
       onClick={() => !isDisabled && setShowOptions((prev) => !prev)}
     >
       <LabelStyle fontSize={fontSize} isDisabled={isDisabled}>
@@ -117,6 +120,7 @@ const SelectBoxStyle = styled.div<{
   isDisabled: boolean
   show: boolean
   type: string
+  marginLeft: string
 }>`
   display: flex;
   align-items: center;
@@ -125,7 +129,7 @@ const SelectBoxStyle = styled.div<{
   height: ${({ height }) => height};
   border-radius: ${({ borderRadius }) => borderRadius};
   background-color: ${({ isDisabled }) => (isDisabled ? COLORS.cededed : COLORS.white)};
-  margin-left: 40px;
+  margin-left: ${({ marginLeft }) => marginLeft};
   cursor: ${({ isDisabled }) => !isDisabled && 'pointer'};
   &:hover {
     box-shadow: ${COLORS.boxShowdow};
