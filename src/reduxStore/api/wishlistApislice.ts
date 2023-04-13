@@ -5,7 +5,7 @@ import baseQuery from '../const/baseQuery'
 export const wishlistApi = createApi({
   reducerPath: 'wishlistApi',
   baseQuery,
-  tagTypes: ['Wishlist'],
+  tagTypes: ['Wishlist', 'Products'],
   endpoints: (builder) => ({
     getWishlist: builder.query({
       query: (page: number = 1) => API_URL.wishlist + `?page=${page}`,
@@ -23,7 +23,7 @@ export const wishlistApi = createApi({
         url: API_URL.wishlist + `/${productId}`,
         method: 'POST',
       }),
-      invalidatesTags: [{ type: 'Wishlist', id: 'WISHLIST' }],
+      invalidatesTags: [{ type: 'Wishlist', id: 'WISHLIST' }, 'Products'],
     }),
   }),
 })

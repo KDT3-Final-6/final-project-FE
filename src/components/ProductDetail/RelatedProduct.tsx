@@ -25,7 +25,7 @@ const RelatedProduct = ({ productId }: Props) => {
 
   const prevRef = useRef(null)
   const nextRef = useRef(null)
-  const settings = useSwiperSetting({ prevRef, nextRef })
+  const settings = useSwiperSetting({ prevRef, nextRef, slidesPerView: 4, spaceBetween: 10 })
   return (
     <div style={{ position: 'relative' }}>
       <SlideButtons direction="left" ref={prevRef} />

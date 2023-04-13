@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import Inner from '@src/layout/Inner'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import styled from 'styled-components'
@@ -5,9 +6,10 @@ import Review from '../common/Review'
 import Title from '../common/Title'
 import { IReviewValue } from '@src/interfaces/review'
 import { useGetReviewForProductQuery } from '@src/reduxStore/api/reviewApiSlice'
-import { useState } from 'react'
-import ReviewModal from '../MyPage/ReviewModal'
+import useSwiperSetting from '@src/hooks/useSwiperSetting'
+import { Swiper, SwiperSlide } from 'swiper/react'
 import { useNavigate } from 'react-router-dom'
+import SlideButtons from '../common/SlideButtons'
 
 interface Props {
   productId: number
@@ -17,6 +19,10 @@ const TravelReview = ({ productId }: Props) => {
   const { data } = useGetReviewForProductQuery(productId)
   const reviews: IReviewValue[] = data ? data.content : []
   const navigate = useNavigate()
+
+  const prevRef = useRef(null)
+  const nextRef = useRef(null)
+  const settings = useSwiperSetting({ prevRef, nextRef, slidesPerView: 3, spaceBetween: 10 })
   return (
     <section>
       <Inner>
@@ -36,14 +42,21 @@ const TravelReview = ({ productId }: Props) => {
             </span>
           </div>
         </Title>
-        <div style={{ display: 'flex', gap: '20px' }}>
-          {reviews.length > 0 ? (
-            reviews.map((review, index) => (
-              <Review review={review} key={index} id={review.postId} />
-            ))
-          ) : (
-            <NoReviewStyle>리뷰가 없습니다.</NoReviewStyle>
-          )}
+
+        <div style={{ position: 'relative' }}>
+          <SlideButtons direction="left" ref={prevRef} />
+          <Swiper {...settings}>
+            {reviews.length > 0 ? (
+              reviews.map((review) => (
+                <SwiperSlide key={review.postId}>
+                  <Review review={review} id={review.postId} />
+                </SwiperSlide>
+              ))
+            ) : (
+              <NoReviewStyle key={'없음'}>리뷰가 없습니다.</NoReviewStyle>
+            )}
+          </Swiper>
+          <SlideButtons ref={nextRef} direction="right" />
         </div>
       </Inner>
     </section>

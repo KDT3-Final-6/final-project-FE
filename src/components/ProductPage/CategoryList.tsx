@@ -23,7 +23,7 @@ interface Props {
 const CategoryList = ({ title, products }: Props) => {
   const prevRef = useRef(null)
   const nextRef = useRef(null)
-  const settings = useSwiperSetting({ prevRef, nextRef })
+  const settings = useSwiperSetting({ prevRef, nextRef, slidesPerView: 4, spaceBetween: 10 })
   const userInfo = useSelector((state: RootState) => state.userInfo)
   const [deleteWishlist] = useDeleteWishlistMutation()
   const [postWishlist] = usePostWishlistMutation()

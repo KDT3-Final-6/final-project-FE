@@ -42,7 +42,7 @@ const ThemeTravel = () => {
 
   const prevRef = useRef(null)
   const nextRef = useRef(null)
-  const settings = useSwiperSetting({ prevRef, nextRef })
+  const settings = useSwiperSetting({ prevRef, nextRef, slidesPerView: 4, spaceBetween: 10 })
 
   return (
     <Section overflow="hidden">
