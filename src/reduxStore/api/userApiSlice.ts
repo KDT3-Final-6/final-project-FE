@@ -35,8 +35,29 @@ export const userApi = createApi({
       }),
       invalidatesTags: [{ type: 'User', id: 'User' }],
     }),
+    createUser: builder.mutation({
+      query: (data) => ({
+        url: API_URL.members,
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: [{ type: 'User', id: 'User' }],
+    }),
+    withdrawUser: builder.mutation({
+      query: () => ({
+        url: API_URL.members,
+        method: 'DELETE',
+      }),
+      invalidatesTags: [{ type: 'User', id: 'User' }],
+    }),
   }),
 })
 
-export const { useGetUserInfoQuery, useLoginMutation, useLogoutMutation, useEditUserInfoMutation } =
-  userApi
+export const {
+  useGetUserInfoQuery,
+  useLoginMutation,
+  useLogoutMutation,
+  useEditUserInfoMutation,
+  useCreateUserMutation,
+  useWithdrawUserMutation,
+} = userApi
