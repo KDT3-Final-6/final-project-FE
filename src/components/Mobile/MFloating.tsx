@@ -76,6 +76,7 @@ const FloatingStyle = styled.div`
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
   background-color: ${COLORS.white};
   padding: 0 30px;
+  z-index: 10;
 `
 
 const IconStyle = styled.div`

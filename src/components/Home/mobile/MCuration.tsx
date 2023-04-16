@@ -1,5 +1,4 @@
 import Inner from '@src/layout/Inner'
-import Section from '@src/layout/Section'
 import { COLORS, FONTSIZE } from '@src/styles/root'
 import { useState } from 'react'
 import styled from 'styled-components'
@@ -16,15 +15,12 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import Title from '@src/components/common/Title'
 import CurationSelectBtn from '../CurationSelectBtn'
 import Button from '@src/components/common/Button'
-import CardTypeItem from '@src/components/common/CardTypeItem'
-// import required modules
-import { Navigation, FreeMode, Thumbs, EffectFade, Autoplay } from 'swiper'
+import MProductCard from './MProductCard'
 
 // Import Swiper styles
 import 'swiper/css' //basic
 import 'swiper/css/navigation'
 import 'swiper/css/effect-fade'
-import MProductCard from './MProductCard'
 
 const MCuration = () => {
   const [page, setPage] = useState<number>(1)
@@ -66,8 +62,8 @@ const MCuration = () => {
     })
   }
   return (
-    <ContainerStyle>
-      <Inner width="320px">
+    <ContainerStyle isShow={isShow} hasProducts={hasProducts}>
+      <Inner width="90%">
         <Title
           titleType="h2"
           title="어디로 여행을 떠날까요?"
@@ -76,7 +72,7 @@ const MCuration = () => {
         />
       </Inner>
       <SelectBoxStyle>
-        <Inner width="320px">
+        <Inner width="90%">
           <SelectRowStyle>
             <FirstTextStyle borderRadius="6px 0px 0px 6px">나는</FirstTextStyle>
             <CurationSelectBtn
@@ -135,16 +131,22 @@ const MCuration = () => {
           </ButtonsStyle>
         </Inner>
       </SelectBoxStyle>
-      {isShow && hasProducts ? (
-        <ProductListSwiperStyle>
-          <CurationSlideStyle>
-            {curations.map((product) => (
-              <MProductCard key={product.productId} item={product} cardType="cardType" />
-            ))}
-          </CurationSlideStyle>
-        </ProductListSwiperStyle>
+      {isShow ? (
+        <>
+          {hasProducts ? (
+            <ProductListSwiperStyle slidesPerView={'auto'} spaceBetween={16}>
+              {curations.map((product) => (
+                <CurationSlideStyle key={product.productId}>
+                  <MProductCard key={product.productId} item={product} cardType="" />
+                </CurationSlideStyle>
+              ))}
+            </ProductListSwiperStyle>
+          ) : (
+            <NoItemsStyle>해당 상품이 존재하지 않습니다.</NoItemsStyle>
+          )}
+        </>
       ) : (
-        <NoItemsStyle>해당 상품이 존재하지 않습니다.</NoItemsStyle>
+        <></>
       )}
     </ContainerStyle>
   )
@@ -152,10 +154,10 @@ const MCuration = () => {
 
 export default MCuration
 
-const ContainerStyle = styled.div`
+const ContainerStyle = styled.div<{ isShow: boolean; hasProducts: boolean | undefined }>`
   min-width: 320px;
   padding-top: 33px;
-  padding-bottom: 500px;
+  padding-bottom: ${({ isShow, hasProducts }) => (isShow && hasProducts ? '320px' : '35px')};
 `
 
 const SelectBoxStyle = styled.div`
@@ -235,17 +237,24 @@ const ButtonsStyle = styled.div`
 `
 
 const ProductListSwiperStyle = styled(Swiper)`
-  position: absolute;
-  left: 10%;
-  bottom: -42%; //-330px;
-  width: 263px;
+  position: relative;
+  left: 5%;
+  top: -70px; //-330px;
   height: 360px;
-  background-color: white;
-  box-shadow: ${COLORS.boxShowdow};
-  border-radius: 12px;
-  z-index: 2;
 `
 
-const CurationSlideStyle = styled(SwiperSlide)``
+const CurationSlideStyle = styled(SwiperSlide)`
+  width: 264px;
+  height: 360px;
+  border-radius: 12px;
+  background-color: white;
+`
 
-const NoItemsStyle = styled.div``
+const NoItemsStyle = styled.div`
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  font-size: 1.25rem;
+`

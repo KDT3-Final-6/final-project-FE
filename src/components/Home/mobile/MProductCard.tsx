@@ -29,23 +29,7 @@ interface ICardTypeItem {
   heartClick?: () => void
 }
 
-const MProductCard = ({
-  item,
-  cardType,
-  bgImage,
-  imgWidth,
-  imgHeight,
-  width = '',
-  height = '500px',
-  priceTop,
-  priceLeft,
-  priceRight,
-  priceBottom,
-  priceColor,
-  minHeight,
-  isHeart,
-  heartClick,
-}: ICardTypeItem) => {
+const MProductCard = ({ item, cardType, isHeart, heartClick }: ICardTypeItem) => {
   const [heart, setHeart] = useState(false)
   const { pathname } = useLocation()
   const userInfo = useSelector((state: RootState) => state.userInfo)
@@ -55,27 +39,19 @@ const MProductCard = ({
   }, [])
 
   return (
-    <ProductCard
-      width="100%"
-      height="100%"
-      key={item?.productId}
-      cardType={cardType}
-      bgImage={bgImage}
-    >
+    <ProductCardStyle>
       <HeartButton
         productId={item?.productId}
         top="14px"
-        right="18px"
+        right="14px"
         isHeart={heart}
         setHeart={setHeart}
         onClick={heartClick}
       />
       <Link to={`/product/${item?.productId}`}>
-        {cardType === 'cardType' && (
-          <ImgStyle>
-            <Image src={item?.productThumbnail} alt={item?.productName} />
-          </ImgStyle>
-        )}
+        <ImgStyle>
+          <Image bgImage={item?.productThumbnail} height="100%" />{' '}
+        </ImgStyle>
         <ProductTextStyle>
           <Title
             titleType="h3"
@@ -88,11 +64,19 @@ const MProductCard = ({
           <PriceTextStyle>{`${item?.productPrice?.toLocaleString()}원`}</PriceTextStyle>
         </ProductTextStyle>
       </Link>
-    </ProductCard>
+    </ProductCardStyle>
   )
 }
 
 export default MProductCard
+
+const ProductCardStyle = styled.div`
+  width: 100%;
+  height: 100%;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+`
 
 const ImgStyle = styled.div`
   position: relative;
@@ -101,7 +85,11 @@ const ImgStyle = styled.div`
   height: 197px;
 `
 
-const ProductTextStyle = styled.div``
+const ProductTextStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`
 const PriceTextStyle = styled.div`
   font-weight: 700;
   font-size: 18px;
