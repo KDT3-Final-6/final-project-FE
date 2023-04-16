@@ -3,21 +3,30 @@ import Title from '../common/Title'
 import styled from 'styled-components'
 import { COLORS } from '@src/styles/root'
 import CardTypeItem from '../common/CardTypeItem'
-import { IProduct, IProductContent } from '@src/interfaces/product'
+import { IProductContent } from '@src/interfaces/product'
 import {
   useDeleteWishlistMutation,
   usePostWishlistMutation,
 } from '@src/reduxStore/api/wishlistApislice'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '@src/reduxStore/store'
+import { useDispatch } from 'react-redux'
 import { setModal } from '@src/reduxStore/modalSlice'
+import { useGetUserInfoQuery } from '@src/reduxStore/api/userApiSlice'
+import { useCookies } from 'react-cookie'
+import { initialState } from '@src/reduxStore/features/userInfoSlice'
+import { IUserInfo } from '@src/interfaces/user'
 
 interface Props {
   products: IProductContent[]
 }
 
 const MonthProductList = ({ products }: Props) => {
-  const userInfo = useSelector((state: RootState) => state.userInfo)
+  const [cookies] = useCookies()
+  let accessToken = cookies.accessToken
+  const { data } = useGetUserInfoQuery(undefined, {
+    skip: !accessToken,
+    refetchOnMountOrArgChange: true,
+  })
+  const userInfo: IUserInfo = data ? data : initialState
   const dispatch = useDispatch()
   const [deleteWishlist] = useDeleteWishlistMutation()
   const [postWishlist] = usePostWishlistMutation()

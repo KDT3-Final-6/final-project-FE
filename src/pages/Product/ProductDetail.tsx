@@ -13,32 +13,17 @@ import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { IProductDetail, initProductDetail } from '@src/interfaces/product'
 import CurrentProduct from '@src/components/ProductDetail/CurrentProduct'
+import { useGetProductDetailQuery } from '@src/reduxStore/api/productsApiSlice'
+import { useGetReviewForProductQuery } from '@src/reduxStore/api/reviewApiSlice'
 
 const ProductDetail = () => {
-  const [productDetail, setProductDetail] = useState<IProductDetail>(initProductDetail)
   const [optionIndex, setOptionIndex] = useState<number>(0)
-  const [reviews, setReviews] = useState<number>(0)
   const { pathname } = useLocation()
   const productId = Number(pathname.slice(9))
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const detail = await getProductDetail(productId)
-      const reviewData = await getReviewsForProduct(productId)
-      setProductDetail(detail)
-      setReviews(reviewData.totalElements)
-
-      /** 최근 본 상품에 넣을 아이템  */
-      const newCurrentItem = {
-        productId,
-        productName: detail.productName,
-        productPrice: detail.productPrice,
-        productThumbnail: detail.productThumbnail,
-      }
-      setCurrent(newCurrentItem)
-    }
-    fetchData()
-  }, [])
+  const { data } = useGetProductDetailQuery({ id: productId })
+  const productDetail: IProductDetail = data ? data : initProductDetail
+  const { data: reviewData } = useGetReviewForProductQuery(productId)
+  const reviewCount = reviewData ? reviewData.totalElements : 0
 
   /** 최근 본 상품 불러오기 */
   const currentList = JSON.parse(localStorage.getItem('cart')!)
@@ -63,14 +48,23 @@ const ProductDetail = () => {
     }
   }
 
+  /** 최근 본 상품에 넣을 아이템  */
+  const newCurrentItem = {
+    productId,
+    productName: productDetail.productName,
+    productPrice: productDetail.productPrice,
+    productThumbnail: productDetail.productThumbnail,
+  }
+  setCurrent(newCurrentItem)
+
   return (
     <Inner padding="32px 0">
       <Helmet>
         {/* 브라우저 탭에 보여줄 수 있는 title 정의하는 훅 (=HTML의 head영역) */}
-        <title>{productDetail.productName}</title>
+        <title>{productDetail?.productName}</title>
       </Helmet>
       <CategoryStyle>
-        홈 {'>'} {productDetail.productCategories[2]?.categoryName}
+        홈 {'>'} {productDetail?.productCategories[2]?.categoryName}
       </CategoryStyle>
       <ProductInfo
         productDetail={productDetail}
@@ -78,7 +72,7 @@ const ProductDetail = () => {
         setOptionIndex={setOptionIndex}
         optionIndex={optionIndex}
       />
-      <MoveTab reviews={reviews} />
+      <MoveTab reviews={reviewCount} />
       <hr />
       <Detail productDetail={productDetail} optionIndex={optionIndex} />
       <TravelReview productId={productId} />

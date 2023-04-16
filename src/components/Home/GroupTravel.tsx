@@ -12,6 +12,17 @@ import { IProduct } from '@src/interfaces/product'
 import SlideButtons from '../common/SlideButtons'
 import useSwiperSetting from '@src/hooks/useSwiperSetting'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import { useGetUserInfoQuery } from '@src/reduxStore/api/userApiSlice'
+import { useCookies } from 'react-cookie'
+import { initialState } from '@src/reduxStore/features/userInfoSlice'
+import { IUserInfo } from '@src/interfaces/user'
+import { useDispatch } from 'react-redux'
+import { setModal } from '@src/reduxStore/modalSlice'
+
+import {
+  useDeleteWishlistMutation,
+  usePostWishlistMutation,
+} from '@src/reduxStore/api/wishlistApislice'
 
 const GroupTravel = () => {
   const [products, setProducts] = useState<IProduct>({
@@ -28,6 +39,33 @@ const GroupTravel = () => {
     ;(async () => setProducts(await getGroupProducts(group, concept)))()
   }, [group, concept])
 
+  const [cookies] = useCookies()
+  let accessToken = cookies.accessToken
+  const { data } = useGetUserInfoQuery(undefined, {
+    skip: !accessToken,
+    refetchOnMountOrArgChange: true,
+  })
+  const userInfo: IUserInfo = data ? data : initialState
+
+  const dispatch = useDispatch()
+  const [deleteWishlist] = useDeleteWishlistMutation()
+  const [postWishlist] = usePostWishlistMutation()
+  const heartCheck = async (heart: boolean, productId: number) => {
+    if (userInfo.memberName && heart) {
+      await deleteWishlist(productId)
+    } else if (!heart && userInfo.memberName) {
+      await postWishlist(productId)
+    } else {
+      dispatch(
+        setModal({
+          isOpen: true,
+          text: '로그인이 필요한 서비스입니다.',
+          onClickOK: () => dispatch(setModal({ isOpen: false })),
+        })
+      )
+    }
+  }
+
   const groupChangeHandler = (value: string) => setGroup(value)
 
   const conceptChangeHandler = (checked: boolean, item: string) =>
@@ -37,7 +75,7 @@ const GroupTravel = () => {
 
   const prevRef = useRef(null)
   const nextRef = useRef(null)
-  const settings = useSwiperSetting({ prevRef, nextRef })
+  const settings = useSwiperSetting({ prevRef, nextRef, slidesPerView: 4, spaceBetween: 10 })
   return (
     <Section>
       <Inner>
@@ -63,6 +101,8 @@ const GroupTravel = () => {
                   height="460px"
                   priceBottom="30px"
                   priceColor={COLORS.c1b1b1b}
+                  isHeart={product.isWished}
+                  heartClick={() => heartCheck(product.isWished, product.productId!)}
                 />
               </SwiperSlide>
             ))}
