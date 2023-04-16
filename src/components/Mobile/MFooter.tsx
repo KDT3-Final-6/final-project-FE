@@ -54,6 +54,7 @@ const FooterWrapStyle = styled.footer`
   padding: 20px;
   gap: 20px;
   margin-bottom: 80px;
+  z-index: 100;
 `
 
 const FooterTopStyle = styled.div`
