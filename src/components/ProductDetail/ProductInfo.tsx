@@ -23,6 +23,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@src/reduxStore/store'
 import { setModal } from '@src/reduxStore/modalSlice'
+import { useGetUserInfoQuery } from '@src/reduxStore/api/userApiSlice'
 
 interface Props {
   productDetail: IProductDetail
@@ -42,7 +43,7 @@ const ProductInfo = ({ productDetail, pathname, setOptionIndex, optionIndex }: P
   const [heart, setHeart] = useState(false)
   const [deleteWishlist] = useDeleteWishlistMutation()
   const [postWishlist] = usePostWishlistMutation()
-  const userInfo = useSelector((state: RootState) => state.userInfo)
+  const { data: userInfo } = useGetUserInfoQuery()
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -59,7 +60,7 @@ const ProductInfo = ({ productDetail, pathname, setOptionIndex, optionIndex }: P
 
   const { register, handleSubmit } = useForm<schemaType>({ resolver: yupResolver(schema) })
   const onSubmit = async (data: schemaType) => {
-    if (userInfo.memberName) {
+    if (userInfo?.memberName) {
       await postCartProduct(data.optionId, quantity)
       dispatch(
         setModal({
@@ -94,10 +95,10 @@ const ProductInfo = ({ productDetail, pathname, setOptionIndex, optionIndex }: P
 
   /** 찜하기 */
   const heartCheck = async () => {
-    if (heart && userInfo.memberName) {
+    if (heart && userInfo?.memberName) {
       await deleteWishlist(Number(pathname.slice(9)))
       setHeart((prev) => !prev)
-    } else if (!heart && userInfo.memberName) {
+    } else if (!heart && userInfo?.memberName) {
       await postWishlist(Number(pathname.slice(9)))
       setHeart((prev) => !prev)
     } else {

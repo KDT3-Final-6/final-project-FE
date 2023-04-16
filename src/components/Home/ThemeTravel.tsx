@@ -12,6 +12,16 @@ import { IProductContent } from '@src/interfaces/product'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import useSwiperSetting from '@src/hooks/useSwiperSetting'
 import SlideButtons from '../common/SlideButtons'
+import {
+  useDeleteWishlistMutation,
+  usePostWishlistMutation,
+} from '@src/reduxStore/api/wishlistApislice'
+import { useDispatch } from 'react-redux'
+import { setModal } from '@src/reduxStore/modalSlice'
+import { useGetUserInfoQuery } from '@src/reduxStore/api/userApiSlice'
+import { useCookies } from 'react-cookie'
+import { initialState } from '@src/reduxStore/features/userInfoSlice'
+import { IUserInfo } from '@src/interfaces/user'
 
 const ThemeTravel = () => {
   const [products, setProducts] = useState<IProductContent[]>([])
@@ -43,6 +53,32 @@ const ThemeTravel = () => {
   const prevRef = useRef(null)
   const nextRef = useRef(null)
   const settings = useSwiperSetting({ prevRef, nextRef, slidesPerView: 4, spaceBetween: 10 })
+  const dispatch = useDispatch()
+  const [deleteWishlist] = useDeleteWishlistMutation()
+  const [postWishlist] = usePostWishlistMutation()
+  const [cookies] = useCookies()
+  let accessToken = cookies.accessToken
+  const { data } = useGetUserInfoQuery(undefined, {
+    skip: !accessToken,
+    refetchOnMountOrArgChange: true,
+  })
+  const userInfo: IUserInfo = data ? data : initialState
+
+  const heartCheck = async (heart: boolean, productId: number) => {
+    if (userInfo.memberName && heart) {
+      await deleteWishlist(productId)
+    } else if (!heart && userInfo.memberName) {
+      await postWishlist(productId)
+    } else {
+      dispatch(
+        setModal({
+          isOpen: true,
+          text: '로그인이 필요한 서비스입니다.',
+          onClickOK: () => dispatch(setModal({ isOpen: false })),
+        })
+      )
+    }
+  }
 
   return (
     <Section overflow="hidden">
@@ -117,6 +153,8 @@ const ThemeTravel = () => {
                           imgHeight="100%"
                           minHeight="250px"
                           priceBottom="17px"
+                          isHeart={product.isWished}
+                          heartClick={() => heartCheck(product.isWished, product.productId!)}
                         />
                       </SwiperSlide>
                     ))}

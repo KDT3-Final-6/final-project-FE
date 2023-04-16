@@ -1,6 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 import API_URL from '@src/constants/apiUrlConst'
 import baseQuery from '../const/baseQuery'
+import { IProduct } from '@src/interfaces/product'
 
 export const wishlistApi = createApi({
   reducerPath: 'wishlistApi',
@@ -16,17 +17,31 @@ export const wishlistApi = createApi({
         url: API_URL.wishlist + `/${productId}`,
         method: 'DELETE',
       }),
-      invalidatesTags: [{ type: 'Wishlist', id: 'WISHLIST' }],
+      invalidatesTags: [
+        { type: 'Wishlist', id: 'WISHLIST' },
+        { type: 'Products', id: 'Category' },
+      ],
     }),
     postWishlist: builder.mutation({
       query: (productId) => ({
         url: API_URL.wishlist + `/${productId}`,
         method: 'POST',
       }),
-      invalidatesTags: [{ type: 'Wishlist', id: 'WISHLIST' }, 'Products'],
+      invalidatesTags: [
+        { type: 'Wishlist', id: 'WISHLIST' },
+        { type: 'Products', id: 'Category' },
+      ],
+    }),
+    getCategoryProducts: builder.query<IProduct, { keyword: string }>({
+      query: ({ keyword }) => `${API_URL.category}/?category=${keyword}`,
+      providesTags: [{ type: 'Products', id: 'Category' }],
     }),
   }),
 })
 
-export const { useGetWishlistQuery, useDeleteWishlistMutation, usePostWishlistMutation } =
-  wishlistApi
+export const {
+  useGetWishlistQuery,
+  useDeleteWishlistMutation,
+  usePostWishlistMutation,
+  useGetCategoryProductsQuery,
+} = wishlistApi
