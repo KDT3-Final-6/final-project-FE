@@ -6,9 +6,7 @@ import styled from 'styled-components'
 import Button from '../common/Button'
 import Title from '../common/Title'
 import { AiOutlinePlus } from 'react-icons/ai'
-import { getCategoryProducts } from '@src/api/product'
 import CardTypeItem from '../common/CardTypeItem'
-import { IProductContent } from '@src/interfaces/product'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import useSwiperSetting from '@src/hooks/useSwiperSetting'
 import SlideButtons from '../common/SlideButtons'
@@ -20,11 +18,9 @@ import { useDispatch } from 'react-redux'
 import { setModal } from '@src/reduxStore/modalSlice'
 import { useGetUserInfoQuery } from '@src/reduxStore/api/userApiSlice'
 import { useCookies } from 'react-cookie'
-import { initialState } from '@src/reduxStore/features/userInfoSlice'
-import { IUserInfo } from '@src/interfaces/user'
+import { useGetCategoryProductsQuery } from '@src/reduxStore/api/productsApiSlice'
 
 const ThemeTravel = () => {
-  const [products, setProducts] = useState<IProductContent[]>([])
   const [activeTab, setActiveTab] = useState(1)
   const contents = [
     { id: 0, tab: '휴양지' },
@@ -33,22 +29,14 @@ const ThemeTravel = () => {
     { id: 3, tab: '성지순례' },
     { id: 4, tab: '문화탐방' },
   ]
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const keyword = () => {
-        if (activeTab === 0) return '휴양지'
-        if (activeTab === 1) return '골프여행'
-        if (activeTab === 2) return '트레킹'
-        if (activeTab === 3) return '성지순례'
-        if (activeTab === 4) return '문화탐방'
-        return '휴양지'
-      }
-      const data = await getCategoryProducts(keyword())
-      setProducts(data.content)
-    }
-    fetchData()
-  }, [activeTab])
+  const keyword = () => {
+    if (activeTab === 0) return '휴양지'
+    if (activeTab === 1) return '골프여행'
+    if (activeTab === 2) return '트레킹'
+    if (activeTab === 3) return '성지순례'
+    if (activeTab === 4) return '문화탐방'
+    return '휴양지'
+  }
 
   const prevRef = useRef(null)
   const nextRef = useRef(null)
@@ -58,16 +46,18 @@ const ThemeTravel = () => {
   const [postWishlist] = usePostWishlistMutation()
   const [cookies] = useCookies()
   let accessToken = cookies.accessToken
-  const { data } = useGetUserInfoQuery(undefined, {
+  const { data: userInfo } = useGetUserInfoQuery(undefined, {
     skip: !accessToken,
     refetchOnMountOrArgChange: true,
   })
-  const userInfo: IUserInfo = data ? data : initialState
+
+  const { data } = useGetCategoryProductsQuery({ keyword: keyword() })
+  const products = data ? data.content : []
 
   const heartCheck = async (heart: boolean, productId: number) => {
-    if (userInfo.memberName && heart) {
+    if (userInfo?.memberName && heart) {
       await deleteWishlist(productId)
-    } else if (!heart && userInfo.memberName) {
+    } else if (!heart && userInfo?.memberName) {
       await postWishlist(productId)
     } else {
       dispatch(

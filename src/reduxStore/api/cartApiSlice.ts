@@ -32,7 +32,20 @@ export const cartApi = createApi({
       }),
       invalidatesTags: [{ type: 'Cart', id: 'CART-LIST' }],
     }),
+    postCartList: builder.mutation({
+      query: ({ optionId, quantity }) => ({
+        url: API_URL.cart,
+        method: 'POST',
+        body: { productIds: [{ periodOptionId: +optionId, quantity }] },
+      }),
+      invalidatesTags: [{ type: 'Cart', id: 'CART-LIST' }],
+    }),
   }),
 })
 
-export const { useGetCartListQuery, useEditCartListMutation, useDeleteCartListMutation } = cartApi
+export const {
+  useGetCartListQuery,
+  useEditCartListMutation,
+  useDeleteCartListMutation,
+  usePostCartListMutation,
+} = cartApi

@@ -7,33 +7,31 @@ import { FONTSIZE, FONTWEGHT, COLORS } from '@src/styles/root'
 import DistrictCheckTab from '@src/components/ProductPage/District/DistrictCheckTab'
 import CategoryList from '@src/components/ProductPage/CategoryList'
 import districtTab from '@src/constants/districtTab'
-import { getCategoryProducts } from '@src/api/product'
-import { IProductContent } from '@src/interfaces/product'
+import { useGetCategoryProductsQuery } from '@src/reduxStore/api/productsApiSlice'
+import { IProductContent, IProductContentUnion } from '@src/interfaces/product'
+import useProductData from '@src/hooks/useProductData'
+import getSelected from '@src/utils/getSelected'
 
 type Props = {}
 
 const District = (props: Props) => {
   const [checkTab, setCheckTab] = useState<string[]>([])
-  const [products, setProducts] = useState<Array<IProductContent[]>>([])
-
-  const getSelected = (checkTab: string[]) => {
-    return districtTab
-      .filter((tab) => checkTab.includes(String(tab.categoryId)))
-      .map((tab) => tab.district)
-  }
+  const [products, setProducts] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
-      const items = []
+      let items: IProductContent[][] = []
       for (let tab of getSelected(checkTab)) {
         tab = tab.replace('&', '%26')
-        const data = await getCategoryProducts(tab)
-        items.push(data.content)
+        const { data } = await useGetCategoryProductsQuery({ keyword: tab })
+        const item = data ? data.content : []
+        items = [...items, item]
       }
       setProducts(items)
     }
     fetchData()
   }, [checkTab])
+  console.log(products)
 
   return (
     <div style={{ margin: '32px 0' }}>
