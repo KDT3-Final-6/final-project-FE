@@ -1,19 +1,15 @@
 import axios from 'axios'
 import API_URL from '@src/constants/apiUrlConst'
 import { axiosFormDataInstance, axiosInstance } from './instance'
-import {
-  IProduct,
-  IProductContent,
-  IProductDetail,
-  IproductCategories,
-  ICartResponse,
-} from '@src/interfaces/product'
+import { IProduct, IProductDetail, IproductCategories } from '@src/interfaces/product'
 import { IReview } from '@src/interfaces/review'
 import { IWishlist } from '@src/interfaces/wishlist'
 
 /** 그룹별 여행 */
 export const getGroupProducts = async (group: string, concept: string[]) => {
-  const data: IProduct = await axiosInstance.get(`${API_URL.curation}/group?group=${group}&conceptList=${concept}`)
+  const data: IProduct = await axiosInstance.get(
+    `${API_URL.curation}/group?group=${group}&conceptList=${concept}`
+  )
   return data
 }
 
@@ -32,12 +28,6 @@ export const getProductDetail = async (id: number) => {
 /** 상품에 대한 리뷰 */
 export const getReviewsForProduct = async (id: number) => {
   const data: IReview = await axiosInstance.get(`${API_URL.review}/${id}`)
-  return data
-}
-
-/** 카테고리별 상품 데이터 */
-export const getCategoryProducts = async (keyword: string) => {
-  const data: IProduct = await axiosInstance.get(`${API_URL.category}/?category=${keyword}`)
   return data
 }
 
