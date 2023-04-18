@@ -5,18 +5,11 @@ import CategoryList from '@src/components/ProductPage/CategoryList'
 import Banner from '@src/components/Home/Banner'
 import ProductSlider from '@src/components/ProductPage/ProductSlider'
 import ThemeTravel from '@src/components/Home/ThemeTravel'
-import { getCategoryProducts } from '@src/api/product'
-import { IProductContent } from '@src/interfaces/product'
+import { useGetCategoryProductsQuery } from '@src/reduxStore/api/productsApiSlice'
 
 const Recommend = () => {
-  const [recommendList, setRecommendList] = useState<IProductContent[]>([])
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getCategoryProducts('여자끼리')
-      setRecommendList(data.content)
-    }
-    fetchData()
-  }, [])
+  const { data } = useGetCategoryProductsQuery({ keyword: '누구든지' })
+  const recommendList = data ? data.content : []
   return (
     <div>
       <div style={{ height: '569px' }}>

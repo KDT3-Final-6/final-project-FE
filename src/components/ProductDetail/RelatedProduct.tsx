@@ -1,7 +1,6 @@
 import CardTypeItem from '@src/components/common/CardTypeItem'
 import { COLORS } from '@src/styles/root'
 import styled from 'styled-components'
-import CheckItem from '@src/components/common/CheckItem'
 import { IProductContent } from '@src/interfaces/product'
 import { useState, useEffect, useRef } from 'react'
 import { getRelatedProducts } from '@src/api/product'

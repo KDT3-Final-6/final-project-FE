@@ -5,11 +5,10 @@ import { AiOutlineShareAlt, AiOutlineShoppingCart } from 'react-icons/ai'
 import Button from '../common/Button'
 import Title from '../common/Title'
 import { FONTSIZE, FONTWEGHT, COLORS } from '@src/styles/root'
-import { IProductDetail, IProductOption } from '@src/interfaces/product'
+import { IProductDetail } from '@src/interfaces/product'
 import Image from '../common/Image'
 import { useNavigate } from 'react-router-dom'
 import useCopyClipBoard from '@src/utils/copyURL'
-import { postCartProduct } from '@src/api/product'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
@@ -20,10 +19,10 @@ import {
   useDeleteWishlistMutation,
   usePostWishlistMutation,
 } from '@src/reduxStore/api/wishlistApislice'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '@src/reduxStore/store'
+import { useDispatch } from 'react-redux'
 import { setModal } from '@src/reduxStore/modalSlice'
 import { useGetUserInfoQuery } from '@src/reduxStore/api/userApiSlice'
+import { usePostCartListMutation } from '@src/reduxStore/api/cartApiSlice'
 
 interface Props {
   productDetail: IProductDetail
@@ -45,6 +44,7 @@ const ProductInfo = ({ productDetail, pathname, setOptionIndex, optionIndex }: P
   const [postWishlist] = usePostWishlistMutation()
   const { data: userInfo } = useGetUserInfoQuery()
   const dispatch = useDispatch()
+  const [postCartList] = usePostCartListMutation()
 
   useEffect(() => {
     setHeart(productDetail.isWished)
@@ -59,15 +59,24 @@ const ProductInfo = ({ productDetail, pathname, setOptionIndex, optionIndex }: P
   })
 
   const { register, handleSubmit } = useForm<schemaType>({ resolver: yupResolver(schema) })
-  const onSubmit = async (data: schemaType) => {
-    if (userInfo?.memberName) {
-      await postCartProduct(data.optionId, quantity)
+
+  const onSubmit = (data: schemaType) => {
+    if (userInfo?.memberName && +data.optionId) {
+      postCartList({ optionId: data.optionId, quantity })
       dispatch(
         setModal({
           isOpen: true,
           text: '장바구니로 이동하겠습니까?',
           onClickOK: () => dispatch(setModal({ isOpen: false, route: navigate('/mypage/cart') })),
           onClickCancel: () => dispatch(setModal({ isOpen: false })),
+        })
+      )
+    } else if (data.optionId === '옵션을 선택해 주세요.') {
+      dispatch(
+        setModal({
+          isOpen: true,
+          text: '옵션을 선택해 주세요.',
+          onClickOK: () => dispatch(setModal({ isOpen: false })),
         })
       )
     } else {

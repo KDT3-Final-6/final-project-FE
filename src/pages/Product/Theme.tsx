@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Inner from '@src/layout/Inner'
 import Title from '@src/components/common/Title'
-import ProductList from '@src/components/ProductPage/ProductList'
 import CategoryList from '@src/components/ProductPage/CategoryList'
 import Banner from '@src/components/Home/Banner'
 import styled from 'styled-components'
@@ -10,18 +9,11 @@ import MoreBtn from '@src/components/Home/MoreBtn'
 import MonthProductList from '@src/components/ProductPage/MonthProductList'
 import ProductSlider from '@src/components/ProductPage/ProductSlider'
 import ThemeTravel from '@src/components/Home/ThemeTravel'
-import { IProductContent } from '@src/interfaces/product'
-import { getCategoryProducts } from '@src/api/product'
+import { useGetCategoryProductsQuery } from '@src/reduxStore/api/productsApiSlice'
 
 const Theme = () => {
-  const [themeProduct, setThemeProduct] = useState<IProductContent[]>([])
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getCategoryProducts('테마별여행')
-      setThemeProduct(data.content)
-    }
-    fetchData()
-  }, [])
+  const { data } = useGetCategoryProductsQuery({ keyword: '테마별여행' })
+  const themeProduct = data ? data.content : []
   return (
     <div style={{ margin: '32px 0' }}>
       <Inner>
