@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react'
 import styled, { css, keyframes } from 'styled-components'
 import { AiFillCloseCircle } from 'react-icons/ai'
 import { COLORS } from '@src/styles/root'
@@ -7,6 +7,7 @@ import GotogetherChatBox from './GotogetherChatBox'
 import Button from '../common/Button'
 import { FieldErrors, useForm, FieldValues } from 'react-hook-form'
 import Input from '../common/Input'
+import useOnClickOutside from '@src/hooks/useOnClickOutside'
 
 const typeAnsers = [
   {
@@ -77,6 +78,8 @@ interface IChatBot {
 const ChatBot = ({ isChatBotOpen, setIsChatBotOpen }: IChatBot) => {
   const [showNavigation, setShowNavigation] = useState<boolean>(false)
   const [isType, setIsType] = useState<string | null>(null)
+  const ref = useRef(null)
+  useOnClickOutside(ref, () => setIsChatBotOpen(false))
 
   const handleClick = (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
     const { innerText } = event.target as HTMLLIElement
@@ -116,7 +119,7 @@ const ChatBot = ({ isChatBotOpen, setIsChatBotOpen }: IChatBot) => {
   }
 
   return (
-    <ChatBotStyle isChatBotOpen={isChatBotOpen} showNavigation={showNavigation}>
+    <ChatBotStyle isChatBotOpen={isChatBotOpen} showNavigation={showNavigation} ref={ref}>
       <HeaderStyle>
         <span>고투게더 챗봇 서비스</span>
         <AiFillCloseCircle onClick={() => setIsChatBotOpen(false)} />
@@ -200,7 +203,7 @@ const ChatBotStyle = styled.div`
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
   border-radius: 8px;
   overflow: hidden;
-  z-index: 5;
+  z-index: 10;
   visibility: ${({
     showNavigation,
     isChatBotOpen,
