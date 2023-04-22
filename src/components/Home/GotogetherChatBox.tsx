@@ -101,4 +101,7 @@ const ChatStyle = styled.div`
   border-radius: 0px 16px 16px 16px;
   font-size: 14px;
   line-height: 145%;
+  span {
+    white-space: pre-line;
+  }
 `
