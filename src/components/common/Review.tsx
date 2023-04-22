@@ -6,13 +6,11 @@ import { IReviewValue } from '@src/interfaces/review'
 interface Props {
   review: IReviewValue
   id: number
-  width?: string
-  height?: string
 }
 
-const Review = ({ review, id, width = '380px', height = '298px' }: Props) => {
+const Review = ({ review, id }: Props) => {
   return (
-    <ReviewCardStyle width={width} height={height}>
+    <ReviewCardStyle>
       <HeaderStyle>
         <span>{review.memberNickname}</span>
         <GradeStyle>
@@ -27,9 +25,9 @@ const Review = ({ review, id, width = '380px', height = '298px' }: Props) => {
   )
 }
 
-const ReviewCardStyle = styled.div<{ width: string; height: string }>`
-  width: ${({ width }) => width};
-  height: ${({ height }) => height};
+const ReviewCardStyle = styled.div`
+  width: 380px;
+  height: 298px;
   border: 1px solid ${COLORS.cd9d9d9};
   border-radius: 12px;
   font-size: ${FONTSIZE.fz20};
@@ -61,8 +59,8 @@ const ContentStyle = styled.div`
   position: relative;
   padding: 26px 30px 88px 35px;
   p {
-    width: 100%;
-    height: 100%;
+    width: 315px;
+    height: 113px;
     line-height: 36px;
   }
 `
