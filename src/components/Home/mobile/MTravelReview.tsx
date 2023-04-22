@@ -42,13 +42,24 @@ const MTravelReview = () => {
 
 export default MTravelReview
 
-const ContainerStyle = styled.div``
+const ContainerStyle = styled.div`
+  margin-bottom: 60px;
+`
 
-const ReviewSwiperStyle = styled(Swiper)``
+const SlideStyle = styled.div`
+  min-width: 320px;
+  height: 252px;
+`
+
+const ReviewSwiperStyle = styled(Swiper)`
+  position: relative;
+  width: 100%;
+  height: 100%;
+`
 
 const ReviewSlideStyle = styled(SwiperSlide)`
-  width: 282px;
   height: 222px;
+  width: 85%;
   background: #ffffff;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.08);
   border-radius: 12px;
