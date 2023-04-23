@@ -11,10 +11,11 @@ import Image from '@src/components/common/Image'
 import Inner from '@src/layout/Inner'
 import { useNavigate } from 'react-router-dom'
 import { useMediaQuery } from 'react-responsive'
-import Event from '@src/components/Mobile/Home/Event'
 import MSlideBanner from '@src/components/Home/mobile/MSlideBanner'
 import MCuration from '@src/components/Home/mobile/MCuration'
 import MTravelReview from '@src/components/Home/mobile/MTravelReview'
+import MTravelEvent from '@src/components/Home/mobile/MTravelEvent'
+import MBannerSection from '@src/components/Home/mobile/MBannerSection'
 
 function Home() {
   const isPC = useMediaQuery({
@@ -49,10 +50,9 @@ function Home() {
       </Helmet>
       <MSlideBanner />
       <MCuration />
-      {/* <Inner padding="0 28px" width="100%">
-        <Event />
-      </Inner> */}
+      <MBannerSection />
       <MTravelReview />
+      <MTravelEvent />
     </>
   )
 }

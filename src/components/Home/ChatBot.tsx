@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react'
 import styled, { css, keyframes } from 'styled-components'
 import { AiFillCloseCircle } from 'react-icons/ai'
 import { COLORS } from '@src/styles/root'
@@ -7,6 +7,7 @@ import GotogetherChatBox from './GotogetherChatBox'
 import Button from '../common/Button'
 import { FieldErrors, useForm, FieldValues } from 'react-hook-form'
 import Input from '../common/Input'
+import useOnClickOutside from '@src/hooks/useOnClickOutside'
 
 const typeAnsers = [
   {
@@ -33,7 +34,7 @@ const typeAnsers = [
   {
     id: 4,
     type: '여행추천',
-    message: '고객님 취향에 꼭 맞는 여행 추천을 위해 간단한큐레이션 후 상품을 추천드릴게요.',
+    message: '고객님 취향에 꼭 맞는 여행 추천을 위해 간단한\n큐레이션 후 상품을 추천드릴게요.',
     isButton: {
       message: '여행 큐레이션 받으러가기',
     },
@@ -42,17 +43,18 @@ const typeAnsers = [
     id: 5,
     type: '사무실위치',
     message:
-      '고투게더(더샤이니) 사무실 주소는 서울특별시 중구 청계천로40, 한국관광공사 서울센터 818호 입니다.',
+      '고투게더(더샤이니) 사무실 주소는\n서울특별시 중구 청계천로40, 한국관광공사\n서울센터 818호 입니다.',
   },
   {
     id: 6,
     type: '영업시간',
-    message: '고투게더(더샤이니) 영업시간은 09:00 ~ 18:00 입니다.',
+    message: '고투게더(더샤이니) 영업시간은\n09:00 ~ 18:00 입니다.',
   },
   {
     id: 7,
     type: '계좌번호',
-    message: '고투게더(더샤이니) 입금계좌번호는 KEB하나은행 267-910020-36604 (주)더샤이니 입니다.',
+    message:
+      '고투게더(더샤이니) 입금계좌번호는\nKEB하나은행 267-910020-36604\n(주)더샤이니 입니다.',
   },
 ]
 
@@ -77,6 +79,8 @@ interface IChatBot {
 const ChatBot = ({ isChatBotOpen, setIsChatBotOpen }: IChatBot) => {
   const [showNavigation, setShowNavigation] = useState<boolean>(false)
   const [isType, setIsType] = useState<string | null>(null)
+  const ref = useRef(null)
+  useOnClickOutside(ref, () => setIsChatBotOpen(false))
 
   const handleClick = (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
     const { innerText } = event.target as HTMLLIElement
@@ -116,7 +120,7 @@ const ChatBot = ({ isChatBotOpen, setIsChatBotOpen }: IChatBot) => {
   }
 
   return (
-    <ChatBotStyle isChatBotOpen={isChatBotOpen} showNavigation={showNavigation}>
+    <ChatBotStyle isChatBotOpen={isChatBotOpen} showNavigation={showNavigation} ref={ref}>
       <HeaderStyle>
         <span>고투게더 챗봇 서비스</span>
         <AiFillCloseCircle onClick={() => setIsChatBotOpen(false)} />
@@ -200,7 +204,7 @@ const ChatBotStyle = styled.div`
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
   border-radius: 8px;
   overflow: hidden;
-  z-index: 5;
+  z-index: 10;
   visibility: ${({
     showNavigation,
     isChatBotOpen,
