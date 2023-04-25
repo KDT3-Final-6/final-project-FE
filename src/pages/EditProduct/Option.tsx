@@ -3,6 +3,7 @@ import Button from '@src/components/common/Button'
 import { COLORS, FONTSIZE } from '@src/styles/root'
 import styled from 'styled-components'
 import { IProductDetail } from '@src/interfaces/product'
+import { MdOutlineCancel } from 'react-icons/md'
 
 interface Props {
   product: IProductDetail
@@ -53,15 +54,6 @@ const Option = ({ product }: Props) => {
                       </label>
                     </ColFlexStyle>
                   </div>
-                  <OptionBoxStyle>
-                    {product?.periodOptions.length > 0 &&
-                      product?.periodOptions.map((option) => (
-                        <div style={{ width: '450px' }} key={option.periodOptionId}>
-                          <span>{option.periodOptionName}</span>{' '}
-                          <span>출발일: {option.startDate}</span>
-                        </div>
-                      ))}
-                  </OptionBoxStyle>
                 </div>
               </OptionsStyle>
             </td>
@@ -77,6 +69,20 @@ const Option = ({ product }: Props) => {
                   최소 <input type="text" id="option-min" />
                 </label>
               </ThumbnailStyle>
+            </td>
+          </tr>
+          <tr>
+            <th>추가된 옵션</th>
+            <td>
+              <OptionBoxStyle>
+                {product?.periodOptions.length > 0 &&
+                  product?.periodOptions.map((option) => (
+                    <div key={option.periodOptionId}>
+                      <span>{option.periodOptionName}</span> <span>출발일: {option.startDate}</span>
+                      <MdOutlineCancel />
+                    </div>
+                  ))}
+              </OptionBoxStyle>
             </td>
           </tr>
         </tbody>
@@ -147,9 +153,14 @@ const OptionNameStyle = styled.div`
 const OptionBoxStyle = styled.div`
   display: flex;
   flex-direction: column;
-  color: ${COLORS.white};
+  gap: 5px;
   div {
-    background-color: ${COLORS.c090909};
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    svg {
+      margin: 0;
+    }
   }
 `
 const ColFlexStyle = styled.div`
