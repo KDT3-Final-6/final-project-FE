@@ -4,9 +4,11 @@ import SwiperCore, { Navigation } from 'swiper'
 interface Props {
   prevRef: React.RefObject<HTMLButtonElement>
   nextRef: React.RefObject<HTMLButtonElement>
+  slidesPerView: number
+  spaceBetween: number
 }
 
-const useSwiperSetting = ({ prevRef, nextRef }: Props) => {
+const useSwiperSetting = ({ prevRef, nextRef, slidesPerView, spaceBetween }: Props) => {
   const [swiperSetting, setSwiperSetting] = useState<any>(null)
   SwiperCore.use([Navigation])
   const settings = {
@@ -20,8 +22,8 @@ const useSwiperSetting = ({ prevRef, nextRef }: Props) => {
       }
       swiper.navigation.update()
     },
-    slidesPerView: 4,
-    spaceBetween: 10,
+    slidesPerView,
+    spaceBetween,
   }
 
   useEffect(() => {

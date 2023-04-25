@@ -17,6 +17,19 @@ export interface ISignup extends ILogin {
   memberEmailAgree: boolean
 }
 
+export interface ISingupData {
+  memberEmail: string
+  memberPassword: string
+  memberName: string
+  memberNickname: string
+  memberPhone: string
+  memberBirthDate: string
+  memberGender: string
+  memberHobby: string[]
+  memberSmsAgree: boolean
+  memberEmailAgree: boolean
+}
+
 export interface IUserInfo {
   memberEmail: string
   memberName: string
@@ -40,4 +53,30 @@ export interface IUserInfoEdit {
   memberHobby: string[]
   memberSmsAgree: boolean
   memberEmailAgree: boolean
+}
+
+export interface ILoginResponse {
+  data: {
+    memberName: string
+    roles: string[]
+    grantType: string
+    accessToken: string
+    refreshToken: string
+    refreshTokenExpirationTime: number
+  }
+}
+
+export const initUserInfo = {
+  memberEmail: '',
+  memberName: '',
+  memberNickName: '',
+  memberPhone: '',
+  memberBirthDate: '',
+  memberHobby: [],
+  memberSmsAgree: false,
+  memberEmailAgree: false,
+  memberGender: '',
+  memberGrade: '',
+  memberImage: '',
+  roles: [],
 }

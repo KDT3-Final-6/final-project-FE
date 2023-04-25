@@ -8,7 +8,6 @@ import { COLORS } from '@src/styles/root'
 import React, { useEffect, useRef, useState } from 'react'
 import { CheckStyle, FormAreaStyle, RadiosStyle } from '../SignUp'
 import { Helmet } from 'react-helmet'
-import { userInfo, userInfoEdit, userWithDrawal } from '@src/api/auth'
 import { useDispatch } from 'react-redux'
 import { setModal } from '@src/reduxStore/modalSlice'
 import { useNavigate } from 'react-router-dom'
@@ -16,15 +15,23 @@ import MESSAGES from '@src/constants/messages'
 import PATH from '@src/constants/pathConst'
 import { useForm } from 'react-hook-form'
 import { hideLoading, showLoading } from '@src/reduxStore/loadingSlice'
-import { IUserInfo, IUserInfoEdit } from '@src/interfaces/user'
+import { IUserInfoEdit } from '@src/interfaces/user'
 import { useCookies } from 'react-cookie'
+import {
+  useEditUserInfoMutation,
+  useGetUserInfoQuery,
+  useWithdrawUserMutation,
+} from '@src/reduxStore/api/userApiSlice'
 
 const InfoEdit = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const [userInfoData, setuserInfoData] = useState<IUserInfo>()
-  const [userGender, setUserGender] = useState<string>('Female')
   const [, , removeCookies] = useCookies()
+
+  const { data } = useGetUserInfoQuery()
+  const userInfoData = data
+  const [withdrawUser] = useWithdrawUserMutation()
+  const [editUserInfo] = useEditUserInfoMutation()
 
   const {
     register,
@@ -32,14 +39,6 @@ const InfoEdit = () => {
     watch,
     formState: { isSubmitting, errors, isDirty },
   } = useForm<IUserInfoEdit>()
-
-  useEffect(() => {
-    ;(async () => {
-      const response = await userInfo()
-      setuserInfoData(response)
-      setUserGender(response.memberGender)
-    })()
-  }, [])
 
   const hobbys = [
     { id: 'GOLF', labelName: '골프' },
@@ -61,7 +60,7 @@ const InfoEdit = () => {
         isOpen: true,
         text: MESSAGES.WITHDRAWAL.normal,
         onClickOK: async () => {
-          await userWithDrawal()
+          await withdrawUser(undefined)
           dispatch(
             setModal({
               isOpen: true,
@@ -93,14 +92,7 @@ const InfoEdit = () => {
   const onSubmit = async (data: IUserInfoEdit) => {
     try {
       dispatch(showLoading)
-      await userInfoEdit({
-        memberPassword: data.memberPassword,
-        memberNickname: data.memberNickname,
-        memberPhone: data.memberPhone,
-        memberHobby: data.memberHobby,
-        memberSmsAgree: data.memberSmsAgree,
-        memberEmailAgree: data.memberEmailAgree,
-      })
+      await editUserInfo(data)
       dispatch(
         setModal({
           isOpen: true,
@@ -230,7 +222,7 @@ const InfoEdit = () => {
                 id="Female"
                 labelName="여성"
                 name="gender"
-                isChecked={userGender === 'Female'}
+                isChecked={userInfoData?.memberGender === 'Female'}
                 isDisable={true}
               />
               <CheckItem
@@ -239,7 +231,7 @@ const InfoEdit = () => {
                 id="Male"
                 labelName="남성"
                 name="gender"
-                isChecked={userGender === 'Male'}
+                isChecked={userInfoData?.memberGender === 'Male'}
                 isDisable={true}
               />
             </RadiosStyle>

@@ -11,13 +11,13 @@ import { MdEditCalendar } from 'react-icons/md'
 import CurationSelectBtn from './CurationSelectBtn'
 import { useGetCurationListQuery } from '@src/reduxStore/api/curationApiSlice'
 
-interface CurationValue {
+export interface CurationValue {
   season: string | null
   district: string | null
   theme: string | null
 }
 
-const seasonOptions = [
+export const seasonOptions = [
   {
     id: 1,
     icon: '/images/icons/지금.png',
@@ -42,7 +42,7 @@ const seasonOptions = [
   },
 ]
 
-const countryOptions = [
+export const countryOptions = [
   {
     id: 1,
     icon: '/images/icons/동남아.png',
@@ -64,7 +64,7 @@ const countryOptions = [
   { id: 6, icon: '/images/icons/유럽.png', value: '유럽' },
 ]
 
-const themeOptions = [
+export const themeOptions = [
   {
     id: 1,
     icon: '/images/icons/wine.png',
@@ -111,15 +111,18 @@ const Curation = () => {
   const [isShow, setIsShow] = useState(false)
 
   const [curationValue, setCurationValue] = useState<CurationValue>({
-    season: seasonValue.value,
-    district: countryValue.value,
-    theme: themeValue.value,
+    season: null,
+    district: null,
+    theme: null,
   })
   const { season, district, theme } = curationValue
 
   const { data: curationList, isLoading } = useGetCurationListQuery(
     { season, district, theme, page },
-    { refetchOnMountOrArgChange: true }
+    {
+      refetchOnMountOrArgChange: true,
+      skip: season === null || district === null || theme === null,
+    }
   )
 
   if (isLoading) <>Loading</>
@@ -181,7 +184,12 @@ const Curation = () => {
           </CurationBoxStyle>
 
           <ButtonsStyle>
-            <Button buttonType="borderGray" color={COLORS.c1b1b1b} onClick={handleRefresh}>
+            <Button
+              buttonType="borderGray"
+              bgColor={COLORS.white}
+              color={COLORS.c1b1b1b}
+              onClick={handleRefresh}
+            >
               다른 여행 찾기
               <HiOutlineRefresh />
             </Button>

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { IUserInfo } from '@src/interfaces/user'
 
-const initialState: IUserInfo = {
+export const initialState: IUserInfo = {
   memberEmail: '',
   memberName: '',
   memberNickName: '',
@@ -10,7 +10,7 @@ const initialState: IUserInfo = {
   memberHobby: [],
   memberSmsAgree: false,
   memberEmailAgree: false,
-  memberGender:'',
+  memberGender: '',
   memberGrade: '',
   memberImage: '/images/nonUser.png',
   roles: [],

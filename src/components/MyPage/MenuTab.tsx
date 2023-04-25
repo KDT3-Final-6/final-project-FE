@@ -25,7 +25,7 @@ const MenuTab = ({ setActiveMenu, activeMenu }: Props) => {
       return setActiveMenu(3)
     } else if (pathName.includes(PATH.ONE_ON_ONE)) {
       return setActiveMenu(4)
-    } else if (pathName.includes(PATH.INFO_EDIT)) {
+    } else if (pathName.includes(PATH.CHECKPASSWORD) || pathName.includes(PATH.INFO_EDIT)) {
       return setActiveMenu(5)
     }
   }

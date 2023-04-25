@@ -1,16 +1,15 @@
 import { getCookie } from '@src/utils/cookie'
 import axios from 'axios'
-import { login } from './auth'
 
 const API_BASE_URL: string = import.meta.env.VITE_BASE_URL
 
 // const token = getCookie('accessToken')
-const axiosApi = (url: string, forData: boolean) => {
+const axiosApi = (url: string, formData: boolean) => {
   const token = getCookie('accessToken')
   const instance = axios.create({
     baseURL: url,
     headers: {
-      'Content-Type': forData ? 'multipart/form-data' : 'application/json',
+      'Content-Type': formData ? 'multipart/form-data' : 'application/json',
       Authorization: `Bearer ${token}`,
     },
   })
@@ -28,27 +27,27 @@ const axiosApi = (url: string, forData: boolean) => {
 
       const originalRequest = config
 
-      if (status === 403) {
-        const accessToken = getCookie('accessToken')
-        const refreshToken = getCookie('refreshToken')
+      // if (status === 403) {
+      //   const accessToken = getCookie('accessToken')
+      //   const refreshToken = getCookie('refreshToken')
 
-        try {
-          const response = await login({
-            token: { accessToken, refreshToken },
-          })
-          const newAccessToken = response.data.accessToken
-          const newRefreshToken = response.data.refreshToken
-          originalRequest.headers = {
-            'Content-Type': forData ? 'multipart/form-data' : 'application/json',
-            Authorization: `Bearer ${newAccessToken}`,
-          }
-          localStorage.setItem('accessToken', newAccessToken)
-          localStorage.setItem('refreshToken', newRefreshToken)
-          return await axios(originalRequest)
-        } catch (error: any) {
-          new Error(error)
-        }
-      }
+      //   try {
+      //     const response = await login({
+      //       token: { accessToken, refreshToken },
+      //     })
+      //     const newAccessToken = response.data.accessToken
+      //     const newRefreshToken = response.data.refreshToken
+      //     originalRequest.headers = {
+      //       'Content-Type': formData ? 'multipart/form-data' : 'application/json',
+      //       Authorization: `Bearer ${newAccessToken}`,
+      //     }
+      //     localStorage.setItem('accessToken', newAccessToken)
+      //     localStorage.setItem('refreshToken', newRefreshToken)
+      //     return await axios(originalRequest)
+      //   } catch (error: any) {
+      //     new Error(error)
+      //   }
+      // }
       return Promise.reject(error)
     }
   )

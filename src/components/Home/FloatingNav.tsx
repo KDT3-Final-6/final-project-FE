@@ -1,14 +1,17 @@
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import styled, { css, keyframes } from 'styled-components'
 import { BsChatDotsFill } from 'react-icons/bs'
 import { FaHeadset } from 'react-icons/fa'
 import ChatBot from './ChatBot'
+import useOnClickOutside from '@src/hooks/useOnClickOutside'
 
 const FloatingNav = () => {
   const [showNavigation, setShowNavigation] = useState(false)
   const [isShowNumber, setIsShowNumber] = useState(false)
   const [isChatBotOpen, setIsChatBotOpen] = useState(false)
+  const ref = useRef(null)
+  useOnClickOutside(ref, () => setIsShowNumber(false))
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,7 +44,7 @@ const FloatingNav = () => {
           <BsChatDotsFill />
           <span>채팅</span>
         </ChatBoxStyle>
-        <ConsultBoxStyle isShowNumber={isShowNumber} onClick={ShowNumber}>
+        <ConsultBoxStyle isShowNumber={isShowNumber} onClick={ShowNumber} ref={ref}>
           <ConsultEmojiStyle>
             <FaHeadset />
             <span>상담</span>
@@ -58,7 +61,7 @@ const FloatingNav = () => {
         </ConsultBoxStyle>
         <TopBtnStyle onClick={MoveToTop}>맨 위로</TopBtnStyle>
       </FloatingNavStyle>
-      <ChatBot isChatBotOpen={isChatBotOpen} />
+      <ChatBot isChatBotOpen={isChatBotOpen} setIsChatBotOpen={setIsChatBotOpen} />
     </>
   )
 }

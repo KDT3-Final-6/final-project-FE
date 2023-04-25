@@ -20,7 +20,7 @@ const PATH = {
   ONE_ON_ONE: 'oneonone',
   INFO_EDIT: 'infoedit',
   ADMIN: '/admin',
-  PRODUCTS_LIST: 'productsList',
+  PRODUCTS_LIST: '/admin/productsList',
   TRANSACTION_LIST: '/admin/transactionList',
   USER_LIST: '/admin/userlist',
   POST_LIST: '/admin/postlist',

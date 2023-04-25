@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import CardTypeItem from '@src/components/common/CardTypeItem'
 import styled from 'styled-components'
-import { COLORS, FONTSIZE } from '@src/styles/root'
-import { IProductContent } from '@src/interfaces/product'
+import { COLORS } from '@src/styles/root'
 import GroupTabs from './GroupTabs'
-import { getCategoryProducts } from '@src/api/product'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import useSwiperSetting from '@src/hooks/useSwiperSetting'
 import SlideButtons from '../common/SlideButtons'
@@ -12,9 +10,11 @@ import {
   useDeleteWishlistMutation,
   usePostWishlistMutation,
 } from '@src/reduxStore/api/wishlistApislice'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '@src/reduxStore/store'
+import { useDispatch } from 'react-redux'
 import { setModal } from '@src/reduxStore/modalSlice'
+import { useGetUserInfoQuery } from '@src/reduxStore/api/userApiSlice'
+import { useCookies } from 'react-cookie'
+import { useGetCategoryProductsQuery } from '@src/reduxStore/api/productsApiSlice'
 
 interface Props {
   title: string
@@ -23,17 +23,21 @@ interface Props {
 
 const ProductList = ({ title, labelName }: Props) => {
   const [group, setGroup] = useState('age5070')
-  const [products, setProducts] = useState<IProductContent[]>([])
 
-  const userInfo = useSelector((state: RootState) => state.userInfo)
   const dispatch = useDispatch()
   const [deleteWishlist] = useDeleteWishlistMutation()
   const [postWishlist] = usePostWishlistMutation()
 
+  const [cookies] = useCookies()
+  let accessToken = cookies.accessToken
+  const { data: userInfo } = useGetUserInfoQuery(undefined, {
+    skip: !accessToken,
+    refetchOnMountOrArgChange: true,
+  })
   const heartCheck = async (heart: boolean, productId: number) => {
-    if (userInfo.memberName && heart) {
+    if (userInfo?.memberName && heart) {
       await deleteWishlist(productId)
-    } else if (!heart && userInfo.memberName) {
+    } else if (!heart && userInfo?.memberName) {
       await postWishlist(productId)
     } else {
       dispatch(
@@ -53,18 +57,12 @@ const ProductList = ({ title, labelName }: Props) => {
     if (group.includes('anyone')) return '누구든지' as string
     return '5070끼리'
   }
-  const fetchData = async () => {
-    const data = await getCategoryProducts(groupName(group))
-    setProducts(data.content)
-  }
-
-  useEffect(() => {
-    fetchData()
-  }, [group])
+  const { data } = useGetCategoryProductsQuery({ keyword: groupName(group) })
+  const products = data ? data.content : []
 
   const prevRef = useRef(null)
   const nextRef = useRef(null)
-  const settings = useSwiperSetting({ prevRef, nextRef })
+  const settings = useSwiperSetting({ prevRef, nextRef, slidesPerView: 4, spaceBetween: 10 })
 
   return (
     <>
@@ -101,41 +99,4 @@ const SectionStyle = styled.div`
   align-items: center;
   padding: 60px 0 40px 0;
 `
-
-const SlidePrevStyle = styled.button`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: -40px;
-  z-index: 9;
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  font-size: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid ${COLORS.cF5F5F5};
-  color: ${COLORS.c4b4a4a};
-  background-color: rgba(255, 255, 255, 0.8);
-`
-
-const SlideNextStyle = styled.button`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: -40px;
-  z-index: 9;
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  font-size: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid ${COLORS.cF5F5F5};
-  color: ${COLORS.c4b4a4a};
-  background-color: rgba(255, 255, 255, 0.8);
-`
-
 export default ProductList

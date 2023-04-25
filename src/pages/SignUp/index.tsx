@@ -12,7 +12,6 @@ import SocialButtons from '@src/components/common/SocialButtons'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { hideLoading, showLoading } from '@src/reduxStore/loadingSlice'
-import { signup } from '@src/api/auth'
 import MESSAGES from '@src/constants/messages'
 import Modal from 'react-modal'
 import { setModal } from '@src/reduxStore/modalSlice'
@@ -20,6 +19,7 @@ import { useNavigate } from 'react-router-dom'
 import PATH from '@src/constants/pathConst'
 import { Helmet } from 'react-helmet'
 import { ISignup } from '@src/interfaces/user'
+import { useCreateUserMutation } from '@src/reduxStore/api/userApiSlice'
 
 const SignUp = () => {
   const dispatch = useDispatch()
@@ -40,6 +40,8 @@ const SignUp = () => {
     { id: 'CULTURE', labelName: '문화탐방' },
     { id: 'PILGRIMAGE', labelName: '성지순례' },
   ]
+
+  const [createUser] = useCreateUserMutation()
 
   const passwordRef = useRef<string | null>(null)
   passwordRef.current = watch('memberPassword')
@@ -82,7 +84,7 @@ const SignUp = () => {
   const onSubmit = async (data: ISignup) => {
     try {
       dispatch(showLoading())
-      const response = await signup({
+      const response = await createUser({
         memberEmail: data.memberEmail,
         memberPassword: data.memberPassword,
         memberName: data.memberName,
@@ -93,7 +95,7 @@ const SignUp = () => {
         memberHobby: data.memberHobby,
         memberSmsAgree: data.memberSmsAgree,
         memberEmailAgree: data.memberEmailAgree,
-      })
+      }).unwrap()
 
       if (response.data.includes('성공')) {
         dispatch(

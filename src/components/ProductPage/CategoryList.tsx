@@ -3,7 +3,7 @@ import Title from '../common/Title'
 import styled from 'styled-components'
 import CardTypeItem from '../common/CardTypeItem'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
-import { IProduct, IProductContent } from '@src/interfaces/product'
+import { IProductContent } from '@src/interfaces/product'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import useSwiperSetting from '@src/hooks/useSwiperSetting'
 import SlideButtons from '../common/SlideButtons'
@@ -11,9 +11,12 @@ import {
   useDeleteWishlistMutation,
   usePostWishlistMutation,
 } from '@src/reduxStore/api/wishlistApislice'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '@src/reduxStore/store'
+import { useDispatch } from 'react-redux'
 import { setModal } from '@src/reduxStore/modalSlice'
+import { useGetUserInfoQuery } from '@src/reduxStore/api/userApiSlice'
+import { useCookies } from 'react-cookie'
+import { initialState } from '@src/reduxStore/features/userInfoSlice'
+import { IUserInfo } from '@src/interfaces/user'
 
 interface Props {
   title: string
@@ -23,8 +26,14 @@ interface Props {
 const CategoryList = ({ title, products }: Props) => {
   const prevRef = useRef(null)
   const nextRef = useRef(null)
-  const settings = useSwiperSetting({ prevRef, nextRef })
-  const userInfo = useSelector((state: RootState) => state.userInfo)
+  const settings = useSwiperSetting({ prevRef, nextRef, slidesPerView: 4, spaceBetween: 10 })
+  const [cookies] = useCookies()
+  let accessToken = cookies.accessToken
+  const { data } = useGetUserInfoQuery(undefined, {
+    skip: !accessToken,
+    refetchOnMountOrArgChange: true,
+  })
+  const userInfo: IUserInfo = data ? data : initialState
   const [deleteWishlist] = useDeleteWishlistMutation()
   const [postWishlist] = usePostWishlistMutation()
   const dispatch = useDispatch()

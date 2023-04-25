@@ -5,6 +5,7 @@ import Slide from './Slide'
 import { COLORS, FONTSIZE, FONTWEGHT } from '@src/styles/root'
 import Image from '@src/components/common/Image'
 import { HashsStyle, HashStyle } from '@src/components/common/ProductCard'
+import Title from '@src/components/common/Title'
 
 // import required modules
 import { Navigation, FreeMode, Thumbs, EffectFade, Autoplay } from 'swiper'
@@ -13,7 +14,6 @@ import { Navigation, FreeMode, Thumbs, EffectFade, Autoplay } from 'swiper'
 import 'swiper/css' //basic
 import 'swiper/css/navigation'
 import 'swiper/css/effect-fade'
-import Title from '@src/components/common/Title'
 
 const DELEAY_TIME = 5000
 
@@ -69,7 +69,6 @@ const KVslider = () => {
       {/* Main Slider */}
       <MainSwiperStyle
         effect="fade"
-        // fadeEffect={{ crossFade: true }}
         loop={true}
         thumbs={{ swiper: thumbsSwiper }}
         allowTouchMove={false}

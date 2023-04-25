@@ -1,7 +1,6 @@
 import CardTypeItem from '@src/components/common/CardTypeItem'
 import { COLORS } from '@src/styles/root'
 import styled from 'styled-components'
-import CheckItem from '@src/components/common/CheckItem'
 import { IProductContent } from '@src/interfaces/product'
 import { useState, useEffect, useRef } from 'react'
 import { getRelatedProducts } from '@src/api/product'
@@ -25,7 +24,7 @@ const RelatedProduct = ({ productId }: Props) => {
 
   const prevRef = useRef(null)
   const nextRef = useRef(null)
-  const settings = useSwiperSetting({ prevRef, nextRef })
+  const settings = useSwiperSetting({ prevRef, nextRef, slidesPerView: 4, spaceBetween: 10 })
   return (
     <div style={{ position: 'relative' }}>
       <SlideButtons direction="left" ref={prevRef} />
