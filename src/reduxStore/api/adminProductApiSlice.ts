@@ -20,8 +20,41 @@ export const adminProductApi = createApi({
       }),
       invalidatesTags: [{ type: 'AdminProduct', id: 'Admin-Product-LIST' }],
     }),
+    getAdminProductDetail: builder.query({
+      query: ({ productId }) => `${API_URL.products}/${productId}`,
+    }),
+    editAdminProductDetail: builder.mutation({
+      query: ({ productId, productData }) => ({
+        url: API_URL.admin_products + `/${productId}`,
+        method: 'PATCH',
+        body: productData,
+      }),
+    }),
+    addProductOption: builder.mutation({
+      query: ({ productId, productData }) => ({
+        url: API_URL.admin_products + '/periods',
+        method: 'POST',
+        body: {
+          productId,
+          options: [...productData],
+        },
+      }),
+    }),
+    deleteProductOption: builder.mutation({
+      query: (periodOptionId) => ({
+        url: API_URL.admin_products + `/periods/${periodOptionId}`,
+        method: 'DELETE',
+      }),
+    }),
   }),
 })
 
 // API 엔드포인트의 각 함수를 추출
-export const { useGetAdminProductListQuery, useDeleteAdminProductMutation } = adminProductApi
+export const {
+  useGetAdminProductListQuery,
+  useDeleteAdminProductMutation,
+  useGetAdminProductDetailQuery,
+  useEditAdminProductDetailMutation,
+  useAddProductOptionMutation,
+  useDeleteProductOptionMutation,
+} = adminProductApi

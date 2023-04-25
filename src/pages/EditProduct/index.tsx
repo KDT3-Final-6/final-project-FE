@@ -5,21 +5,15 @@ import ProductForm from '@src/components/Admin/ProductForm'
 import styled from 'styled-components'
 import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import { IProductDetail, initProductDetail } from '@src/interfaces/product'
-import { getAdminProductDetail } from '@src/api/product'
 import Option from './Option'
+import { useGetAdminProductDetailQuery } from '@src/reduxStore/api/adminProductApiSlice'
 
 const index = () => {
-  const [productDetail, setProductDetail] = useState<IProductDetail>(initProductDetail)
   const { pathname } = useLocation()
   const productId = Number(pathname.slice(19))
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getAdminProductDetail(productId)
-      setProductDetail(data)
-    }
-    fetchData()
-  }, [])
+
+  const { data: productDetail } = useGetAdminProductDetailQuery({ productId })
+
   return (
     <ContainerStyle>
       <Inner>
