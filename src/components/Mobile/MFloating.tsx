@@ -65,6 +65,7 @@ const MFloating = (props: Props) => {
 }
 
 const FloatingStyle = styled.div`
+  min-width: 480px;
   position: fixed;
   display: flex;
   justify-content: center;
@@ -106,6 +107,7 @@ const CloseButtonStyle = styled.div`
 `
 
 const ConsultStyle = styled.div`
+  min-width: 480px;
   width: 100%;
   height: 60px;
   position: absolute;
