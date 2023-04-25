@@ -64,12 +64,6 @@ export const getWishlist = async (page: number = 1) =>
 
 /** 관리자 api */
 
-/** 관리자 상품 상세 데이터 */
-export const getAdminProductDetail = async (id: number) => {
-  const data: IProductDetail = await axiosInstance.get(`${API_URL.products}/${id}`)
-  return data
-}
-
 /** 관리자 상품 추가 */
 export const postAddProduct = async (productData: any) => {
   const response = await axiosFormDataInstance.post(API_URL.admin_products, productData)
@@ -80,20 +74,4 @@ export const postAddProduct = async (productData: any) => {
 export const getCategory = async () => {
   const data: IproductCategories[] = await axiosInstance.get(API_URL.admin_categories)
   return data
-}
-
-/** 관리자 상품 수정하기 */
-export const editProduct = async (productId: number, productData: any) => {
-  const response = await axiosFormDataInstance.patch(
-    API_URL.admin_products + `/${productId}`,
-    productData
-  )
-}
-
-/** 상품 옵션 추가하기 */
-export const addProductOption = async (productId: number, productData: any) => {
-  const response = await axiosInstance.post(API_URL.admin_products + '/periods', {
-    productId,
-    options: [...productData],
-  })
 }

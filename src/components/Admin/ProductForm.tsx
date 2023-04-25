@@ -7,13 +7,14 @@ import Button from '@src/components/common/Button'
 import { useForm, FieldValues } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { editProduct, getCategory, postAddProduct } from '@src/api/product'
+import { getCategory, postAddProduct } from '@src/api/product'
 import { IproductCategories } from '@src/interfaces/product'
 import { ErrorMessage } from '@src/components/common/InputItem'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { setModal } from '@src/reduxStore/modalSlice'
 import { useDispatch } from 'react-redux'
 import { IProductDetail } from '@src/interfaces/product'
+import { useEditAdminProductDetailMutation } from '@src/reduxStore/api/adminProductApiSlice'
 
 interface Props {
   product?: IProductDetail
@@ -37,7 +38,7 @@ const ProductForm = ({ product, productId }: Props) => {
   const [categories, setCategories] = useState<IproductCategories[]>([])
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { pathname } = useLocation()
+  const [editAdminProductDetail] = useEditAdminProductDetailMutation()
 
   const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -152,7 +153,7 @@ const ProductForm = ({ product, productId }: Props) => {
     formData.append('thumbnail', thumbnail[0])
     imageArray(images)
     if (product) {
-      await editProduct(productId!, formData)
+      await editAdminProductDetail({ productId, productData: formData })
       dispatch(
         setModal({
           isOpen: true,
@@ -406,7 +407,7 @@ const ProductForm = ({ product, productId }: Props) => {
       </ProductTableStyle>
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <Button margin="20px 0" buttonType="cartSkyBlue" type="submit">
-          상품 추가
+          {product ? '상품 수정' : '상품 추가'}
         </Button>
       </div>
     </form>

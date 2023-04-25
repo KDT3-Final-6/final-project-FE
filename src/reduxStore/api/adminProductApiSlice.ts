@@ -23,6 +23,29 @@ export const adminProductApi = createApi({
     getAdminProductDetail: builder.query({
       query: ({ productId }) => `${API_URL.products}/${productId}`,
     }),
+    editAdminProductDetail: builder.mutation({
+      query: ({ productId, productData }) => ({
+        url: API_URL.admin_products + `/${productId}`,
+        method: 'PATCH',
+        body: productData,
+      }),
+    }),
+    addProductOption: builder.mutation({
+      query: ({ productId, productData }) => ({
+        url: API_URL.admin_products + '/periods',
+        method: 'POST',
+        body: {
+          productId,
+          options: [...productData],
+        },
+      }),
+    }),
+    deleteProductOption: builder.mutation({
+      query: (periodOptionId) => ({
+        url: API_URL.admin_products + `/periods/${periodOptionId}`,
+        method: 'DELETE',
+      }),
+    }),
   }),
 })
 
@@ -31,4 +54,7 @@ export const {
   useGetAdminProductListQuery,
   useDeleteAdminProductMutation,
   useGetAdminProductDetailQuery,
+  useEditAdminProductDetailMutation,
+  useAddProductOptionMutation,
+  useDeleteProductOptionMutation,
 } = adminProductApi
