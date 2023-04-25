@@ -10,7 +10,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { editProduct, getCategory, postAddProduct } from '@src/api/product'
 import { IproductCategories } from '@src/interfaces/product'
 import { ErrorMessage } from '@src/components/common/InputItem'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { setModal } from '@src/reduxStore/modalSlice'
 import { useDispatch } from 'react-redux'
 import { IProductDetail } from '@src/interfaces/product'
@@ -37,6 +37,7 @@ const ProductForm = ({ product, productId }: Props) => {
   const [categories, setCategories] = useState<IproductCategories[]>([])
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const { pathname } = useLocation()
 
   const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -76,7 +77,6 @@ const ProductForm = ({ product, productId }: Props) => {
       const data = await getCategory()
       setCategories(data)
     }
-    product && setAttachment(product?.productThumbnail!)
     fetchData()
   }, [])
 
@@ -175,6 +175,7 @@ const ProductForm = ({ product, productId }: Props) => {
       )
     }
   }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <ProductTableStyle>
@@ -194,50 +195,54 @@ const ProductForm = ({ product, productId }: Props) => {
               {errors.productName && <ErrorMessage>{errors.productName.message}</ErrorMessage>}
             </td>
           </tr>
-          <tr>
-            <th scope="row">상품 썸네일 등록</th>
-            <td colSpan={6}>
-              <ThumbnailStyle>
-                <input
-                  type="file"
-                  accept="image/gif,image/jpeg,image/png,image/jpg"
-                  id="thumbnail"
-                  {...register('thumbnail', { onChange: onFileChange })}
-                />
-                <label htmlFor="thumbnail">+</label>
-                {errors.thumbnail && <ErrorMessage>{errors.thumbnail.message}</ErrorMessage>}
-                {attachment && (
-                  <Image bgImage={attachment} width="251px" height="199px">
-                    <button onClick={() => setAttachment('')}>
-                      <IoIosCloseCircle size="30" color="gray" />
-                    </button>
-                  </Image>
-                )}
-              </ThumbnailStyle>
-            </td>
-          </tr>
-          <tr>
-            <th>상품 상세 이미지 등록</th>
-            <td colSpan={6}>
-              <ThumbnailStyle>
-                <input
-                  type="file"
-                  multiple
-                  accept="image/gif,image/jpeg,image/png,image/jpg"
-                  id="images"
-                  {...register('images', { onChange: multifilePreview })}
-                />
-                <label htmlFor="images">+</label>
-                {errors.images && <ErrorMessage>{errors.images.message}</ErrorMessage>}
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-                  {detailAttachment &&
-                    detailAttachment.map((imageUrl, index) => (
-                      <Image bgImage={imageUrl} width="150px" height="199px" key={index} />
-                    ))}
-                </div>
-              </ThumbnailStyle>
-            </td>
-          </tr>
+          {!product && (
+            <>
+              <tr>
+                <th scope="row">상품 썸네일 등록</th>
+                <td colSpan={6}>
+                  <ThumbnailStyle>
+                    <input
+                      type="file"
+                      accept="image/gif,image/jpeg,image/png,image/jpg"
+                      id="thumbnail"
+                      {...register('thumbnail', { onChange: onFileChange })}
+                    />
+                    <label htmlFor="thumbnail">+</label>
+                    {errors.thumbnail && <ErrorMessage>{errors.thumbnail.message}</ErrorMessage>}
+                    {attachment && (
+                      <Image bgImage={attachment} width="251px" height="199px">
+                        <button onClick={() => setAttachment('')}>
+                          <IoIosCloseCircle size="30" color="gray" />
+                        </button>
+                      </Image>
+                    )}
+                  </ThumbnailStyle>
+                </td>
+              </tr>
+              <tr>
+                <th>상품 상세 이미지 등록</th>
+                <td colSpan={6}>
+                  <ThumbnailStyle>
+                    <input
+                      type="file"
+                      multiple
+                      accept="image/gif,image/jpeg,image/png,image/jpg"
+                      id="images"
+                      {...register('images', { onChange: multifilePreview })}
+                    />
+                    <label htmlFor="images">+</label>
+                    {errors.images && <ErrorMessage>{errors.images.message}</ErrorMessage>}
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                      {detailAttachment &&
+                        detailAttachment.map((imageUrl, index) => (
+                          <Image bgImage={imageUrl} width="150px" height="199px" key={index} />
+                        ))}
+                    </div>
+                  </ThumbnailStyle>
+                </td>
+              </tr>
+            </>
+          )}
           <tr>
             <th scope="row" colSpan={7}>
               상품 카테고리
@@ -254,6 +259,11 @@ const ProductForm = ({ product, productId }: Props) => {
                       id={String(group.categoryId)}
                       {...register('categories')}
                       value={group.categoryId}
+                      checked={
+                        product?.productCategories[0]?.children?.categoryName === group.categoryName
+                          ? true
+                          : false
+                      }
                     />
                     <label htmlFor={String(group.categoryId)}>{group.categoryName}</label>
                   </CategoryInputStyle>
@@ -272,6 +282,11 @@ const ProductForm = ({ product, productId }: Props) => {
                       id={String(theme.categoryId)}
                       {...register('categories')}
                       value={theme.categoryId}
+                      checked={
+                        product?.productCategories[2]?.children?.categoryName === theme.categoryName
+                          ? true
+                          : false
+                      }
                     />
                     <label htmlFor={String(theme.categoryId)}>{theme.categoryName}</label>
                   </CategoryInputStyle>
@@ -289,6 +304,12 @@ const ProductForm = ({ product, productId }: Props) => {
                     id={String(district.categoryId)}
                     {...register('categories')}
                     value={district.categoryId}
+                    checked={
+                      product?.productCategories[1]?.children?.categoryName ===
+                      district.categoryName
+                        ? true
+                        : false
+                    }
                   />
                   <label htmlFor={String(district.categoryId)}>{district.categoryName}</label>
                   <ColFlexStyle>
@@ -299,6 +320,12 @@ const ProductForm = ({ product, productId }: Props) => {
                           id={String(country.categoryId)}
                           {...register('categories')}
                           value={country.categoryId}
+                          checked={
+                            product?.productCategories[1]?.children?.children?.categoryName ===
+                            country.categoryName
+                              ? true
+                              : false
+                          }
                         />
                         <label htmlFor={String(country.categoryId)}>{country.categoryName}</label>
                       </CategoryInputStyle>

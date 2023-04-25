@@ -37,7 +37,7 @@ export interface IProductDetail {
 export interface IproductCategories {
   categoryId: number
   categoryName: string
-  children: null | IproductCategories[]
+  children: null | (IproductCategories & IproductCategories[])
 }
 
 export interface IProductOption {

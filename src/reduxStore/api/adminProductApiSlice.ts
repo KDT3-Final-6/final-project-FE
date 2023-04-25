@@ -20,8 +20,15 @@ export const adminProductApi = createApi({
       }),
       invalidatesTags: [{ type: 'AdminProduct', id: 'Admin-Product-LIST' }],
     }),
+    getAdminProductDetail: builder.query({
+      query: ({ productId }) => `${API_URL.products}/${productId}`,
+    }),
   }),
 })
 
 // API 엔드포인트의 각 함수를 추출
-export const { useGetAdminProductListQuery, useDeleteAdminProductMutation } = adminProductApi
+export const {
+  useGetAdminProductListQuery,
+  useDeleteAdminProductMutation,
+  useGetAdminProductDetailQuery,
+} = adminProductApi
