@@ -4,12 +4,29 @@ import { COLORS, FONTSIZE } from '@src/styles/root'
 import styled from 'styled-components'
 import { IProductDetail } from '@src/interfaces/product'
 import { MdOutlineCancel } from 'react-icons/md'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 
 interface Props {
   product: IProductDetail
 }
 
 const Option = ({ product }: Props) => {
+  const schema = yup.object().shape({
+    optionName: yup
+      .string()
+      .min(5, '다섯 글자 이상 작성해 주세요.')
+      .required('옵션 이름을 입력해 주세요.'),
+    periodString: yup.number(),
+  })
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) })
+
   return (
     <form>
       <ProductTableStyle>
@@ -18,45 +35,60 @@ const Option = ({ product }: Props) => {
         </colgroup>
         <tbody>
           <tr>
-            <th>옵션</th>
+            <th>옵션 이름</th>
             <td colSpan={6}>
-              <OptionsStyle>
-                <OptionNameStyle>
-                  <label htmlFor="option-name">옵션명</label>
-                  <input type="text" id="option-name" />
-                </OptionNameStyle>
-                <div style={{ display: 'flex', gap: '10px' }}>
-                  <ColFlexStyle>
-                    <label htmlFor="">
-                      출발 날짜 <input type="text" placeholder="YYYY.MM.DD" />
-                    </label>
-                    <label htmlFor="">
-                      출발 시간{' '}
-                      <select name="" id="">
-                        <option value="am">AM</option>
-                        <option value="pm">PM</option>
-                      </select>{' '}
-                      <input type="text" />
-                    </label>
-                  </ColFlexStyle>
+              <input
+                type="text"
+                placeholder="옵션 이름을 입력해 주세요."
+                {...register('optionName')}
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>여행 기간</th>
+            <TravelDateStyle>
+              <div>
+                <span>출발</span>
+                <input type="text" placeholder="YYYY/MM/DD" />
+              </div>
+              <div>
+                <span>도착</span>
+                <input type="text" placeholder="YYYY/MM/DD" />
+              </div>
+            </TravelDateStyle>
+          </tr>
+          <tr>
+            <th>항공 정보</th>
+            <TravelDateStyle>
+              <TravelStartStyle>
+                <span>출발</span>
+                <div>
+                  <span>항공사</span>
+                  <input type="text" placeholder="항공사 이름 입력해 주세요." />
                   <div>
-                    <ColFlexStyle>
-                      <label htmlFor="">
-                        도착 날짜 <input type="text" placeholder="YYYY.MM.DD" />
-                      </label>
-                      <label htmlFor="">
-                        도착 시간{' '}
-                        <select name="" id="">
-                          <option value="am">AM</option>
-                          <option value="pm">PM</option>
-                        </select>{' '}
-                        <input type="text" />
-                      </label>
-                    </ColFlexStyle>
+                    <span>비행 시간</span>
+                    <div>
+                      <input type="text" placeholder="00:00" />
+                      ~ <input type="text" placeholder="00:00" />
+                    </div>
                   </div>
                 </div>
-              </OptionsStyle>
-            </td>
+              </TravelStartStyle>
+              <TravelStartStyle>
+                <span>도착</span>
+                <div>
+                  <span>항공사</span>
+                  <input type="text" placeholder="항공사 이름 입력해 주세요." />
+                  <div>
+                    <span>비행 시간</span>
+                    <div>
+                      <input type="text" placeholder="00:00" />
+                      ~ <input type="text" placeholder="00:00" />
+                    </div>
+                  </div>
+                </div>
+              </TravelStartStyle>
+            </TravelDateStyle>
           </tr>
           <tr>
             <th>최소/최대 옵션 선택양</th>
@@ -89,7 +121,7 @@ const Option = ({ product }: Props) => {
       </ProductTableStyle>
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <Button margin="20px 0" buttonType="cartSkyBlue">
-          옵션 추가 및 수정
+          옵션 추가
         </Button>
       </div>
     </form>
@@ -131,23 +163,10 @@ const ProductTableStyle = styled.table`
     }
   }
 `
-const OptionsStyle = styled.div`
-  display: flex;
-  flex-direction: column;
-`
 
 const ThumbnailStyle = styled.div`
   display: flex;
   gap: 10px;
-`
-
-const OptionNameStyle = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  input {
-    width: 300px;
-  }
 `
 
 const OptionBoxStyle = styled.div`
@@ -163,9 +182,30 @@ const OptionBoxStyle = styled.div`
     }
   }
 `
-const ColFlexStyle = styled.div`
+
+const TravelDateStyle = styled.td`
   display: flex;
-  flex-direction: column;
-  gap: 5px;
+  gap: 10px;
+`
+
+const TravelStartStyle = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  > div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    > div {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      > div {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+    }
+  }
 `
 export default Option
