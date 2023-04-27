@@ -22,6 +22,7 @@ export const adminProductApi = createApi({
     }),
     getAdminProductDetail: builder.query({
       query: ({ productId }) => `${API_URL.products}/${productId}`,
+      providesTags: [{ type: 'AdminProduct', id: 'Admin-Product-LIST' }],
     }),
     editAdminProductDetail: builder.mutation({
       query: ({ productId, productData }) => ({
@@ -29,6 +30,7 @@ export const adminProductApi = createApi({
         method: 'PATCH',
         body: productData,
       }),
+      invalidatesTags: [{ type: 'AdminProduct', id: 'Admin-Product-LIST' }],
     }),
     addProductOption: builder.mutation({
       query: ({ productId, productData }) => ({
@@ -39,12 +41,14 @@ export const adminProductApi = createApi({
           options: [...productData],
         },
       }),
+      invalidatesTags: [{ type: 'AdminProduct', id: 'Admin-Product-LIST' }],
     }),
     deleteProductOption: builder.mutation({
       query: (periodOptionId) => ({
         url: API_URL.admin_products + `/periods/${periodOptionId}`,
         method: 'DELETE',
       }),
+      invalidatesTags: [{ type: 'AdminProduct', id: 'Admin-Product-LIST' }],
     }),
   }),
 })

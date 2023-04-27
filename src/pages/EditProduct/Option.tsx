@@ -4,21 +4,35 @@ import { COLORS, FONTSIZE } from '@src/styles/root'
 import styled from 'styled-components'
 import { IProductDetail } from '@src/interfaces/product'
 import { MdOutlineCancel } from 'react-icons/md'
-import { useForm } from 'react-hook-form'
+import { useForm, FieldValues } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
+import { useDeleteProductOptionMutation } from '@src/reduxStore/api/adminProductApiSlice'
+import { useDispatch } from 'react-redux'
+import { setModal } from '@src/reduxStore/modalSlice'
+import { useNavigate } from 'react-router-dom'
 
 interface Props {
   product: IProductDetail
 }
 
 const Option = ({ product }: Props) => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
   const schema = yup.object().shape({
-    optionName: yup
-      .string()
-      .min(5, '다섯 글자 이상 작성해 주세요.')
-      .required('옵션 이름을 입력해 주세요.'),
-    periodString: yup.number(),
+    optionName: yup.string().min(5, '다섯 글자 이상 작성해 주세요.'),
+    // .required('옵션 이름을 입력해 주세요.'),
+    startDate: yup.string(),
+    endDate: yup.string(),
+    startAirline: yup.string(),
+    startAirlineTime1: yup.string(),
+    startAirlineTime2: yup.string(),
+    endAirline: yup.string(),
+    endAirlineTime1: yup.string(),
+    endAirlineTime2: yup.string(),
+    maximumQuantity: yup.number(),
+    minimumQuantity: yup.number(),
   })
 
   const {
@@ -27,8 +41,33 @@ const Option = ({ product }: Props) => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) })
 
+  const onSubmit = async (data: FieldValues) => {
+    console.log(data)
+  }
+
+  const [deleteOption] = useDeleteProductOptionMutation()
+  const deleteHandler = (optionId: number) => {
+    dispatch(
+      setModal({
+        isOpen: true,
+        text: '옵션을 삭제하시겠습니까?',
+        onClickOK: () => {
+          deleteOption(optionId)
+          dispatch(
+            setModal({
+              isOpen: false,
+            })
+          )
+        },
+        onClickCancel: () => {
+          dispatch(setModal({ isOpen: false }))
+        },
+      })
+    )
+  }
+
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <ProductTableStyle>
         <colgroup>
           <col width="20%" />
@@ -49,11 +88,11 @@ const Option = ({ product }: Props) => {
             <TravelDateStyle>
               <div>
                 <span>출발</span>
-                <input type="text" placeholder="YYYY/MM/DD" />
+                <input type="text" placeholder="YYYY/MM/DD" {...register('startDate')} />
               </div>
               <div>
                 <span>도착</span>
-                <input type="text" placeholder="YYYY/MM/DD" />
+                <input type="text" placeholder="YYYY/MM/DD" {...register('endDate')} />
               </div>
             </TravelDateStyle>
           </tr>
@@ -64,12 +103,16 @@ const Option = ({ product }: Props) => {
                 <span>출발</span>
                 <div>
                   <span>항공사</span>
-                  <input type="text" placeholder="항공사 이름 입력해 주세요." />
+                  <input
+                    type="text"
+                    placeholder="항공사 이름 입력해 주세요."
+                    {...register('startAirline')}
+                  />
                   <div>
                     <span>비행 시간</span>
                     <div>
-                      <input type="text" placeholder="00:00" />
-                      ~ <input type="text" placeholder="00:00" />
+                      <input type="text" placeholder="00:00" {...register('startAirlineTime1')} />
+                      ~ <input type="text" placeholder="00:00" {...register('startAirlineTime2')} />
                     </div>
                   </div>
                 </div>
@@ -78,12 +121,16 @@ const Option = ({ product }: Props) => {
                 <span>도착</span>
                 <div>
                   <span>항공사</span>
-                  <input type="text" placeholder="항공사 이름 입력해 주세요." />
+                  <input
+                    type="text"
+                    placeholder="항공사 이름 입력해 주세요."
+                    {...register('endAirline')}
+                  />
                   <div>
                     <span>비행 시간</span>
                     <div>
-                      <input type="text" placeholder="00:00" />
-                      ~ <input type="text" placeholder="00:00" />
+                      <input type="text" placeholder="00:00" {...register('endAirlineTime1')} />
+                      ~ <input type="text" placeholder="00:00" {...register('endAirlineTime2')} />
                     </div>
                   </div>
                 </div>
@@ -95,10 +142,10 @@ const Option = ({ product }: Props) => {
             <td colSpan={6}>
               <ThumbnailStyle>
                 <label htmlFor="option-max">
-                  최대 <input type="text" id="option-max" />
+                  최대 <input type="text" id="option-max" {...register('maximumQuantity')} />
                 </label>
                 <label htmlFor="option-min">
-                  최소 <input type="text" id="option-min" />
+                  최소 <input type="text" id="option-min" {...register('minimumQuantity')} />
                 </label>
               </ThumbnailStyle>
             </td>
@@ -111,7 +158,10 @@ const Option = ({ product }: Props) => {
                   product?.periodOptions.map((option) => (
                     <div key={option.periodOptionId}>
                       <span>{option.periodOptionName}</span> <span>출발일: {option.startDate}</span>
-                      <MdOutlineCancel />
+                      <MdOutlineCancel
+                        onClick={() => deleteHandler(option.periodOptionId)}
+                        style={{ cursor: 'pointer' }}
+                      />
                     </div>
                   ))}
               </OptionBoxStyle>
@@ -120,7 +170,7 @@ const Option = ({ product }: Props) => {
         </tbody>
       </ProductTableStyle>
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <Button margin="20px 0" buttonType="cartSkyBlue">
+        <Button margin="20px 0" buttonType="cartSkyBlue" type="submit">
           옵션 추가
         </Button>
       </div>
