@@ -7,42 +7,119 @@ import { MdOutlineCancel } from 'react-icons/md'
 import { useForm, FieldValues } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
-import { useDeleteProductOptionMutation } from '@src/reduxStore/api/adminProductApiSlice'
+import {
+  useDeleteProductOptionMutation,
+  useAddProductOptionMutation,
+} from '@src/reduxStore/api/adminProductApiSlice'
 import { useDispatch } from 'react-redux'
 import { setModal } from '@src/reduxStore/modalSlice'
-import { useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
+import { ErrorMessage } from '@src/components/common/InputItem'
 
 interface Props {
   product: IProductDetail
 }
 
+interface IFormType {
+  optionName: string
+  startDate: string
+  endDate: string
+  startAirline: string
+  startAirlineTime1: string
+  startAirlineTime2: string
+  endAirline: string
+  endAirlineTime1: string
+  endAirlineTime2: string
+  maximumQuantity: number
+  minmumQuantity: number
+}
+
 const Option = ({ product }: Props) => {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const { pathname } = useLocation()
+  const productId = Number(pathname.slice(19))
 
   const schema = yup.object().shape({
-    optionName: yup.string().min(5, '다섯 글자 이상 작성해 주세요.'),
-    // .required('옵션 이름을 입력해 주세요.'),
-    startDate: yup.string(),
-    endDate: yup.string(),
-    startAirline: yup.string(),
-    startAirlineTime1: yup.string(),
-    startAirlineTime2: yup.string(),
-    endAirline: yup.string(),
-    endAirlineTime1: yup.string(),
-    endAirlineTime2: yup.string(),
-    maximumQuantity: yup.number(),
-    minimumQuantity: yup.number(),
+    optionName: yup
+      .string()
+      .min(5, '다섯 글자 이상 작성해 주세요.')
+      .required('옵션 이름을 입력해 주세요.'),
+    startDate: yup
+      .string()
+      .matches(/^\d{4}\/\d{2}\/\d{2}$/, 'YYYY/MM/DD 형식으로 입력해 주세요.')
+      .required('날짜를 입력해 주세요.'),
+    endDate: yup
+      .string()
+      .matches(/^\d{4}\/\d{2}\/\d{2}$/, 'YYYY/MM/DD 형식으로 입력해 주세요.')
+      .required('날짜를 입력해 주세요.'),
+    startAirline: yup
+      .string()
+      .min(2, '항공사 이름을 정확히 입력해 주세요.')
+      .required('항공사 이름을 정확히 입력해 주세요.'),
+    startAirlineTime1: yup
+      .string()
+      .matches(/^\d{2}:\d{2}/, '00:00 형식으로 입력해 주세요.')
+      .required('시간을 입력해 주세요.'),
+    startAirlineTime2: yup
+      .string()
+      .matches(/^\d{2}:\d{2}/, '00:00 형식으로 입력해 주세요.')
+      .required('시간을 입력해 주세요.'),
+    endAirline: yup
+      .string()
+      .min(2, '항공사 이름을 정확히 입력해 주세요.')
+      .required('항공사 이름을 정확히 입력해 주세요.'),
+    endAirlineTime1: yup
+      .string()
+      .matches(/^\d{2}:\d{2}/, '00:00 형식으로 입력해 주세요.')
+      .required('시간을 입력해 주세요.'),
+    endAirlineTime2: yup
+      .string()
+      .matches(/^\d{2}:\d{2}/, '00:00 형식으로 입력해 주세요.')
+      .required('시간을 입력해 주세요.'),
+    maximumQuantity: yup
+      .number()
+      .typeError('숫자만 입력해 주세요.')
+      .required('수량을 입력해 주세요.'),
+    minmumQuantity: yup
+      .number()
+      .typeError('숫자만 입력해 주세요.')
+      .required('수량을 입력해 주세요.'),
   })
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(schema) })
+  } = useForm<IFormType>({ resolver: yupResolver(schema) })
+
+  const [addOption] = useAddProductOptionMutation()
 
   const onSubmit = async (data: FieldValues) => {
-    console.log(data)
+    const {
+      optionName,
+      startDate,
+      endDate,
+      startAirline,
+      startAirlineTime1,
+      startAirlineTime2,
+      endAirline,
+      endAirlineTime1,
+      endAirlineTime2,
+      maximumQuantity,
+      minmumQuantity,
+    } = data
+    const productData = {
+      optionName,
+      periodString: `${startDate} 출발 ${endDate} 도착`,
+      startDetail: `${startAirlineTime1} ~ ${startAirlineTime2}`,
+      endDetail: `${endAirlineTime1} ~ ${endAirlineTime2}`,
+      startAirline,
+      endAirline,
+      maximumQuantity,
+      minmumQuantity,
+      periodOptionStatus: '판매중',
+    }
+    addOption({ productId, productData })
   }
 
   const [deleteOption] = useDeleteProductOptionMutation()
@@ -81,6 +158,7 @@ const Option = ({ product }: Props) => {
                 placeholder="옵션 이름을 입력해 주세요."
                 {...register('optionName')}
               />
+              {errors.optionName && <ErrorMessage>{errors.optionName.message}</ErrorMessage>}
             </td>
           </tr>
           <tr>
@@ -89,10 +167,12 @@ const Option = ({ product }: Props) => {
               <div>
                 <span>출발</span>
                 <input type="text" placeholder="YYYY/MM/DD" {...register('startDate')} />
+                {errors.startDate && <ErrorMessage>{errors.startDate.message}</ErrorMessage>}
               </div>
               <div>
                 <span>도착</span>
                 <input type="text" placeholder="YYYY/MM/DD" {...register('endDate')} />
+                {errors.endDate && <ErrorMessage>{errors.endDate.message}</ErrorMessage>}
               </div>
             </TravelDateStyle>
           </tr>
@@ -108,12 +188,21 @@ const Option = ({ product }: Props) => {
                     placeholder="항공사 이름 입력해 주세요."
                     {...register('startAirline')}
                   />
+                  {errors.startAirline && (
+                    <ErrorMessage>{errors.startAirline.message}</ErrorMessage>
+                  )}
                   <div>
                     <span>비행 시간</span>
                     <div>
                       <input type="text" placeholder="00:00" {...register('startAirlineTime1')} />
                       ~ <input type="text" placeholder="00:00" {...register('startAirlineTime2')} />
                     </div>
+                    {errors.startAirlineTime1 && (
+                      <ErrorMessage>{errors.startAirlineTime1.message}</ErrorMessage>
+                    )}
+                    {errors.startAirlineTime2 && (
+                      <ErrorMessage>{errors.startAirlineTime2.message}</ErrorMessage>
+                    )}
                   </div>
                 </div>
               </TravelStartStyle>
@@ -126,12 +215,19 @@ const Option = ({ product }: Props) => {
                     placeholder="항공사 이름 입력해 주세요."
                     {...register('endAirline')}
                   />
+                  {errors.endAirline && <ErrorMessage>{errors.endAirline.message}</ErrorMessage>}
                   <div>
                     <span>비행 시간</span>
                     <div>
                       <input type="text" placeholder="00:00" {...register('endAirlineTime1')} />
                       ~ <input type="text" placeholder="00:00" {...register('endAirlineTime2')} />
                     </div>
+                    {errors.endAirlineTime1 && (
+                      <ErrorMessage>{errors.endAirlineTime1.message}</ErrorMessage>
+                    )}
+                    {errors.endAirlineTime2 && (
+                      <ErrorMessage>{errors.endAirlineTime2.message}</ErrorMessage>
+                    )}
                   </div>
                 </div>
               </TravelStartStyle>
@@ -143,9 +239,15 @@ const Option = ({ product }: Props) => {
               <ThumbnailStyle>
                 <label htmlFor="option-max">
                   최대 <input type="text" id="option-max" {...register('maximumQuantity')} />
+                  {errors.maximumQuantity && (
+                    <ErrorMessage>{errors.maximumQuantity.message}</ErrorMessage>
+                  )}
                 </label>
                 <label htmlFor="option-min">
-                  최소 <input type="text" id="option-min" {...register('minimumQuantity')} />
+                  최소 <input type="text" id="option-min" {...register('minmumQuantity')} />
+                  {errors.minmumQuantity && (
+                    <ErrorMessage>{errors.minmumQuantity.message}</ErrorMessage>
+                  )}
                 </label>
               </ThumbnailStyle>
             </td>
@@ -157,7 +259,7 @@ const Option = ({ product }: Props) => {
                 {product?.periodOptions.length > 0 &&
                   product?.periodOptions.map((option) => (
                     <div key={option.periodOptionId}>
-                      <span>{option.periodOptionName}</span> <span>출발일: {option.startDate}</span>
+                      <span>{option.periodOptionName}</span>
                       <MdOutlineCancel
                         onClick={() => deleteHandler(option.periodOptionId)}
                         style={{ cursor: 'pointer' }}

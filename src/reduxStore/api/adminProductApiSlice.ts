@@ -38,7 +38,7 @@ export const adminProductApi = createApi({
         method: 'POST',
         body: {
           productId,
-          options: [...productData],
+          options: [{ ...productData }],
         },
       }),
       invalidatesTags: [{ type: 'AdminProduct', id: 'Admin-Product-LIST' }],
