@@ -27,7 +27,10 @@ interface IFormType {
   productStatus: string
   productContent: string
   contentDetail: string
-  categories: number[]
+  group: number
+  theme: number
+  district1: number
+  district2: number
   images: IterableIterator<File>[]
   thumbnail: IterableIterator<File>
 }
@@ -99,16 +102,10 @@ const ProductForm = ({ product, productId }: Props) => {
       .string()
       .min(5, '다섯 글자 이상 작성해 주세요.')
       .required('상품 상세 정보를 입력해 주세요.'),
-    categories: yup
-      .array()
-      .transform((value) => {
-        if (Array.isArray(value) && value.length > 0 && typeof value[0] === 'string') {
-          return value.map((v) => parseInt(v, 10))
-        }
-        return value
-      })
-      .of(yup.number())
-      .required('상품 카테고리를 선택해 주세요.'),
+    group: yup.number().required('상품 카테고리를 선택해 주세요.'),
+    theme: yup.number().required('상품 카테고리를 선택해 주세요.'),
+    district1: yup.number().required('상품 카테고리를 선택해 주세요.'),
+    district2: yup.number().required('상품 카테고리를 선택해 주세요.'),
     images: yup.mixed().required('상품 이미지를  첨부해 주세요.'),
     thumbnail: yup.mixed().required('상품 썸네일을 첨부해 주세요.'),
   })
@@ -132,9 +129,12 @@ const ProductForm = ({ product, productId }: Props) => {
       productStatus,
       productContent,
       contentDetail,
-      categories,
       images,
       thumbnail,
+      group,
+      theme,
+      district1,
+      district2,
     } = data
     const productPostRequestDTO = {
       productName,
@@ -142,7 +142,7 @@ const ProductForm = ({ product, productId }: Props) => {
       productStatus,
       productContent,
       contentDetail,
-      categories,
+      categoryIds: [group, theme, district1, district2],
     }
     formData.append(
       'productPostRequestDTO',
@@ -153,7 +153,7 @@ const ProductForm = ({ product, productId }: Props) => {
     formData.append('thumbnail', thumbnail[0])
     imageArray(images)
     if (product) {
-      await editAdminProductDetail({ productId, productData: formData })
+      await editAdminProductDetail({ productId, productData: productPostRequestDTO })
       dispatch(
         setModal({
           isOpen: true,
@@ -256,14 +256,12 @@ const ProductForm = ({ product, productId }: Props) => {
                 {categories[0]?.children?.map((group) => (
                   <CategoryInputStyle key={group.categoryId}>
                     <input
-                      type="checkbox"
+                      type="radio"
                       id={String(group.categoryId)}
-                      {...register('categories')}
+                      {...register('group')}
                       value={group.categoryId}
-                      checked={
+                      defaultChecked={
                         product?.productCategories[0]?.children?.categoryName === group.categoryName
-                          ? true
-                          : false
                       }
                     />
                     <label htmlFor={String(group.categoryId)}>{group.categoryName}</label>
@@ -279,14 +277,12 @@ const ProductForm = ({ product, productId }: Props) => {
                 {categories[2]?.children?.map((theme) => (
                   <CategoryInputStyle key={theme.categoryId}>
                     <input
-                      type="checkbox"
+                      type="radio"
                       id={String(theme.categoryId)}
-                      {...register('categories')}
+                      {...register('theme')}
                       value={theme.categoryId}
-                      checked={
+                      defaultChecked={
                         product?.productCategories[2]?.children?.categoryName === theme.categoryName
-                          ? true
-                          : false
                       }
                     />
                     <label htmlFor={String(theme.categoryId)}>{theme.categoryName}</label>
@@ -301,15 +297,13 @@ const ProductForm = ({ product, productId }: Props) => {
               <td key={district.categoryId}>
                 <CategoryInputStyle>
                   <input
-                    type="checkbox"
+                    type="radio"
                     id={String(district.categoryId)}
-                    {...register('categories')}
+                    {...register('district1')}
                     value={district.categoryId}
-                    checked={
+                    defaultChecked={
                       product?.productCategories[1]?.children?.categoryName ===
                       district.categoryName
-                        ? true
-                        : false
                     }
                   />
                   <label htmlFor={String(district.categoryId)}>{district.categoryName}</label>
@@ -317,15 +311,13 @@ const ProductForm = ({ product, productId }: Props) => {
                     {district?.children?.map((country) => (
                       <CategoryInputStyle key={country.categoryId}>
                         <input
-                          type="checkbox"
+                          type="radio"
                           id={String(country.categoryId)}
-                          {...register('categories')}
+                          {...register('district2')}
                           value={country.categoryId}
-                          checked={
+                          defaultChecked={
                             product?.productCategories[1]?.children?.children?.categoryName ===
                             country.categoryName
-                              ? true
-                              : false
                           }
                         />
                         <label htmlFor={String(country.categoryId)}>{country.categoryName}</label>
