@@ -7,13 +7,14 @@ import Button from '@src/components/common/Button'
 import { useForm, FieldValues } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { editProduct, getCategory, postAddProduct } from '@src/api/product'
+import { getCategory, postAddProduct } from '@src/api/product'
 import { IproductCategories } from '@src/interfaces/product'
 import { ErrorMessage } from '@src/components/common/InputItem'
 import { useNavigate } from 'react-router-dom'
 import { setModal } from '@src/reduxStore/modalSlice'
 import { useDispatch } from 'react-redux'
 import { IProductDetail } from '@src/interfaces/product'
+import { useEditAdminProductDetailMutation } from '@src/reduxStore/api/adminProductApiSlice'
 
 interface Props {
   product?: IProductDetail
@@ -26,7 +27,10 @@ interface IFormType {
   productStatus: string
   productContent: string
   contentDetail: string
-  categories: number[]
+  group: number
+  theme: number
+  district1: number
+  district2: number
   images: IterableIterator<File>[]
   thumbnail: IterableIterator<File>
 }
@@ -37,6 +41,7 @@ const ProductForm = ({ product, productId }: Props) => {
   const [categories, setCategories] = useState<IproductCategories[]>([])
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const [editAdminProductDetail] = useEditAdminProductDetailMutation()
 
   const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -76,7 +81,6 @@ const ProductForm = ({ product, productId }: Props) => {
       const data = await getCategory()
       setCategories(data)
     }
-    product && setAttachment(product?.productThumbnail!)
     fetchData()
   }, [])
 
@@ -98,16 +102,10 @@ const ProductForm = ({ product, productId }: Props) => {
       .string()
       .min(5, '다섯 글자 이상 작성해 주세요.')
       .required('상품 상세 정보를 입력해 주세요.'),
-    categories: yup
-      .array()
-      .transform((value) => {
-        if (Array.isArray(value) && value.length > 0 && typeof value[0] === 'string') {
-          return value.map((v) => parseInt(v, 10))
-        }
-        return value
-      })
-      .of(yup.number())
-      .required('상품 카테고리를 선택해 주세요.'),
+    group: yup.number().required('상품 카테고리를 선택해 주세요.'),
+    theme: yup.number().required('상품 카테고리를 선택해 주세요.'),
+    district1: yup.number().required('상품 카테고리를 선택해 주세요.'),
+    district2: yup.number().required('상품 카테고리를 선택해 주세요.'),
     images: yup.mixed().required('상품 이미지를  첨부해 주세요.'),
     thumbnail: yup.mixed().required('상품 썸네일을 첨부해 주세요.'),
   })
@@ -131,9 +129,12 @@ const ProductForm = ({ product, productId }: Props) => {
       productStatus,
       productContent,
       contentDetail,
-      categories,
       images,
       thumbnail,
+      group,
+      theme,
+      district1,
+      district2,
     } = data
     const productPostRequestDTO = {
       productName,
@@ -141,7 +142,7 @@ const ProductForm = ({ product, productId }: Props) => {
       productStatus,
       productContent,
       contentDetail,
-      categories,
+      categoryIds: [group, theme, district1, district2],
     }
     formData.append(
       'productPostRequestDTO',
@@ -152,7 +153,7 @@ const ProductForm = ({ product, productId }: Props) => {
     formData.append('thumbnail', thumbnail[0])
     imageArray(images)
     if (product) {
-      await editProduct(productId!, formData)
+      await editAdminProductDetail({ productId, productData: productPostRequestDTO })
       dispatch(
         setModal({
           isOpen: true,
@@ -175,6 +176,7 @@ const ProductForm = ({ product, productId }: Props) => {
       )
     }
   }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <ProductTableStyle>
@@ -194,50 +196,54 @@ const ProductForm = ({ product, productId }: Props) => {
               {errors.productName && <ErrorMessage>{errors.productName.message}</ErrorMessage>}
             </td>
           </tr>
-          <tr>
-            <th scope="row">상품 썸네일 등록</th>
-            <td colSpan={6}>
-              <ThumbnailStyle>
-                <input
-                  type="file"
-                  accept="image/gif,image/jpeg,image/png,image/jpg"
-                  id="thumbnail"
-                  {...register('thumbnail', { onChange: onFileChange })}
-                />
-                <label htmlFor="thumbnail">+</label>
-                {errors.thumbnail && <ErrorMessage>{errors.thumbnail.message}</ErrorMessage>}
-                {attachment && (
-                  <Image bgImage={attachment} width="251px" height="199px">
-                    <button onClick={() => setAttachment('')}>
-                      <IoIosCloseCircle size="30" color="gray" />
-                    </button>
-                  </Image>
-                )}
-              </ThumbnailStyle>
-            </td>
-          </tr>
-          <tr>
-            <th>상품 상세 이미지 등록</th>
-            <td colSpan={6}>
-              <ThumbnailStyle>
-                <input
-                  type="file"
-                  multiple
-                  accept="image/gif,image/jpeg,image/png,image/jpg"
-                  id="images"
-                  {...register('images', { onChange: multifilePreview })}
-                />
-                <label htmlFor="images">+</label>
-                {errors.images && <ErrorMessage>{errors.images.message}</ErrorMessage>}
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-                  {detailAttachment &&
-                    detailAttachment.map((imageUrl, index) => (
-                      <Image bgImage={imageUrl} width="150px" height="199px" key={index} />
-                    ))}
-                </div>
-              </ThumbnailStyle>
-            </td>
-          </tr>
+          {!product && (
+            <>
+              <tr>
+                <th scope="row">상품 썸네일 등록</th>
+                <td colSpan={6}>
+                  <ThumbnailStyle>
+                    <input
+                      type="file"
+                      accept="image/gif,image/jpeg,image/png,image/jpg"
+                      id="thumbnail"
+                      {...register('thumbnail', { onChange: onFileChange })}
+                    />
+                    <label htmlFor="thumbnail">+</label>
+                    {errors.thumbnail && <ErrorMessage>{errors.thumbnail.message}</ErrorMessage>}
+                    {attachment && (
+                      <Image bgImage={attachment} width="251px" height="199px">
+                        <button onClick={() => setAttachment('')}>
+                          <IoIosCloseCircle size="30" color="gray" />
+                        </button>
+                      </Image>
+                    )}
+                  </ThumbnailStyle>
+                </td>
+              </tr>
+              <tr>
+                <th>상품 상세 이미지 등록</th>
+                <td colSpan={6}>
+                  <ThumbnailStyle>
+                    <input
+                      type="file"
+                      multiple
+                      accept="image/gif,image/jpeg,image/png,image/jpg"
+                      id="images"
+                      {...register('images', { onChange: multifilePreview })}
+                    />
+                    <label htmlFor="images">+</label>
+                    {errors.images && <ErrorMessage>{errors.images.message}</ErrorMessage>}
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                      {detailAttachment &&
+                        detailAttachment.map((imageUrl, index) => (
+                          <Image bgImage={imageUrl} width="150px" height="199px" key={index} />
+                        ))}
+                    </div>
+                  </ThumbnailStyle>
+                </td>
+              </tr>
+            </>
+          )}
           <tr>
             <th scope="row" colSpan={7}>
               상품 카테고리
@@ -250,10 +256,13 @@ const ProductForm = ({ product, productId }: Props) => {
                 {categories[0]?.children?.map((group) => (
                   <CategoryInputStyle key={group.categoryId}>
                     <input
-                      type="checkbox"
+                      type="radio"
                       id={String(group.categoryId)}
-                      {...register('categories')}
+                      {...register('group')}
                       value={group.categoryId}
+                      defaultChecked={
+                        product?.productCategories[0]?.children?.categoryName === group.categoryName
+                      }
                     />
                     <label htmlFor={String(group.categoryId)}>{group.categoryName}</label>
                   </CategoryInputStyle>
@@ -268,10 +277,13 @@ const ProductForm = ({ product, productId }: Props) => {
                 {categories[2]?.children?.map((theme) => (
                   <CategoryInputStyle key={theme.categoryId}>
                     <input
-                      type="checkbox"
+                      type="radio"
                       id={String(theme.categoryId)}
-                      {...register('categories')}
+                      {...register('theme')}
                       value={theme.categoryId}
+                      defaultChecked={
+                        product?.productCategories[2]?.children?.categoryName === theme.categoryName
+                      }
                     />
                     <label htmlFor={String(theme.categoryId)}>{theme.categoryName}</label>
                   </CategoryInputStyle>
@@ -285,20 +297,28 @@ const ProductForm = ({ product, productId }: Props) => {
               <td key={district.categoryId}>
                 <CategoryInputStyle>
                   <input
-                    type="checkbox"
+                    type="radio"
                     id={String(district.categoryId)}
-                    {...register('categories')}
+                    {...register('district1')}
                     value={district.categoryId}
+                    defaultChecked={
+                      product?.productCategories[1]?.children?.categoryName ===
+                      district.categoryName
+                    }
                   />
                   <label htmlFor={String(district.categoryId)}>{district.categoryName}</label>
                   <ColFlexStyle>
                     {district?.children?.map((country) => (
                       <CategoryInputStyle key={country.categoryId}>
                         <input
-                          type="checkbox"
+                          type="radio"
                           id={String(country.categoryId)}
-                          {...register('categories')}
+                          {...register('district2')}
                           value={country.categoryId}
+                          defaultChecked={
+                            product?.productCategories[1]?.children?.children?.categoryName ===
+                            country.categoryName
+                          }
                         />
                         <label htmlFor={String(country.categoryId)}>{country.categoryName}</label>
                       </CategoryInputStyle>
@@ -333,16 +353,28 @@ const ProductForm = ({ product, productId }: Props) => {
                     id="sale"
                     {...register('productStatus')}
                     value="판매중"
-                    defaultChecked={product?.productStatus === '판매중' ? false : true}
+                    defaultChecked={product?.productStatus === '판매중'}
                   />
                   <label htmlFor="sale">판매 중</label>
                 </StatusStyle>
                 <StatusStyle>
-                  <input type="radio" id="soldout" {...register('productStatus')} value="숨김" />
+                  <input
+                    type="radio"
+                    id="soldout"
+                    {...register('productStatus')}
+                    value="숨김"
+                    defaultChecked={product?.productStatus === '숨김'}
+                  />
                   <label htmlFor="soldout">숨김</label>
                 </StatusStyle>
                 <StatusStyle>
-                  <input type="radio" id="soldout" {...register('productStatus')} value="품절" />
+                  <input
+                    type="radio"
+                    id="soldout"
+                    {...register('productStatus')}
+                    value="품절"
+                    defaultChecked={product?.productStatus === '품절'}
+                  />
                   <label htmlFor="soldout">품절</label>
                   {errors.productStatus && (
                     <ErrorMessage>{errors.productStatus.message}</ErrorMessage>
@@ -379,7 +411,7 @@ const ProductForm = ({ product, productId }: Props) => {
       </ProductTableStyle>
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <Button margin="20px 0" buttonType="cartSkyBlue" type="submit">
-          상품 추가
+          {product ? '상품 수정' : '상품 추가'}
         </Button>
       </div>
     </form>
