@@ -189,6 +189,9 @@ const Header = () => {
               </>
             ) : (
               <>
+                <li className={isCurPath(PATH.ADD_PRODUCT) ? 'active' : ''}>
+                  <Link to={PATH.ADD_PRODUCT}>상품 추가</Link>
+                </li>
                 <li className={isCurPath(PATH.PRODUCTS_LIST) ? 'active' : ''}>
                   <Link to={PATH.PRODUCTS_LIST}>상품 관리</Link>
                 </li>
