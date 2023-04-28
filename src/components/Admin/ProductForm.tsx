@@ -353,16 +353,28 @@ const ProductForm = ({ product, productId }: Props) => {
                     id="sale"
                     {...register('productStatus')}
                     value="판매중"
-                    defaultChecked={product?.productStatus === '판매중' ? false : true}
+                    defaultChecked={product?.productStatus === '판매중'}
                   />
                   <label htmlFor="sale">판매 중</label>
                 </StatusStyle>
                 <StatusStyle>
-                  <input type="radio" id="soldout" {...register('productStatus')} value="숨김" />
+                  <input
+                    type="radio"
+                    id="soldout"
+                    {...register('productStatus')}
+                    value="숨김"
+                    defaultChecked={product?.productStatus === '숨김'}
+                  />
                   <label htmlFor="soldout">숨김</label>
                 </StatusStyle>
                 <StatusStyle>
-                  <input type="radio" id="soldout" {...register('productStatus')} value="품절" />
+                  <input
+                    type="radio"
+                    id="soldout"
+                    {...register('productStatus')}
+                    value="품절"
+                    defaultChecked={product?.productStatus === '품절'}
+                  />
                   <label htmlFor="soldout">품절</label>
                   {errors.productStatus && (
                     <ErrorMessage>{errors.productStatus.message}</ErrorMessage>
